@@ -1,11 +1,15 @@
 package com.bichettes.homebank4android;
 
-import android.app.Activity;
+import com.dropbox.sync.android.DbxAccountManager;
+import com.dropbox.sync.android.DbxException.Unauthorized;
+import com.dropbox.sync.android.DbxFileSystem;
 
+import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -32,10 +36,19 @@ public class MainActivity extends Activity implements
 	 * {@link #restoreActionBar()}.
 	 */
 	private CharSequence mTitle;
-
+	
+	/**
+	 * 
+	 */
+	private DbxAccountManager dropBoxAccountMgr;
+	static final int REQUEST_LINK_TO_DBX = 0;
+	private DbxFileSystem dbxFs;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "3xylwoq1d1f2nx9", 	
+				"yllbdeoingr46va");
 		setContentView(R.layout.activity_main);
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
@@ -45,6 +58,28 @@ public class MainActivity extends Activity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+		if(!dropBoxAccountMgr.hasLinkedAccount()){
+		dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
+		}
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (requestCode == REQUEST_LINK_TO_DBX) {
+	        if (resultCode == Activity.RESULT_OK) {
+	            // ... Start using Dropbox files.
+	        	try {
+					DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+				} catch (Unauthorized e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        } else {
+	            // ... Link failed or was cancelled by the user.
+	        }
+	    } else {
+	        super.onActivityResult(requestCode, resultCode, data);
+	    }
 	}
 
 	@Override
