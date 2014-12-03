@@ -1,8 +1,16 @@
 package com.bichettes.homebank4android;
 
+
+import java.util.List;
+
 import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxException.Unauthorized;
+import com.dropbox.sync.android.DbxFile;
+import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
+import com.dropbox.sync.android.DbxList;
+import com.dropbox.sync.android.DbxPath;
+import com.dropbox.sync.android.util.FolderLoader;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -47,8 +55,8 @@ public class MainActivity extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "3xylwoq1d1f2nx9", 	
-				"yllbdeoingr46va");
+		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
+				"sjt7o80sdtdjsxi");
 		setContentView(R.layout.activity_main);
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
@@ -61,6 +69,7 @@ public class MainActivity extends Activity implements
 		if(!dropBoxAccountMgr.hasLinkedAccount()){
 		dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
 		}
+		doTEst();
 	}
 	
 	@Override
@@ -68,12 +77,6 @@ public class MainActivity extends Activity implements
 	    if (requestCode == REQUEST_LINK_TO_DBX) {
 	        if (resultCode == Activity.RESULT_OK) {
 	            // ... Start using Dropbox files.
-	        	try {
-					DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-				} catch (Unauthorized e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 	        } else {
 	            // ... Link failed or was cancelled by the user.
 	        }
@@ -175,6 +178,23 @@ public class MainActivity extends Activity implements
 			super.onAttach(activity);
 			((MainActivity) activity).onSectionAttached(getArguments().getInt(
 					ARG_SECTION_NUMBER));
+		}
+	}
+	
+	public void doTEst(){
+		try {
+			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
+			System.out.println("liste des fichier");
+			for (DbxFileInfo info : infos) {
+                System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
+            }
+			DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.txt");
+			FolderLoader folderLoader = new FolderLoader(getApplicationContext(), dropBoxAccountMgr, path);
+			DbxFile file = dbxFs.open(path);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
