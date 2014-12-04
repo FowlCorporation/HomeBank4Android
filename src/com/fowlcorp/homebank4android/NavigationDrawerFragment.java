@@ -1,4 +1,4 @@
-package com.bichettes.homebank4android;
+package com.fowlcorp.homebank4android;
 
 import android.app.Activity;
 import android.app.ActionBar;

@@ -1,4 +1,4 @@
-package com.bichettes.homebank4android;
+package com.fowlcorp.homebank4android;
 
 
 import java.util.List;
