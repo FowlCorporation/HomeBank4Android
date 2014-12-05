@@ -63,27 +63,23 @@ public class DataLoader {
 	
 	// Parses the contents of an entry. If it encounters a title, summary, or link tag, hands them off
 	// to their respective "read" methods for processing. Otherwise, skips the tag.
-	private Category readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
+	private void readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
 	    parser.require(XmlPullParser.START_TAG, ns, "entry");
-	    int key;
-	    int parent;
-	    String link = null;
 	    while (parser.next() != XmlPullParser.END_TAG) {
 	        if (parser.getEventType() != XmlPullParser.START_TAG) {
 	            continue;
 	        }
 	        String name = parser.getName();
 	        if (name.equals("title")) {
-	            title = readTitle(parser);
+	        	readTitle(parser);
 	        } else if (name.equals("summary")) {
-	            summary = readSummary(parser);
-	        } else if (name.equals("link")) {
-	            link = readLink(parser);
+	            readSummary(parser);
+	        } else if (name.equals("cat")) {
+	            readCategory(parser);
 	        } else {
 	            skip(parser);
 	        }
 	    }
-	    return new Category(title, summary, link);
 	}
 
 	// Processes title tags in the feed.
@@ -95,12 +91,13 @@ public class DataLoader {
 	}
 	  
 	// Processes link tags in the feed.
-	private String readLink(XmlPullParser parser) throws IOException, XmlPullParserException {
-	    String link = "";
-	    parser.require(XmlPullParser.START_TAG, ns, "link");
+	private String readCategory(XmlPullParser parser) throws IOException, XmlPullParserException {
+	    Category category;
+	    parser.require(XmlPullParser.START_TAG, ns, "cat");
 	    String tag = parser.getName();
-	    String relType = parser.getAttributeValue(null, "rel");  
-	    if (tag.equals("link")) {
+	    String key = parser.getAttributeValue(null, "key");
+	    String parent = parser.getAttributeValue(null, "parent");	    
+	    if (tag.equals("cat")) {
 	        if (relType.equals("alternate")){
 	            link = parser.getAttributeValue(null, "href");
 	            parser.nextTag();
