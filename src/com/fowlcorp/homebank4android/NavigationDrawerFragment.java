@@ -272,7 +272,7 @@ public class NavigationDrawerFragment extends Fragment {
 		}
 
 		if (item.getItemId() == R.id.action_example) {
-			Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT)
+			Toast.makeText(getActivity(), "Add a transaction", Toast.LENGTH_SHORT)
 					.show();
 			return true;
 		}
