@@ -27,7 +27,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.CardView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements
@@ -170,7 +172,14 @@ public class MainActivity extends Activity implements
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
-			
+			LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
+			for(int i=0;i<1000;i++){
+				CardView card = new CardView(getActivity());
+				TextView text = new TextView(getActivity());
+				text.setText(new String("Ceci est la carte numéro "+i));
+				card.addView(text);
+				layout.addView(card);
+			}
 			return rootView;
 		}
 
