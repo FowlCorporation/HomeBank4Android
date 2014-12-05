@@ -31,60 +31,60 @@ public class DataLoader {
 		parser = Xml.newPullParser();
 	}
 	
-	public List parse(InputStream in) throws XmlPullParserException, IOException {
-        try {
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-            parser.setInput(in, null);
-            parser.nextTag();
-            return readFeed(parser);
-        } finally {
-            in.close();
-        }
-    }
+//	public List parse(InputStream in) throws XmlPullParserException, IOException {
+//        try {
+//            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+//            parser.setInput(in, null);
+//            parser.nextTag();
+//            return readFeed(parser);
+//        } finally {
+//            in.close();
+//        }
+//    }
 	
-	private List readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
-	    List entries = new ArrayList();
-
-	    parser.require(XmlPullParser.START_TAG, ns, "feed");
-	    while (parser.next() != XmlPullParser.END_TAG) {
-	        if (parser.getEventType() != XmlPullParser.START_TAG) {
-	            continue;
-	        }
-	        String name = parser.getName();
-	        // Starts by looking for the entry tag
-	        if (name.equals("homebank")) {
-	            entries.add(readEntry(parser));
-	        } else {
-	            skip(parser);
-	        }
-	    }  
-	    return entries;
-	}
+//	private List readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
+//	    List entries = new ArrayList();
+//
+//	    parser.require(XmlPullParser.START_TAG, ns, "feed");
+//	    while (parser.next() != XmlPullParser.END_TAG) {
+//	        if (parser.getEventType() != XmlPullParser.START_TAG) {
+//	            continue;
+//	        }
+//	        String name = parser.getName();
+//	        // Starts by looking for the entry tag
+//	        if (name.equals("homebank")) {
+//	            entries.add(readEntry(parser));
+//	        } else {
+//	            skip(parser);
+//	        }
+//	    }  
+//	    return entries;
+//	}
 	
 	// Parses the contents of an entry. If it encounters a title, summary, or link tag, hands them off
 	// to their respective "read" methods for processing. Otherwise, skips the tag.
-	private Category readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
-	    parser.require(XmlPullParser.START_TAG, ns, "entry");
-	    int key;
-	    int parent;
-	    String link = null;
-	    while (parser.next() != XmlPullParser.END_TAG) {
-	        if (parser.getEventType() != XmlPullParser.START_TAG) {
-	            continue;
-	        }
-	        String name = parser.getName();
-	        if (name.equals("title")) {
-	            title = readTitle(parser);
-	        } else if (name.equals("summary")) {
-	            summary = readSummary(parser);
-	        } else if (name.equals("link")) {
-	            link = readLink(parser);
-	        } else {
-	            skip(parser);
-	        }
-	    }
-	    return new Category(title, summary, link);
-	}
+//	private Category readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
+//	    parser.require(XmlPullParser.START_TAG, ns, "entry");
+//	    int key;
+//	    int parent;
+//	    String link = null;
+//	    while (parser.next() != XmlPullParser.END_TAG) {
+//	        if (parser.getEventType() != XmlPullParser.START_TAG) {
+//	            continue;
+//	        }
+//	        String name = parser.getName();
+//	        if (name.equals("title")) {
+//	            title = readTitle(parser);
+//	        } else if (name.equals("summary")) {
+//	            summary = readSummary(parser);
+//	        } else if (name.equals("link")) {
+//	            link = readLink(parser);
+//	        } else {
+//	            skip(parser);
+//	        }
+//	    }
+//	    return new Category(title, summary, link);
+//	}
 
 	// Processes title tags in the feed.
 	private String readTitle(XmlPullParser parser) throws IOException, XmlPullParserException {
