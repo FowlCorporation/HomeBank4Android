@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.bichettes.homebank4android.MainActivity$PlaceholderFragment" >
+    tools:context="com.fowlcorp.homebank4android.MainActivity$PlaceholderFragment" >
 
     <!-- A CardView that contains a TextView -->
 

@@ -6,5 +6,5 @@
     android:choiceMode="singleChoice"
     android:divider="@android:color/transparent"
     android:dividerHeight="0dp"
-    tools:context="com.bichettes.homebank4android.NavigationDrawerFragment" />
+    tools:context="com.fowlcorp.homebank4android.NavigationDrawerFragment" />
 
