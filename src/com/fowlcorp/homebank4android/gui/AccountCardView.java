@@ -3,6 +3,7 @@ package com.fowlcorp.homebank4android.gui;
 import android.R;
 import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.view.Gravity;
 import android.widget.GridLayout;
 import android.widget.GridLayout.Spec;
 import android.widget.TextView;
@@ -38,6 +39,20 @@ public class AccountCardView extends CardView{
 		credit.setText(creditLabel + "10€");
 		solde.setText(soldeLabel + "10€");
 		memo.setText(memoLabel + "Cinéma");
+		
+		gridLayout.setColumnCount(3);
+		gridLayout.setRowCount(3);
+		
+		/*GridLayout.LayoutParams paramCenter = new GridLayout.LayoutParams();
+		//paramCenter.setGravity(Gravity.CENTER);
+		
+		date.setLayoutParams(paramCenter);
+		tier.setLayoutParams(paramCenter);
+		categorie.setLayoutParams(paramCenter);
+		debit.setLayoutParams(paramCenter);
+		credit.setLayoutParams(paramCenter);
+		solde.setLayoutParams(paramCenter);
+		memo.setLayoutParams(paramCenter);*/
 		
 		gridLayout.addView(date);
 		gridLayout.addView(tier);
