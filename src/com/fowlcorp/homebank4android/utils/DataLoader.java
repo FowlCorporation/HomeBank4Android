@@ -52,7 +52,7 @@ public class DataLoader {
 	        }
 	        String name = parser.getName();
 	        // Starts by looking for the entry tag
-	        if (name.equals("entry")) {
+	        if (name.equals("homebank")) {
 	            entries.add(readEntry(parser));
 	        } else {
 	            skip(parser);
@@ -65,8 +65,8 @@ public class DataLoader {
 	// to their respective "read" methods for processing. Otherwise, skips the tag.
 	private Category readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
 	    parser.require(XmlPullParser.START_TAG, ns, "entry");
-	    int key = null;
-	    int  = null;
+	    int key;
+	    int parent;
 	    String link = null;
 	    while (parser.next() != XmlPullParser.END_TAG) {
 	        if (parser.getEventType() != XmlPullParser.START_TAG) {
