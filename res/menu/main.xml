@@ -5,6 +5,7 @@
     <item
         android:id="@+id/action_example"
         android:showAsAction="withText|ifRoom"
+        android:icon="@drawable/abc_btn_check_material"
         android:title="@string/action_example"/>
     <item
         android:id="@+id/action_settings"
