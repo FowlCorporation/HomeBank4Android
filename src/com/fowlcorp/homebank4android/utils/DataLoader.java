@@ -53,7 +53,7 @@ public class DataLoader {
 			String name = parser.getName();
 			// Starts by looking for the entry tag
 			if (name.equals("homebank")) {
-				entries.add(readEntry(parser));
+//				entries.add(readEntry(parser));
 			} else {
 				skip(parser);
 			}
@@ -89,7 +89,7 @@ public class DataLoader {
 		parser.require(XmlPullParser.END_TAG, ns, "title");
 		return title;
 	}
-
+	
 	// Processes link tags in the feed.
 	private Category readCategory(XmlPullParser parser) throws IOException, XmlPullParserException {
 		
@@ -115,6 +115,9 @@ public class DataLoader {
 			category = new Category(key, flags, name);
 		} else {
 			category = new Category(key, name);
+		}
+		if (parent != -1) {
+			
 		}
 		return category;
 	}
