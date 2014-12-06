@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <homebank v="0.90000000000000002">
 <properties title="An0nym0us" car_category="1" auto_smode="1" auto_weekday="1" auto_nbdays="1" />
-<account key="1" pos="1" type="4" name="account 1" initial="158.42000000000007" minimum="0" cheque1="5" />
-<account key="2" pos="2" type="3" name="account 2" initial="81.670000000000101" minimum="0" />
-<account key="3" pos="3" type="3" name="account 3" initial="48.189999999999998" minimum="0" />
-<account key="4" pos="4" type="1" name="account 4" initial="114.92" minimum="0" />
-<account key="5" pos="5" type="2" name="account 5" initial="10.76000000000001" minimum="0" />
-<account key="6" pos="6" type="2" name="account 6" initial="14" minimum="0" />
-<account key="7" pos="7" type="1" name="account 7" initial="0" minimum="0" />
-<account key="8" pos="8" type="3" name="account 8" initial="15" minimum="0" />
+<account key="1" pos="1" type="4" number="101010" bankname="Bank 1" name="account 1" initial="158.42000000000007" minimum="0" cheque1="5" />
+<account key="2" pos="2" type="3" number="101011" bankname="Bank 1" name="account 2" initial="81.670000000000101" minimum="0" />
+<account key="3" pos="3" type="3" number="101110" bankname="Bank 1" name="account 3" initial="48.189999999999998" minimum="0" />
+<account key="4" pos="4" type="1" number="T10" bankname="Bank 2" name="account 4" initial="114.92" minimum="0" />
+<account key="5" pos="5" type="2" number="T10110" bankname="Bank 2" name="account 5" initial="10.76000000000001" minimum="0" />
+<account key="6" pos="6" type="2" number="101" bankname="Bank 3" name="account 6" initial="14" minimum="0" />
+<account key="7" pos="7" type="1" number="1011110" bankname="Bank 4" name="account 7" initial="0" minimum="0" />
+<account key="8" pos="8" type="3" number="101010" bankname="Bank 4" name="account 8" initial="15" minimum="0" />
 <pay key="1" name="payee 1"/>
 <pay key="2" name="payee 2"/>
 <pay key="3" name="payee 3"/>

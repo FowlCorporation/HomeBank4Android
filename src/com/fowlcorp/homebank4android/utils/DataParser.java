@@ -22,6 +22,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Category;
 import com.fowlcorp.homebank4android.model.Payee;
 
@@ -33,24 +34,20 @@ public class DataParser {
 
 	HashMap<Integer,Payee> payees;
 	HashMap<Integer,Category> categories;
+	HashMap<Integer,Account> accounts;
 	Document dom;
 	Context context;
 
 	public DataParser(Context context) {
 		payees = new HashMap<>();
 		categories = new HashMap<>();
+		accounts = new HashMap<>();
 		this.context = context;
 	}
 
 	public void runExample() {
-//		if(!new File("anonymized.xhb").exists()) {
-//			System.err.println("Error !!!!!!!!!!!!!!!!!!!!!!!!");
-//		} else {
-			parseXmlFile();
-	
-			parseDocument();
-//		}
-
+		parseXmlFile();
+		parseDocument();
 	}
 
 	private void parseXmlFile() {
@@ -102,6 +99,24 @@ public class DataParser {
 				}
 				// DEBUG
 				System.err.println("Category : "+c.getKey() +", " + c.getName() + (el.hasAttribute("parent") ? ", parent : " + el.getAttribute("parent") : ""));
+			}
+		}
+		
+		nl = docEle.getElementsByTagName("account");
+		if (nl != null && nl.getLength() > 0) {
+			for (int i = 0; i < nl.getLength(); i++) {
+				el = (Element) nl.item(i);
+				Account a = new Account(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"), Double.parseDouble(el.getAttribute("initial")));
+//				System.err.println("Account : "+a.getKey() +", " + a.getName());
+				if(el.hasAttribute("bankname")) {
+					a.setBankName(el.getAttribute("bankname"));
+				}
+				if(el.hasAttribute("number")) {
+					a.setAccountNumber(el.getAttribute("number"));
+				}
+				accounts.put((Integer) a.getKey(), a);
+				// DEBUG
+				System.err.println("Account : "+a.getKey() +", " + a.getName() + (a.getBankName() == null ? "" : ", bank name : " + a.getBankName())  + (a.getAccountNumber() == null ? "" : ", account number : " + a.getAccountNumber()));
 			}
 		}
 	}

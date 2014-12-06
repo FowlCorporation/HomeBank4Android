@@ -30,7 +30,7 @@ public class Category extends AccPayCatTagAbstract {
 	 * @param flags	Flags of the category 
 	 * @param name	Name of the category
 	 */
-	public Category(int key, int flags, String name) {
+	public Category(int key, String name, int flags) {
 		super(key, name);
 		this.flags = flags;
 		subCategories = new ArrayList<Category>();
