@@ -5,7 +5,6 @@ package com.fowlcorp.homebank4android.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,15 +45,15 @@ public class DataParser {
 	private List readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
 		List entries = new ArrayList();
 
-		parser.require(XmlPullParser.START_TAG, ns, "feed");
+		parser.require(XmlPullParser.START_TAG, ns, "homebank");
 		while (parser.next() != XmlPullParser.END_TAG) {
 			if (parser.getEventType() != XmlPullParser.START_TAG) {
 				continue;
 			}
 			String name = parser.getName();
 			// Starts by looking for the entry tag
-			if (name.equals("homebank")) {
-//				entries.add(readEntry(parser));
+			if (name.equals("cat")) {
+				entries.add(readEntry(parser));
 			} else {
 				skip(parser);
 			}
@@ -64,7 +63,7 @@ public class DataParser {
 
 	// Parses the contents of an entry. If it encounters a title, summary, or link tag, hands them off
 	// to their respective "read" methods for processing. Otherwise, skips the tag.
-	private void readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
+	private Entry readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
 		parser.require(XmlPullParser.START_TAG, ns, "entry");
 		while (parser.next() != XmlPullParser.END_TAG) {
 			if (parser.getEventType() != XmlPullParser.START_TAG) {
