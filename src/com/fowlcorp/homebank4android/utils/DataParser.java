@@ -39,13 +39,13 @@ public class DataParser {
 	}
 
 	public void runExample() {
-		if(!new File("anonymized.xhb").exists()) {
-			System.err.println("Error !!!!!!!!!!!!!!!!!!!!!!!!");
-		} else {
+//		if(context.getResources().getAssets().open("anonymized.xhb") == null) {
+//			System.err.println("Error !!!!!!!!!!!!!!!!!!!!!!!!");
+//		} else {
 			parseXmlFile();
 	
 			parseDocument();
-		}
+//		}
 
 	}
 
