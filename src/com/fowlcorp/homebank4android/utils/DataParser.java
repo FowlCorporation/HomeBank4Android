@@ -5,6 +5,7 @@ package com.fowlcorp.homebank4android.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import android.util.Xml;
  * @author Axel
  *
  */
-public class DataLoader {
+public class DataParser {
 
 	private XmlPullParser parser;
 	private static final String ns = null;		// We don't use namespaces
@@ -27,7 +28,7 @@ public class DataLoader {
 	/**
 	 * Constructor
 	 */
-	public DataLoader() {
+	public DataParser() {
 		parser = Xml.newPullParser();
 	}
 
@@ -90,18 +91,18 @@ public class DataLoader {
 		return title;
 	}
 	
-	// Processes link tags in the feed.
-	private Category readCategory(XmlPullParser parser) throws IOException, XmlPullParserException {
+	// Processes cat tags in the feed.
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private ArrayList readCategory(XmlPullParser parser) throws IOException, XmlPullParserException {
 		
-		//Vars
+		// Variables
+		ArrayList result = new ArrayList();
 		Category category;
 		int key = -1;
-		int parent = -1;
 		int flags = -1;
-		
+		Integer parent = -1;
 		
 		parser.require(XmlPullParser.START_TAG, ns, "cat");
-		String tag = parser.getName();
 		try {
 			key = Integer.parseInt(parser.getAttributeValue(null, "key"));
 			parent = Integer.parseInt(parser.getAttributeValue(null, "parent"));
@@ -117,9 +118,12 @@ public class DataLoader {
 			category = new Category(key, name);
 		}
 		if (parent != -1) {
-			
+			result.add(category);
+			result.add(parent);
+		} else {
+			result.add(category);
 		}
-		return category;
+		return result;
 	}
 
 	// Processes summary tags in the feed.
