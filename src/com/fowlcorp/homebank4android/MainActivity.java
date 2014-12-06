@@ -1,38 +1,27 @@
 package com.fowlcorp.homebank4android;
 
 
-import java.util.List;
-
 import com.dropbox.sync.android.DbxAccountManager;
-import com.dropbox.sync.android.DbxException.Unauthorized;
-import com.dropbox.sync.android.DbxFile;
-import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
-import com.dropbox.sync.android.DbxList;
-import com.dropbox.sync.android.DbxPath;
-import com.dropbox.sync.android.util.FolderLoader;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
+import com.fowlcorp.homebank4android.utils.DataParser;
 
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.CardView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.CardView;
 
 public class MainActivity extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -146,66 +135,68 @@ public class MainActivity extends Activity implements
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-//	public static class PlaceholderFragment extends Fragment {
-//		/**
-//		 * The fragment argument representing the section number for this
-//		 * fragment.
-//		 */
-//		private static final String ARG_SECTION_NUMBER = "section_number";
-//
-//		/**
-//		 * Returns a new instance of this fragment for the given section number.
-//		 */
-//		public static PlaceholderFragment newInstance(int sectionNumber) {
-//			PlaceholderFragment fragment = new PlaceholderFragment();
-//			Bundle args = new Bundle();
-//			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-//			fragment.setArguments(args);
-//			return fragment;
-//		}
-//
-//		public PlaceholderFragment() {
-//		}
-//
-//		@Override
-//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//				Bundle savedInstanceState) {
-//			View rootView = inflater.inflate(R.layout.fragment_main, container,
-//					false);
-//			LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
-//			for(int i=0;i<1000;i++){
-//				CardView card = new CardView(getActivity());
-//				TextView text = new TextView(getActivity());
-//				text.setText(new String("Ceci est la carte numéro "+i));
-//				card.addView(text);
-//				layout.addView(card);
-//			}
-//			return rootView;
-//		}
-//
-//		@Override
-//		public void onAttach(Activity activity) {
-//			super.onAttach(activity);
-//			((MainActivity) activity).onSectionAttached(getArguments().getInt(
-//					ARG_SECTION_NUMBER));
-//		}
-//	}
+	public static class PlaceholderFragment extends Fragment {
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
+		private static final String ARG_SECTION_NUMBER = "section_number";
+
+		/**
+		 * Returns a new instance of this fragment for the given section number.
+		 */
+		public static PlaceholderFragment newInstance(int sectionNumber) {
+			PlaceholderFragment fragment = new PlaceholderFragment();
+			Bundle args = new Bundle();
+			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+			fragment.setArguments(args);
+			return fragment;
+		}
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_main, container,
+					false);
+			LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
+			for(int i=0;i<1000;i++){
+				CardView card = new CardView(getActivity());
+				TextView text = new TextView(getActivity());
+				text.setText(new String("Ceci est la carte numéro "+i));
+				card.addView(text);
+				layout.addView(card);
+			}
+			return rootView;
+		}
+
+		@Override
+		public void onAttach(Activity activity) {
+			super.onAttach(activity);
+			((MainActivity) activity).onSectionAttached(getArguments().getInt(
+					ARG_SECTION_NUMBER));
+		}
+	}
 	
 	public void doTEst(){
-		try {
-			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
-			System.out.println("liste des fichier");
-			for (DbxFileInfo info : infos) {
-                System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
-            }
-			DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.txt");
-			FolderLoader folderLoader = new FolderLoader(getApplicationContext(), dropBoxAccountMgr, path);
-			DbxFile file = dbxFs.open(path);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		DataParser dp = new DataParser(getApplicationContext());
+		dp.runExample();
+//		try {
+//			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+//			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
+//			System.out.println("liste des fichier");
+//			for (DbxFileInfo info : infos) {
+//                System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
+//            }
+//			DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.txt");
+//			FolderLoader folderLoader = new FolderLoader(getApplicationContext(), dropBoxAccountMgr, path);
+//			DbxFile file = dbxFs.open(path);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 }
