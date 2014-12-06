@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Category extends AccPayCatTagAbstract {
 
-	private ArrayList<Category> subCategories;			//Key of the parent category
+	private ArrayList<Category> subCategories;			//Key of the sub categories
 	private int flags;									//Flags of the category (usage to be determined)
 
 	/**
@@ -37,7 +37,7 @@ public class Category extends AccPayCatTagAbstract {
 	}
 
 	/**
-	 * Add subcategory to the parent category
+	 * Add subcategory to this category
 	 * @param category	The Category object to add to the list of children
 	 */
 	public void addSubCategory(Category category) {
@@ -55,9 +55,9 @@ public class Category extends AccPayCatTagAbstract {
 	
 	/**
 	 * Return subcategories
-	 * @return ArrayList of categories
+	 * @return ArrayList of sub categories
 	 */
-	public int getSubcategories() {
-		return flags;
+	public ArrayList<Category> getSubcategories() {
+		return subCategories;
 	}
 }
