@@ -15,9 +15,9 @@ public class AccountCardView extends CardView{
 	
 	private String dateLabel = "Date : ";
 	private String tierLabel = "Tier : ";
-	private String categorieLabel = "Catégorie : ";
-	private String debitLabel = "Débit : ";
-	private String creditLabel = "Crédit : ";
+	private String categorieLabel = "CatÃ©gorie : ";
+	private String debitLabel = "DÃ©bit : ";
+	private String creditLabel = "CrÃ©dit : ";
 	private String soldeLabel = "Solde : ";
 	private String memoLabel = "Memo : ";
 
@@ -35,10 +35,10 @@ public class AccountCardView extends CardView{
 		date.setText(dateLabel + "05/12/2014");
 		tier.setText(tierLabel + "Martin");
 		categorie.setText(categorieLabel + "Loisir");
-		debit.setText(debitLabel + "0€");
-		credit.setText(creditLabel + "10€");
-		solde.setText(soldeLabel + "10€");
-		memo.setText(memoLabel + "Cinéma");
+		debit.setText(debitLabel + "0â‚¬");
+		credit.setText(creditLabel + "10â‚¬");
+		solde.setText(soldeLabel + "10â‚¬");
+		memo.setText(memoLabel + "CinÃ©ma");
 		
 		gridLayout.setColumnCount(3);
 		gridLayout.setRowCount(3);
