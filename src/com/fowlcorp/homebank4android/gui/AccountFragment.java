@@ -34,7 +34,7 @@ public class AccountFragment extends Fragment{
 		for(int i=0;i<100;i++){
 			AccountCardView card = new AccountCardView(getActivity());
 			/*TextView text = new TextView(getActivity());
-			text.setText(new String("Ceci est la carte numéro "+i+" de la section "+sectionNumber));
+			text.setText(new String("Ceci est la carte numÃ©ro "+i+" de la section "+sectionNumber));
 			card.addView(text);*/
 			layout.addView(card);
 		}
