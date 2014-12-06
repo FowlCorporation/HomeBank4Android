@@ -24,6 +24,7 @@ import org.xml.sax.SAXException;
 
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Category;
+import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.Payee;
 
 /**
@@ -35,6 +36,7 @@ public class DataParser {
 	HashMap<Integer,Payee> payees;
 	HashMap<Integer,Category> categories;
 	HashMap<Integer,Account> accounts;
+	List<Operation> operations;
 	Document dom;
 	Context context;
 
@@ -42,6 +44,7 @@ public class DataParser {
 		payees = new HashMap<>();
 		categories = new HashMap<>();
 		accounts = new HashMap<>();
+		operations = new ArrayList<>();
 		this.context = context;
 	}
 
@@ -60,7 +63,7 @@ public class DataParser {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
 			//parse using builder to get DOM representation of the XML file
-			dom = db.parse(context.getResources().getAssets().open("anonymized.xhb"));
+			dom = db.parse(context.getResources().getAssets().open("Homebank.xhb"));
 
 		} catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
@@ -107,7 +110,6 @@ public class DataParser {
 			for (int i = 0; i < nl.getLength(); i++) {
 				el = (Element) nl.item(i);
 				Account a = new Account(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"), Double.parseDouble(el.getAttribute("initial")));
-//				System.err.println("Account : "+a.getKey() +", " + a.getName());
 				if(el.hasAttribute("bankname")) {
 					a.setBankName(el.getAttribute("bankname"));
 				}
@@ -117,6 +119,29 @@ public class DataParser {
 				accounts.put((Integer) a.getKey(), a);
 				// DEBUG
 				System.err.println("Account : "+a.getKey() +", " + a.getName() + (a.getBankName() == null ? "" : ", bank name : " + a.getBankName())  + (a.getAccountNumber() == null ? "" : ", account number : " + a.getAccountNumber()));
+			}
+		}
+		
+		nl = docEle.getElementsByTagName("ope");
+		if (nl != null && nl.getLength() > 0) {
+			for (int i = 0; i < nl.getLength(); i++) {
+				el = (Element) nl.item(i);
+				Category c = null;
+				Payee p = null;
+				if(el.hasAttribute("category")) { // missing for splitted operations
+					c = categories.get(Integer.parseInt(el.getAttribute("category")));
+				}
+				if(el.hasAttribute("payee")) { // missing for splitted operations
+					p = payees.get(Integer.parseInt(el.getAttribute("payee")));
+				}
+				Operation op = new Operation(Integer.parseInt(el.getAttribute("date")),
+						Double.parseDouble(el.getAttribute("amount")),
+						accounts.get(Integer.parseInt(el.getAttribute("account"))),
+						c,
+						p);
+				operations.add(op);
+				// DEBUG
+				System.err.println("Operation : " + op.verboseDate() + ", amount : " + op.getAmount() + (op.getPayee()==null ? "" : ", payee : " + op.getPayee().getName()) + (op.getCategory()==null ? "" : ", category : " + op.getCategory().getName()));
 			}
 		}
 	}
