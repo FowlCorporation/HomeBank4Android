@@ -5,9 +5,13 @@ package com.fowlcorp.homebank4android.utils;
 
 import android.content.Context;
 
+import com.fowlcorp.homebank4android.model.AccPayCatTagAbstract;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,19 +37,19 @@ public class DataParser {
 	Context context;
 
 	public DataParser(Context context) {
-		payees = new HashMap<Integer, Payee>();
-		categories = new HashMap<Integer, Category>();
+		payees = new HashMap<>();
+		categories = new HashMap<>();
 		this.context = context;
 	}
 
 	public void runExample() {
-		if(!new File("anonymized.xhb").exists()) {
-			System.err.println("Error !!!!!!!!!!!!!!!!!!!!!!!!");
-		} else {
+//		if(!new File("anonymized.xhb").exists()) {
+//			System.err.println("Error !!!!!!!!!!!!!!!!!!!!!!!!");
+//		} else {
 			parseXmlFile();
 	
 			parseDocument();
-		}
+//		}
 
 	}
 
