@@ -5,9 +5,6 @@ package com.fowlcorp.homebank4android.utils;
 
 import android.content.Context;
 
-import com.fowlcorp.homebank4android.model.AccPayCatTagAbstract;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +60,7 @@ public class DataParser {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
 			//parse using builder to get DOM representation of the XML file
-			dom = db.parse(context.getResources().getAssets().open("Homebank.xhb"));
+			dom = db.parse(context.getResources().getAssets().open("anonymized.xhb"));
 
 		} catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
@@ -85,7 +82,7 @@ public class DataParser {
 				el = (Element) nl.item(i);
 				Payee p = new Payee(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
 				// DEBUG
-				System.err.println("Payee : "+p.getKey() +", " + p.getName());
+				System.err.println(p.toString());
 				payees.put((Integer)p.getKey(), p); 
 			}
 		}
@@ -101,7 +98,7 @@ public class DataParser {
 					categories.get(parent).addSubCategory(c);
 				}
 				// DEBUG
-				System.err.println("Category : "+c.getKey() +", " + c.getName() + (el.hasAttribute("parent") ? ", parent : " + el.getAttribute("parent") : ""));
+				System.err.println(c.toString());
 			}
 		}
 		
@@ -118,7 +115,7 @@ public class DataParser {
 				}
 				accounts.put((Integer) a.getKey(), a);
 				// DEBUG
-				System.err.println("Account : "+a.getKey() +", " + a.getName() + (a.getBankName() == null ? "" : ", bank name : " + a.getBankName())  + (a.getAccountNumber() == null ? "" : ", account number : " + a.getAccountNumber()));
+				System.err.println(a.toString());
 			}
 		}
 		
@@ -131,7 +128,7 @@ public class DataParser {
 				if(el.hasAttribute("category")) { // missing for splitted operations
 					c = categories.get(Integer.parseInt(el.getAttribute("category")));
 				}
-				if(el.hasAttribute("payee")) { // missing for splitted operations
+				if(el.hasAttribute("payee")) { // may miss
 					p = payees.get(Integer.parseInt(el.getAttribute("payee")));
 				}
 				Operation op = new Operation(Integer.parseInt(el.getAttribute("date")),
@@ -141,7 +138,7 @@ public class DataParser {
 						p);
 				operations.add(op);
 				// DEBUG
-				System.err.println("Operation : " + op.verboseDate() + ", amount : " + op.getAmount() + (op.getPayee()==null ? "" : ", payee : " + op.getPayee().getName()) + (op.getCategory()==null ? "" : ", category : " + op.getCategory().getName()));
+				System.err.println(op.toString());
 			}
 		}
 	}

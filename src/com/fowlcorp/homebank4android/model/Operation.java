@@ -13,8 +13,6 @@ public class Operation {
 	private Payee payee;
 	
 	
-	
-	
 	public Operation(int xmlDate, double amount, Account account, Category category, Payee payee) {
 		this.xmlDate = xmlDate;
 		this.amount = amount;
@@ -91,5 +89,10 @@ public class Operation {
 		this.payee = payee;
 	}
 	
+	@Override
+	public String toString() {
+		return "Operation : " + verboseDate() + ", amount : " + getAmount() + (getPayee()==null ? "" : ", payee : " + getPayee().getName()) + (getCategory()==null ? "" : ", category : " + getCategory().getName());
+		
+	}
 	
 }

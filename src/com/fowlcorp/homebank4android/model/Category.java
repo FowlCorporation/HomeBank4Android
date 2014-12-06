@@ -60,4 +60,9 @@ public class Category extends AccPayCatTagAbstract {
 	public ArrayList<Category> getSubcategories() {
 		return subCategories;
 	}
+	
+	@Override
+	public String toString() {
+		return "Category : "+getKey() +", name : " + getName() + (subCategories.isEmpty() ? "" : ", " + subCategories.size() +" sub categorie(s)");
+	}
 }

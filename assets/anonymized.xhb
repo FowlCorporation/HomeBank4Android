@@ -9,9 +9,9 @@
 <account key="6" pos="6" type="2" number="101" bankname="Bank 3" name="account 6" initial="14" minimum="0" />
 <account key="7" pos="7" type="1" number="1011110" bankname="Bank 4" name="account 7" initial="0" minimum="0" />
 <account key="8" pos="8" type="3" number="101010" bankname="Bank 4" name="account 8" initial="15" minimum="0" />
-<pay key="1" name="payee 1"/>
-<pay key="2" name="payee 2"/>
-<pay key="3" name="payee 3"/>
+<pay key="1" name="Cinema"/>
+<pay key="2" name="Restaurant"/>
+<pay key="3" name="Buy more"/>
 <pay key="4" name="payee 4"/>
 <pay key="5" name="payee 5"/>
 <pay key="6" name="payee 6"/>

@@ -38,4 +38,8 @@ public class Account extends AccPayCatTagAbstract {
 		this.accountNumber = accountNumber;
 	}
 	
+	@Override
+	public String toString() {
+		return "Account : "+getKey() +", " + getName() + (getBankName() == null ? "" : ", bank name : " + getBankName())  + (getAccountNumber() == null ? "" : ", account number : " + getAccountNumber());
+	}
 }
