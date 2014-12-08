@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -138,6 +139,8 @@ public class MainActivity extends Activity implements
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+			startActivity(intent);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

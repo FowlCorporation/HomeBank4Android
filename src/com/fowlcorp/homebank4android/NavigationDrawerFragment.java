@@ -267,6 +267,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		System.out.println("option selected");
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}

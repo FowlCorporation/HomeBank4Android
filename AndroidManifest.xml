@@ -44,6 +44,15 @@
             android:enabled="true"
             android:exported="false"
             android:label="Dropbox Sync" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fowlcorp.homebank4android.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
