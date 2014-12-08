@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_example"
         android:showAsAction="withText|ifRoom"
-        android:icon="@drawable/ic_input_add"
+        android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
         android:title="@string/action_example"/>
     <item
         android:id="@+id/action_settings"
