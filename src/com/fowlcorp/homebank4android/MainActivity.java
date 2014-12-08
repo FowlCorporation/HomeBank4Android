@@ -12,6 +12,7 @@ import com.dropbox.sync.android.DbxList;
 import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.util.FolderLoader;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
+import com.fowlcorp.homebank4android.utils.DataParser;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -22,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,8 +61,8 @@ public class MainActivity extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
-				"sjt7o80sdtdjsxi");
+//		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
+//				"sjt7o80sdtdjsxi");
 		setContentView(R.layout.activity_main);
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
@@ -70,9 +72,9 @@ public class MainActivity extends Activity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-		if(!dropBoxAccountMgr.hasLinkedAccount()){
-		dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
-		}
+//		if(!dropBoxAccountMgr.hasLinkedAccount()){
+//		dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
+//		}
 		doTEst();
 	}
 	
@@ -138,6 +140,8 @@ public class MainActivity extends Activity implements
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+			startActivity(intent);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -176,7 +180,7 @@ public class MainActivity extends Activity implements
 //			for(int i=0;i<1000;i++){
 //				CardView card = new CardView(getActivity());
 //				TextView text = new TextView(getActivity());
-//				text.setText(new String("Ceci est la carte numéro "+i));
+//				text.setText(new String("Ceci est la carte numÃ©ro "+i));
 //				card.addView(text);
 //				layout.addView(card);
 //			}
@@ -192,20 +196,22 @@ public class MainActivity extends Activity implements
 //	}
 	
 	public void doTEst(){
-		try {
-			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
-			System.out.println("liste des fichier");
-			for (DbxFileInfo info : infos) {
-                System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
-            }
-			DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.txt");
-			FolderLoader folderLoader = new FolderLoader(getApplicationContext(), dropBoxAccountMgr, path);
-			DbxFile file = dbxFs.open(path);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		DataParser dp = new DataParser(getApplicationContext());
+		dp.runExample();
+//		try {
+//			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+//			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
+//			System.out.println("liste des fichier");
+//			for (DbxFileInfo info : infos) {
+//                System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
+//            }
+//			DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.txt");
+//			FolderLoader folderLoader = new FolderLoader(getApplicationContext(), dropBoxAccountMgr, path);
+//			DbxFile file = dbxFs.open(path);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 }

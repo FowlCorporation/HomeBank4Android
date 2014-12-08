@@ -1,20 +1,28 @@
 /**
- * 
+ *
  */
 package com.fowlcorp.homebank4android.utils;
 
+import android.content.Context;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Category;
-
-import android.util.Xml;
+import com.fowlcorp.homebank4android.model.Operation;
+import com.fowlcorp.homebank4android.model.Payee;
 
 /**
  * @author Axel
@@ -22,142 +30,117 @@ import android.util.Xml;
  */
 public class DataParser {
 
-	private XmlPullParser parser;
-	private static final String ns = null;		// We don't use namespaces
+	HashMap<Integer,Payee> payees;
+	HashMap<Integer,Category> categories;
+	HashMap<Integer,Account> accounts;
+	List<Operation> operations;
+	Document dom;
+	Context context;
 
-	/**
-	 * Constructor
-	 */
-	public DataParser() {
-		parser = Xml.newPullParser();
+	public DataParser(Context context) {
+		payees = new HashMap<>();
+		categories = new HashMap<>();
+		accounts = new HashMap<>();
+		operations = new ArrayList<>();
+		this.context = context;
 	}
 
-	public List parse(InputStream in) throws XmlPullParserException, IOException {
+	public void runExample() {
+		parseXmlFile();
+		parseDocument();
+	}
+
+	private void parseXmlFile() {
+		//get the factory
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
 		try {
-			parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-			parser.setInput(in, null);
-			parser.nextTag();
-			return readFeed(parser);
-		} finally {
-			in.close();
+
+			//Using factory get an instance of document builder
+			DocumentBuilder db = dbf.newDocumentBuilder();
+
+			//parse using builder to get DOM representation of the XML file
+			dom = db.parse(context.getResources().getAssets().open("anonymized.xhb"));
+
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (SAXException se) {
+			se.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 	}
 
-	private List readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
-		List entries = new ArrayList();
-
-		parser.require(XmlPullParser.START_TAG, ns, "feed");
-		while (parser.next() != XmlPullParser.END_TAG) {
-			if (parser.getEventType() != XmlPullParser.START_TAG) {
-				continue;
-			}
-			String name = parser.getName();
-			// Starts by looking for the entry tag
-			if (name.equals("homebank")) {
-//				entries.add(readEntry(parser));
-			} else {
-				skip(parser);
-			}
-		}  
-		return entries;
-	}
-
-	// Parses the contents of an entry. If it encounters a title, summary, or link tag, hands them off
-	// to their respective "read" methods for processing. Otherwise, skips the tag.
-	private void readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
-		parser.require(XmlPullParser.START_TAG, ns, "entry");
-		while (parser.next() != XmlPullParser.END_TAG) {
-			if (parser.getEventType() != XmlPullParser.START_TAG) {
-				continue;
-			}
-			String name = parser.getName();
-			if (name.equals("title")) {
-				readTitle(parser);
-			} else if (name.equals("summary")) {
-				readSummary(parser);
-			} else if (name.equals("cat")) {
-				readCategory(parser);
-			} else {
-				skip(parser);
+	private void parseDocument() {
+		//get the root elememt
+		Element docEle = dom.getDocumentElement();
+		Element el;
+		//get a nodelist of <payee> elements
+		NodeList nl = docEle.getElementsByTagName("pay");
+		if (nl != null && nl.getLength() > 0) {
+			for (int i = 0; i < nl.getLength(); i++) {
+				el = (Element) nl.item(i);
+				Payee p = new Payee(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
+				// DEBUG
+				System.err.println(p.toString());
+				payees.put((Integer)p.getKey(), p); 
 			}
 		}
-	}
-
-	// Processes title tags in the feed.
-	private String readTitle(XmlPullParser parser) throws IOException, XmlPullParserException {
-		parser.require(XmlPullParser.START_TAG, ns, "title");
-		String title = readText(parser);
-		parser.require(XmlPullParser.END_TAG, ns, "title");
-		return title;
-	}
-	
-	// Processes cat tags in the feed.
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private ArrayList readCategory(XmlPullParser parser) throws IOException, XmlPullParserException {
 		
-		// Variables
-		ArrayList result = new ArrayList();
-		Category category;
-		int key = -1;
-		int flags = -1;
-		Integer parent = -1;
+		nl = docEle.getElementsByTagName("cat");
+		if (nl != null && nl.getLength() > 0) {
+			for (int i = 0; i < nl.getLength(); i++) {
+				el = (Element) nl.item(i);
+				Category c = new Category(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
+				categories.put((Integer) c.getKey(), c);
+				if(el.hasAttribute("parent")) {
+					int parent = Integer.parseInt(el.getAttribute("parent"));
+					categories.get(parent).addSubCategory(c);
+				}
+				// DEBUG
+				System.err.println(c.toString());
+			}
+		}
 		
-		parser.require(XmlPullParser.START_TAG, ns, "cat");
-		try {
-			key = Integer.parseInt(parser.getAttributeValue(null, "key"));
-			parent = Integer.parseInt(parser.getAttributeValue(null, "parent"));
-			flags = Integer.parseInt(parser.getAttributeValue(null, "flags"));
-		} catch(NumberFormatException nfe) {
-			System.out.println("Could not parse " + nfe);
+		nl = docEle.getElementsByTagName("account");
+		if (nl != null && nl.getLength() > 0) {
+			for (int i = 0; i < nl.getLength(); i++) {
+				el = (Element) nl.item(i);
+				Account a = new Account(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"), Double.parseDouble(el.getAttribute("initial")));
+				if(el.hasAttribute("bankname")) {
+					a.setBankName(el.getAttribute("bankname"));
+				}
+				if(el.hasAttribute("number")) {
+					a.setAccountNumber(el.getAttribute("number"));
+				}
+				accounts.put((Integer) a.getKey(), a);
+				// DEBUG
+				System.err.println(a.toString());
+			}
 		}
-		String name = parser.getAttributeValue(null, "name");
-		parser.require(XmlPullParser.END_TAG, ns, "cat");
-		if (flags != -1) {
-			category = new Category(key, flags, name);
-		} else {
-			category = new Category(key, name);
-		}
-		if (parent != -1) {
-			result.add(category);
-			result.add(parent);
-		} else {
-			result.add(category);
-		}
-		return result;
-	}
-
-	// Processes summary tags in the feed.
-	private String readSummary(XmlPullParser parser) throws IOException, XmlPullParserException {
-		parser.require(XmlPullParser.START_TAG, ns, "summary");
-		String summary = readText(parser);
-		parser.require(XmlPullParser.END_TAG, ns, "summary");
-		return summary;
-	}
-
-	// For the tags title and summary, extracts their text values.
-	private String readText(XmlPullParser parser) throws IOException, XmlPullParserException {
-		String result = "";
-		if (parser.next() == XmlPullParser.TEXT) {
-			result = parser.getText();
-			parser.nextTag();
-		}
-		return result;
-	}
-
-	private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
-		if (parser.getEventType() != XmlPullParser.START_TAG) {
-			throw new IllegalStateException();
-		}
-		int depth = 1;
-		while (depth != 0) {
-			switch (parser.next()) {
-			case XmlPullParser.END_TAG:
-				depth--;
-				break;
-			case XmlPullParser.START_TAG:
-				depth++;
-				break;
+		
+		nl = docEle.getElementsByTagName("ope");
+		if (nl != null && nl.getLength() > 0) {
+			for (int i = 0; i < nl.getLength(); i++) {
+				el = (Element) nl.item(i);
+				Category c = null;
+				Payee p = null;
+				if(el.hasAttribute("category")) { // missing for splitted operations
+					c = categories.get(Integer.parseInt(el.getAttribute("category")));
+				}
+				if(el.hasAttribute("payee")) { // may miss
+					p = payees.get(Integer.parseInt(el.getAttribute("payee")));
+				}
+				Operation op = new Operation(Integer.parseInt(el.getAttribute("date")),
+						Double.parseDouble(el.getAttribute("amount")),
+						accounts.get(Integer.parseInt(el.getAttribute("account"))),
+						c,
+						p);
+				operations.add(op);
+				// DEBUG
+				System.err.println(op.toString());
 			}
 		}
 	}
+
 }

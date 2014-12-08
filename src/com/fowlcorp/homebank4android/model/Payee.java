@@ -17,4 +17,8 @@ public class Payee extends AccPayCatTagAbstract {
 		super(key, Name);
 	}
 
+	@Override
+	public String toString() {
+		return "Payee : " + getKey() +", name : " + getName();
+	}
 }

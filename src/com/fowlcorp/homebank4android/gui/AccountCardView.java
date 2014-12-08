@@ -3,6 +3,7 @@ package com.fowlcorp.homebank4android.gui;
 import android.R;
 import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.text.Layout;
 import android.view.Gravity;
 import android.widget.GridLayout;
 import android.widget.GridLayout.Spec;
@@ -15,9 +16,9 @@ public class AccountCardView extends CardView{
 	
 	private String dateLabel = "Date : ";
 	private String tierLabel = "Tier : ";
-	private String categorieLabel = "Catégorie : ";
-	private String debitLabel = "Débit : ";
-	private String creditLabel = "Crédit : ";
+	private String categorieLabel = "CatÃ©gorie : ";
+	private String debitLabel = "DÃ©bit : ";
+	private String creditLabel = "CrÃ©dit : ";
 	private String soldeLabel = "Solde : ";
 	private String memoLabel = "Memo : ";
 
@@ -35,24 +36,29 @@ public class AccountCardView extends CardView{
 		date.setText(dateLabel + "05/12/2014");
 		tier.setText(tierLabel + "Martin");
 		categorie.setText(categorieLabel + "Loisir");
-		debit.setText(debitLabel + "0€");
-		credit.setText(creditLabel + "10€");
-		solde.setText(soldeLabel + "10€");
-		memo.setText(memoLabel + "Cinéma");
+		debit.setText(debitLabel + "0â‚¬");
+		credit.setText(creditLabel + "10â‚¬");
+		solde.setText(soldeLabel + "10â‚¬");
+		memo.setText(memoLabel + "CinÃ©ma");
 		
 		gridLayout.setColumnCount(3);
 		gridLayout.setRowCount(3);
 		
-		/*GridLayout.LayoutParams paramCenter = new GridLayout.LayoutParams();
-		//paramCenter.setGravity(Gravity.CENTER);
+		GridLayout.LayoutParams paramCenter = new GridLayout.LayoutParams();
 		
-		date.setLayoutParams(paramCenter);
+		
+		
+		
+		/*date.setLayoutParams(paramCenter);
 		tier.setLayoutParams(paramCenter);
 		categorie.setLayoutParams(paramCenter);
 		debit.setLayoutParams(paramCenter);
 		credit.setLayoutParams(paramCenter);
 		solde.setLayoutParams(paramCenter);
 		memo.setLayoutParams(paramCenter);*/
+		
+		//gridLayout.setLayoutParams(paramCenter);
+		gridLayout.setUseDefaultMargins(true);
 		
 		gridLayout.addView(date);
 		gridLayout.addView(tier);
