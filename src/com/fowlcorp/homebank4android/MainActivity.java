@@ -196,8 +196,8 @@ public class MainActivity extends Activity implements
 //	}
 	
 	public void doTEst(){
-		DataParser dp = new DataParser(getApplicationContext());
-		dp.runExample();
+		/*DataParser dp = new DataParser(getApplicationContext());
+		dp.runExample();*/
 //		try {
 //			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
 //			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
