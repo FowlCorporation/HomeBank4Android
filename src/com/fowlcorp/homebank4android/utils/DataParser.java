@@ -38,11 +38,11 @@ public class DataParser {
 	Context context;
 
 	public DataParser(Context context) {
-	/*	payees = new HashMap<>();
+		payees = new HashMap<>();
 		categories = new HashMap<>();
 		accounts = new HashMap<>();
 		operations = new ArrayList<>();
-		this.context = context;*/
+		this.context = context;
 	}
 
 	public void runExample() {
