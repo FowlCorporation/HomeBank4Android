@@ -3,8 +3,8 @@
     
 <header
     android:fragment="com.fowlcorp.homebank4android.SettingsFragment"
-    android:title = "Go to preference fragment"
-    android:summary ="example"/>
+    android:title = "@string/dropbox_header"
+    android:summary ="@string/dropbox_header_description"/>
 
     
 </preference-headers>
