@@ -1,5 +1,11 @@
 package com.fowlcorp.homebank4android;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fowlcorp.homebank4android.gui.CustomDrawerAdapter;
+import com.fowlcorp.homebank4android.gui.DrawerItem;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -104,14 +110,25 @@ public class NavigationDrawerFragment extends Fragment {
 						selectItem(position);
 					}
 				});
-		mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
+		/*mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
 				.getThemedContext(),
 				android.R.layout.simple_list_item_activated_1,
 				//TODO change the listener
 				android.R.id.text1, new String[] {
 						getString(R.string.title_section1),
 						getString(R.string.title_section2),
-						getString(R.string.title_section3), }));
+						getString(R.string.title_section3), }));*/
+		List<DrawerItem> dataList = new ArrayList<DrawerItem>();
+		dataList.add(new DrawerItem(true));
+		dataList.add(new DrawerItem("My Favorites"));
+		dataList.add(new DrawerItem("test1", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
+		dataList.add(new DrawerItem("test2", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
+		dataList.add(new DrawerItem("test3", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
+		
+		CustomDrawerAdapter adapter = new CustomDrawerAdapter(getActivity(), R.layout.custom_drawer_item, dataList);
+		
+		mDrawerListView.setAdapter(adapter);
+		
 		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 		return mDrawerListView;
 	}
