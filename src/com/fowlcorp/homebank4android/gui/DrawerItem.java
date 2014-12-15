@@ -13,11 +13,6 @@ public class DrawerItem {
 		this.imgResID = imgResID;
 	}
 
-	public DrawerItem(boolean isSpinner) {
-		this(null, 0);
-		this.isSpinner = isSpinner;
-	}
-
 	public DrawerItem(String title) {
 		this(null, 0);
 		this.title = title;
@@ -40,10 +35,6 @@ public class DrawerItem {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public boolean isSpinner() {
-		return isSpinner;
 	}
 
 }

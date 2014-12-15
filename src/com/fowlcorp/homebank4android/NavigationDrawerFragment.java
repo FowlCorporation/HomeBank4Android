@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fowlcorp.homebank4android.gui.CustomDrawerAdapter;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
+import com.fowlcorp.homebank4android.model.Model;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -64,9 +65,17 @@ public class NavigationDrawerFragment extends Fragment {
 	private int mCurrentSelectedPosition = 0;
 	private boolean mFromSavedInstanceState;
 	private boolean mUserLearnedDrawer;
+	
+	private Model model = new Model();
 
 	public NavigationDrawerFragment() {
 	}
+	
+	/*public static final NavigationDrawerFragment newInstance(int title, String message)
+	{
+		return new NavigationDrawerFragment();
+	}*/
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -118,8 +127,10 @@ public class NavigationDrawerFragment extends Fragment {
 						getString(R.string.title_section1),
 						getString(R.string.title_section2),
 						getString(R.string.title_section3), }));*/
+		
+		System.out.println(model.toString());
+		
 		List<DrawerItem> dataList = new ArrayList<DrawerItem>();
-		dataList.add(new DrawerItem(true));
 		dataList.add(new DrawerItem("My Favorites"));
 		dataList.add(new DrawerItem("test1", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
 		dataList.add(new DrawerItem("test2", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
@@ -297,6 +308,16 @@ public class NavigationDrawerFragment extends Fragment {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+	
+	
+
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
 	}
 
 	/**
