@@ -12,6 +12,7 @@ import com.dropbox.sync.android.DbxList;
 import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.util.FolderLoader;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
+import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
 
 import android.app.Activity;
@@ -38,6 +39,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+    private Model model;
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -197,7 +200,11 @@ public class MainActivity extends Activity implements
 	
 	public void doTEst(){
 		DataParser dp = new DataParser(getApplicationContext());
-		dp.runExample();
+		model = new Model();
+        model.setAccounts(dp.parseAccounts());
+        model.setCategories((dp.parseCategories()));
+        model.setPayees(dp.parsePayees());
+        model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
 //		try {
 //			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
 //			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
