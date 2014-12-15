@@ -20,6 +20,11 @@ import com.dropbox.sync.android.DbxPath;
  * A general-use loader for loading the contents of a folder. Registers for
  * changes and automatically updates when the folder contents change.
  */
+
+/**
+ * @author Dropbox
+ *
+ */
 public class FolderLoader extends AsyncTaskLoader<List<DbxFileInfo>> {
 
     private final DbxPath mPath;
