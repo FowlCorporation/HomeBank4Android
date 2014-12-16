@@ -9,14 +9,15 @@ import android.view.ViewGroup;
 
 import com.fowlcorp.homebank4android.R;
 
-public class AccountCardView extends CardView{
+public class OverViewCard extends CardView{
 	
 
-	public AccountCardView(Context context, ViewGroup parent ) {
+
+	public OverViewCard(Context context, ViewGroup parent ) {
 		super(context);
 		
 		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-		View view = inflater.inflate(R.layout.card_layout,parent);
+		View view = inflater.inflate(R.layout.overviewcard,parent);
 		
 		this.addView(view);
 		

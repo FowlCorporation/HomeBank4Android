@@ -43,12 +43,13 @@ public class AccountFragment extends Fragment{
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_main, container,
 				false);
+		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView());
+		//View overViewCard = inflater.inflate(R.layout.overviewcard,  container);
 		LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
+		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
+		overview.addView(over);
 		for(int i=0;i<100;i++){
-			AccountCardView card = new AccountCardView(getActivity());
-			/*TextView text = new TextView(getActivity());
-			text.setText(new String("Ceci est la carte numéro "+i+" de la section "+sectionNumber));
-			card.addView(text);*/
+			AccountCardView card = new AccountCardView(getActivity(), (ViewGroup) this.getView());
 			layout.addView(card);
 		}
 		return rootView;

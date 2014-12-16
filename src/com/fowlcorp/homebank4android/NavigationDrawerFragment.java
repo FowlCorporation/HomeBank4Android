@@ -71,10 +71,6 @@ public class NavigationDrawerFragment extends Fragment {
 	public NavigationDrawerFragment() {
 	}
 	
-	/*public static final NavigationDrawerFragment newInstance(int title, String message)
-	{
-		return new NavigationDrawerFragment();
-	}*/
 	
 
 	@Override
@@ -166,6 +162,7 @@ public class NavigationDrawerFragment extends Fragment {
 		// opens
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
+		mDrawerLayout.
 		// set up the drawer's list view with items and click listener
 
 		ActionBar actionBar = getActionBar();
