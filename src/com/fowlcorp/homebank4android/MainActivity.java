@@ -136,7 +136,12 @@ public class MainActivity extends Activity implements
 			mTitle = getString(R.string.title_section3);
 			break;
 		}*/
-		mTitle = accountList.get(number).getName();
+		try {
+			mTitle = accountList.get(number).getName();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void restoreActionBar() {
