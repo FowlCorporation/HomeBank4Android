@@ -10,6 +10,9 @@ public class DetailedCardActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Bundle bdl = this.getIntent().getExtras();
+		int day = bdl.getInt("Day");
+		System.out.println(day);
 		setContentView(R.layout.activity_detailed_card);
 	}
 
