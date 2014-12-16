@@ -61,15 +61,21 @@ public class AccountFragment extends Fragment{
 	{
 		super.onCreate(savedInstanceState);
 	    sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
-	    
-	    int key = accountList.get(sectionNumber).getKey();
-	    operation = new ArrayList<Operation>();
-	    
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		int key = accountList.get(sectionNumber).getKey();
+	    operation = new ArrayList<Operation>();
+	    System.out.println("section number : "+sectionNumber+" number of operation : "+operation.size());
+	    for(int i=0; i<model.getOperations().size();i++){
+	    	if(model.getOperations().get(i).getAccount().equals(model.getAccounts().get(key))){
+	    		operation.add(model.getOperations().get(i));
+	    	}
+	    }
+	    System.out.println("number of operation : "+operation.size());
 		View rootView = inflater.inflate(R.layout.fragment_main, container,
 				false);
 		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView());
@@ -77,8 +83,8 @@ public class AccountFragment extends Fragment{
 		LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 		overview.addView(over);
-		for(int i=0;i<100;i++){
-			AccountCardView card = new AccountCardView(getActivity(), (ViewGroup) this.getView());
+		for(int i=0;i<operation.size();i++){
+			AccountCardView card = new AccountCardView(getActivity(), (ViewGroup) this.getView(), operation.get(i));
 			layout.addView(card);
 		}
 		return rootView;
