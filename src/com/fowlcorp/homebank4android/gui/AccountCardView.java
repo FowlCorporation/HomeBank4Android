@@ -26,6 +26,8 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -34,10 +36,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fowlcorp.homebank4android.DetailedCardActivity;
 import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.SettingsActivity;
 import com.fowlcorp.homebank4android.model.Operation;
 
-public class AccountCardView extends CardView{
+public class AccountCardView extends CardView {
 	
 	private TextView date;
 	private TextView category;
@@ -45,10 +49,26 @@ public class AccountCardView extends CardView{
 	private TextView memo;
 	private TextView solde;
 	private TextView montant;
+	private Context context;
+	private Date Mydate;
 	
 
-	public AccountCardView(Context context, ViewGroup parent, Operation operation ) {
+	public AccountCardView(final Context context, ViewGroup parent, final Operation operation ) {
 		super(context);
+		this.context=context;
+		Mydate = operation.getDate().getTime();
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		this.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context.getApplicationContext(), DetailedCardActivity.class);
+				context.startActivity(intent);
+				Bundle bdl = new Bundle();
+				bdl.putInt("Day", operation.getDate().get(Calendar.DAY_OF_MONTH));
+				bdl.putInt("Month", operation.getDate().get(Calendar.MONTH));
+			}
+		});
 		
 		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 		View view = inflater.inflate(R.layout.card_layout,parent);
@@ -61,8 +81,7 @@ public class AccountCardView extends CardView{
 		montant = (TextView) view.findViewById(R.id.cardLayout_montant);
 		
 		
-		Date Mydate = operation.getDate().getTime();
-		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		
 		/*String month = operation.getDate().getDisplayName(GregorianCalendar.mon, GregorianCalendar.LONG, Locale.FRANCE);
 		String year = operation.getDate().getDisplayName(GregorianCalendar.YEAR, GregorianCalendar.LONG, Locale.FRANCE);
 		
