@@ -66,6 +66,10 @@ public class AccountCardView extends CardView {
 //				intent.putExtra("Month", myDate.get(Calendar.MONTH));
 //				intent.putExtra("Year", myDate.get(Calendar.YEAR));
 				intent.putExtra("Date", df.format(myDate.getTime()));
+				intent.putExtra("Category", operation.getCategory().getName());
+				intent.putExtra("Payee", operation.getPayee().getName());
+				intent.putExtra("Wording", operation.getWording());
+				intent.putExtra("Amount", String.valueOf(operation.getAmount()));
 				context.startActivity(intent);
 			}
 		});
