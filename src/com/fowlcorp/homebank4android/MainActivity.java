@@ -22,6 +22,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -39,8 +40,6 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-    private Model model;
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -60,6 +59,7 @@ public class MainActivity extends Activity implements
 	private DbxAccountManager dropBoxAccountMgr;
 	static final int REQUEST_LINK_TO_DBX = 0;
 	private DbxFileSystem dbxFs;
+	private Model model;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,7 @@ public class MainActivity extends Activity implements
 		doTEst();
 	}
 	
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == REQUEST_LINK_TO_DBX) {
@@ -99,7 +100,7 @@ public class MainActivity extends Activity implements
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction tx = fragmentManager.beginTransaction();
-		tx.replace(R.id.container,new AccountFragment(position+1)).commit();
+		tx.replace(R.id.container,AccountFragment.newInstance(position+1)).commit();
 	}
 
 	public void onSectionAttached(int number) {
@@ -200,11 +201,8 @@ public class MainActivity extends Activity implements
 	
 	public void doTEst(){
 		DataParser dp = new DataParser(getApplicationContext());
+		//dp.runExample();
 		model = new Model();
-        model.setAccounts(dp.parseAccounts());
-        model.setCategories((dp.parseCategories()));
-        model.setPayees(dp.parsePayees());
-        model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
 //		try {
 //			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
 //			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
