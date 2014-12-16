@@ -11,8 +11,10 @@ public class DetailedCardActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle bdl = this.getIntent().getExtras();
-		String day = bdl.getString("Day");
-		System.out.println(day);
+		int day = bdl.getInt("Day");
+		int month = bdl.getInt("Month");
+		int year = bdl.getInt("Year");
+		System.out.println(day+"/"+month+"/"+year);
 		setContentView(R.layout.activity_detailed_card);
 	}
 
