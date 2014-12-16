@@ -13,6 +13,11 @@ import com.dropbox.sync.android.DbxFileInfo;
  * sort order for file info from multiple folders, but may not provide the ideal
  * user-displayed sort order for such a case.
  */
+
+/**
+ * @author Dropbox
+ *
+ */
 public class FolderListComparator implements Comparator<DbxFileInfo> {
     private final boolean isNameFirst;
     private final boolean isAscending;
