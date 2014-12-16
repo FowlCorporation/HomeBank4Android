@@ -24,7 +24,8 @@
 
     <EditText
         android:id="@+id/detailedCardDate"
-        android:layout_width="244dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_column="2"
         android:layout_gravity="start|center|top"
         android:layout_row="1"
