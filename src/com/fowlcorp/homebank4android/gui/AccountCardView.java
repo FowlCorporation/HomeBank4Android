@@ -17,30 +17,28 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.DetailedCardActivity;
 import com.fowlcorp.homebank4android.R;
-import com.fowlcorp.homebank4android.SettingsActivity;
 import com.fowlcorp.homebank4android.model.Operation;
 
+
+/**
+ * @author Martin, Axel
+ *
+ */
 public class AccountCardView extends CardView {
 	
 	private TextView date;
@@ -50,22 +48,24 @@ public class AccountCardView extends CardView {
 	private TextView solde;
 	private TextView montant;
 	private Context context;
-	private Date Mydate;
+	private Calendar myDate;
 	
 
 	public AccountCardView(final Context context, ViewGroup parent, final Operation operation ) {
 		super(context);
 		this.context=context;
-		Mydate = operation.getDate().getTime();
-		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		myDate = Calendar.getInstance();
+		myDate.setTime(operation.getDate().getTime());
+		final SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 		this.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(context.getApplicationContext(), DetailedCardActivity.class);
-				intent.putExtra("Day", operation.getDate().get(Calendar.DAY_OF_MONTH));
-				intent.putExtra("Month", Mydate.getMonth());
-				intent.putExtra("Year", operation.getDate().get(Calendar.YEAR));
+//				intent.putExtra("Day", myDate.get(Calendar.DAY_OF_MONTH));
+//				intent.putExtra("Month", myDate.get(Calendar.MONTH));
+//				intent.putExtra("Year", myDate.get(Calendar.YEAR));
+				intent.putExtra("Date", df.format(myDate.getTime()));
 				context.startActivity(intent);
 			}
 		});
@@ -88,7 +88,7 @@ public class AccountCardView extends CardView {
 		String formatDate = day+"/"+month+"/"+year;*/
 		
 		try {
-			date.setText(context.getString(R.string.cardLayout_date)+" "+df.format(Mydate));
+			date.setText(context.getString(R.string.cardLayout_date)+" "+df.format(myDate.getTime()));
 		} catch (Exception e) {
 		}
 		try {

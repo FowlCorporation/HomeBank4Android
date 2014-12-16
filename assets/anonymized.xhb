@@ -105,7 +105,7 @@
 <cat key="38" name="category 38" />
 <ope date="735337" amount="-10" account="5" paymode="3" flags="1" payee="9" category="10" wording="memo 735337" />
 <ope date="735338" amount="-3.52" account="1" paymode="6" flags="1" payee="7" category="9" wording="memo 735338" />
-<ope date="735338" amount="-5.0999999999999996" account="5" paymode="3" flags="1" payee="7" category="9" wording="memo 735338" />
+<ope date="735360" amount="-5.0999999999999996" account="5" paymode="3" flags="1" payee="7" category="9" wording="memo 735338" />
 <ope date="735338" amount="0" account="4" flags="1" wording="memo 735338" />
 <ope date="735338" amount="0" account="2" flags="1" wording="memo 735338" />
 <ope date="735338" amount="0" account="3" flags="1" wording="memo 735338" />
