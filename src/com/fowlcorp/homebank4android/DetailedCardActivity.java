@@ -14,7 +14,7 @@ public class DetailedCardActivity extends Activity {
 	private Spinner payee;
 	private TextView wording;
 	private TextView balance;
-	private EditText amount;
+	private TextView amount;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,28 +29,19 @@ public class DetailedCardActivity extends Activity {
 		date = (EditText) findViewById(R.id.detailedCardDate);
 		category = (Spinner) findViewById(R.id.detailedCardCategory);
 		payee = (Spinner) findViewById(R.id.detailedCardPayee);
-		amount = (EditText) findViewById(R.id.detailedCardAmount);
 		
 		try {
-			date.setText((String) bdl.getString("Date"), TextView.BufferType.SPANNABLE);
-		} catch (Exception e) {
-		}
-		try {
-			category.setTag(bdl.getString("Category"));
-		} catch (Exception e) {
-		}
-		try {
-			payee.setTag(bdl.getString("Payee"));
+			date.setText(bdl.getString("Date"));
 		} catch (Exception e) {
 		}
 //		try {
-//			wording.setText(bdl.getString("Wording"), TextView.BufferType.SPANNABLE);
+//			category.setText(context.getString(R.string.cardLayout_category)+" "+operation.getCategory().getName());
 //		} catch (Exception e) {
 //		}
-		try {
-			amount.setText(bdl.getString("Amount"));
-		} catch (Exception e) {
-		}
+//		try {
+//			tier.setText(context.getString(R.string.cardLayout_tier)+" "+operation.getPayee().getName());
+//		} catch (Exception e) {
+//		}
 		
 		setContentView(R.layout.activity_detailed_card);
 	}

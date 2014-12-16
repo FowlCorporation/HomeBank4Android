@@ -18,6 +18,7 @@
 package com.fowlcorp.homebank4android.gui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.NavigationDrawerFragment;
@@ -41,7 +42,7 @@ public class AccountFragment extends Fragment{
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private int sectionNumber;
 	private ArrayList<Account> accountList;
-	private ArrayList<Operation> operation;
+	private List<Operation> operation;
 	private Model model;
 
 	public AccountFragment(){
@@ -68,13 +69,15 @@ public class AccountFragment extends Fragment{
 			Bundle savedInstanceState) {
 		
 		int key = accountList.get(sectionNumber).getKey();
-	    operation = new ArrayList<Operation>();
+        model.setSelectedAccount(key);
+        model.updateOperationAccountBalance();
+	    operation = model.getOperations(model.getAccounts().get(key));
 	    System.out.println("section number : "+sectionNumber+" number of operation : "+operation.size());
-	    for(int i=0; i<model.getOperations().size();i++){
-	    	if(model.getOperations().get(i).getAccount().equals(model.getAccounts().get(key))){
-	    		operation.add(model.getOperations().get(i));
-	    	}
-	    }
+//	    for(int i=0; i<model.getOperations().size();i++){
+//	    	if(model.getOperations().get(i).getAccount().equals(model.getAccounts().get(key))){
+//	    		operation.add(model.getOperations().get(i));
+//	    	}
+//	    }
 	    System.out.println("number of operation : "+operation.size());
 		View rootView = inflater.inflate(R.layout.fragment_main, container,
 				false);
@@ -83,7 +86,7 @@ public class AccountFragment extends Fragment{
 		LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 		overview.addView(over);
-		for(int i=0;i<operation.size();i++){
+		for(int i=operation.size()-1; i>0; i--){
 			AccountCardView card = new AccountCardView(getActivity(), (ViewGroup) this.getView(), operation.get(i));
 			layout.addView(card);
 		}

@@ -24,7 +24,12 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,10 +71,6 @@ public class AccountCardView extends CardView {
 //				intent.putExtra("Month", myDate.get(Calendar.MONTH));
 //				intent.putExtra("Year", myDate.get(Calendar.YEAR));
 				intent.putExtra("Date", df.format(myDate.getTime()));
-				intent.putExtra("Category", operation.getCategory().getName());
-				intent.putExtra("Payee", operation.getPayee().getName());
-				intent.putExtra("Wording", operation.getWording());
-				intent.putExtra("Amount", String.valueOf(operation.getAmount()));
 				context.startActivity(intent);
 			}
 		});
@@ -108,13 +109,23 @@ public class AccountCardView extends CardView {
 		} catch (Exception e) {
 		}
 		try {
-			montant.setText(context.getString(R.string.cardLayout_montant)+" "+String.valueOf(operation.getAmount()));
+            montant.setText(colorText(context.getString(R.string.cardLayout_montant) + " ", String.valueOf(operation.getAmount())));
 		} catch (Exception e) {
 		}
+        try {
+            solde.setText(colorText(context.getString(R.string.cardLayout_solde) + " ", String.valueOf(operation.getBalanceAccount())));
+        } catch (Exception e) {
+        }
 		
 		
 		this.addView(view);
 		
 	}
+
+    private Spannable colorText(String fieldName, String value) {
+        Spannable span = new SpannableString(fieldName + value);
+        span.setSpan(new ForegroundColorSpan((value.charAt(0) == '-' ? Color.rgb(206, 92, 0) : Color.rgb(78, 154, 54))), fieldName.length(), fieldName.length() + value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return span;
+    }
 
 }

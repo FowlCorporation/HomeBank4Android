@@ -135,12 +135,13 @@ public class DataParser {
 		return accounts;
 	}
 
-	public List<Operation> parseOperations(HashMap<Integer,Account> accounts, HashMap<Integer,Category> categories, HashMap<Integer,Payee> payees) {				
-		List<Operation> operations = new ArrayList<>();
+	public HashMap<Integer,List<Operation>> parseOperations(HashMap<Integer,Account> accounts, HashMap<Integer,Category> categories, HashMap<Integer,Payee> payees) {
+        HashMap<Integer,List<Operation>> operations = new HashMap<>();
 		Element docEle = dom.getDocumentElement();
 		Element el;
 		NodeList nl;
 		nl = docEle.getElementsByTagName("ope");
+        int accountKey;
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
 				el = (Element) nl.item(i);
@@ -152,12 +153,20 @@ public class DataParser {
 				if(el.hasAttribute("payee")) { // may miss
 					p = payees.get(Integer.parseInt(el.getAttribute("payee")));
 				}
+                accountKey = Integer.parseInt(el.getAttribute("account"));
 				Operation op = new Operation(Integer.parseInt(el.getAttribute("date")),
 						Double.parseDouble(el.getAttribute("amount")),
-						accounts.get(Integer.parseInt(el.getAttribute("account"))),
+						accounts.get(accountKey),
 						c,
 						p);
-				operations.add(op);
+                if(el.hasAttribute("wording")) { // may miss
+                    op.setWording(el.getAttribute("wording"));
+                }
+
+                if(!operations.containsKey(accountKey)) { // if List in HashMap for this account is not already created
+                    operations.put(accountKey, new ArrayList<Operation>());
+                }
+                operations.get(accountKey).add(op);
 				// DEBUG
 				System.err.println(op.toString());
 			}

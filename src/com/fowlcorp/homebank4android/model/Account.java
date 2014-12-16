@@ -61,6 +61,6 @@ public class Account extends AccPayCatTagAbstract {
 	
 	@Override
 	public String toString() {
-		return "Account : "+getKey() +", " + getName() + (getBankName() == null ? "" : ", bank name : " + getBankName())  + (getAccountNumber() == null ? "" : ", account number : " + getAccountNumber());
+		return "Account : "+getKey() +", " + getName() + (getBankName() == null ? "" : ", bank name : " + getBankName())  + (getAccountNumber() == null ? "" : ", account number : " + getAccountNumber()) + ", initial balance : " + getInitBalance();
 	}
 }

@@ -20,13 +20,15 @@ package com.fowlcorp.homebank4android.model;
 import java.util.GregorianCalendar;
 
 /**
- * @author Cédric
+ * @author CÃ©dric
  *
  */
-public class Operation {
+public class Operation implements Comparable {
 
 	private GregorianCalendar date;
-	private int xmlDate, flag;
+	private int xmlDate;
+    private int flag;
+    private double balanceAccount;
 	private double amount;
 	private Account account;
 	private String wording, tags; // wording <=> memo
@@ -109,11 +111,25 @@ public class Operation {
 	public void setPayee(Payee payee) {
 		this.payee = payee;
 	}
+    public double getBalanceAccount() {
+        return balanceAccount;
+    }
+    public void setBalanceAccount(double balanceAccount) {
+        this.balanceAccount = balanceAccount;
+    }
 	
 	@Override
 	public String toString() {
-		return "Operation : " + verboseDate() + ", amount : " + getAmount() + (getPayee()==null ? "" : ", payee : " + getPayee().getName()) + (getCategory()==null ? "" : ", category : " + getCategory().getName());
+		return "Operation : " + verboseDate() + ", amount : " + getAmount() + (getPayee()==null ? "" : ", payee : " + getPayee().getName()) + (getCategory()== null ? "" : ", category : " + getCategory().getName());
 		
 	}
-	
+
+    public int compareTo(Object o) {
+        if(o instanceof  Operation) {
+            Operation operation = (Operation) o;
+            return this.date.compareTo(operation.getDate());
+        } else {
+            throw new ClassCastException();
+        }
+    }
 }
