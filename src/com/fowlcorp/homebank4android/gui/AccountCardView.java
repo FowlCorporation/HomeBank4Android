@@ -17,23 +17,78 @@
 
 package com.fowlcorp.homebank4android.gui;
 
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.model.Operation;
 
 public class AccountCardView extends CardView{
 	
+	private TextView date;
+	private TextView category;
+	private TextView tier;
+	private TextView memo;
+	private TextView solde;
+	private TextView montant;
+	
 
-	public AccountCardView(Context context, ViewGroup parent ) {
+	public AccountCardView(Context context, ViewGroup parent, Operation operation ) {
 		super(context);
 		
 		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 		View view = inflater.inflate(R.layout.card_layout,parent);
+		
+		date = (TextView) view.findViewById(R.id.cardLayout_date);
+		category = (TextView) view.findViewById(R.id.cardLayout_category);
+		tier = (TextView) view.findViewById(R.id.cardLayout_tier);
+		memo = (TextView) view.findViewById(R.id.cardLayout_memo);
+		solde = (TextView) view.findViewById(R.id.cardLayout_solde);
+		montant = (TextView) view.findViewById(R.id.cardLayout_montant);
+		
+		
+		Date Mydate = operation.getDate().getTime();
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		/*String month = operation.getDate().getDisplayName(GregorianCalendar.mon, GregorianCalendar.LONG, Locale.FRANCE);
+		String year = operation.getDate().getDisplayName(GregorianCalendar.YEAR, GregorianCalendar.LONG, Locale.FRANCE);
+		
+		String formatDate = day+"/"+month+"/"+year;*/
+		
+		try {
+			date.setText(context.getString(R.string.cardLayout_date)+" "+df.format(Mydate));
+		} catch (Exception e) {
+		}
+		try {
+			category.setText(context.getString(R.string.cardLayout_category)+" "+operation.getCategory().getName());
+		} catch (Exception e) {
+		}
+		try {
+			tier.setText(context.getString(R.string.cardLayout_tier)+" "+operation.getPayee().getName());
+		} catch (Exception e) {
+		}
+		try {
+			memo.setText(context.getString(R.string.cardLayout_memo)+" "+operation.getWording());
+		} catch (Exception e) {
+		}
+		try {
+			montant.setText(context.getString(R.string.cardLayout_montant)+" "+String.valueOf(operation.getAmount()));
+		} catch (Exception e) {
+		}
+		
 		
 		this.addView(view);
 		
