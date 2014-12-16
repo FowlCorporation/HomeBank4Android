@@ -1,8 +1,13 @@
 package com.fowlcorp.homebank4android.gui;
 
+import java.util.ArrayList;
+
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.NavigationDrawerFragment;
 import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.model.Account;
+import com.fowlcorp.homebank4android.model.Model;
+import com.fowlcorp.homebank4android.model.Operation;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -18,6 +23,9 @@ public class AccountFragment extends Fragment{
 
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private int sectionNumber;
+	private ArrayList<Account> accountList;
+	private ArrayList<Operation> operation;
+	private Model model;
 
 	public AccountFragment(){
 
@@ -36,6 +44,10 @@ public class AccountFragment extends Fragment{
 	{
 		super.onCreate(savedInstanceState);
 	    sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+	    
+	    int key = accountList.get(sectionNumber).getKey();
+	    operation = new ArrayList<Operation>();
+	    
 	}
 
 	@Override
@@ -60,5 +72,7 @@ public class AccountFragment extends Fragment{
 		super.onAttach(activity);
 		((MainActivity) activity).onSectionAttached(getArguments().getInt(
 				ARG_SECTION_NUMBER));
+		model = ((MainActivity) activity).getModel();
+		accountList = ((MainActivity) activity).getAccountList();
 	}
 }

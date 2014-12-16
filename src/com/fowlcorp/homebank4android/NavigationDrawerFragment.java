@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fowlcorp.homebank4android.gui.CustomDrawerAdapter;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
+import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 
 import android.app.Activity;
@@ -66,8 +67,9 @@ public class NavigationDrawerFragment extends Fragment {
 	private boolean mFromSavedInstanceState;
 	private boolean mUserLearnedDrawer;
 	
-	private Model model = new Model();
-
+	private Model model;
+	private ArrayList<Account> accountList;
+	
 	public NavigationDrawerFragment() {
 	}
 	
@@ -126,11 +128,14 @@ public class NavigationDrawerFragment extends Fragment {
 		
 		System.out.println(model.toString());
 		
-		List<DrawerItem> dataList = new ArrayList<DrawerItem>();
+		List<Account> dataList = new ArrayList<Account>(accountList);
+		
+		
+		/*List<DrawerItem> dataList = new ArrayList<DrawerItem>();
 		dataList.add(new DrawerItem("My Favorites"));
 		dataList.add(new DrawerItem("test1", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
 		dataList.add(new DrawerItem("test2", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
-		dataList.add(new DrawerItem("test3", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
+		dataList.add(new DrawerItem("test3", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));*/
 		
 		CustomDrawerAdapter adapter = new CustomDrawerAdapter(getActivity(), R.layout.custom_drawer_item, dataList);
 		
@@ -162,7 +167,6 @@ public class NavigationDrawerFragment extends Fragment {
 		// opens
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
-		mDrawerLayout.
 		// set up the drawer's list view with items and click listener
 
 		ActionBar actionBar = getActionBar();
@@ -253,6 +257,9 @@ public class NavigationDrawerFragment extends Fragment {
 		super.onAttach(activity);
 		try {
 			mCallbacks = (NavigationDrawerCallbacks) activity;
+			MainActivity mainAct = (MainActivity) activity;
+			model = mainAct.getModel();
+			accountList = mainAct.getAccountList();
 		} catch (ClassCastException e) {
 			throw new ClassCastException(
 					"Activity must implement NavigationDrawerCallbacks.");

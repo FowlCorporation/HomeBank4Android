@@ -1,6 +1,7 @@
 package com.fowlcorp.homebank4android;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dropbox.sync.android.DbxAccountManager;
@@ -12,6 +13,7 @@ import com.dropbox.sync.android.DbxList;
 import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.util.FolderLoader;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
+import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
 
@@ -60,10 +62,12 @@ public class MainActivity extends Activity implements
 	static final int REQUEST_LINK_TO_DBX = 0;
 	private DbxFileSystem dbxFs;
 	private Model model;
+	private ArrayList<Account> accountList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		doTEst();
 //		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
 //				"sjt7o80sdtdjsxi");
 		setContentView(R.layout.activity_main);
@@ -78,7 +82,7 @@ public class MainActivity extends Activity implements
 //		if(!dropBoxAccountMgr.hasLinkedAccount()){
 //		dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
 //		}
-		doTEst();
+		
 	}
 	
 	
@@ -100,11 +104,11 @@ public class MainActivity extends Activity implements
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction tx = fragmentManager.beginTransaction();
-		tx.replace(R.id.container,AccountFragment.newInstance(position+1)).commit();
+		tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
 	}
 
 	public void onSectionAttached(int number) {
-		switch (number) {
+		/*switch (number) {
 		case 1:
 			mTitle = getString(R.string.title_section1);
 			break;
@@ -114,7 +118,8 @@ public class MainActivity extends Activity implements
 		case 3:
 			mTitle = getString(R.string.title_section3);
 			break;
-		}
+		}*/
+		mTitle = accountList.get(number).getName();
 	}
 
 	public void restoreActionBar() {
@@ -203,6 +208,13 @@ public class MainActivity extends Activity implements
 		DataParser dp = new DataParser(getApplicationContext());
 		//dp.runExample();
 		model = new Model();
+        model.setAccounts(dp.parseAccounts());
+        model.setCategories((dp.parseCategories()));
+        model.setPayees(dp.parsePayees());
+        model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
+
+        accountList = new ArrayList<>(model.getAccounts().values());
+        
 //		try {
 //			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
 //			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
@@ -218,5 +230,27 @@ public class MainActivity extends Activity implements
 //			e.printStackTrace();
 //		}
 	}
+
+
+	public Model getModel() {
+		return model;
+	}
+
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
+
+	public ArrayList<Account> getAccountList() {
+		return accountList;
+	}
+
+
+	public void setAccountList(ArrayList<Account> accountList) {
+		this.accountList = accountList;
+	}
+	
+	
 
 }

@@ -13,15 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.model.Account;
  
-public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
+public class CustomDrawerAdapter extends ArrayAdapter<Account> {
  
       Context context;
-      List<DrawerItem> drawerItemList;
+      List<Account> drawerItemList;
       int layoutResID;
  
       public CustomDrawerAdapter(Context context, int layoutResourceID,
-                  List<DrawerItem> listItems) {
+                  List<Account> listItems) {
             super(context, layoutResourceID, listItems);
             this.context = context;
             this.drawerItemList = listItems;
@@ -59,9 +60,9 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
  
             }
  
-            DrawerItem dItem = (DrawerItem) this.drawerItemList.get(position);
+            Account dItem = (Account) this.drawerItemList.get(position);
  
-            if (dItem.getTitle() != null) {
+            /*if (dItem.getTitle() != null) {
                   drawerHolder.headerLayout.setVisibility(LinearLayout.VISIBLE);
                   drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
                   drawerHolder.title.setText(dItem.getTitle());
@@ -75,7 +76,11 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
                               dItem.getImgResID()));
                   drawerHolder.ItemName.setText(dItem.getItemName());
  
-            }
+            }*/
+            
+            drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
+            drawerHolder.title.setText(dItem.getName());
+            
             return view;
       }
  
