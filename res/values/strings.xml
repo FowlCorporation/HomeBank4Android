@@ -19,6 +19,8 @@
     <string name="cardLayout_montant">Montant : </string>
     <string name="overviewCard_today">Aujourd\'hui : </string>
     <string name="overViewCard_future">Future : </string>
-	<string name="overViewCard_solde">Solde : </string>
-    
+    <string name="overViewCard_solde">Solde : </string>
+    <string name="title_activity_detailed_card">DetailedCardActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>
