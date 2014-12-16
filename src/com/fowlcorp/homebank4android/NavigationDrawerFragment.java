@@ -17,10 +17,17 @@
 
 package com.fowlcorp.homebank4android;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fowlcorp.homebank4android.gui.CustomDrawerAdapter;
+import com.fowlcorp.homebank4android.gui.DrawerItem;
+import com.fowlcorp.homebank4android.model.Model;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
@@ -75,9 +82,13 @@ public class NavigationDrawerFragment extends Fragment {
 	private int mCurrentSelectedPosition = 0;
 	private boolean mFromSavedInstanceState;
 	private boolean mUserLearnedDrawer;
+	
+	private Model model = new Model();
 
 	public NavigationDrawerFragment() {
 	}
+	
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -121,13 +132,27 @@ public class NavigationDrawerFragment extends Fragment {
 						selectItem(position);
 					}
 				});
-		mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
+		/*mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
 				.getThemedContext(),
 				android.R.layout.simple_list_item_activated_1,
+				//TODO change the listener
 				android.R.id.text1, new String[] {
 						getString(R.string.title_section1),
 						getString(R.string.title_section2),
-						getString(R.string.title_section3), }));
+						getString(R.string.title_section3), }));*/
+		
+		System.out.println(model.toString());
+		
+		List<DrawerItem> dataList = new ArrayList<DrawerItem>();
+		dataList.add(new DrawerItem("My Favorites"));
+		dataList.add(new DrawerItem("test1", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
+		dataList.add(new DrawerItem("test2", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
+		dataList.add(new DrawerItem("test3", R.drawable.abc_ic_menu_copy_mtrl_am_alpha));
+		
+		CustomDrawerAdapter adapter = new CustomDrawerAdapter(getActivity(), R.layout.custom_drawer_item, dataList);
+		
+		mDrawerListView.setAdapter(adapter);
+		
 		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 		return mDrawerListView;
 	}
@@ -154,6 +179,7 @@ public class NavigationDrawerFragment extends Fragment {
 		// opens
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
+		mDrawerLayout.
 		// set up the drawer's list view with items and click listener
 
 		ActionBar actionBar = getActionBar();
@@ -164,7 +190,7 @@ public class NavigationDrawerFragment extends Fragment {
 		// between the navigation drawer and the action bar app icon.
 		mDrawerToggle = new ActionBarDrawerToggle(getActivity(), /* host Activity */
 		mDrawerLayout, /* DrawerLayout object */
-		R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
+		//R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
 		R.string.navigation_drawer_open, /*
 										 * "open drawer" description for
 										 * accessibility
@@ -297,6 +323,16 @@ public class NavigationDrawerFragment extends Fragment {
 
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
+
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
 
 	/**
 	 * Per the navigation drawer design guidelines, updates the action bar to
@@ -306,7 +342,7 @@ public class NavigationDrawerFragment extends Fragment {
 	private void showGlobalContextActionBar() {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		//actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setTitle(R.string.app_name);
 	}
 

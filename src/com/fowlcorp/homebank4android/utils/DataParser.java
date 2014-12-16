@@ -44,36 +44,22 @@ import com.fowlcorp.homebank4android.model.Payee;
  */
 public class DataParser {
 
-	HashMap<Integer,Payee> payees;
-	HashMap<Integer,Category> categories;
-	HashMap<Integer,Account> accounts;
-	List<Operation> operations;
 	Document dom;
 	Context context;
 
 	public DataParser(Context context) {
-		payees = new HashMap<>();
-		categories = new HashMap<>();
-		accounts = new HashMap<>();
-		operations = new ArrayList<>();
 		this.context = context;
-	}
-
-	public void runExample() {
 		parseXmlFile();
-		parseDocument();
 	}
-
+	
 	private void parseXmlFile() {
 		//get the factory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
 		try {
-
 			//Using factory get an instance of document builder
 			DocumentBuilder db = dbf.newDocumentBuilder();
-
 			//parse using builder to get DOM representation of the XML file
+			// TODO: point to the right file
 			dom = db.parse(context.getResources().getAssets().open("anonymized.xhb"));
 
 		} catch (ParserConfigurationException pce) {
@@ -84,13 +70,13 @@ public class DataParser {
 			ioe.printStackTrace();
 		}
 	}
-
-	private void parseDocument() {
-		//get the root elememt
+	
+	public HashMap<Integer,Payee> parsePayees() {
+		HashMap<Integer,Payee> payees = new HashMap<>();
 		Element docEle = dom.getDocumentElement();
 		Element el;
-		//get a nodelist of <payee> elements
-		NodeList nl = docEle.getElementsByTagName("pay");
+		NodeList nl;
+		nl = docEle.getElementsByTagName("pay");
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
 				el = (Element) nl.item(i);
@@ -100,7 +86,14 @@ public class DataParser {
 				payees.put((Integer)p.getKey(), p); 
 			}
 		}
-		
+		return payees;
+	}
+	
+	public HashMap<Integer,Category> parseCategories() {
+		Element docEle = dom.getDocumentElement();
+		Element el;
+		NodeList nl;
+		HashMap<Integer,Category> categories = new HashMap<>();
 		nl = docEle.getElementsByTagName("cat");
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
@@ -115,7 +108,14 @@ public class DataParser {
 				System.err.println(c.toString());
 			}
 		}
-		
+		return categories;
+	}
+	
+	public HashMap<Integer,Account> parseAccounts() {
+		Element docEle = dom.getDocumentElement();
+		Element el;
+		NodeList nl;
+		HashMap<Integer,Account> accounts = new HashMap<>();
 		nl = docEle.getElementsByTagName("account");
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
@@ -132,7 +132,14 @@ public class DataParser {
 				System.err.println(a.toString());
 			}
 		}
-		
+		return accounts;
+	}
+
+	public List<Operation> parseOperations(HashMap<Integer,Account> accounts, HashMap<Integer,Category> categories, HashMap<Integer,Payee> payees) {				
+		List<Operation> operations = new ArrayList<>();
+		Element docEle = dom.getDocumentElement();
+		Element el;
+		NodeList nl;
 		nl = docEle.getElementsByTagName("ope");
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
@@ -155,6 +162,7 @@ public class DataParser {
 				System.err.println(op.toString());
 			}
 		}
+		return operations;
 	}
 
 }

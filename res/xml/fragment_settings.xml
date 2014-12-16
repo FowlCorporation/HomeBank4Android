@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <EditTextPreference 
+        android:key="dropPath"
+        android:summary="The path of the file in your DropBox"
+        android:dialogTitle="HomeBank file path"/>
+    
+
+</PreferenceScreen>

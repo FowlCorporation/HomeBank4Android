@@ -29,6 +29,7 @@ import com.dropbox.sync.android.DbxList;
 import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.util.FolderLoader;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
+import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
 
 import android.app.Activity;
@@ -38,6 +39,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -74,6 +76,7 @@ public class MainActivity extends Activity implements
 	private DbxAccountManager dropBoxAccountMgr;
 	static final int REQUEST_LINK_TO_DBX = 0;
 	private DbxFileSystem dbxFs;
+	private Model model;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,7 @@ public class MainActivity extends Activity implements
 		doTEst();
 	}
 	
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == REQUEST_LINK_TO_DBX) {
@@ -113,7 +117,7 @@ public class MainActivity extends Activity implements
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction tx = fragmentManager.beginTransaction();
-		tx.replace(R.id.container,new AccountFragment(position+1)).commit();
+		tx.replace(R.id.container,AccountFragment.newInstance(position+1)).commit();
 	}
 
 	public void onSectionAttached(int number) {
@@ -132,7 +136,7 @@ public class MainActivity extends Activity implements
 
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		//actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle(mTitle);
 	}
@@ -214,7 +218,8 @@ public class MainActivity extends Activity implements
 	
 	public void doTEst(){
 		DataParser dp = new DataParser(getApplicationContext());
-		dp.runExample();
+		//dp.runExample();
+		model = new Model();
 //		try {
 //			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
 //			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
