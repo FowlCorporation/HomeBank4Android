@@ -60,7 +60,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements
-		NavigationDrawerFragment.NavigationDrawerCallbacks {
+NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -73,7 +73,7 @@ public class MainActivity extends Activity implements
 	 * {@link #restoreActionBar()}.
 	 */
 	private CharSequence mTitle;
-	
+
 	/**
 	 * 
 	 */
@@ -84,13 +84,13 @@ public class MainActivity extends Activity implements
 	private ArrayList<Account> accountList;
 	private ArrayList<String> bankList;
 	private ArrayList<DrawerItem> drawerList;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		doTEst();
-//		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
-//				"sjt7o80sdtdjsxi");
+		//		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
+		//				"sjt7o80sdtdjsxi");
 		setContentView(R.layout.activity_main);
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
@@ -100,44 +100,46 @@ public class MainActivity extends Activity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-//		if(!dropBoxAccountMgr.hasLinkedAccount()){
-//		dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
-//		}
-		
+		//		if(!dropBoxAccountMgr.hasLinkedAccount()){
+		//		dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
+		//		}
+
 	}
-	
-	
-	
+
+
+
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    if (requestCode == REQUEST_LINK_TO_DBX) {
-	        if (resultCode == Activity.RESULT_OK) {
-	            // ... Start using Dropbox files.
-	        } else {
-	            // ... Link failed or was cancelled by the user.
-	        }
-	    } else {
-	        super.onActivityResult(requestCode, resultCode, data);
-	    }
+		if (requestCode == REQUEST_LINK_TO_DBX) {
+			if (resultCode == Activity.RESULT_OK) {
+				// ... Start using Dropbox files.
+			} else {
+				// ... Link failed or was cancelled by the user.
+			}
+		} else {
+			super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
-		
-		if(!drawerList.get(position).isHeader() && !drawerList.get(position).isOverview()){
+		if(drawerList.get(position).isOverview()){
+
+		} else if(drawerList.get(position).isHeader()){
+
+		} else {
 			for(int i=0;i<accountList.size();i++){
-				if(drawerList.get(position).equals(accountList.get(i).getName())){
+				if(drawerList.get(position).getItemName().equals(accountList.get(i).getName())){
 					position = i;
+					System.out.println(position);
+
+					FragmentManager fragmentManager = getFragmentManager();
+					FragmentTransaction tx = fragmentManager.beginTransaction();
+					tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
 				}
 			}
 		}
-		
-		System.out.println(position);
-		
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction tx = fragmentManager.beginTransaction();
-		tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
 	}
 
 	public void onSectionAttached(int number) {
@@ -152,7 +154,7 @@ public class MainActivity extends Activity implements
 			mTitle = getString(R.string.title_section3);
 			break;
 		}*/
-			mTitle = drawerList.get(number).getItemName();
+		mTitle = drawerList.get(number).getItemName();
 	}
 
 	public void restoreActionBar() {
@@ -192,98 +194,98 @@ public class MainActivity extends Activity implements
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-//	public static class PlaceholderFragment extends Fragment {
-//		/**
-//		 * The fragment argument representing the section number for this
-//		 * fragment.
-//		 */
-//		private static final String ARG_SECTION_NUMBER = "section_number";
-//
-//		/**
-//		 * Returns a new instance of this fragment for the given section number.
-//		 */
-//		public static PlaceholderFragment newInstance(int sectionNumber) {
-//			PlaceholderFragment fragment = new PlaceholderFragment();
-//			Bundle args = new Bundle();
-//			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-//			fragment.setArguments(args);
-//			return fragment;
-//		}
-//
-//		public PlaceholderFragment() {
-//		}
-//
-//		@Override
-//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//				Bundle savedInstanceState) {
-//			View rootView = inflater.inflate(R.layout.fragment_main, container,
-//					false);
-//			LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
-//			for(int i=0;i<1000;i++){
-//				CardView card = new CardView(getActivity());
-//				TextView text = new TextView(getActivity());
-//				text.setText(new String("Ceci est la carte numéro "+i));
-//				card.addView(text);
-//				layout.addView(card);
-//			}
-//			return rootView;
-//		}
-//
-//		@Override
-//		public void onAttach(Activity activity) {
-//			super.onAttach(activity);
-//			((MainActivity) activity).onSectionAttached(getArguments().getInt(
-//					ARG_SECTION_NUMBER));
-//		}
-//	}
-	
+	//	public static class PlaceholderFragment extends Fragment {
+	//		/**
+	//		 * The fragment argument representing the section number for this
+	//		 * fragment.
+	//		 */
+	//		private static final String ARG_SECTION_NUMBER = "section_number";
+	//
+	//		/**
+	//		 * Returns a new instance of this fragment for the given section number.
+	//		 */
+	//		public static PlaceholderFragment newInstance(int sectionNumber) {
+	//			PlaceholderFragment fragment = new PlaceholderFragment();
+	//			Bundle args = new Bundle();
+	//			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+	//			fragment.setArguments(args);
+	//			return fragment;
+	//		}
+	//
+	//		public PlaceholderFragment() {
+	//		}
+	//
+	//		@Override
+	//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	//				Bundle savedInstanceState) {
+	//			View rootView = inflater.inflate(R.layout.fragment_main, container,
+	//					false);
+	//			LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
+	//			for(int i=0;i<1000;i++){
+	//				CardView card = new CardView(getActivity());
+	//				TextView text = new TextView(getActivity());
+	//				text.setText(new String("Ceci est la carte numéro "+i));
+	//				card.addView(text);
+	//				layout.addView(card);
+	//			}
+	//			return rootView;
+	//		}
+	//
+	//		@Override
+	//		public void onAttach(Activity activity) {
+	//			super.onAttach(activity);
+	//			((MainActivity) activity).onSectionAttached(getArguments().getInt(
+	//					ARG_SECTION_NUMBER));
+	//		}
+	//	}
+
 	public void doTEst(){
 		DataParser dp = new DataParser(getApplicationContext());
 		//dp.runExample();
 		model = new Model();
-        model.setAccounts(dp.parseAccounts());
-        model.setCategories((dp.parseCategories()));
-        model.setPayees(dp.parsePayees());
-        model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
+		model.setAccounts(dp.parseAccounts());
+		model.setCategories((dp.parseCategories()));
+		model.setPayees(dp.parsePayees());
+		model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
 
-        accountList = new ArrayList<>(model.getAccounts().values());
-        
-        bankList = new ArrayList<String>();
-        drawerList = new ArrayList<DrawerItem>();
-        
-        for(int i=0;i<accountList.size();i++){
-        	if(!bankList.contains(accountList.get(i).getBankName())){
-        		bankList.add(accountList.get(i).getBankName());
-        	}
-        }
-        drawerList.add(new DrawerItem(getResources().getString(R.string.overViewDrawerItem),
-        		-1,
-        		true,
-        		false));
-        
-        for(int i=0;i<bankList.size();i++){
-        	drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));
-        	for(int j=0;j<accountList.size();j++){
-        		if(accountList.get(j).getBankName().equals(bankList.get(i))){
-        			drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, false, false));
-        		}
-        	}
-        }
-        
-//		try {
-//			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-//			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
-//			System.out.println("liste des fichier");
-//			for (DbxFileInfo info : infos) {
-//                System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
-//            }
-//			DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.txt");
-//			FolderLoader folderLoader = new FolderLoader(getApplicationContext(), dropBoxAccountMgr, path);
-//			DbxFile file = dbxFs.open(path);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		accountList = new ArrayList<>(model.getAccounts().values());
+
+		bankList = new ArrayList<String>();
+		drawerList = new ArrayList<DrawerItem>();
+
+		for(int i=0;i<accountList.size();i++){
+			if(!bankList.contains(accountList.get(i).getBankName())){
+				bankList.add(accountList.get(i).getBankName());
+			}
+		}
+		drawerList.add(new DrawerItem(getResources().getString(R.string.overViewDrawerItem),
+				-1,
+				true,
+				false));
+
+		for(int i=0;i<bankList.size();i++){
+			drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));
+			for(int j=0;j<accountList.size();j++){
+				if(accountList.get(j).getBankName().equals(bankList.get(i))){
+					drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, false, false));
+				}
+			}
+		}
+
+		//		try {
+			//			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+		//			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
+		//			System.out.println("liste des fichier");
+		//			for (DbxFileInfo info : infos) {
+		//                System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
+		//            }
+		//			DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.txt");
+		//			FolderLoader folderLoader = new FolderLoader(getApplicationContext(), dropBoxAccountMgr, path);
+		//			DbxFile file = dbxFs.open(path);
+		//		} catch (Exception e) {
+		//			// TODO Auto-generated catch block
+		//			e.printStackTrace();
+		//		}
 	}
 
 
@@ -317,7 +319,7 @@ public class MainActivity extends Activity implements
 	public void setDrawerList(ArrayList<DrawerItem> drawerList) {
 		this.drawerList = drawerList;
 	}
-	
-	
+
+
 
 }

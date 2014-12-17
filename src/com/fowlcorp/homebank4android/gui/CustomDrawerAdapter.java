@@ -83,8 +83,6 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
 					drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(
 					              dItem.getImgResID()));
 				} catch (NotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
                   drawerHolder.ItemName.setText(dItem.getItemName());
  
