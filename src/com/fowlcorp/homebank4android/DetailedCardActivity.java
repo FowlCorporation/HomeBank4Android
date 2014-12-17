@@ -14,34 +14,39 @@ public class DetailedCardActivity extends Activity {
 	private Spinner payee;
 	private TextView wording;
 	private TextView balance;
-	private TextView amount;
+	private EditText amount;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle bdl = this.getIntent().getExtras();
-//		int day = bdl.getInt("Day");
-//		int month = bdl.getInt("Month");
-//		int year = bdl.getInt("Year");
-//		System.out.println(day+"/"+month+"/"+year);		
 
 		//Get ids
 		date = (EditText) findViewById(R.id.detailedCardDate);
 		category = (Spinner) findViewById(R.id.detailedCardCategory);
 		payee = (Spinner) findViewById(R.id.detailedCardPayee);
+		amount = (EditText) findViewById(R.id.detailedCardAmount);
 		
 		try {
-			date.setText(bdl.getString("Date"));
+			date.setText((String) bdl.getString("Date"), TextView.BufferType.SPANNABLE);
+		} catch (Exception e) {
+		}
+		try {
+			category.setTag(bdl.getString("Category"));
+		} catch (Exception e) {
+		}
+		try {
+			payee.setTag(bdl.getString("Payee"));
 		} catch (Exception e) {
 		}
 //		try {
-//			category.setText(context.getString(R.string.cardLayout_category)+" "+operation.getCategory().getName());
+//			wording.setText(bdl.getString("Wording"), TextView.BufferType.SPANNABLE);
 //		} catch (Exception e) {
 //		}
-//		try {
-//			tier.setText(context.getString(R.string.cardLayout_tier)+" "+operation.getPayee().getName());
-//		} catch (Exception e) {
-//		}
+		try {
+			amount.setText(bdl.getString("Amount"));
+		} catch (Exception e) {
+		}
 		
 		setContentView(R.layout.activity_detailed_card);
 	}

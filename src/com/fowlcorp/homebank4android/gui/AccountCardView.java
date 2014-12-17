@@ -67,10 +67,11 @@ public class AccountCardView extends CardView {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(context.getApplicationContext(), DetailedCardActivity.class);
-//				intent.putExtra("Day", myDate.get(Calendar.DAY_OF_MONTH));
-//				intent.putExtra("Month", myDate.get(Calendar.MONTH));
-//				intent.putExtra("Year", myDate.get(Calendar.YEAR));
 				intent.putExtra("Date", df.format(myDate.getTime()));
+				intent.putExtra("Category", operation.getCategory().getName());
+				intent.putExtra("Payee", operation.getPayee().getName());
+				intent.putExtra("Wording", operation.getWording());
+				intent.putExtra("Amount", String.valueOf(operation.getAmount()));
 				context.startActivity(intent);
 			}
 		});
