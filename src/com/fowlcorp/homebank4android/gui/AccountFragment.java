@@ -86,7 +86,7 @@ public class AccountFragment extends Fragment{
 		LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 		overview.addView(over);
-		for(int i=operation.size()-1; i>0; i--){
+		for(int i=operation.size()-1; i>=0; i--){
 			AccountCardView card = new AccountCardView(getActivity(), (ViewGroup) this.getView(), operation.get(i));
 			layout.addView(card);
 		}
