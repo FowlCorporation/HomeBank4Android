@@ -44,6 +44,7 @@ public class AccountFragment extends Fragment{
 	private ArrayList<Account> accountList;
 	private List<Operation> operation;
 	private Model model;
+	private ArrayList<DrawerItem> drawerList;
 
 	public AccountFragment(){
 
@@ -67,7 +68,13 @@ public class AccountFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+//		if(!drawerList.get(sectionNumber).isHeader() && !drawerList.get(sectionNumber).isOverview()){
+//			for(int i=0;i<accountList.size();i++){
+//				if(drawerList.get(sectionNumber).equals(accountList.get(i).getName())){
+//					sectionNumber = i;
+//				}
+//			}
+//		}
 		int key = accountList.get(sectionNumber).getKey();
         model.setSelectedAccount(key);
         model.updateOperationAccountBalance();
@@ -100,5 +107,6 @@ public class AccountFragment extends Fragment{
 				ARG_SECTION_NUMBER));
 		model = ((MainActivity) activity).getModel();
 		accountList = ((MainActivity) activity).getAccountList();
+		drawerList = ((MainActivity) activity).getDrawerList();
 	}
 }

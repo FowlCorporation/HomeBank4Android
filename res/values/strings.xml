@@ -26,5 +26,6 @@
     <string name="detailedCardLayout_category">Category</string>
     <string name="detailedCardLayout_payee">Payee</string>
     <string name="detailedCardLayout_amount">Amount</string>
+    <string name="overViewDrawerItem">Overview</string>
 
 </resources>

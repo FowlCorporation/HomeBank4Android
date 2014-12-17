@@ -21,6 +21,8 @@ public class DetailedCardActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Bundle bdl = this.getIntent().getExtras();
 
+		setContentView(R.layout.activity_detailed_card);
+		
 		//Get ids
 		date = (EditText) findViewById(R.id.detailedCardDate);
 		category = (Spinner) findViewById(R.id.detailedCardCategory);
@@ -47,8 +49,6 @@ public class DetailedCardActivity extends Activity {
 			amount.setText(bdl.getString("Amount"));
 		} catch (Exception e) {
 		}
-		
-		setContentView(R.layout.activity_detailed_card);
 	}
 
 	@Override

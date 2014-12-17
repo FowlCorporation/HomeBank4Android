@@ -30,6 +30,7 @@ import com.dropbox.sync.android.DbxList;
 import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.util.FolderLoader;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
+import com.fowlcorp.homebank4android.gui.DrawerItem;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
@@ -81,6 +82,8 @@ public class MainActivity extends Activity implements
 	private DbxFileSystem dbxFs;
 	private Model model;
 	private ArrayList<Account> accountList;
+	private ArrayList<String> bankList;
+	private ArrayList<DrawerItem> drawerList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +124,17 @@ public class MainActivity extends Activity implements
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
+		
+		if(!drawerList.get(position).isHeader() && !drawerList.get(position).isOverview()){
+			for(int i=0;i<accountList.size();i++){
+				if(drawerList.get(position).equals(accountList.get(i).getName())){
+					position = i;
+				}
+			}
+		}
+		
+		System.out.println(position);
+		
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction tx = fragmentManager.beginTransaction();
 		tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
@@ -138,7 +152,7 @@ public class MainActivity extends Activity implements
 			mTitle = getString(R.string.title_section3);
 			break;
 		}*/
-			mTitle = accountList.get(number).getName();
+			mTitle = drawerList.get(number).getItemName();
 	}
 
 	public void restoreActionBar() {
@@ -234,6 +248,28 @@ public class MainActivity extends Activity implements
 
         accountList = new ArrayList<>(model.getAccounts().values());
         
+        bankList = new ArrayList<String>();
+        drawerList = new ArrayList<DrawerItem>();
+        
+        for(int i=0;i<accountList.size();i++){
+        	if(!bankList.contains(accountList.get(i).getBankName())){
+        		bankList.add(accountList.get(i).getBankName());
+        	}
+        }
+        drawerList.add(new DrawerItem(getResources().getString(R.string.overViewDrawerItem),
+        		-1,
+        		true,
+        		false));
+        
+        for(int i=0;i<bankList.size();i++){
+        	drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));
+        	for(int j=0;j<accountList.size();j++){
+        		if(accountList.get(j).getBankName().equals(bankList.get(i))){
+        			drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, false, false));
+        		}
+        	}
+        }
+        
 //		try {
 //			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
 //			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
@@ -268,6 +304,18 @@ public class MainActivity extends Activity implements
 
 	public void setAccountList(ArrayList<Account> accountList) {
 		this.accountList = accountList;
+	}
+
+
+
+	public ArrayList<DrawerItem> getDrawerList() {
+		return drawerList;
+	}
+
+
+
+	public void setDrawerList(ArrayList<DrawerItem> drawerList) {
+		this.drawerList = drawerList;
 	}
 	
 	

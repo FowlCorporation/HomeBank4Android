@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources.NotFoundException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +16,14 @@ import android.widget.TextView;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
  
-public class CustomDrawerAdapter extends ArrayAdapter<Account> {
+public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
  
       Context context;
-      List<Account> drawerItemList;
+      List<DrawerItem> drawerItemList;
       int layoutResID;
  
       public CustomDrawerAdapter(Context context, int layoutResourceID,
-                  List<Account> listItems) {
+                  List<DrawerItem> listItems) {
             super(context, layoutResourceID, listItems);
             this.context = context;
             this.drawerItemList = listItems;
@@ -60,26 +61,37 @@ public class CustomDrawerAdapter extends ArrayAdapter<Account> {
  
             }
  
-            Account dItem = (Account) this.drawerItemList.get(position);
+            DrawerItem dItem = (DrawerItem) this.drawerItemList.get(position);
  
-            /*if (dItem.getTitle() != null) {
-                  drawerHolder.headerLayout.setVisibility(LinearLayout.VISIBLE);
-                  drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
-                  drawerHolder.title.setText(dItem.getTitle());
+            if (dItem.isOverview()) {
+                  drawerHolder.headerLayout.setVisibility(LinearLayout.INVISIBLE);
+                  drawerHolder.itemLayout.setVisibility(LinearLayout.VISIBLE);
+                  drawerHolder.ItemName.setText(dItem.getItemName());
  
+            }else if(dItem.isHeader()){
+            	
+            	drawerHolder.headerLayout.setVisibility(LinearLayout.VISIBLE);
+                drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
+                drawerHolder.title.setText(dItem.getItemName());
             } else {
+            
  
                   drawerHolder.headerLayout.setVisibility(LinearLayout.INVISIBLE);
                   drawerHolder.itemLayout.setVisibility(LinearLayout.VISIBLE);
  
-                  drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(
-                              dItem.getImgResID()));
+                  try {
+					drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(
+					              dItem.getImgResID()));
+				} catch (NotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                   drawerHolder.ItemName.setText(dItem.getItemName());
  
-            }*/
+            }
             
-            drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
-            drawerHolder.title.setText(dItem.getName());
+           /* drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
+            drawerHolder.title.setText(dItem.getItemName());*/
             
             return view;
       }

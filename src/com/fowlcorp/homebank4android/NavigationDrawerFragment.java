@@ -85,7 +85,7 @@ public class NavigationDrawerFragment extends Fragment {
 	private boolean mUserLearnedDrawer;
 	
 	private Model model;
-	private ArrayList<Account> accountList;
+	private ArrayList<DrawerItem> accountList;
 	
 	public NavigationDrawerFragment() {
 	}
@@ -145,7 +145,7 @@ public class NavigationDrawerFragment extends Fragment {
 		
 		System.out.println(model.toString());
 		
-		List<Account> dataList = new ArrayList<Account>(accountList);
+		List<DrawerItem> dataList = new ArrayList<DrawerItem>(accountList);
 		
 		
 		/*List<DrawerItem> dataList = new ArrayList<DrawerItem>();
@@ -276,7 +276,7 @@ public class NavigationDrawerFragment extends Fragment {
 			mCallbacks = (NavigationDrawerCallbacks) activity;
 			MainActivity mainAct = (MainActivity) activity;
 			model = mainAct.getModel();
-			accountList = mainAct.getAccountList();
+			accountList = mainAct.getDrawerList();
 		} catch (ClassCastException e) {
 			throw new ClassCastException(
 					"Activity must implement NavigationDrawerCallbacks.");
