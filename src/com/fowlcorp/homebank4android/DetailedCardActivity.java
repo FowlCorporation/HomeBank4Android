@@ -4,14 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class DetailedCardActivity extends Activity {
 	private EditText date;
-	private Spinner category;
-	private Spinner payee;
+	private AutoCompleteTextView category;
+	private AutoCompleteTextView payee;
 	private TextView wording;
 	private TextView balance;
 	private EditText amount;
@@ -25,8 +26,8 @@ public class DetailedCardActivity extends Activity {
 		
 		//Get ids
 		date = (EditText) findViewById(R.id.detailedCardDate);
-		category = (Spinner) findViewById(R.id.detailedCardCategory);
-		payee = (Spinner) findViewById(R.id.detailedCardPayee);
+		category = (AutoCompleteTextView) findViewById(R.id.detailedCardCategory);
+		payee = (AutoCompleteTextView) findViewById(R.id.detailedCardPayee);
 		amount = (EditText) findViewById(R.id.detailedCardAmount);
 		
 		try {
@@ -34,11 +35,11 @@ public class DetailedCardActivity extends Activity {
 		} catch (Exception e) {
 		}
 		try {
-			category.setTag(bdl.getString("Category"));
+			category.setText(bdl.getString("Category"));
 		} catch (Exception e) {
 		}
 		try {
-			payee.setTag(bdl.getString("Payee"));
+			payee.setText(bdl.getString("Payee"));
 		} catch (Exception e) {
 		}
 //		try {
