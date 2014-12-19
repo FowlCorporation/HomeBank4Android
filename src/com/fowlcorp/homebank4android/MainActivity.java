@@ -45,6 +45,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.DropBoxManager;
 import android.preference.PreferenceFragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -84,13 +85,15 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	private ArrayList<Account> accountList;
 	private ArrayList<String> bankList;
 	private ArrayList<DrawerItem> drawerList;
+	private DbxFile file;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
+				"sjt7o80sdtdjsxi");
 		doTEst();
-		//		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
-		//				"sjt7o80sdtdjsxi");
 		setContentView(R.layout.activity_main);
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
@@ -101,9 +104,9 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-		//		if(!dropBoxAccountMgr.hasLinkedAccount()){
-		//		dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
-		//		}
+		if(!dropBoxAccountMgr.hasLinkedAccount()){
+			dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
+		}
 
 	}
 
@@ -185,7 +188,21 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	public void doTEst(){
 		System.out.println("run the test \0/");
-		DataParser dp = new DataParser(getApplicationContext());
+		try {
+			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
+			System.out.println("liste des fichier");
+			for (DbxFileInfo info : infos) {
+				System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
+			}
+			DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.txt");
+			FolderLoader folderLoader = new FolderLoader(getApplicationContext(), dropBoxAccountMgr, path);
+			file = dbxFs.open(infos.get(0).path);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DataParser dp = new DataParser(getApplicationContext(), file);
 		//dp.runExample();
 		model = new Model();
 		model.setAccounts(dp.parseAccounts());
@@ -216,21 +233,6 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 				}
 			}
 		}
-
-		//		try {
-			//			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-		//			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
-		//			System.out.println("liste des fichier");
-		//			for (DbxFileInfo info : infos) {
-		//                System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
-		//            }
-		//			DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.txt");
-		//			FolderLoader folderLoader = new FolderLoader(getApplicationContext(), dropBoxAccountMgr, path);
-		//			DbxFile file = dbxFs.open(path);
-		//		} catch (Exception e) {
-		//			// TODO Auto-generated catch block
-		//			e.printStackTrace();
-		//		}
 	}
 
 
@@ -266,15 +268,15 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	}
 
 	@Override
-	  protected void onDestroy() {
-	    super.onDestroy();
-	    System.out.println("on destroy");
-	    if (isFinishing()) {
-	      
-	    } else { 
-	      
-	    }
-	  }
+	protected void onDestroy() {
+		super.onDestroy();
+		System.out.println("on destroy");
+		if (isFinishing()) {
+
+		} else { 
+
+		}
+	}
 
 
 }

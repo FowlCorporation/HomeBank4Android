@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.dropbox.sync.android.DbxFile;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Category;
 import com.fowlcorp.homebank4android.model.Operation;
@@ -46,9 +47,11 @@ public class DataParser {
 
 	Document dom;
 	Context context;
+	DbxFile file;
 
-	public DataParser(Context context) {
+	public DataParser(Context context, DbxFile file) {
 		this.context = context;
+		this.file = file;
 		parseXmlFile();
 	}
 	
@@ -60,7 +63,8 @@ public class DataParser {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			//parse using builder to get DOM representation of the XML file
 			// TODO: point to the right file
-			dom = db.parse(context.getResources().getAssets().open("anonymized.xhb"));
+			//dom = db.parse(context.getResources().getAssets().open("anonymized.xhb"));
+			dom = db.parse(file.getReadStream());
 
 		} catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
