@@ -95,6 +95,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
+		mNavigationDrawerFragment.setRetainInstance(true);
 		mTitle = getTitle();
 
 		// Set up the drawer.
@@ -127,18 +128,6 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		} else if(drawerList.get(position).isHeader()){
 
 		} else {
-			/*for(int i=0;i<accountList.size();i++){
-				if(drawerList.get(position).getItemName().equals(accountList.get(i).getName())){
-					position = i;
-					System.out.println(position);
-
-					FragmentManager fragmentManager = getFragmentManager();
-					FragmentTransaction tx = fragmentManager.beginTransaction();
-					tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
-				}
-				
-				
-			}*/
 			FragmentManager fragmentManager = getFragmentManager();
 			FragmentTransaction tx = fragmentManager.beginTransaction();
 			tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
@@ -195,6 +184,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	}
 
 	public void doTEst(){
+		System.out.println("run the test \0/");
 		DataParser dp = new DataParser(getApplicationContext());
 		//dp.runExample();
 		model = new Model();
@@ -275,6 +265,16 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		this.drawerList = drawerList;
 	}
 
+	@Override
+	  protected void onDestroy() {
+	    super.onDestroy();
+	    System.out.println("on destroy");
+	    if (isFinishing()) {
+	      
+	    } else { 
+	      
+	    }
+	  }
 
 
 }
