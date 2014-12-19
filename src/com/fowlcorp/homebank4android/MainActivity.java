@@ -105,20 +105,6 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		//		}
 
 	}
-	
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-	    super.onConfigurationChanged(newConfig);
-
-	    // Checks the orientation of the screen
-	    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-	        Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
-	    } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-	        Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
-	    }
-	}
-
-
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -141,7 +127,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		} else if(drawerList.get(position).isHeader()){
 
 		} else {
-			for(int i=0;i<accountList.size();i++){
+			/*for(int i=0;i<accountList.size();i++){
 				if(drawerList.get(position).getItemName().equals(accountList.get(i).getName())){
 					position = i;
 					System.out.println(position);
@@ -150,7 +136,12 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 					FragmentTransaction tx = fragmentManager.beginTransaction();
 					tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
 				}
-			}
+				
+				
+			}*/
+			FragmentManager fragmentManager = getFragmentManager();
+			FragmentTransaction tx = fragmentManager.beginTransaction();
+			tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
 		}
 	}
 

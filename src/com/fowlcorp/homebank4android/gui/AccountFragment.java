@@ -68,24 +68,16 @@ public class AccountFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-//		if(!drawerList.get(sectionNumber).isHeader() && !drawerList.get(sectionNumber).isOverview()){
-//			for(int i=0;i<accountList.size();i++){
-//				if(drawerList.get(sectionNumber).equals(accountList.get(i).getName())){
-//					sectionNumber = i;
-//				}
-//			}
-//		}
+		
+		for(int i=0;i<accountList.size();i++){
+			if(drawerList.get(sectionNumber).getItemName().equals(accountList.get(i).getName())){
+				sectionNumber = i;
+			}
+		}
 		int key = accountList.get(sectionNumber).getKey();
         model.setSelectedAccount(key);
         model.updateOperationAccountBalance();
 	    operation = model.getOperations(model.getAccounts().get(key));
-	    System.out.println("section number : "+sectionNumber+" number of operation : "+operation.size());
-//	    for(int i=0; i<model.getOperations().size();i++){
-//	    	if(model.getOperations().get(i).getAccount().equals(model.getAccounts().get(key))){
-//	    		operation.add(model.getOperations().get(i));
-//	    	}
-//	    }
-	    System.out.println("number of operation : "+operation.size());
 		View rootView = inflater.inflate(R.layout.fragment_main, container,
 				false);
 		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView());
