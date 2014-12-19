@@ -105,6 +105,18 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		//		}
 
 	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+
+	    // Checks the orientation of the screen
+	    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+	        Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+	    } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+	        Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+	    }
+	}
 
 
 
@@ -190,54 +202,6 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	//	public static class PlaceholderFragment extends Fragment {
-	//		/**
-	//		 * The fragment argument representing the section number for this
-	//		 * fragment.
-	//		 */
-	//		private static final String ARG_SECTION_NUMBER = "section_number";
-	//
-	//		/**
-	//		 * Returns a new instance of this fragment for the given section number.
-	//		 */
-	//		public static PlaceholderFragment newInstance(int sectionNumber) {
-	//			PlaceholderFragment fragment = new PlaceholderFragment();
-	//			Bundle args = new Bundle();
-	//			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-	//			fragment.setArguments(args);
-	//			return fragment;
-	//		}
-	//
-	//		public PlaceholderFragment() {
-	//		}
-	//
-	//		@Override
-	//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-	//				Bundle savedInstanceState) {
-	//			View rootView = inflater.inflate(R.layout.fragment_main, container,
-	//					false);
-	//			LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
-	//			for(int i=0;i<1000;i++){
-	//				CardView card = new CardView(getActivity());
-	//				TextView text = new TextView(getActivity());
-	//				text.setText(new String("Ceci est la carte numéro "+i));
-	//				card.addView(text);
-	//				layout.addView(card);
-	//			}
-	//			return rootView;
-	//		}
-	//
-	//		@Override
-	//		public void onAttach(Activity activity) {
-	//			super.onAttach(activity);
-	//			((MainActivity) activity).onSectionAttached(getArguments().getInt(
-	//					ARG_SECTION_NUMBER));
-	//		}
-	//	}
 
 	public void doTEst(){
 		DataParser dp = new DataParser(getApplicationContext());

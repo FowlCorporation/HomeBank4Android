@@ -17,6 +17,7 @@
 
 package com.fowlcorp.homebank4android.gui;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -92,6 +93,9 @@ public class AccountCardView extends CardView {
 		String year = operation.getDate().getDisplayName(GregorianCalendar.YEAR, GregorianCalendar.LONG, Locale.FRANCE);
 		
 		String formatDate = day+"/"+month+"/"+year;*/
+		      
+		double montantdec = Math.round(operation.getBalanceAccount()*100);
+		montantdec = montantdec/100;
 		
 		try {
 			date.setText(context.getString(R.string.cardLayout_date)+" "+df.format(myDate.getTime()));
@@ -114,7 +118,7 @@ public class AccountCardView extends CardView {
 		} catch (Exception e) {
 		}
         try {
-            solde.setText(colorText(context.getString(R.string.cardLayout_solde) + " ", String.valueOf(operation.getBalanceAccount())));
+            solde.setText(colorText(context.getString(R.string.cardLayout_solde) + " ", String.valueOf(montantdec)));
         } catch (Exception e) {
         }
 		
