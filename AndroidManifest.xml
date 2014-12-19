@@ -63,6 +63,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fowlcorp.homebank4android.MainActivity" />
         </activity>
+        <activity
+            android:name=".DropBoxFileActivity"
+            android:label="@string/title_activity_drop_box_file"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fowlcorp.homebank4android.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

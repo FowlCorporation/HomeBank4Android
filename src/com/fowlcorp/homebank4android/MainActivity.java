@@ -42,11 +42,13 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.DropBoxManager;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -80,12 +82,14 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	 */
 	private DbxAccountManager dropBoxAccountMgr;
 	static final int REQUEST_LINK_TO_DBX = 0;
+	static final int DROP_PATH_OK = 1000;
 	private DbxFileSystem dbxFs;
 	private Model model;
 	private ArrayList<Account> accountList;
 	private ArrayList<String> bankList;
 	private ArrayList<DrawerItem> drawerList;
 	private DbxFile file;
+	private DataParser dp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +121,10 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 				// ... Start using Dropbox files.
 			} else {
 				// ... Link failed or was cancelled by the user.
+			}
+		} else if(requestCode == DROP_PATH_OK){
+			if(resultCode == Activity.RESULT_OK){
+				doTEst();
 			}
 		} else {
 			super.onActivityResult(requestCode, resultCode, data);
@@ -188,6 +196,10 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	public void doTEst(){
 		System.out.println("run the test \0/");
+		
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String pathPref = sharedPreferences.getString("dropPath", "");
+		System.out.println(pathPref);
 		try {
 			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
 			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
@@ -195,14 +207,16 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 			for (DbxFileInfo info : infos) {
 				System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
 			}
-			DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.txt");
-			FolderLoader folderLoader = new FolderLoader(getApplicationContext(), dropBoxAccountMgr, path);
-			file = dbxFs.open(infos.get(0).path);
+			//DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.xml");
+			DbxPath path = new DbxPath(pathPref);
+			file = dbxFs.open(path);
+			dp = new DataParser(getApplicationContext(), file);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			dp = new DataParser(getApplicationContext());
+			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
+			startActivityForResult(intent, DROP_PATH_OK);
 		}
-		DataParser dp = new DataParser(getApplicationContext(), file);
+		
 		//dp.runExample();
 		model = new Model();
 		model.setAccounts(dp.parseAccounts());

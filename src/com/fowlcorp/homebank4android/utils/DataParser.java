@@ -47,15 +47,38 @@ public class DataParser {
 
 	Document dom;
 	Context context;
-	DbxFile file;
 
 	public DataParser(Context context, DbxFile file) {
 		this.context = context;
-		this.file = file;
+		parseXmlFile(file);
+	}
+	
+	public DataParser(Context context) {
+		this.context = context;
 		parseXmlFile();
 	}
 	
 	private void parseXmlFile() {
+		//get the factory
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		try {
+			//Using factory get an instance of document builder
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			//parse using builder to get DOM representation of the XML file
+			// TODO: point to the right file
+			dom = db.parse(context.getResources().getAssets().open("anonymized.xhb"));
+			//dom = db.parse(file.getReadStream());
+
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (SAXException se) {
+			se.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+	
+	private void parseXmlFile(DbxFile file) {
 		//get the factory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		try {
@@ -74,6 +97,8 @@ public class DataParser {
 			ioe.printStackTrace();
 		}
 	}
+	
+	
 	
 	public HashMap<Integer,Payee> parsePayees() {
 		HashMap<Integer,Payee> payees = new HashMap<>();
