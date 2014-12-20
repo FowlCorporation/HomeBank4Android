@@ -28,5 +28,10 @@
     <string name="detailedCardLayout_amount">Amount</string>
     <string name="overViewDrawerItem">Overview</string>
     <string name="title_activity_drop_box_file">DropBoxFileActivity</string>
+    <string name="detailedCardLayout_wording">Wording</string>
+    <string name="none">None</string>
+    <string name="cleared">Cleared</string>
+    <string name="reconciled">Reconciled</string>
+    <string name="remind">Remind</string>
 
 </resources>

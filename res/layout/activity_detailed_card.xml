@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_column="2"
-        android:layout_gravity="start|center|top"
+        android:layout_gravity="start|center_vertical"
         android:layout_row="1"
         android:ems="10"
         android:inputType="date" >
@@ -43,13 +43,14 @@
         android:layout_row="2"
         android:text="@string/detailedCardLayout_category" />
 
-    <AutoCompleteTextView android:text="AutoCompleteTextView"
+    <AutoCompleteTextView
         android:id="@+id/detailedCardCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_column="2"
-        android:layout_gravity="start|top"
-        android:layout_row="2" />
+        android:layout_gravity="start|center_vertical"
+        android:layout_row="2"
+        android:text="AutoCompleteTextView" />
 
     <TextView
         android:id="@+id/detailedCardPayeeLabel"
@@ -58,13 +59,14 @@
         android:layout_row="3"
         android:text="@string/detailedCardLayout_payee" />
 
-    <AutoCompleteTextView android:text="AutoCompleteTextView"
+    <AutoCompleteTextView
         android:id="@+id/detailedCardPayee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_column="2"
-        android:layout_gravity="start|top"
-        android:layout_row="3" />
+        android:layout_gravity="start|center_vertical"
+        android:layout_row="3"
+        android:text="AutoCompleteTextView" />
 
     <TextView
         android:id="@+id/detailedCardAmountLabel"
@@ -75,10 +77,63 @@
 
     <EditText
         android:id="@+id/detailedCardAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_column="2"
-        android:layout_gravity="start|top"
+        android:layout_gravity="start|center_vertical"
         android:layout_row="4"
         android:ems="10"
         android:inputType="numberDecimal" />
+
+    <TextView
+        android:id="@+id/detailedCardWordingLabel"
+        android:layout_column="1"
+        android:layout_gravity="start|center_vertical"
+        android:layout_row="7"
+        android:text="@string/detailedCardLayout_wording" />
+
+    <EditText
+        android:id="@+id/detailedCardWording"
+        android:layout_column="2"
+        android:layout_gravity="start|center_vertical"
+        android:layout_row="7"
+        android:ems="10"
+        android:inputType="textAutoCorrect" />
+
+    <RadioGroup
+        android:id="@+id/detailedCardState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_gravity="start|center_vertical"
+        android:layout_row="5"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/detailedCardState_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/none" />
+
+        <RadioButton
+            android:id="@+id/detailedCardState_cleared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cleared" />
+
+        <RadioButton
+            android:id="@+id/detailedCardState_reconciled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reconciled" />
+
+        <RadioButton
+            android:id="@+id/detailedCardState_remind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remind" />
+
+    </RadioGroup>
 
 </GridLayout>
