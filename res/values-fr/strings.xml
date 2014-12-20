@@ -2,15 +2,14 @@
 
     <string name="action_example">Ajouter une opération</string>
     <string name="action_settings">Paramètres</string>
-    <string name="cardLayout_category">Catégorie :</string>
-    <string name="cardLayout_montant">Montant :</string>
-    <string name="cardLayout_solde">Solde :</string>
-    <string name="cardLayout_tier">Tier :</string>
-    <string name="detailedCardLayout_category">Catégorie</string>
+    <string name="category">Catégorie</string>
+    <string name="amount">Montant</string>
+    <string name="balance">Solde :</string>
+    <string name="payee">Tier :</string>
     <string name="dropbox_header">Paramètres Dropbox</string>
     <string name="dropbox_header_description">Changer les paramètres Dropbox</string>
     <string name="overViewCard_solde">Solde :</string>
-    <string name="overviewCard_today">Aujourd\'hui :</string>
+    <string name="today">Aujourd\'hui :</string>
     <string name="pref_header_general">Général</string>
     <string name="title_activity_settings">Paramètres</string>
     <string name="overViewDrawerItem">Synthèse</string>

@@ -12,10 +12,10 @@
             android:id="@+id/cardLayout_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:gravity="start"
             android:orientation="horizontal"
-            android:layout_weight="0.5"
-            android:text="@string/cardLayout_date" />
+            android:text="@string/date" />
 
         <TextView
             android:id="@+id/cardLayout_category"
@@ -24,35 +24,35 @@
             android:layout_gravity="end"
             android:layout_weight="0.5"
             android:orientation="horizontal"
-            android:text="@string/cardLayout_category" />
+            android:text="@string/category" />
     </LinearLayout>
 
     <TextView
-            android:id="@+id/cardLayout_tier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:text="@string/cardLayout_tier" />
+        android:id="@+id/cardLayout_tier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:text="@string/payee" />
     
     <TextView
-            android:id="@+id/cardLayout_memo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:text="@string/cardLayout_memo" />
+        android:id="@+id/cardLayout_memo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:text="@string/wording" />
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         
          <TextView
-            android:id="@+id/cardLayout_solde"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:orientation="horizontal"
-            android:layout_weight="0.5"
-            android:text="@string/cardLayout_solde" />
+             android:id="@+id/cardLayout_solde"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="0.5"
+             android:gravity="start"
+             android:orientation="horizontal"
+             android:text="@string/balance" />
 
         <TextView
             android:id="@+id/cardLayout_montant"
@@ -61,7 +61,7 @@
             android:layout_gravity="end"
             android:layout_weight="0.5"
             android:orientation="horizontal"
-            android:text="@string/cardLayout_montant" />
+            android:text="@string/amount" />
     </LinearLayout>
 
 </LinearLayout>

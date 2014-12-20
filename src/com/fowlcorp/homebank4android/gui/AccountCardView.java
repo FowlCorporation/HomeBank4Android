@@ -49,10 +49,10 @@ public class AccountCardView extends CardView {
 	
 	private TextView date;
 	private TextView category;
-	private TextView tier;
-	private TextView memo;
-	private TextView solde;
-	private TextView montant;
+	private TextView payee;
+	private TextView wording;
+	private TextView balance;
+	private TextView amount;
 	private Context context;
 	private Calendar myDate;
 	
@@ -82,10 +82,10 @@ public class AccountCardView extends CardView {
 		
 		date = (TextView) view.findViewById(R.id.cardLayout_date);
 		category = (TextView) view.findViewById(R.id.cardLayout_category);
-		tier = (TextView) view.findViewById(R.id.cardLayout_tier);
-		memo = (TextView) view.findViewById(R.id.cardLayout_memo);
-		solde = (TextView) view.findViewById(R.id.cardLayout_solde);
-		montant = (TextView) view.findViewById(R.id.cardLayout_montant);
+		payee = (TextView) view.findViewById(R.id.cardLayout_tier);
+		wording = (TextView) view.findViewById(R.id.cardLayout_memo);
+		balance = (TextView) view.findViewById(R.id.cardLayout_solde);
+		amount = (TextView) view.findViewById(R.id.cardLayout_montant);
 		
 		
 		
@@ -98,27 +98,27 @@ public class AccountCardView extends CardView {
 		montantdec = montantdec/100;
 		
 		try {
-			date.setText(context.getString(R.string.cardLayout_date)+" "+df.format(myDate.getTime()));
+			date.setText(context.getString(R.string.date)+" : "+df.format(myDate.getTime()));
 		} catch (Exception e) {
 		}
 		try {
-			category.setText(context.getString(R.string.cardLayout_category)+" "+operation.getCategory().getName());
+			category.setText(context.getString(R.string.category)+" : "+operation.getCategory().getName());
 		} catch (Exception e) {
 		}
 		try {
-			tier.setText(context.getString(R.string.cardLayout_tier)+" "+operation.getPayee().getName());
+			payee.setText(context.getString(R.string.payee)+" : "+operation.getPayee().getName());
 		} catch (Exception e) {
 		}
 		try {
-			memo.setText(context.getString(R.string.cardLayout_memo)+" "+operation.getWording());
+			wording.setText(context.getString(R.string.wording)+" : "+operation.getWording());
 		} catch (Exception e) {
 		}
 		try {
-            montant.setText(colorText(context.getString(R.string.cardLayout_montant) + " ", String.valueOf(operation.getAmount())));
+            amount.setText(colorText(context.getString(R.string.amount) + " : ", String.valueOf(operation.getAmount())));
 		} catch (Exception e) {
 		}
         try {
-            solde.setText(colorText(context.getString(R.string.cardLayout_solde) + " ", String.valueOf(montantdec)));
+            balance.setText(colorText(context.getString(R.string.balance) + " : ", String.valueOf(montantdec)));
         } catch (Exception e) {
         }
 		
