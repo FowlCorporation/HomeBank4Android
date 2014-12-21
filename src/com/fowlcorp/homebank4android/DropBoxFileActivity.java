@@ -12,6 +12,7 @@ import com.dropbox.sync.android.DbxException.Unauthorized;
 import com.dropbox.sync.android.DbxFileSystem;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -63,7 +64,8 @@ public class DropBoxFileActivity extends Activity {
 						System.out.println("file");
 						SharedPreferences sharePreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 						sharePreferences.edit().putString("dropPath", current.toString()+pathList.get(position));
-						finish();
+						setResult(RESULT_OK);
+						finishActivity(1000);
 					} catch (DbxException e1) {
 						try {
 							List<DbxFileInfo> newInfos = dbxFs.listFolder(newCurrent);

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dropbox.sync.android.DbxAccountManager;
+import com.dropbox.sync.android.DbxException;
 import com.dropbox.sync.android.DbxException.Unauthorized;
 import com.dropbox.sync.android.DbxFile;
 import com.dropbox.sync.android.DbxFileInfo;
@@ -97,9 +98,15 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
 				"sjt7o80sdtdjsxi");
+		
+		if(!dropBoxAccountMgr.hasLinkedAccount()){
+			dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
+		} else {
+			dropBoxCall();
+		}
 		doTEst();
 		setContentView(R.layout.activity_main);
-
+		
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mNavigationDrawerFragment.setRetainInstance(true);
@@ -108,17 +115,45 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-		if(!dropBoxAccountMgr.hasLinkedAccount()){
-			dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
-		}
+		
+		
 
+	}
+	
+	public boolean dropBoxCall(){
+		
+
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String pathPref = sharedPreferences.getString("dropPath", "");
+		System.out.println(pathPref);
+		
+		try {
+			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+//			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
+//			System.out.println("liste des fichier");
+//			for (DbxFileInfo info : infos) {
+//				System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
+//			}
+			//DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.xml");
+			DbxPath path = new DbxPath(pathPref);
+			file = dbxFs.open(path);
+			dp = new DataParser(getApplicationContext(), file);
+		} catch (Exception e) {
+			e.printStackTrace();
+			//dp = new DataParser(getApplicationContext());
+			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
+			startActivityForResult(intent, DROP_PATH_OK);
+		}
+		
+		return false;
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_LINK_TO_DBX) {
 			if (resultCode == Activity.RESULT_OK) {
-				// ... Start using Dropbox files.
+				dropBoxCall();
+				doTEst();
 			} else {
 				// ... Link failed or was cancelled by the user.
 			}
@@ -134,14 +169,19 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
-		if(drawerList.get(position).isOverview()){
+		try {
+			if(drawerList.get(position).isOverview()){
 
-		} else if(drawerList.get(position).isHeader()){
+			} else if(drawerList.get(position).isHeader()){
 
-		} else {
-			FragmentManager fragmentManager = getFragmentManager();
-			FragmentTransaction tx = fragmentManager.beginTransaction();
-			tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
+			} else {
+				FragmentManager fragmentManager = getFragmentManager();
+				FragmentTransaction tx = fragmentManager.beginTransaction();
+				tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -196,35 +236,42 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	public void doTEst(){
 		System.out.println("run the test \0/");
+//		
+//		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//		String pathPref = sharedPreferences.getString("dropPath", "");
+//		System.out.println(pathPref);
+//		try {
+//			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+//			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
+//			System.out.println("liste des fichier");
+//			for (DbxFileInfo info : infos) {
+//				System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
+//			}
+//			//DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.xml");
+//			DbxPath path = new DbxPath(pathPref);
+//			file = dbxFs.open(path);
+//			dp = new DataParser(getApplicationContext(), file);
+//		} catch (Exception e) {
+//			dp = new DataParser(getApplicationContext());
+//			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
+//			startActivityForResult(intent, DROP_PATH_OK);
+//		}
 		
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String pathPref = sharedPreferences.getString("dropPath", "");
-		System.out.println(pathPref);
-		try {
-			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
-			System.out.println("liste des fichier");
-			for (DbxFileInfo info : infos) {
-				System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
-			}
-			//DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.xml");
-			DbxPath path = new DbxPath(pathPref);
-			file = dbxFs.open(path);
-			dp = new DataParser(getApplicationContext(), file);
-		} catch (Exception e) {
-			dp = new DataParser(getApplicationContext());
-			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
-			startActivityForResult(intent, DROP_PATH_OK);
-		}
+		
+		//dp = new DataParser(getApplicationContext());
 		
 		//dp.runExample();
 		model = new Model();
-		model.setAccounts(dp.parseAccounts());
-		model.setCategories((dp.parseCategories()));
-		model.setPayees(dp.parsePayees());
-		model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
+		try {
+			model.setAccounts(dp.parseAccounts());
+			model.setCategories((dp.parseCategories()));
+			model.setPayees(dp.parsePayees());
+			model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
 
-		accountList = new ArrayList<>(model.getAccounts().values());
+			accountList = new ArrayList<>(model.getAccounts().values());
+		} catch (Exception e) {
+			accountList = new ArrayList<>();
+		}
 
 		bankList = new ArrayList<String>();
 		drawerList = new ArrayList<DrawerItem>();
