@@ -29,6 +29,7 @@ import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxList;
 import com.dropbox.sync.android.DbxPath;
+import com.dropbox.sync.android.DbxPath.InvalidPathException;
 import com.dropbox.sync.android.util.FolderLoader;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
@@ -91,6 +92,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	private ArrayList<DrawerItem> drawerList;
 	private DbxFile file;
 	private DataParser dp;
+	private SharedPreferences sharedPreferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -123,27 +125,37 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	public boolean dropBoxCall(){
 		
 
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String pathPref = sharedPreferences.getString("dropPath", "");
+		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String pathPref = sharedPreferences.getString("dropPath", "/Bibichette/HomeBank Martin/banque_martin.xml");
 		System.out.println(pathPref);
 		
-		try {
-			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+		
+			try {
+				dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
 //			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
 //			System.out.println("liste des fichier");
 //			for (DbxFileInfo info : infos) {
 //				System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
 //			}
-			//DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.xml");
-			DbxPath path = new DbxPath(pathPref);
-			file = dbxFs.open(path);
-			dp = new DataParser(getApplicationContext(), file);
-		} catch (Exception e) {
-			e.printStackTrace();
-			//dp = new DataParser(getApplicationContext());
-			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
-			startActivityForResult(intent, DROP_PATH_OK);
-		}
+				//DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.xml");
+				DbxPath path = new DbxPath(pathPref);
+				file = dbxFs.open(path);
+			} catch (InvalidPathException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Unauthorized e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DbxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				dp = new DataParser(getApplicationContext(), file);
+			} catch (Exception e) {
+				Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
+				startActivityForResult(intent, DROP_PATH_OK);
+			}
 		
 		return false;
 	}
@@ -159,6 +171,10 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 			}
 		} else if(requestCode == DROP_PATH_OK){
 			if(resultCode == Activity.RESULT_OK){
+				String result = data.getStringExtra("pathResult");
+				sharedPreferences.edit().putString("dropPath", result).commit();
+				finish();
+				System.out.println(result);
 				doTEst();
 			}
 		} else {
@@ -331,6 +347,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		dbxFs.shutDown();
 		System.out.println("on destroy");
 		if (isFinishing()) {
 

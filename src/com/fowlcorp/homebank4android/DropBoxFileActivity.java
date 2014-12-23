@@ -62,10 +62,14 @@ public class DropBoxFileActivity extends Activity {
 					try {
 						DbxFile file = dbxFs.open(newCurrent);
 						System.out.println("file");
-						SharedPreferences sharePreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-						sharePreferences.edit().putString("dropPath", current.toString()+pathList.get(position));
-						setResult(RESULT_OK);
-						finishActivity(1000);
+//						SharedPreferences sharePreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//						sharePreferences.edit().putString("dropPath", current.toString()+pathList.get(position));
+//						setResult(RESULT_OK);
+						Intent resultData = new Intent();
+						resultData.putExtra("pathResult", current.toString()+pathList.get(position));
+						setResult(Activity.RESULT_OK, resultData);
+						dbxFs.shutDown();
+						finish();
 					} catch (DbxException e1) {
 						try {
 							List<DbxFileInfo> newInfos = dbxFs.listFolder(newCurrent);
