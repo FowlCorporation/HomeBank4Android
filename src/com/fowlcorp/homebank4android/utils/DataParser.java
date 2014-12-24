@@ -203,13 +203,13 @@ public class DataParser {
                     op.setWording(el.getAttribute("wording"));
                 }
 
-//                if(el.hasAttribute("flags")) { // may miss
-//                    op.setFlag(Integer.parseInt(el.getAttribute("flag")));
-//                }
-//
-//                if(el.hasAttribute("paymode")) { // may miss
-//                    op.setPayMode(Integer.parseInt(el.getAttribute("paymode")));
-//                }
+                if(el.hasAttribute("flags")) { // may miss
+                    op.setFlag(Integer.parseInt(el.getAttribute("flags")));
+                }
+
+                if(el.hasAttribute("paymode")) { // may miss
+                    op.setPayMode(Integer.parseInt(el.getAttribute("paymode")));
+                }
 
                 if(!operations.containsKey(accountKey)) { // if List in HashMap for this account is not already created
                     operations.put(accountKey, new ArrayList<Operation>());
