@@ -103,6 +103,9 @@
 <cat key="33" parent="31" flags="1" name="category 33" />
 <cat key="32" name="category 32" />
 <cat key="38" name="category 38" />
+<tag key="1" name="tag 1" />
+<tag key="2" name="tag 2" />
+<tag key="3" name="tag 3" />
 <ope date="735337" amount="-10" account="5" paymode="3" flags="1" payee="9" category="10" wording="memo 735337" />
 <ope date="735338" amount="-3.52" account="1" paymode="6" flags="1" payee="7" category="9" wording="memo 735338" />
 <ope date="735360" amount="-5.0999999999999996" account="5" paymode="3" flags="1" payee="7" category="9" wording="memo 735338" />

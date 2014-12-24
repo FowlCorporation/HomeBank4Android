@@ -27,7 +27,8 @@ public class Operation implements Comparable {
 
 	private GregorianCalendar date;
 	private int xmlDate;
-    private int flag;
+    private int flag; // 3 : positif rapproché ; 1 : négatif rappoché ; pas de flag : pas rapproché
+    private int payMode; // 4 : transfert
     private double balanceAccount;
 	private double amount;
 	private Account account;
@@ -117,7 +118,15 @@ public class Operation implements Comparable {
     public void setBalanceAccount(double balanceAccount) {
         this.balanceAccount = balanceAccount;
     }
-	
+
+    public int getPayMode() {
+        return payMode;
+    }
+
+    public void setPayMode(int payMode) {
+        this.payMode = payMode;
+    }
+
 	@Override
 	public String toString() {
 		return "Operation : " + verboseDate() + ", amount : " + getAmount() + (getPayee()==null ? "" : ", payee : " + getPayee().getName()) + (getCategory()== null ? "" : ", category : " + getCategory().getName());
