@@ -33,7 +33,7 @@ public abstract class AccPayCatTagAbstract {
 	 */
 	public AccPayCatTagAbstract(int key, String name) {
 		this.key = key;
-		this.name = name;
+		this.setName(name);
 	}
 	
 	
@@ -54,4 +54,8 @@ public abstract class AccPayCatTagAbstract {
 		return name;
 	}
 
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
