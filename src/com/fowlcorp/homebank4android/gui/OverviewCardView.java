@@ -117,12 +117,9 @@ public class OverviewCardView extends CardView {
 			public void onClick(View v) {
 				int position = -1;
 				for(int i = 0; i<activity.getDrawerList().size();i++){
-					if(!activity.getDrawerList().get(i).isHeader()
-							&& !activity.getDrawerList().get(i).isOverview()){
-						if(activity.getDrawerList().get(i).getItemName().equals(account.getName())){
-							position = i;
-							break;
-						}
+					if(activity.getDrawerList().get(i).getKey() == account.getKey()){
+						position = i;
+						break;
 					}
 				}
 				try {

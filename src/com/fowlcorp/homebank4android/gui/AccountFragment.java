@@ -78,7 +78,7 @@ public class AccountFragment extends Fragment{
 			Bundle savedInstanceState) {
 		
 		for(int i=0;i<accountList.size();i++){
-			if(drawerList.get(sectionNumber).getItemName().equals(accountList.get(i).getName())){
+			if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
 				sectionNumber = i;
 			}
 		}

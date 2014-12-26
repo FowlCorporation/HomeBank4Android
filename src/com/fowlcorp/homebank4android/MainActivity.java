@@ -289,7 +289,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 			drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));
 			for(int j=0;j<accountList.size();j++){
 				if(accountList.get(j).getBankName().equals(bankList.get(i))){
-					drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, false, false));
+					drawerList.add(new DrawerItem(accountList.get(j).getName(), -1,accountList.get(j).getKey()));
 				}
 			}
 		}
