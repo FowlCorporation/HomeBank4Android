@@ -38,6 +38,7 @@ import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.DbxPath.InvalidPathException;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
+import com.fowlcorp.homebank4android.gui.OverviewFragment;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
@@ -160,13 +161,13 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
 		try {
+			FragmentManager fragmentManager = getFragmentManager();
+			FragmentTransaction tx = fragmentManager.beginTransaction();
 			if(drawerList.get(position).isOverview()){
-
+				tx.replace(R.id.container,OverviewFragment.newInstance()).commit();
 			} else if(drawerList.get(position).isHeader()){
 
 			} else {
-				FragmentManager fragmentManager = getFragmentManager();
-				FragmentTransaction tx = fragmentManager.beginTransaction();
 				tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
 			}
 		} catch (Exception e) {

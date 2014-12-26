@@ -39,6 +39,7 @@ import android.widget.TextView;
 import com.fowlcorp.homebank4android.DetailedCardActivity;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
+import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
 
 
@@ -52,11 +53,15 @@ public class OverviewCardView extends CardView {
 	private TextView solde;
 	private TextView futur;
 	private TextView today;
+	private double soldeValue;
+	private double futurValue;
+	private double todayValue;
+	
 
 	Context context;
 
 
-	public OverviewCardView(final Context context, ViewGroup parent, final Account account ) {
+	public OverviewCardView(final Context context, ViewGroup parent, final Account account, Model modele) {
 		super(context);
 		this.context=context;
 
@@ -74,15 +79,36 @@ public class OverviewCardView extends CardView {
 			}
 		});*/
 
+		int key = account.getKey();
+		modele.setSelectedAccount(key);
+		modele.updateOperationAccountBalance();
+		soldeValue = modele.getSelectedBankAccountBalance();
+		futurValue = modele.getSelectedFutureAccountBalance();
+		todayValue = modele.getSelectedTodayAccountBalance();
+		
+		soldeValue = Math.round(soldeValue*100);
+		soldeValue = soldeValue/100;
+		
+		futurValue = Math.round(futurValue*100);
+		futurValue = futurValue/100;
+		
+		todayValue = Math.round(todayValue*100);
+		todayValue = todayValue/100;
+		
 		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 		View view = inflater.inflate(R.layout.overview_card_layout,parent);
 
-		title = (TextView) findViewById(R.id.overview_card_title);
-		solde = (TextView) findViewById(R.id.overview_card_solde);
-		futur = (TextView) findViewById(R.id.overview_card_futur);
-		today = (TextView) findViewById(R.id.overview_card_today);
+		title = (TextView) view.findViewById(R.id.overview_card_title);
+		solde = (TextView) view.findViewById(R.id.overview_card_solde);
+		futur = (TextView) view.findViewById(R.id.overview_card_futur);
+		today = (TextView) view.findViewById(R.id.overview_card_today);
 
 		title.setText(account.getName());
+		solde.setText(colorText(context.getString(R.string.overViewCard_solde) + " ", String.valueOf(soldeValue)));
+		futur.setText(colorText(context.getString(R.string.overViewCard_future) + " ", String.valueOf(futurValue)));
+		today.setText(colorText(context.getString(R.string.overviewCard_today) + " ", String.valueOf(todayValue)));
+		
+	
 		
 		this.addView(view);
 
