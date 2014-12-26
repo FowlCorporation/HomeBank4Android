@@ -29,8 +29,12 @@ import com.fowlcorp.homebank4android.model.Operation;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +49,10 @@ public class AccountFragment extends Fragment{
 	private List<Operation> operation;
 	private Model model;
 	private ArrayList<DrawerItem> drawerList;
+	
+	
+	
+	private Activity activity;
 
 	public AccountFragment(){
 
@@ -77,13 +85,16 @@ public class AccountFragment extends Fragment{
 		int key = accountList.get(sectionNumber).getKey();
         model.setSelectedAccount(key);
         model.updateOperationAccountBalance();
+        
+        
 	    operation = model.getOperations(model.getAccounts().get(key));
 		View rootView = inflater.inflate(R.layout.fragment_main, container,
 				false);
-		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView());
+		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model);
 		//View overViewCard = inflater.inflate(R.layout.overviewcard,  container);
 		LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
+		
 		overview.addView(over);
 		for(int i=operation.size()-1; i>=0; i--){
 			AccountCardView card = new AccountCardView(getActivity(), (ViewGroup) this.getView(), operation.get(i));
@@ -95,10 +106,14 @@ public class AccountFragment extends Fragment{
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		this.activity = activity;
 		((MainActivity) activity).onSectionAttached(getArguments().getInt(
 				ARG_SECTION_NUMBER));
 		model = ((MainActivity) activity).getModel();
 		accountList = ((MainActivity) activity).getAccountList();
 		drawerList = ((MainActivity) activity).getDrawerList();
 	}
+	
+	
+
 }
