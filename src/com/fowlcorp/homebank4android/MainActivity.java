@@ -339,5 +339,14 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		}
 	}
 
+	public NavigationDrawerFragment getmNavigationDrawerFragment() {
+		return mNavigationDrawerFragment;
+	}
 
+	public void setmNavigationDrawerFragment(
+			NavigationDrawerFragment mNavigationDrawerFragment) {
+		this.mNavigationDrawerFragment = mNavigationDrawerFragment;
+	}
+
+	
 }

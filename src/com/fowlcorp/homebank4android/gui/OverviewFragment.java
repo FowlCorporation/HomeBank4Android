@@ -43,6 +43,8 @@ public class OverviewFragment extends Fragment{
 	private List<Operation> operation;
 	private Model model;
 	private ArrayList<DrawerItem> drawerList;
+	
+	private MainActivity activity;
 
 	public OverviewFragment(){
 
@@ -76,7 +78,7 @@ public class OverviewFragment extends Fragment{
 		//LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 		//overview.addView(over);
 		for(int i=0;i<accountList.size();i++){
-			OverviewCardView card = new OverviewCardView(getActivity(), (ViewGroup) this.getView(), accountList.get(i), model);
+			OverviewCardView card = new OverviewCardView(getActivity(), (ViewGroup) this.getView(), accountList.get(i),activity);
 			layout.addView(card);
 		}
 		return rootView;
@@ -89,5 +91,6 @@ public class OverviewFragment extends Fragment{
 		model = ((MainActivity) activity).getModel();
 		accountList = ((MainActivity) activity).getAccountList();
 		drawerList = ((MainActivity) activity).getDrawerList();
+		this.activity = (MainActivity) activity;
 	}
 }

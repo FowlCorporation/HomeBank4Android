@@ -37,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.DetailedCardActivity;
+import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
@@ -58,13 +59,15 @@ public class OverviewCardView extends CardView {
 	private double todayValue;
 	
 
-	Context context;
+	private Context context;
+	private Model modele;
 
-
-	public OverviewCardView(final Context context, ViewGroup parent, final Account account, Model modele) {
+	public OverviewCardView(final Context context, ViewGroup parent, final Account account, final MainActivity activity) {
 		super(context);
 		this.context=context;
 
+		modele = activity.getModel();
+		
 		/*	this.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -108,7 +111,28 @@ public class OverviewCardView extends CardView {
 		futur.setText(colorText(context.getString(R.string.overViewCard_future) + " ", String.valueOf(futurValue)));
 		today.setText(colorText(context.getString(R.string.overviewCard_today) + " ", String.valueOf(todayValue)));
 		
-	
+		this.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				int position = -1;
+				for(int i = 0; i<activity.getDrawerList().size();i++){
+					if(!activity.getDrawerList().get(i).isHeader()
+							&& !activity.getDrawerList().get(i).isOverview()){
+						if(activity.getDrawerList().get(i).getItemName().equals(account.getName())){
+							position = i;
+							break;
+						}
+					}
+				}
+				try {
+					activity.getmNavigationDrawerFragment().selectItem(position);
+					activity.onSectionAttached(position);
+					activity.restoreActionBar();
+				} catch (Exception e) {
+				}
+			}
+		});
 		
 		this.addView(view);
 
