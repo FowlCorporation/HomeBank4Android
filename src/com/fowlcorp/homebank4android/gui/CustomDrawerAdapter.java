@@ -93,6 +93,21 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
             
             return view;
       }
+      
+      @Override
+    public boolean areAllItemsEnabled() {
+    	// TODO Auto-generated method stub
+    	return false;
+    }
+      
+    @Override
+    public boolean isEnabled(int position) {
+    	if(drawerItemList.get(position).isHeader()){
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
  
       private static class DrawerItemHolder {
             TextView ItemName, title;
