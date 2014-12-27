@@ -6,6 +6,15 @@ public class DrawerItem {
 	private int imgResID = 0;
 	private boolean isOverview;
 	private boolean isHeader;
+	private int key = -1;
+	
+	public DrawerItem(String itemName, int imgResID, int key){
+		this.itemName = itemName;
+		this.imgResID = imgResID;
+		this.key = key;
+		isOverview = false;
+		isHeader = false;
+	}
 
 	public DrawerItem(String itemName, int imgResID, boolean isOverview, boolean isHeader) {
 		this.itemName = itemName;
@@ -44,6 +53,14 @@ public class DrawerItem {
 
 	public void setHeader(boolean isHeader) {
 		this.isHeader = isHeader;
+	}
+
+	public int getKey() {
+		return key;
+	}
+
+	public void setKey(int key) {
+		this.key = key;
 	}
 	
 	

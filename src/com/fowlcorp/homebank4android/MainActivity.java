@@ -18,51 +18,32 @@
 package com.fowlcorp.homebank4android;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxException;
-import com.dropbox.sync.android.DbxException.Unauthorized;
 import com.dropbox.sync.android.DbxFile;
-import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
-import com.dropbox.sync.android.DbxList;
 import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.DbxPath.InvalidPathException;
-import com.dropbox.sync.android.util.FolderLoader;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
+import com.fowlcorp.homebank4android.gui.OverviewFragment;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
 
-import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.DropBoxManager;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.CardView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.util.ArrayList;
 
 public class MainActivity extends Activity implements
 NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -140,17 +121,11 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 				//DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.xml");
 				DbxPath path = new DbxPath(pathPref);
 				file = dbxFs.open(path);
-			} catch (InvalidPathException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Unauthorized e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (DbxException e) {
+			} catch (InvalidPathException | DbxException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			try {
+        try {
 				dp = new DataParser(getApplicationContext(), file);
 			} catch (Exception e) {
 				Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
@@ -186,13 +161,13 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
 		try {
+			FragmentManager fragmentManager = getFragmentManager();
+			FragmentTransaction tx = fragmentManager.beginTransaction();
 			if(drawerList.get(position).isOverview()){
-
+				tx.replace(R.id.container,OverviewFragment.newInstance()).commit();
 			} else if(drawerList.get(position).isHeader()){
 
 			} else {
-				FragmentManager fragmentManager = getFragmentManager();
-				FragmentTransaction tx = fragmentManager.beginTransaction();
 				tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
 			}
 		} catch (Exception e) {
@@ -282,10 +257,18 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 			model.setAccounts(dp.parseAccounts());
 			model.setCategories((dp.parseCategories()));
 			model.setPayees(dp.parsePayees());
+            model.setTags(dp.parseTags());
 			model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
 
 			accountList = new ArrayList<>(model.getAccounts().values());
+
+            System.err.println("Comptes " + model.getAccounts().size());
+            System.err.println("Cat " + model.getCategories().size());
+            System.err.println("Payees " + model.getPayees().size());
+            System.err.println("Tags " + model.getTags().size());
+            System.err.println("Opes " + model.getOperations().size());
 		} catch (Exception e) {
+            System.err.println(e);
 			accountList = new ArrayList<>();
 		}
 
@@ -306,7 +289,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 			drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));
 			for(int j=0;j<accountList.size();j++){
 				if(accountList.get(j).getBankName().equals(bankList.get(i))){
-					drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, false, false));
+					drawerList.add(new DrawerItem(accountList.get(j).getName(), -1,accountList.get(j).getKey()));
 				}
 			}
 		}
@@ -356,5 +339,14 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		}
 	}
 
+	public NavigationDrawerFragment getmNavigationDrawerFragment() {
+		return mNavigationDrawerFragment;
+	}
 
+	public void setmNavigationDrawerFragment(
+			NavigationDrawerFragment mNavigationDrawerFragment) {
+		this.mNavigationDrawerFragment = mNavigationDrawerFragment;
+	}
+
+	
 }

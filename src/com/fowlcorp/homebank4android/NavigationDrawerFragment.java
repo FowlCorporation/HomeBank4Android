@@ -241,8 +241,9 @@ public class NavigationDrawerFragment extends Fragment {
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 	}
 
-	private void selectItem(int position) {
+	public void selectItem(int position) {
 		mCurrentSelectedPosition = position;
+		
 		if (mDrawerListView != null) {
 			mDrawerListView.setItemChecked(position, true);
 		}

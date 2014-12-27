@@ -29,75 +29,56 @@ import com.fowlcorp.homebank4android.model.Operation;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class AccountFragment extends Fragment{
+public class OverviewFragment extends Fragment{
 
-	private static final String ARG_SECTION_NUMBER = "section_number";
-	private int sectionNumber;
 	private ArrayList<Account> accountList;
 	private List<Operation> operation;
 	private Model model;
 	private ArrayList<DrawerItem> drawerList;
 	
-	
-	
-	private Activity activity;
+	private MainActivity activity;
 
-	public AccountFragment(){
+	public OverviewFragment(){
 
 	}
 	
-	public static final AccountFragment newInstance(int position)
+	public static final OverviewFragment newInstance()
 	{
-		 AccountFragment f = new AccountFragment();
-		    Bundle bdl = new Bundle(2);
+		 OverviewFragment f = new OverviewFragment();
+		    /*Bundle bdl = new Bundle(2);
 		    bdl.putInt(ARG_SECTION_NUMBER, position);
-		    f.setArguments(bdl);
+		    f.setArguments(bdl);*/
 		    return f;
 	}
 	
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-	    sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		for(int i=0;i<accountList.size();i++){
-			if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
-				sectionNumber = i;
-			}
-		}
-		int key = accountList.get(sectionNumber).getKey();
+		/*int key = accountList.get(sectionNumber).getKey();
         model.setSelectedAccount(key);
         model.updateOperationAccountBalance();
-        
-        
-	    operation = model.getOperations(model.getAccounts().get(key));
-		View rootView = inflater.inflate(R.layout.fragment_main, container,
-				false);
-		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model);
-		//View overViewCard = inflater.inflate(R.layout.overviewcard,  container);
+	    operation = model.getOperations(model.getAccounts().get(key));*/
+		View rootView = inflater.inflate(R.layout.fragment_main, container,false);
+		//OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView());
 		LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
-		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
-		
-		overview.addView(over);
-		for(int i=operation.size()-1; i>=0; i--){
-			AccountCardView card = new AccountCardView(getActivity(), (ViewGroup) this.getView(), operation.get(i));
+		//LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
+		//overview.addView(over);
+		for(int i=0;i<accountList.size();i++){
+			OverviewCardView card = new OverviewCardView(getActivity(), (ViewGroup) this.getView(), accountList.get(i),activity);
 			layout.addView(card);
 		}
 		return rootView;
@@ -106,14 +87,10 @@ public class AccountFragment extends Fragment{
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		this.activity = activity;
-		((MainActivity) activity).onSectionAttached(getArguments().getInt(
-				ARG_SECTION_NUMBER));
+		((MainActivity) activity).onSectionAttached(0);
 		model = ((MainActivity) activity).getModel();
 		accountList = ((MainActivity) activity).getAccountList();
 		drawerList = ((MainActivity) activity).getDrawerList();
+		this.activity = (MainActivity) activity;
 	}
-	
-	
-
 }

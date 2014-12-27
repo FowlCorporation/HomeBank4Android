@@ -38,6 +38,7 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Category;
 import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.Payee;
+import com.fowlcorp.homebank4android.model.Tag;
 
 /**
  * @author Axel
@@ -69,14 +70,10 @@ public class DataParser {
 			dom = db.parse(context.getResources().getAssets().open("anonymized.xhb"));
 			//dom = db.parse(file.getReadStream());
 
-		} catch (ParserConfigurationException pce) {
+		} catch (ParserConfigurationException | IOException | SAXException pce) {
 			pce.printStackTrace();
-		} catch (SAXException se) {
-			se.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
 		}
-	}
+    }
 	
 	private void parseXmlFile(DbxFile file) {
 		//get the factory
@@ -89,14 +86,10 @@ public class DataParser {
 			//dom = db.parse(context.getResources().getAssets().open("anonymized.xhb"));
 			dom = db.parse(file.getReadStream());
 
-		} catch (ParserConfigurationException pce) {
+		} catch (ParserConfigurationException | SAXException | IOException pce) {
 			pce.printStackTrace();
-		} catch (SAXException se) {
-			se.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
 		}
-	}
+    }
 	
 	
 	
@@ -111,8 +104,8 @@ public class DataParser {
 				el = (Element) nl.item(i);
 				Payee p = new Payee(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
 				// DEBUG
-				System.err.println(p.toString());
-				payees.put((Integer)p.getKey(), p); 
+				//System.err.println(p.toString());
+				payees.put(p.getKey(), p);
 			}
 		}
 		return payees;
@@ -128,7 +121,7 @@ public class DataParser {
 			for (int i = 0; i < nl.getLength(); i++) {
 				el = (Element) nl.item(i);
 				Category c = new Category(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
-				categories.put((Integer) c.getKey(), c);
+				categories.put(c.getKey(), c);
 				if(el.hasAttribute("parent")) {
 					int parent = Integer.parseInt(el.getAttribute("parent"));
 					categories.get(parent).addSubCategory(c);
@@ -156,13 +149,31 @@ public class DataParser {
 				if(el.hasAttribute("number")) {
 					a.setAccountNumber(el.getAttribute("number"));
 				}
-				accounts.put((Integer) a.getKey(), a);
+				accounts.put(a.getKey(), a);
 				// DEBUG
 				System.err.println(a.toString());
 			}
 		}
 		return accounts;
 	}
+
+    public HashMap<Integer,Tag> parseTags() {
+        Element docEle = dom.getDocumentElement();
+        Element el;
+        NodeList nl;
+        HashMap<Integer,Tag> tags = new HashMap<>();
+        nl = docEle.getElementsByTagName("tag");
+        if (nl != null && nl.getLength() > 0) {
+            for (int i = 0; i < nl.getLength(); i++) {
+                el = (Element) nl.item(i);
+                Tag t = new Tag(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
+                tags.put(t.getKey(), t);
+                // DEBUG
+                System.err.println(t.toString());
+            }
+        }
+        return tags;
+    }
 
 	public HashMap<Integer,List<Operation>> parseOperations(HashMap<Integer,Account> accounts, HashMap<Integer,Category> categories, HashMap<Integer,Payee> payees) {
         HashMap<Integer,List<Operation>> operations = new HashMap<>();
@@ -190,6 +201,14 @@ public class DataParser {
 						p);
                 if(el.hasAttribute("wording")) { // may miss
                     op.setWording(el.getAttribute("wording"));
+                }
+
+                if(el.hasAttribute("flags")) { // may miss
+                    op.setFlag(Integer.parseInt(el.getAttribute("flags")));
+                }
+
+                if(el.hasAttribute("paymode")) { // may miss
+                    op.setPayMode(Integer.parseInt(el.getAttribute("paymode")));
                 }
 
                 if(!operations.containsKey(accountKey)) { // if List in HashMap for this account is not already created
