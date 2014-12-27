@@ -1,11 +1,10 @@
 /bin/
 Axel.xml
-<<<<<<< HEAD
 /cardView/
 /v7-support/
-=======
 /cardView/bin/
 /cardView/gen/
+/recyclerview/bin/
+/recyclerview/gen/
 /v7-support/bin/
->>>>>>> feature/XMLParserbyCed
 gen/
