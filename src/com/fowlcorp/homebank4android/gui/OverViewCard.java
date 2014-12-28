@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 
 public class OverViewCard extends CardView{
@@ -28,19 +29,20 @@ public class OverViewCard extends CardView{
 
 	public OverViewCard(Context context, ViewGroup parent, Model model ) {
 		super(context);
-		
-		 soldeValue = model.getSelectedBankAccountBalance();
-			futurValue = model.getSelectedFutureAccountBalance();
-			todayValue = model.getSelectedTodayAccountBalance();
+
+        Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
+        soldeValue = selectedAcc.getBankAccountBalance();
+        futurValue = selectedAcc.getFutureAccountBalance();
+		todayValue = selectedAcc.getTodayAccountBalance();
 			
-			soldeValue = Math.round(soldeValue*100);
-			soldeValue = soldeValue/100;
+		soldeValue = Math.round(soldeValue*100);
+		soldeValue = soldeValue/100;
 			
-			futurValue = Math.round(futurValue*100);
-			futurValue = futurValue/100;
+		futurValue = Math.round(futurValue*100);
+		futurValue = futurValue/100;
 			
-			todayValue = Math.round(todayValue*100);
-			todayValue = todayValue/100;
+		todayValue = Math.round(todayValue*100);
+		todayValue = todayValue/100;
 		
 		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 		View view = inflater.inflate(R.layout.overviewcard,parent);
