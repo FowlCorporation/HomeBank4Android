@@ -142,7 +142,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 			FragmentManager fragmentManager = getFragmentManager(); //get the fragment manager
 			FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
 			if(drawerList.get(position).isOverview()){ //if the item is the overview
-				tx.replace(R.id.container,OverviewFragment.newInstance()).commit(); //invoke the overview fragment
+				tx.replace(R.id.container,OverviewFragment.newInstance(this)).commit(); //invoke the overview fragment
 			} else { //if it is an account
 				tx.replace(R.id.container,AccountFragment.newInstance(position, this)).commit(); //invoke the account fragment
 			}

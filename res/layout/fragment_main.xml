@@ -4,34 +4,4 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.fowlcorp.homebank4android.MainActivity$PlaceholderFragment" >
-
-    <LinearLayout
-        android:id="@+id/fragmentOverview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-    </LinearLayout>
-    
-    
-
-    <!-- <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/my_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical" />
-
-       <LinearLayout
-            android:id="@+id/fragmentLinear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-        </LinearLayout>
-        
-    </ScrollView>-->
-
 </LinearLayout>

@@ -20,28 +20,21 @@ package com.fowlcorp.homebank4android.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fowlcorp.homebank4android.MainActivity;
-import com.fowlcorp.homebank4android.NavigationDrawerFragment;
-import com.fowlcorp.homebank4android.R;
-import com.fowlcorp.homebank4android.model.Account;
-import com.fowlcorp.homebank4android.model.Model;
-import com.fowlcorp.homebank4android.model.Operation;
-
 import android.app.Activity;
 import android.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.fowlcorp.homebank4android.MainActivity;
+import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.model.Account;
+import com.fowlcorp.homebank4android.model.Model;
+import com.fowlcorp.homebank4android.model.Operation;
 
 public class AccountFragment extends Fragment{
 
@@ -53,8 +46,7 @@ public class AccountFragment extends Fragment{
 	private ArrayList<DrawerItem> drawerList;
 	private MainActivity activity;
 
-	private RecyclerView mRecyclerView;
-	private RecyclerView.Adapter mAdapter;
+	private AccountRecyclerAdapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -99,11 +91,6 @@ public class AccountFragment extends Fragment{
 		RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 
-		/*overview.addView(over);
-		for(int i=operation.size()-1; i>=0; i--){
-			AccountCardView card = new AccountCardView(getActivity(), (ViewGroup) this.getView(), operation.get(i));
-			layout.addView(card);
-		}*/
 
 		mRecyclerView.setHasFixedSize(false);
 
