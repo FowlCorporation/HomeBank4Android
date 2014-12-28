@@ -77,57 +77,13 @@ public class PagerSwipeFragment extends Fragment{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-		
-		for(int i=0;i<accountList.size();i++){ //find the account in the drawerlist
-			if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
-				sectionNumber = i;
-			}
-		}
-		int key = accountList.get(sectionNumber).getKey(); //compute the balance of the account
-		model.setSelectedAccount(key);
-		model.updateOperationAccountBalance();
-
-		operation = model.getOperations(model.getAccounts().get(key)); //get the operations of the account
-
-		final ArrayList<Fragment> fragList = new ArrayList<Fragment>();
-
-		fragList.add(AccountFragment.newInstance(sectionNumber, activity));
-		//fragList.add(AccountFragment.newInstance(sectionNumber, activity));
-
-		FragmentPagerAdapter pager = new FragmentPagerAdapter(activity.getSupportFragmentManager()) {
-
-			@Override
-			public int getCount() {
-				return fragList.size();
-			}
-
-			@Override
-			public android.support.v4.app.Fragment getItem(int arg0) {
-				return fragList.get(arg0);
-			}
-		};
-
-
-
-		
+	
+		FragmentPagerAdapter pager = new CustomFragmentPagerAdapter(activity.getSupportFragmentManager(), sectionNumber, activity);
 		View rootView = inflater.inflate(R.layout.pager_layout, container, false);
 		
 		ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         mViewPager.setAdapter(pager);
-		/*OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model);
-		RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
-		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
-
-		mRecyclerView.setHasFixedSize(false);
-
-		mLayoutManager = new LinearLayoutManager(activity);
-		mRecyclerView.setLayoutManager(mLayoutManager);
-
-		mAdapter = new AccountRecyclerAdapter(operation, activity);
-        mRecyclerView.setAdapter(mAdapter);
-
-        overview.addView(over);*/
+        System.out.println(sectionNumber);
 		return rootView;
 	}
 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.fowlcorp.homebank4android.DetailedCardActivity;
+import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Operation;
 
@@ -24,11 +25,11 @@ import android.view.View.OnClickListener;
 public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHolder> {
     private List<Operation> listOperation;
     private Calendar myDate;
-    private Context context;
+    private MainActivity activity;
     
-    public AccountRecyclerAdapter(List<Operation> listOperation ,Context context) {
+    public AccountRecyclerAdapter(List<Operation> listOperation ,MainActivity activity) {
     	this.listOperation = listOperation;
-    	this.context = context;
+    	this.activity = activity;
 	}
 
 	@Override
@@ -47,13 +48,38 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(context.getApplicationContext(), DetailedCardActivity.class);
-				intent.putExtra("Date", df.format(myDate.getTime()));
-				intent.putExtra("Category", operation.getCategory().getName());
-				intent.putExtra("Payee", operation.getPayee().getName());
-				intent.putExtra("Wording", operation.getWording());
-				intent.putExtra("Amount", String.valueOf(operation.getAmount()));
-				context.startActivity(intent);
+				Intent intent = new Intent(activity.getApplicationContext(), DetailedCardActivity.class);
+				try {
+					intent.putExtra("Date", df.format(myDate.getTime()));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					intent.putExtra("Category", operation.getCategory().getName());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					intent.putExtra("Payee", operation.getPayee().getName());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					intent.putExtra("Wording", operation.getWording());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					intent.putExtra("Amount", String.valueOf(operation.getAmount()));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				activity.startActivity(intent);
 			}
 		});
 		
@@ -61,27 +87,27 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		montantdec = montantdec/100;
 		
 		try {
-			holder.getDate().setText(context.getString(R.string.cardLayout_date)+" "+df.format(myDate.getTime()));
+			holder.getDate().setText(activity.getString(R.string.cardLayout_date)+" "+df.format(myDate.getTime()));
 		} catch (Exception e) {
 		}
 		try {
-			holder.getCategory().setText(context.getString(R.string.cardLayout_category)+" "+operation.getCategory().getName());
+			holder.getCategory().setText(activity.getString(R.string.cardLayout_category)+" "+operation.getCategory().getName());
 		} catch (Exception e) {
 		}
 		try {
-			holder.getTier().setText(context.getString(R.string.cardLayout_tier)+" "+operation.getPayee().getName());
+			holder.getTier().setText(activity.getString(R.string.cardLayout_tier)+" "+operation.getPayee().getName());
 		} catch (Exception e) {
 		}
 		try {
-			holder.getMemo().setText(context.getString(R.string.cardLayout_memo)+" "+operation.getWording());
+			holder.getMemo().setText(activity.getString(R.string.cardLayout_memo)+" "+operation.getWording());
 		} catch (Exception e) {
 		}
 		try {
-			holder.getMontant().setText(colorText(context.getString(R.string.cardLayout_montant) + " ", String.valueOf(operation.getAmount())));
+			holder.getMontant().setText(colorText(activity.getString(R.string.cardLayout_montant) + " ", String.valueOf(operation.getAmount())));
 		} catch (Exception e) {
 		}
         try {
-        	holder.getSolde().setText(colorText(context.getString(R.string.cardLayout_solde) + " ", String.valueOf(montantdec)));
+        	holder.getSolde().setText(colorText(activity.getString(R.string.cardLayout_solde) + " ", String.valueOf(montantdec)));
         } catch (Exception e) {
         }
 				
