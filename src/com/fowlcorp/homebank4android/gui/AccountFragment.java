@@ -96,7 +96,7 @@ public class AccountFragment extends Fragment{
 
 		mLayoutManager = new LinearLayoutManager(activity);
 		mRecyclerView.setLayoutManager(mLayoutManager);
-
+		System.out.println("je passe dans account fragment");
 		mAdapter = new AccountRecyclerAdapter(operation, activity);
         mRecyclerView.setAdapter(mAdapter);
 
