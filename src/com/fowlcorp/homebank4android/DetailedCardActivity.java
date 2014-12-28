@@ -2,6 +2,7 @@ package com.fowlcorp.homebank4android;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
@@ -23,6 +24,8 @@ public class DetailedCardActivity extends Activity {
 		Bundle bdl = this.getIntent().getExtras();
 
 		setContentView(R.layout.activity_detailed_card);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		//Get ids
 		date = (EditText) findViewById(R.id.detailedCardDate);
@@ -67,7 +70,10 @@ public class DetailedCardActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		} else {
+			onBackPressed();
+			return true;
 		}
-		return super.onOptionsItemSelected(item);
+		//return super.onOptionsItemSelected(item);
 	}
 }

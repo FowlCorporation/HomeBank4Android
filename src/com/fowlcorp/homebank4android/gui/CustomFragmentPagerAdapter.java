@@ -29,5 +29,19 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 	public int getCount() {
 		return fragList.size();
 	}
+	
+	@Override
+	public CharSequence getPageTitle(int position) {
+		switch (position) {
+        case 0:
+            return "Tab One";
+        case 1:
+            return "Tab Two";
+        case 2:
+            return "Tab Three";
+    }
+ 
+    return null;
+	}
 
 }
