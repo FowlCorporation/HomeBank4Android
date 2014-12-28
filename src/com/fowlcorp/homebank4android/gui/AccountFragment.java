@@ -32,6 +32,8 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -51,53 +53,67 @@ public class AccountFragment extends Fragment{
 	private ArrayList<DrawerItem> drawerList;
 	private MainActivity activity;
 
+	private RecyclerView mRecyclerView;
+	private RecyclerView.Adapter mAdapter;
+	private RecyclerView.LayoutManager mLayoutManager;
+
+
 	public AccountFragment(MainActivity activity){//empty constructor
 		this.activity = activity;
 		model = activity.getModel();
 		accountList = activity.getAccountList();
 		drawerList = activity.getDrawerList();
 	}
-	
+
 	public static final AccountFragment newInstance(int position, MainActivity activity)
 	{
-		 AccountFragment f = new AccountFragment(activity);
-		    Bundle bdl = new Bundle(2);
-		    bdl.putInt(ARG_SECTION_NUMBER, position);
-		    f.setArguments(bdl);
-		    return f;
+		AccountFragment f = new AccountFragment(activity);
+		Bundle bdl = new Bundle(2);
+		bdl.putInt(ARG_SECTION_NUMBER, position);
+		f.setArguments(bdl);
+		return f;
 	}
-	
+
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-	    sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER); //get the position of the account in the drawer
+		sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER); //get the position of the account in the drawer
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		
+
 		for(int i=0;i<accountList.size();i++){ //find the account in the drawerlist
 			if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
 				sectionNumber = i;
 			}
 		}
 		int key = accountList.get(sectionNumber).getKey(); //compute the balance of the account
-        model.setSelectedAccount(key);
-        model.updateOperationAccountBalance();
-        
-	    operation = model.getOperations(model.getAccounts().get(key)); //get the operations of the account
-	    
-		View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+		model.setSelectedAccount(key);
+		model.updateOperationAccountBalance();
+
+		operation = model.getOperations(model.getAccounts().get(key)); //get the operations of the account
+
+		View rootView = inflater.inflate(R.layout.recycle_layout, container, false);
 		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model);
-		//View overViewCard = inflater.inflate(R.layout.overviewcard,  container);
-		LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
+		RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
-		
-		overview.addView(over);
+
+		/*overview.addView(over);
 		for(int i=operation.size()-1; i>=0; i--){
 			AccountCardView card = new AccountCardView(getActivity(), (ViewGroup) this.getView(), operation.get(i));
 			layout.addView(card);
-		}
+		}*/
+
+		mRecyclerView.setHasFixedSize(false);
+
+		mLayoutManager = new LinearLayoutManager(activity);
+		mRecyclerView.setLayoutManager(mLayoutManager);
+
+		mAdapter = new AccountRecyclerAdapter(operation, activity);
+        mRecyclerView.setAdapter(mAdapter);
+
+        overview.addView(over);
 		return rootView;
 	}
 
@@ -106,7 +122,7 @@ public class AccountFragment extends Fragment{
 		super.onAttach(activity);
 		((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));//notify main activity
 	}
-	
-	
+
+
 
 }

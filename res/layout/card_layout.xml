@@ -1,67 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="4dp" >
 
-        <TextView
-            android:id="@+id/cardLayout_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:orientation="horizontal"
-            android:layout_weight="0.5"
-            android:text="@string/cardLayout_date" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/cardLayout_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_weight="0.5"
-            android:orientation="horizontal"
-            android:text="@string/cardLayout_category" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-    <TextView
-            android:id="@+id/cardLayout_tier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:text="@string/cardLayout_tier" />
-    
-    <TextView
-            android:id="@+id/cardLayout_memo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:text="@string/cardLayout_memo" />
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        
-         <TextView
-            android:id="@+id/cardLayout_solde"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:orientation="horizontal"
-            android:layout_weight="0.5"
-            android:text="@string/cardLayout_solde" />
+                <TextView
+                    android:id="@+id/cardLayout_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    android:text="@string/cardLayout_date" />
 
-        <TextView
-            android:id="@+id/cardLayout_montant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_weight="0.5"
-            android:orientation="horizontal"
-            android:text="@string/cardLayout_montant" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/cardLayout_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal"
+                    android:text="@string/cardLayout_category" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/cardLayout_tier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:text="@string/cardLayout_tier" />
+
+            <TextView
+                android:id="@+id/cardLayout_memo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:text="@string/cardLayout_memo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/cardLayout_solde"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    android:text="@string/cardLayout_solde" />
+
+                <TextView
+                    android:id="@+id/cardLayout_montant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal"
+                    android:text="@string/cardLayout_montant" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

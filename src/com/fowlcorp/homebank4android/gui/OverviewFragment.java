@@ -74,7 +74,7 @@ public class OverviewFragment extends Fragment{
 	    operation = model.getOperations(model.getAccounts().get(key));*/
 		View rootView = inflater.inflate(R.layout.fragment_main, container,false);
 		//OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView());
-		LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
+		LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 		//LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 		//overview.addView(over);
 		for(int i=0;i<accountList.size();i++){
