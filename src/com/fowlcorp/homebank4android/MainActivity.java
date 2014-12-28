@@ -20,12 +20,13 @@ package com.fowlcorp.homebank4android;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,13 +40,14 @@ import com.dropbox.sync.android.DbxPath.InvalidPathException;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
 import com.fowlcorp.homebank4android.gui.OverviewFragment;
+import com.fowlcorp.homebank4android.gui.PagerSwipeFragment;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	static final int REQUEST_LINK_TO_DBX = 0;
 	static final int DROP_PATH_OK = 1000;
@@ -139,12 +141,12 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	public void onNavigationDrawerItemSelected(int position) { //when a drawer item is selected
 		// update the main content by replacing fragments
 		try {
-			FragmentManager fragmentManager = getFragmentManager(); //get the fragment manager
+			FragmentManager fragmentManager = getSupportFragmentManager(); //get the fragment manager
 			FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
 			if(drawerList.get(position).isOverview()){ //if the item is the overview
 				tx.replace(R.id.container,OverviewFragment.newInstance(this)).commit(); //invoke the overview fragment
 			} else { //if it is an account
-				tx.replace(R.id.container,AccountFragment.newInstance(position, this)).commit(); //invoke the account fragment
+				tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, this)).commit(); //invoke the account fragment
 			}
 		} catch (Exception e) {
 			e.printStackTrace(); //debug

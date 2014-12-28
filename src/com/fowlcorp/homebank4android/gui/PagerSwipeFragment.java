@@ -24,6 +24,8 @@ import android.app.Activity;
 //import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,7 +39,7 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
 
-public class AccountFragment extends Fragment{
+public class PagerSwipeFragment extends Fragment{
 
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private int sectionNumber;
@@ -51,16 +53,16 @@ public class AccountFragment extends Fragment{
 	private RecyclerView.LayoutManager mLayoutManager;
 
 
-	public AccountFragment(MainActivity activity){//empty constructor
+	public PagerSwipeFragment(MainActivity activity){//empty constructor
 		this.activity = activity;
 		model = activity.getModel();
 		accountList = activity.getAccountList();
 		drawerList = activity.getDrawerList();
 	}
 
-	public static final AccountFragment newInstance(int position, MainActivity activity)
+	public static final PagerSwipeFragment newInstance(int position, MainActivity activity)
 	{
-		AccountFragment f = new AccountFragment(activity);
+		PagerSwipeFragment f = new PagerSwipeFragment(activity);
 		Bundle bdl = new Bundle(2);
 		bdl.putInt(ARG_SECTION_NUMBER, position);
 		f.setArguments(bdl);
@@ -76,6 +78,7 @@ public class AccountFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+		
 		for(int i=0;i<accountList.size();i++){ //find the account in the drawerlist
 			if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
 				sectionNumber = i;
@@ -87,8 +90,32 @@ public class AccountFragment extends Fragment{
 
 		operation = model.getOperations(model.getAccounts().get(key)); //get the operations of the account
 
-		View rootView = inflater.inflate(R.layout.recycle_layout, container, false);
-		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model);
+		final ArrayList<Fragment> fragList = new ArrayList<Fragment>();
+
+		fragList.add(AccountFragment.newInstance(sectionNumber, activity));
+		//fragList.add(AccountFragment.newInstance(sectionNumber, activity));
+
+		FragmentPagerAdapter pager = new FragmentPagerAdapter(activity.getSupportFragmentManager()) {
+
+			@Override
+			public int getCount() {
+				return fragList.size();
+			}
+
+			@Override
+			public android.support.v4.app.Fragment getItem(int arg0) {
+				return fragList.get(arg0);
+			}
+		};
+
+
+
+		
+		View rootView = inflater.inflate(R.layout.pager_layout, container, false);
+		
+		ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+        mViewPager.setAdapter(pager);
+		/*OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model);
 		RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 
@@ -100,7 +127,7 @@ public class AccountFragment extends Fragment{
 		mAdapter = new AccountRecyclerAdapter(operation, activity);
         mRecyclerView.setAdapter(mAdapter);
 
-        overview.addView(over);
+        overview.addView(over);*/
 		return rootView;
 	}
 

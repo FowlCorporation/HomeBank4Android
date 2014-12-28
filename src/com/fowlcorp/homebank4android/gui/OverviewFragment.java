@@ -20,24 +20,20 @@ package com.fowlcorp.homebank4android.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fowlcorp.homebank4android.MainActivity;
-import com.fowlcorp.homebank4android.NavigationDrawerFragment;
-import com.fowlcorp.homebank4android.R;
-import com.fowlcorp.homebank4android.model.Account;
-import com.fowlcorp.homebank4android.model.Model;
-import com.fowlcorp.homebank4android.model.Operation;
-
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.fowlcorp.homebank4android.MainActivity;
+import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.model.Account;
+import com.fowlcorp.homebank4android.model.Model;
+import com.fowlcorp.homebank4android.model.Operation;
 
 public class OverviewFragment extends Fragment{
 
