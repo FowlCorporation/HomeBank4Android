@@ -144,7 +144,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 			if(drawerList.get(position).isOverview()){ //if the item is the overview
 				tx.replace(R.id.container,OverviewFragment.newInstance()).commit(); //invoke the overview fragment
 			} else { //if it is an account
-				tx.replace(R.id.container,AccountFragment.newInstance(position)).commit(); //invoke the account fragment
+				tx.replace(R.id.container,AccountFragment.newInstance(position, this)).commit(); //invoke the account fragment
 			}
 		} catch (Exception e) {
 			e.printStackTrace(); //debug
