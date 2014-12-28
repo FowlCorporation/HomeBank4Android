@@ -57,7 +57,7 @@ public class AccountFragment extends Fragment{
 		accountList = activity.getAccountList();
 		drawerList = activity.getDrawerList();
 	}
-
+	
 	public static final AccountFragment newInstance(int position, MainActivity activity)
 	{
 		AccountFragment f = new AccountFragment(activity);

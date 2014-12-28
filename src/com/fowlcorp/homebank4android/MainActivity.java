@@ -146,7 +146,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 			if(drawerList.get(position).isOverview()){ //if the item is the overview
 				tx.replace(R.id.container,OverviewFragment.newInstance(this)).commit(); //invoke the overview fragment
 			} else { //if it is an account
-				tx.replace(R.id.container,AccountFragment.newInstance(position, this)).commit(); //invoke the account fragment
+				tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, this)).commit(); //invoke the account fragment
 			}
 		} catch (Exception e) {
 			e.printStackTrace(); //debug

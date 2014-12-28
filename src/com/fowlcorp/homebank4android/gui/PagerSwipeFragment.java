@@ -78,7 +78,7 @@ public class PagerSwipeFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	
-		FragmentPagerAdapter pager = new CustomFragmentPagerAdapter(activity.getSupportFragmentManager(), sectionNumber, activity);
+		FragmentPagerAdapter pager = new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, activity);
 		View rootView = inflater.inflate(R.layout.pager_layout, container, false);
 		
 		ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.pager);

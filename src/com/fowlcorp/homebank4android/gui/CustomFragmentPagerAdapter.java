@@ -16,7 +16,7 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 		super(mFragmentManager);
 		
 		fragList = new ArrayList<Fragment>();
-		
+		fragList.add(AccountFragment.newInstance(position, activity));
 		fragList.add(AccountFragment.newInstance(position, activity));
 	}
 
