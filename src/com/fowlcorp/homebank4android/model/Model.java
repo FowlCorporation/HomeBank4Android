@@ -50,7 +50,7 @@ public class Model {
             if(op.getAccount().getKey() == selectedAccount) {
                 if(op.getDate().compareTo(today) <= 0) { // today or past operation
                     todayBalance += op.getAmount();
-                    if(op.getFlag() == 3 || op.getFlag() == 1) {
+                    if(op.isReconciled()) {
                         bankBalance += op.getAmount();
                     }
                 }

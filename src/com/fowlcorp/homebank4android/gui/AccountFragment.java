@@ -96,15 +96,15 @@ public class AccountFragment extends Fragment{
 		
 		if(!displayAll){
 			if(isPayed){
-				for(int i=0;i<operation.size();i++){
-					 if(operation.get(i).getFlag() == 3 || operation.get(i).getFlag() == 1){
-						 listTemp.add(operation.get(i));
+				for(Operation op : operation){
+					 if(op.isReconciled()){
+						 listTemp.add(op);
 					 }
 				}
 			}else {
-				for(int i=0;i<operation.size();i++){
-					 if(operation.get(i).getFlag() != 3 && operation.get(i).getFlag() != 1){
-						 listTemp.add(operation.get(i));
+                for(Operation op : operation){
+					 if(!op.isReconciled()){
+						 listTemp.add(op);
 					 }
 				}
 			}
