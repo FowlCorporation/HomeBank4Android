@@ -16,8 +16,9 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 		super(mFragmentManager);
 		
 		fragList = new ArrayList<Fragment>();
-		fragList.add(AccountFragment.newInstance(position, activity));
-		fragList.add(AccountFragment.newInstance(position, activity));
+		fragList.add(AccountFragment.newInstance(position, activity, true, false));
+		fragList.add(AccountFragment.newInstance(position, activity, false, true));
+		fragList.add(AccountFragment.newInstance(position, activity, false, false));
 	}
 
 	@Override
@@ -34,11 +35,11 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 	public CharSequence getPageTitle(int position) {
 		switch (position) {
         case 0:
-            return "Tab One";
+            return "Toutes";
         case 1:
-            return "Tab Two";
+            return "Rapprochée";
         case 2:
-            return "Tab Three";
+            return "Non rapprochée";
     }
  
     return null;

@@ -20,6 +20,7 @@ package com.fowlcorp.homebank4android.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
 import android.app.Activity;
 //import android.app.Fragment;
 import android.os.Bundle;
@@ -49,18 +50,23 @@ public class AccountFragment extends Fragment{
 
 	private AccountRecyclerAdapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
+	
+	private boolean isPayed = false;
+	private boolean displayAll = true;
 
 
-	public AccountFragment(MainActivity activity){//empty constructor
+	public AccountFragment(MainActivity activity, boolean displayAll, boolean isPayed){//empty constructor
 		this.activity = activity;
+		this.isPayed = isPayed;
+		this.displayAll = displayAll;
 		model = activity.getModel();
 		accountList = activity.getAccountList();
 		drawerList = activity.getDrawerList();
 	}
 	
-	public static final AccountFragment newInstance(int position, MainActivity activity)
+	public static final AccountFragment newInstance(int position, MainActivity activity, boolean displayAll, boolean isPayed)
 	{
-		AccountFragment f = new AccountFragment(activity);
+		AccountFragment f = new AccountFragment(activity, displayAll, isPayed);
 		Bundle bdl = new Bundle(2);
 		bdl.putInt(ARG_SECTION_NUMBER, position);
 		f.setArguments(bdl);
@@ -86,6 +92,25 @@ public class AccountFragment extends Fragment{
 		model.updateOperationAccountBalance();
 
 		operation = model.getOperations(model.getAccounts().get(key)); //get the operations of the account
+		ArrayList<Operation> listTemp = new ArrayList<Operation>();
+		
+		if(!displayAll){
+			if(isPayed){
+				for(int i=0;i<operation.size();i++){
+					 if(operation.get(i).getFlag() == 3 || operation.get(i).getFlag() == 1){
+						 listTemp.add(operation.get(i));
+					 }
+				}
+			}else {
+				for(int i=0;i<operation.size();i++){
+					 if(operation.get(i).getFlag() != 3 && operation.get(i).getFlag() != 1){
+						 listTemp.add(operation.get(i));
+					 }
+				}
+			}
+		} else {
+			listTemp.addAll(operation);
+		}
 
 		View rootView = inflater.inflate(R.layout.recycle_layout, container, false);
 		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model);
@@ -97,7 +122,7 @@ public class AccountFragment extends Fragment{
 		mLayoutManager = new LinearLayoutManager(activity);
 		mRecyclerView.setLayoutManager(mLayoutManager);
 		System.out.println("je passe dans account fragment");
-		mAdapter = new AccountRecyclerAdapter(operation, activity);
+		mAdapter = new AccountRecyclerAdapter(listTemp, activity);
         mRecyclerView.setAdapter(mAdapter);
 
         overview.addView(over);
