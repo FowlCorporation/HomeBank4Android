@@ -112,6 +112,11 @@ public class AccountFragment extends Fragment{
 			listTemp.addAll(operation);
 		}
 
+		ArrayList<Operation> listOperation = new ArrayList<Operation>();
+		for(int i=listTemp.size()-1;i>=0;i--){
+			listOperation.add(listTemp.get(i));
+		}
+		
 		View rootView = inflater.inflate(R.layout.recycle_layout, container, false);
 		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model);
 		RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
@@ -121,8 +126,7 @@ public class AccountFragment extends Fragment{
 
 		mLayoutManager = new LinearLayoutManager(activity);
 		mRecyclerView.setLayoutManager(mLayoutManager);
-		System.out.println("je passe dans account fragment");
-		mAdapter = new AccountRecyclerAdapter(listTemp, activity);
+		mAdapter = new AccountRecyclerAdapter(listOperation, activity);
         mRecyclerView.setAdapter(mAdapter);
 
         overview.addView(over);
