@@ -29,7 +29,7 @@ public class OverViewCard extends CardView{
 
 	public OverViewCard(Context context, ViewGroup parent, Model model ) {
 		super(context);
-
+		
         Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
         soldeValue = selectedAcc.getBankAccountBalance();
         futurValue = selectedAcc.getFutureAccountBalance();

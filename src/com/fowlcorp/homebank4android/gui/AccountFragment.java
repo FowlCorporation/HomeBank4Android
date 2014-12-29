@@ -41,18 +41,18 @@ import com.fowlcorp.homebank4android.model.Operation;
 public class AccountFragment extends Fragment{
 
 	private static final String ARG_SECTION_NUMBER = "section_number";
-	private int sectionNumber;
-	private ArrayList<Account> accountList;
-	private List<Operation> operation;
-	private Model model;
-	private ArrayList<DrawerItem> drawerList;
+	private int sectionNumber; //the number of the section in the drawer
+	private ArrayList<Account> accountList; //the list of account
+	private List<Operation> operation; //the list of operation of an account
+	private Model model; //the data model
+	private ArrayList<DrawerItem> drawerList; //the draweritem list
 	private MainActivity activity;
 
-	private AccountRecyclerAdapter mAdapter;
-	private RecyclerView.LayoutManager mLayoutManager;
+	private AccountRecyclerAdapter mAdapter; //the adapter for the recycle view
+	private RecyclerView.LayoutManager mLayoutManager; //the layout manager
 	
-	private boolean isPayed = false;
-	private boolean displayAll = true;
+	private boolean isPayed = false; //if the display operations are payed
+	private boolean displayAll = true; //if all the operations are to be displayed
 
 
 	public AccountFragment(MainActivity activity, boolean displayAll, boolean isPayed){//empty constructor
@@ -94,31 +94,31 @@ public class AccountFragment extends Fragment{
 		operation = model.getOperations(model.getAccounts().get(key)); //get the operations of the account
 		ArrayList<Operation> listTemp = new ArrayList<Operation>();
 		
-		if(!displayAll){
+		if(!displayAll){ //if the operation are discriminated
 			if(isPayed){
 				for(int i=0;i<operation.size();i++){
-					 if(operation.get(i).getFlag() == 3 || operation.get(i).getFlag() == 1){
+					 if(operation.get(i).getFlag() == 3 || operation.get(i).getFlag() == 1){ //if the operation is payed
 						 listTemp.add(operation.get(i));
 					 }
 				}
 			}else {
 				for(int i=0;i<operation.size();i++){
-					 if(operation.get(i).getFlag() != 3 && operation.get(i).getFlag() != 1){
+					 if(operation.get(i).getFlag() != 3 && operation.get(i).getFlag() != 1){ //if the operation in not payed
 						 listTemp.add(operation.get(i));
 					 }
 				}
 			}
 		} else {
-			listTemp.addAll(operation);
+			listTemp.addAll(operation); //get all the operation to display all
 		}
 
 		ArrayList<Operation> listOperation = new ArrayList<Operation>();
-		for(int i=listTemp.size()-1;i>=0;i--){
+		for(int i=listTemp.size()-1;i>=0;i--){ //revert the sort
 			listOperation.add(listTemp.get(i));
 		}
 		
-		View rootView = inflater.inflate(R.layout.recycle_layout, container, false);
-		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model);
+		View rootView = inflater.inflate(R.layout.recycle_layout, container, false); //the recycler layout
+		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model); //create the overview card
 		RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 
