@@ -14,5 +14,8 @@
     <string name="pref_header_general">Général</string>
     <string name="title_activity_settings">Paramètres</string>
     <string name="overViewDrawerItem">Synthèse</string>
+    <string name="all_operations">Toutes</string>
+    <string name="payed_operations">Raprochées</string>
+    <string name="unpayed_operation">Non raprochées</string>
 
 </resources>

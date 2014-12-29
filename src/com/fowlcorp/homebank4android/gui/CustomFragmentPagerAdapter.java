@@ -3,7 +3,9 @@ package com.fowlcorp.homebank4android.gui;
 import java.util.ArrayList;
 
 import com.fowlcorp.homebank4android.MainActivity;
+import com.fowlcorp.homebank4android.R;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,9 +13,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 	
 	private ArrayList<Fragment> fragList;
+	private MainActivity activity;
 	
 	public CustomFragmentPagerAdapter(FragmentManager mFragmentManager, int position, MainActivity activity) {
 		super(mFragmentManager);
+		
+		this.activity = activity;
 		
 		fragList = new ArrayList<Fragment>();
 		fragList.add(AccountFragment.newInstance(position, activity, true, false));
@@ -35,11 +40,11 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 	public CharSequence getPageTitle(int position) {
 		switch (position) {
         case 0:
-            return "Toutes";
+            return activity.getString(R.string.all_operations);
         case 1:
-            return "Rapprochée";
+            return activity.getString(R.string.payed_operations);
         case 2:
-            return "Non rapprochée";
+            return activity.getString(R.string.unpayed_operation);
     }
  
     return null;

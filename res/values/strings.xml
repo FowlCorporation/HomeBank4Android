@@ -28,5 +28,8 @@
     <string name="detailedCardLayout_amount">Amount</string>
     <string name="overViewDrawerItem">Overview</string>
     <string name="title_activity_drop_box_file">DropBoxFileActivity</string>
+    <string name="all_operations">All</string>
+    <string name="payed_operations">Payed</string>
+    <string name="unpayed_operation">Unpayed</string>
 
 </resources>
