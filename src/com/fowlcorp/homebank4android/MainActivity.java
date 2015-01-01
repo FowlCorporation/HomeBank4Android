@@ -223,7 +223,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 			}
 		}
 		//add the overview item to the drawerlist
-		drawerList.add(new DrawerItem(getResources().getString(R.string.overViewDrawerItem),-1,true,false));
+		drawerList.add(new DrawerItem(getResources().getString(R.string.overViewDrawerItem),R.drawable.home,true,false));
 
 		//add data to the drawerlist
 		for(int i=0;i<bankList.size();i++){//for each bank name
