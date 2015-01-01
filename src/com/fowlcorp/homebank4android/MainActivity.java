@@ -230,7 +230,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 			drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));//add the bank to the drawer as a title
 			for(int j=0;j<accountList.size();j++){//for each account
 				if(accountList.get(j).getBankName().equals(bankList.get(i))){ //if the account correspond to the bank name
-					drawerList.add(new DrawerItem(accountList.get(j).getName(), -1,accountList.get(j).getKey())); //add the account in the drawer list
+					drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.bank,accountList.get(j).getKey())); //add the account in the drawer list
 				}
 			}
 		}
