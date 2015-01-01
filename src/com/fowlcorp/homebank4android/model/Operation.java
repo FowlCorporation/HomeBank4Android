@@ -17,6 +17,8 @@
 
 package com.fowlcorp.homebank4android.model;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 /**
@@ -27,14 +29,15 @@ public class Operation implements Comparable {
 
 	private GregorianCalendar date;
 	private int xmlDate;
-    private int flag; // 3 : positif rapproché ; 1 : négatif rappoché ; pas de flag : pas rapproché
-    private int payMode; // 4 : transfert
-    private double balanceAccount;
+	private int flag;
+	private int payMode;
+	private double balanceAccount;
 	private double amount;
 	private Account account;
 	private String wording, tags; // wording <=> memo
 	private Category category;
 	private Payee payee;
+	private ArrayList<Couple> splits;
 	
 	
 	public Operation(int xmlDate, double amount, Account account, Category category, Payee payee) {
@@ -45,7 +48,10 @@ public class Operation implements Comparable {
 		this.payee = payee;
 		computeGregorianDate();
 	}
-	
+
+	/**
+	 * Transform xml date (example 735431) in a GregorianCalendar
+	 */
 	private void computeGregorianDate() {
 		date = new GregorianCalendar();
 		date.set(1, 0, 1);
@@ -54,7 +60,7 @@ public class Operation implements Comparable {
 //		System.out.println("Day : " + calendar.get(GregorianCalendar.DATE) + " " + calendar.get(GregorianCalendar.MONTH) + " " + calendar.get(GregorianCalendar.YEAR));
 	}
 
-    public boolean isReconciled() {
+	public boolean isReconciled() {
 //        #define OF_VALID	 (1<<0)
 //        #define OF_INCOME	 (1<<1)
 //        #define OF_AUTO	 (1<<2)	//tmp flag scheduled
@@ -64,8 +70,8 @@ public class Operation implements Comparable {
 //        #define OF_CHEQ2	 (1<<6)
 //        #define OF_LIMIT	 (1<<7)	//scheduled
 //        #define OF_SPLIT	 (1<<8)
-        return flag % 2 == 1;
-    }
+		return flag % 2 == 1;
+	}
 	
 	public String verboseDate() {
 		return date.get(GregorianCalendar.DAY_OF_MONTH) + "/" + (date.get(GregorianCalendar.MONTH)+1) + "/" + date.get(GregorianCalendar.YEAR);
@@ -74,20 +80,37 @@ public class Operation implements Comparable {
 	public GregorianCalendar getDate() {
 		return date;
 	}
+
+    /**
+     * Set the GregorianDate and update the xmlDate
+     * @param date
+     */
 	public void setDate(GregorianCalendar date) {
 		this.date = date;
+        GregorianCalendar ref = new GregorianCalendar();
+        ref.set(1, 0, 1);
+        xmlDate = (int)( (date.getTimeInMillis() - ref.getTimeInMillis()) / (1000 * 60 * 60 * 24));
 	}
 	public int getXmlDate() {
 		return xmlDate;
 	}
+
+    /**
+     * Set the xmlDate and update the GregorianDate
+     * @param xmlDate
+     */
 	public void setXmlDate(int xmlDate) {
 		this.xmlDate = xmlDate;
+		computeGregorianDate();
 	}
 	public int getFlag() {
 		return flag;
 	}
 	public void setFlag(int flag) {
 		this.flag = flag;
+        if(isSplit()) {
+            splits = new ArrayList();
+        }
 	}
 	public double getAmount() {
 		return amount;
@@ -125,33 +148,47 @@ public class Operation implements Comparable {
 	public void setPayee(Payee payee) {
 		this.payee = payee;
 	}
-    public double getBalanceAccount() {
-        return balanceAccount;
-    }
-    public void setBalanceAccount(double balanceAccount) {
-        this.balanceAccount = balanceAccount;
-    }
+	public double getBalanceAccount() {
+		return balanceAccount;
+	}
+	public void setBalanceAccount(double balanceAccount) {
+		this.balanceAccount = balanceAccount;
+	}
 
-    public int getPayMode() {
-        return payMode;
-    }
+	public int getPayMode() {
+		return payMode;
+	}
 
-    public void setPayMode(int payMode) {
-        this.payMode = payMode;
-    }
+	public void setPayMode(int payMode) {
+		this.payMode = payMode;
+	}
 
 	@Override
 	public String toString() {
-		return "Operation : " + verboseDate() + ", amount : " + getAmount() + (getPayee()==null ? "" : ", payee : " + getPayee().getName()) + (getCategory()== null ? "" : ", category : " + getCategory().getName());
+		return "Operation : " + verboseDate() + ", amount : " + getAmount() + (getPayee()==null ? "" : ", payee : " + getPayee().getName())
+                + (getCategory()== null ? "" : ", category : " + getCategory().getName())
+                + (splits == null ? "" : ", splitted : " + splits.size() + " operations");
 		
 	}
 
-    public int compareTo(Object o) {
-        if(o instanceof  Operation) {
-            Operation operation = (Operation) o;
-            return this.date.compareTo(operation.getDate());
-        } else {
-            throw new ClassCastException();
-        }
-    }
+	public int compareTo(Object o) {
+		if(o instanceof  Operation) {
+			Operation operation = (Operation) o;
+			return this.date.compareTo(operation.getDate());
+		} else {
+			throw new ClassCastException();
+		}
+	}
+
+	public boolean isSplit() {
+		return (flag&0x100) != 0;
+	}
+
+	public ArrayList<Couple> getSplits() {
+		return splits;
+	}
+
+	public void setSplits(ArrayList<Couple> splits) {
+		this.splits = splits;
+	}
 }
