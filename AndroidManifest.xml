@@ -16,7 +16,7 @@
         android:icon="@drawable/homebank"
         android:label="@string/app_name"
         android:logo="@drawable/homebank"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/MyTheme" >
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
