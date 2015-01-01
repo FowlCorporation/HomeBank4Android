@@ -24,15 +24,23 @@ package com.fowlcorp.homebank4android.model;
 public class Account extends AccPayCatTagAbstract {
 
 	private double initBalance;
-	private String bankName, accountNumber; // accountNumber may contains letters ...
+    private double todayAccountBalance;
+    private double bankAccountBalance;
+    private double futureAccountBalance;
+	private String bankName, accountNumber;
+    private boolean modified;
 	
 	public Account(int key, String name) {
 		super(key, name);
+        setModified(true);
+        bankName = "No bank name"; // to avoid NPE
 	}
 	
 	public Account(int key, String name, double initBalance) {
 		super(key, name);
 		this.initBalance = initBalance;
+        setModified(true);
+        bankName = "No bank name"; // to avoid NPE
 	}
 
 	public double getInitBalance() {
@@ -41,6 +49,7 @@ public class Account extends AccPayCatTagAbstract {
 
 	public void setInitBalance(double initBalance) {
 		this.initBalance = initBalance;
+        modified = false;
 	}
 
 	public String getBankName() {
@@ -63,4 +72,36 @@ public class Account extends AccPayCatTagAbstract {
 	public String toString() {
 		return "Account : "+getKey() +", " + getName() + (getBankName() == null ? "" : ", bank name : " + getBankName())  + (getAccountNumber() == null ? "" : ", account number : " + getAccountNumber()) + ", initial balance : " + getInitBalance();
 	}
+
+    public double getTodayAccountBalance() {
+        return todayAccountBalance;
+    }
+
+    public void setTodayAccountBalance(double todayAccountBalance) {
+        this.todayAccountBalance = todayAccountBalance;
+    }
+
+    public double getBankAccountBalance() {
+        return bankAccountBalance;
+    }
+
+    public void setBankAccountBalance(double bankAccountBalance) {
+        this.bankAccountBalance = bankAccountBalance;
+    }
+
+    public double getFutureAccountBalance() {
+        return futureAccountBalance;
+    }
+
+    public void setFutureAccountBalance(double futureAccountBalance) {
+        this.futureAccountBalance = futureAccountBalance;
+    }
+
+    public boolean isModified() {
+        return modified;
+    }
+
+    public void setModified(boolean modified) {
+        this.modified = modified;
+    }
 }

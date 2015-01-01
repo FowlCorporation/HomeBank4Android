@@ -20,12 +20,13 @@ package com.fowlcorp.homebank4android;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,118 +40,98 @@ import com.dropbox.sync.android.DbxPath.InvalidPathException;
 import com.fowlcorp.homebank4android.gui.AccountFragment;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
 import com.fowlcorp.homebank4android.gui.OverviewFragment;
+import com.fowlcorp.homebank4android.gui.PagerSwipeFragment;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements
-NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-	/**
-	 * Fragment managing the behaviors, interactions and presentation of the
-	 * navigation drawer.
-	 */
-	private NavigationDrawerFragment mNavigationDrawerFragment;
-
-	/**
-	 * Used to store the last screen title. For use in
-	 * {@link #restoreActionBar()}.
-	 */
-	private CharSequence mTitle;
-
-	/**
-	 * 
-	 */
-	private DbxAccountManager dropBoxAccountMgr;
 	static final int REQUEST_LINK_TO_DBX = 0;
 	static final int DROP_PATH_OK = 1000;
+
+	private NavigationDrawerFragment mNavigationDrawerFragment;
+	private CharSequence mTitle; //the title of the current fragment
+	private DbxAccountManager dropBoxAccountMgr;
 	private DbxFileSystem dbxFs;
-	private Model model;
-	private ArrayList<Account> accountList;
-	private ArrayList<String> bankList;
-	private ArrayList<DrawerItem> drawerList;
-	private DbxFile file;
-	private DataParser dp;
-	private SharedPreferences sharedPreferences;
+	private Model model; //datamodel
+	private ArrayList<Account> accountList; //a list of the accounts
+	private ArrayList<String> bankList; //a list of the bank name
+	private ArrayList<DrawerItem> drawerList; //a list of the object to diplay in the drawer
+	private DbxFile file; //the homebank file
+	private DataParser dp; //the parser of the file
+	private SharedPreferences sharedPreferences; //preferences of the app
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState); //restore the saved state
 
-		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
-				"sjt7o80sdtdjsxi");
-		
-		if(!dropBoxAccountMgr.hasLinkedAccount()){
-			dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
+		//Connect to the dropbox api with the id and key of the dropbox app
+		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e","sjt7o80sdtdjsxi");
+
+		if(!dropBoxAccountMgr.hasLinkedAccount()){ //if the user has not linked to the app before
+			dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX); //launch an activity to link to dropbox
 		} else {
-			dropBoxCall();
+			dropBoxCall();//connect to dropbox
 		}
-		doTEst();
-		setContentView(R.layout.activity_main);
 		
-		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
-				.findFragmentById(R.id.navigation_drawer);
-		mNavigationDrawerFragment.setRetainInstance(true);
-		mTitle = getTitle();
+		doTEst();
+		
+		setContentView(R.layout.activity_main); //invoke the layout
+
+		//invoke the fragment
+		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
+		mNavigationDrawerFragment.setRetainInstance(true); //use for orientation change
+		mTitle = getTitle(); //set the title of the fragment (name of the app by default)
 
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-		
-		
+
+
 
 	}
-	
-	public boolean dropBoxCall(){
-		
 
+	public boolean dropBoxCall(){
+		//get the path of the file in the preference
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String pathPref = sharedPreferences.getString("dropPath", "/Bibichette/HomeBank Martin/banque_martin.xml");
-		System.out.println(pathPref);
-		
-		
-			try {
-				dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-//			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
-//			System.out.println("liste des fichier");
-//			for (DbxFileInfo info : infos) {
-//				System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
-//			}
-				//DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.xml");
-				DbxPath path = new DbxPath(pathPref);
-				file = dbxFs.open(path);
-			} catch (InvalidPathException | DbxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        try {
-				dp = new DataParser(getApplicationContext(), file);
-			} catch (Exception e) {
-				Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
-				startActivityForResult(intent, DROP_PATH_OK);
-			}
-		
+		String pathPref = sharedPreferences.getString("dropPath", "");
+		//System.out.println(pathPref); //debug
+
+
+		try {
+			dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+			DbxPath path = new DbxPath(pathPref); //create the path of the file
+			file = dbxFs.open(path); //open the file
+		} catch (InvalidPathException | DbxException e) { //Dropbox exception
+			e.printStackTrace();
+		}
+		try {
+			dp = new DataParser(getApplicationContext(), file);
+			return true;
+		} catch (Exception e) { //exception : the file is corrupted or is not a homebank database
+			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
+			startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
+		}
 		return false;
 	}
 
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	public void onActivityResult(int requestCode, int resultCode, Intent data) { //called when an activity whith result ends
 		if (requestCode == REQUEST_LINK_TO_DBX) {
-			if (resultCode == Activity.RESULT_OK) {
+			if (resultCode == Activity.RESULT_OK) { //if the dropbox link activity end correctly
 				dropBoxCall();
-				doTEst();
 			} else {
-				// ... Link failed or was cancelled by the user.
 			}
 		} else if(requestCode == DROP_PATH_OK){
-			if(resultCode == Activity.RESULT_OK){
-				String result = data.getStringExtra("pathResult");
+			if(resultCode == Activity.RESULT_OK){ //if the filechooser end correctly
+				String result = data.getStringExtra("pathResult"); //store the new path in the preferences
 				sharedPreferences.edit().putString("dropPath", result).commit();
-				finish();
-				System.out.println(result);
+				dropBoxCall();
 				doTEst();
+				updateGUI();
 			}
 		} else {
 			super.onActivityResult(requestCode, resultCode, data);
@@ -158,44 +139,29 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	}
 
 	@Override
-	public void onNavigationDrawerItemSelected(int position) {
+	public void onNavigationDrawerItemSelected(int position) { //when a drawer item is selected
 		// update the main content by replacing fragments
 		try {
-			FragmentManager fragmentManager = getFragmentManager();
-			FragmentTransaction tx = fragmentManager.beginTransaction();
-			if(drawerList.get(position).isOverview()){
-				tx.replace(R.id.container,OverviewFragment.newInstance()).commit();
-			} else if(drawerList.get(position).isHeader()){
-
-			} else {
-				tx.replace(R.id.container,AccountFragment.newInstance(position)).commit();
+			FragmentManager fragmentManager = getSupportFragmentManager(); //get the fragment manager
+			FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
+			if(drawerList.get(position).isOverview()){ //if the item is the overview
+				tx.replace(R.id.container,OverviewFragment.newInstance(this)).commit(); //invoke the overview fragment
+			} else { //if it is an account
+				tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, this)).commit(); //invoke the account fragment
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); //debug
 		}
 	}
 
 	public void onSectionAttached(int number) {
-		/*switch (number) {
-		case 1:
-			mTitle = getString(R.string.title_section1);
-			break;
-		case 2:
-			mTitle = getString(R.string.title_section2);
-			break;
-		case 3:
-			mTitle = getString(R.string.title_section3);
-			break;
-		}*/
-		mTitle = drawerList.get(number).getItemName();
+		mTitle = drawerList.get(number).getItemName(); //replace the current title bu the title of the fragment
 	}
 
 	public void restoreActionBar() {
-		ActionBar actionBar = getActionBar();
-		//actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setTitle(mTitle);
+		ActionBar actionBar = getActionBar(); //get the action bar
+		actionBar.setDisplayShowTitleEnabled(true); //display the title
+		actionBar.setTitle(mTitle); //set the title
 	}
 
 	@Override
@@ -217,126 +183,105 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_settings) { //the settings button is selected
 			Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-			startActivity(intent);
+			startActivity(intent); //start the activity of preferences
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
 	public void doTEst(){
-		System.out.println("run the test \0/");
-//		
-//		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//		String pathPref = sharedPreferences.getString("dropPath", "");
-//		System.out.println(pathPref);
-//		try {
-//			DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-//			List<DbxFileInfo> infos = dbxFs.listFolder(new DbxPath("/Bibichette/HomeBank Martin"));
-//			System.out.println("liste des fichier");
-//			for (DbxFileInfo info : infos) {
-//				System.out.println("    " + info.path + ", " + info.modifiedTime + '\n');
-//			}
-//			//DbxPath path = new DbxPath("/Bibichette/HomeBank Martin/banque_martin.xml");
-//			DbxPath path = new DbxPath(pathPref);
-//			file = dbxFs.open(path);
-//			dp = new DataParser(getApplicationContext(), file);
-//		} catch (Exception e) {
-//			dp = new DataParser(getApplicationContext());
-//			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
-//			startActivityForResult(intent, DROP_PATH_OK);
-//		}
-		
-		
-		//dp = new DataParser(getApplicationContext());
-		
-		//dp.runExample();
-		model = new Model();
-		try {
+		model = new Model(); //create the datamodel
+		try { //add data to the model
 			model.setAccounts(dp.parseAccounts());
 			model.setCategories((dp.parseCategories()));
 			model.setPayees(dp.parsePayees());
-            model.setTags(dp.parseTags());
+			model.setTags(dp.parseTags());
 			model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
 
+			//create the list of account with the model
 			accountList = new ArrayList<>(model.getAccounts().values());
 
-            System.err.println("Comptes " + model.getAccounts().size());
+			//debug
+			/*System.err.println("Comptes " + model.getAccounts().size());
             System.err.println("Cat " + model.getCategories().size());
             System.err.println("Payees " + model.getPayees().size());
             System.err.println("Tags " + model.getTags().size());
-            System.err.println("Opes " + model.getOperations().size());
+            System.err.println("Opes " + model.getOperations().size());*/
 		} catch (Exception e) {
-            System.err.println(e);
-			accountList = new ArrayList<>();
+			System.err.println(e);
+			accountList = new ArrayList<>();//if the model is empty create an empty list
 		}
 
-		bankList = new ArrayList<String>();
-		drawerList = new ArrayList<DrawerItem>();
+		bankList = new ArrayList<String>(); //create a list of bank name
+		drawerList = new ArrayList<DrawerItem>(); //create the list of the drawer items
 
-		for(int i=0;i<accountList.size();i++){
-			if(!bankList.contains(accountList.get(i).getBankName())){
-				bankList.add(accountList.get(i).getBankName());
+		for(int i=0;i<accountList.size();i++){//add data to the bank list
+			if(!bankList.contains(accountList.get(i).getBankName())){ //if the list doesn't contain the bank of this item
+				bankList.add(accountList.get(i).getBankName()); //add the bankname to the list
 			}
 		}
-		drawerList.add(new DrawerItem(getResources().getString(R.string.overViewDrawerItem),
-				-1,
-				true,
-				false));
+		//add the overview item to the drawerlist
+		drawerList.add(new DrawerItem(getResources().getString(R.string.overViewDrawerItem),-1,true,false));
 
-		for(int i=0;i<bankList.size();i++){
-			drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));
-			for(int j=0;j<accountList.size();j++){
-				if(accountList.get(j).getBankName().equals(bankList.get(i))){
-					drawerList.add(new DrawerItem(accountList.get(j).getName(), -1,accountList.get(j).getKey()));
+		//add data to the drawerlist
+		for(int i=0;i<bankList.size();i++){//for each bank name
+			drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));//add the bank to the drawer as a title
+			for(int j=0;j<accountList.size();j++){//for each account
+				if(accountList.get(j).getBankName().equals(bankList.get(i))){ //if the account correspond to the bank name
+					drawerList.add(new DrawerItem(accountList.get(j).getName(), -1,accountList.get(j).getKey())); //add the account in the drawer list
 				}
 			}
 		}
 	}
-
-
-	public Model getModel() {
-		return model;
-	}
-
-
-	public void setModel(Model model) {
-		this.model = model;
-	}
-
-
-	public ArrayList<Account> getAccountList() {
-		return accountList;
-	}
-
-
-	public void setAccountList(ArrayList<Account> accountList) {
-		this.accountList = accountList;
-	}
-
-
-
-	public ArrayList<DrawerItem> getDrawerList() {
-		return drawerList;
-	}
-
-
-
-	public void setDrawerList(ArrayList<DrawerItem> drawerList) {
-		this.drawerList = drawerList;
+	
+	public void updateGUI(){
+		mNavigationDrawerFragment.update();
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		dbxFs.shutDown();
+		try {
+			dbxFs.shutDown();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("on destroy");
 		if (isFinishing()) {
 
 		} else { 
 
 		}
+	}
+
+/*----------------------------------------------------*/
+	/*getters and setters*/
+	
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
+	public ArrayList<Account> getAccountList() {
+		return accountList;
+	}
+
+	public void setAccountList(ArrayList<Account> accountList) {
+		this.accountList = accountList;
+	}
+
+	public ArrayList<DrawerItem> getDrawerList() {
+		return drawerList;
+	}
+
+	public void setDrawerList(ArrayList<DrawerItem> drawerList) {
+		this.drawerList = drawerList;
 	}
 
 	public NavigationDrawerFragment getmNavigationDrawerFragment() {
@@ -347,6 +292,4 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 			NavigationDrawerFragment mNavigationDrawerFragment) {
 		this.mNavigationDrawerFragment = mNavigationDrawerFragment;
 	}
-
-	
 }

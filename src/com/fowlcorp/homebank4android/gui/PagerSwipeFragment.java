@@ -21,13 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+//import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
@@ -35,56 +39,60 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
 
-public class OverviewFragment extends Fragment{
+public class PagerSwipeFragment extends Fragment{
 
+	private static final String ARG_SECTION_NUMBER = "section_number";
+	private int sectionNumber;
 	private ArrayList<Account> accountList;
 	private List<Operation> operation;
 	private Model model;
 	private ArrayList<DrawerItem> drawerList;
-	
 	private MainActivity activity;
-	
-	private LinearLayoutManager mLayoutManager;
-	private OverviewRecyclerAdapter mAdapter;
 
-	public OverviewFragment(MainActivity activity){
+	private AccountRecyclerAdapter mAdapter;
+	private RecyclerView.LayoutManager mLayoutManager;
+
+
+	public PagerSwipeFragment(MainActivity activity){//empty constructor
 		this.activity = activity;
 		model = activity.getModel();
 		accountList = activity.getAccountList();
 		drawerList = activity.getDrawerList();
 	}
-	
-	public static final OverviewFragment newInstance(MainActivity activity)
+
+	public static final PagerSwipeFragment newInstance(int position, MainActivity activity)
 	{
-		 OverviewFragment f = new OverviewFragment(activity);
-		    return f;
+		PagerSwipeFragment f = new PagerSwipeFragment(activity);
+		Bundle bdl = new Bundle(2);
+		bdl.putInt(ARG_SECTION_NUMBER, position);
+		f.setArguments(bdl);
+		return f;
 	}
-	
+
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER); //get the position of the account in the drawer
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	
+		FragmentPagerAdapter pager = new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, activity);
+		View rootView = inflater.inflate(R.layout.pager_layout, container, false);
 		
-		View rootView = inflater.inflate(R.layout.recycle_layout, container,false);
-		RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
-		
-		recycler.setHasFixedSize(false);
-
-		mLayoutManager = new LinearLayoutManager(activity);
-		recycler.setLayoutManager(mLayoutManager);
-
-		mAdapter = new OverviewRecyclerAdapter(accountList, activity, model);
-        recycler.setAdapter(mAdapter);
+		ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+        mViewPager.setAdapter(pager);
+        System.out.println(sectionNumber);
 		return rootView;
 	}
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		((MainActivity) activity).onSectionAttached(0);
+		((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));//notify main activity
 	}
+
+
+
 }

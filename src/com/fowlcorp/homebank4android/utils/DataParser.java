@@ -125,6 +125,7 @@ public class DataParser {
 				if(el.hasAttribute("parent")) {
 					int parent = Integer.parseInt(el.getAttribute("parent"));
 					categories.get(parent).addSubCategory(c);
+                    c.setParent(categories.get(parent));
 				}
 				// DEBUG
 				System.err.println(c.toString());
