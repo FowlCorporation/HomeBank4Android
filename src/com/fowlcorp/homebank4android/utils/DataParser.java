@@ -207,6 +207,12 @@ public class DataParser {
 		NodeList nl;
 		nl = docEle.getElementsByTagName("ope");
 		int accountKey;
+
+        // init
+        for(Integer key : accounts.keySet()) {
+            operations.put(key, new ArrayList<Operation>()); // new Operation List for each account
+        }
+
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
 				el = (Element) nl.item(i);
@@ -246,9 +252,6 @@ public class DataParser {
 					}
 				}
 
-				if(!operations.containsKey(accountKey)) { // if List in HashMap for this account is not already created
-					operations.put(accountKey, new ArrayList<Operation>());
-				}
 				operations.get(accountKey).add(op);
 				// DEBUG
 				System.err.println(op.toString());
