@@ -7,6 +7,7 @@ import com.fowlcorp.homebank4android.R;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class OperationViewHolder extends RecyclerView.ViewHolder {
@@ -17,6 +18,7 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 	private TextView memo;
 	private TextView solde;
 	private TextView montant;
+	private ImageView mode;
 	private Context context;
 	private View view;
 
@@ -29,6 +31,7 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 		memo = (TextView) view.findViewById(R.id.cardLayout_memo);
 		solde = (TextView) view.findViewById(R.id.cardLayout_solde);
 		montant = (TextView) view.findViewById(R.id.cardLayout_montant);
+		mode = (ImageView) view.findViewById(R.id.pay_mode_icon);
 	}
 
 	public TextView getDate() {
@@ -93,6 +96,14 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 
 	public void setView(View view) {
 		this.view = view;
+	}
+
+	public ImageView getMode() {
+		return mode;
+	}
+
+	public void setMode(ImageView mode) {
+		this.mode = mode;
 	}
 
 	
