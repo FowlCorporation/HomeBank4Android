@@ -20,22 +20,20 @@ package com.fowlcorp.homebank4android.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.fowlcorp.homebank4android.MainActivity;
-import com.fowlcorp.homebank4android.NavigationDrawerFragment;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
-
-import android.app.Activity;
-import android.app.Fragment;
-import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class OverviewFragment extends Fragment{
 
@@ -45,17 +43,20 @@ public class OverviewFragment extends Fragment{
 	private ArrayList<DrawerItem> drawerList;
 	
 	private MainActivity activity;
+	
+	private LinearLayoutManager mLayoutManager;
+	private OverviewRecyclerAdapter mAdapter;
 
-	public OverviewFragment(){
-
+	public OverviewFragment(MainActivity activity){
+		this.activity = activity;
+		model = activity.getModel();
+		accountList = activity.getAccountList();
+		drawerList = activity.getDrawerList();
 	}
 	
-	public static final OverviewFragment newInstance()
+	public static final OverviewFragment newInstance(MainActivity activity)
 	{
-		 OverviewFragment f = new OverviewFragment();
-		    /*Bundle bdl = new Bundle(2);
-		    bdl.putInt(ARG_SECTION_NUMBER, position);
-		    f.setArguments(bdl);*/
+		 OverviewFragment f = new OverviewFragment(activity);
 		    return f;
 	}
 	
@@ -68,29 +69,22 @@ public class OverviewFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		/*int key = accountList.get(sectionNumber).getKey();
-        model.setSelectedAccount(key);
-        model.updateOperationAccountBalance();
-	    operation = model.getOperations(model.getAccounts().get(key));*/
-		View rootView = inflater.inflate(R.layout.fragment_main, container,false);
-		//OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView());
-		LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.fragmentLinear);
-		//LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
-		//overview.addView(over);
-		for(int i=0;i<accountList.size();i++){
-			OverviewCardView card = new OverviewCardView(getActivity(), (ViewGroup) this.getView(), accountList.get(i),activity);
-			layout.addView(card);
-		}
+		View rootView = inflater.inflate(R.layout.recycle_layout, container,false);
+		RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+		
+		recycler.setHasFixedSize(false);
+
+		mLayoutManager = new LinearLayoutManager(activity);
+		recycler.setLayoutManager(mLayoutManager);
+
+		mAdapter = new OverviewRecyclerAdapter(accountList, activity, model);
+        recycler.setAdapter(mAdapter);
 		return rootView;
 	}
-
+	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		((MainActivity) activity).onSectionAttached(0);
-		model = ((MainActivity) activity).getModel();
-		accountList = ((MainActivity) activity).getAccountList();
-		drawerList = ((MainActivity) activity).getDrawerList();
-		this.activity = (MainActivity) activity;
 	}
 }
