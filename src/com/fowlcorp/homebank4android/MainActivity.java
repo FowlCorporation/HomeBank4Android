@@ -76,7 +76,9 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		} else {
 			dropBoxCall();//connect to dropbox
 		}
-		doTEst(); //parse the file
+		
+		doTEst();
+		
 		setContentView(R.layout.activity_main); //invoke the layout
 
 		//invoke the fragment
@@ -113,7 +115,6 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
 			startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
 		}
-
 		return false;
 	}
 
@@ -122,15 +123,15 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		if (requestCode == REQUEST_LINK_TO_DBX) {
 			if (resultCode == Activity.RESULT_OK) { //if the dropbox link activity end correctly
 				dropBoxCall();
-				doTEst();
 			} else {
-				// ... Link failed or was cancelled by the user.
 			}
 		} else if(requestCode == DROP_PATH_OK){
 			if(resultCode == Activity.RESULT_OK){ //if the filechooser end correctly
 				String result = data.getStringExtra("pathResult"); //store the new path in the preferences
 				sharedPreferences.edit().putString("dropPath", result).commit();
-				finish(); //close the app
+				dropBoxCall();
+				doTEst();
+				updateGUI();
 			}
 		} else {
 			super.onActivityResult(requestCode, resultCode, data);
@@ -234,11 +235,20 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 			}
 		}
 	}
+	
+	public void updateGUI(){
+		mNavigationDrawerFragment.update();
+	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		dbxFs.shutDown();
+		try {
+			dbxFs.shutDown();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("on destroy");
 		if (isFinishing()) {
 

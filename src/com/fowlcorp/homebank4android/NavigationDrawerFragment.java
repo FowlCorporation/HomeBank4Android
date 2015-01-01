@@ -68,6 +68,9 @@ public class NavigationDrawerFragment extends Fragment {
 	private Model model;
 	private ArrayList<DrawerItem> accountList;
 	private MainActivity mainAct;
+	
+	private List<DrawerItem> dataList;
+	private CustomDrawerAdapter adapter;
 
 	public NavigationDrawerFragment() { //empty constructor
 	}
@@ -108,7 +111,11 @@ public class NavigationDrawerFragment extends Fragment {
 			}
 		});
 
-		List<DrawerItem> dataList = new ArrayList<DrawerItem>(accountList); //create a list of drawer item
+		try {
+			dataList = new ArrayList<DrawerItem>(accountList);
+		} catch (Exception e) {
+			dataList = new ArrayList<DrawerItem>();
+		}
 		CustomDrawerAdapter adapter = new CustomDrawerAdapter(getActivity(), R.layout.custom_drawer_item, dataList);//create an adapter to the ListView
 		mDrawerListView.setAdapter(adapter);
 		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true); //change the color of the selected item
@@ -254,6 +261,19 @@ public class NavigationDrawerFragment extends Fragment {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void update(){
+		model = mainAct.getModel();//get the model
+		accountList = mainAct.getDrawerList();
+		dataList.clear();
+		dataList.addAll(accountList);
+		adapter = new CustomDrawerAdapter(getActivity(), R.layout.custom_drawer_item, dataList);//create an adapter to the ListView
+		mDrawerListView.setAdapter(adapter);
+		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true); //change the color of the selected item
+		this.selectItem(0);
+		mainAct.onSectionAttached(0);
+		mainAct.restoreActionBar();
 	}
 
 	/**
