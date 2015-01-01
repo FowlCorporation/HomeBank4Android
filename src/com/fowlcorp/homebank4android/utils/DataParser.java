@@ -35,6 +35,7 @@ import org.xml.sax.SAXException;
 
 import com.dropbox.sync.android.DbxFile;
 import com.fowlcorp.homebank4android.model.Account;
+import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Category;
 import com.fowlcorp.homebank4android.model.Couple;
 import com.fowlcorp.homebank4android.model.Operation;
@@ -163,6 +164,11 @@ public class DataParser {
 				if(el.hasAttribute("number")) {
 					a.setAccountNumber(el.getAttribute("number"));
 				}
+                if(el.hasAttribute("type")) {
+                    a.setType(Integer.parseInt(el.getAttribute("type")));
+                } else {
+                    a.setType(AccountType.NONE);
+                }
 				accounts.put(a.getKey(), a);
 				// DEBUG
 				System.err.println(a.toString());
