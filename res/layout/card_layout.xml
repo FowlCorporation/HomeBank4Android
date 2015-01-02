@@ -36,7 +36,7 @@
                     android:layout_height="20dp"
                     android:layout_weight="0.5" />
 
-                
+                <!--
                 <TextView
                     android:id="@+id/cardLayout_category"
                     android:layout_width="wrap_content"
@@ -44,16 +44,16 @@
                     android:layout_gravity="end"
                     android:layout_weight="0.5"
                     android:orientation="horizontal"
-                    android:text="@string/category" />
-
+                    android:text="@string/category" />
+                -->
             </LinearLayout>
-
+            
             <TextView
-                android:id="@+id/cardLayout_tier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:text="@string/payee" />
+                    android:id="@+id/cardLayout_tier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:text="@string/payee" />
 
             <LinearLayout
                 android:id="@+id/no_split_linear"
@@ -67,6 +67,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:text="@string/category" />
+
+                
 
                 <TextView
                     android:id="@+id/cardLayout_memo"
