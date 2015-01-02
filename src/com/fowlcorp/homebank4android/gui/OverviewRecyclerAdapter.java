@@ -23,6 +23,7 @@ import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
+import com.fowlcorp.homebank4android.utils.Round;
 
 public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHolder> {
     private List<Account> listAccount;
@@ -57,15 +58,10 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
         soldeValue = selectedAcc.getBankAccountBalance();
         futurValue = selectedAcc.getFutureAccountBalance();
         todayValue = selectedAcc.getTodayAccountBalance();
-		
-		soldeValue = Math.round(soldeValue*100);
-		soldeValue = soldeValue/100;
-		
-		futurValue = Math.round(futurValue*100);
-		futurValue = futurValue/100;
-		
-		todayValue = Math.round(todayValue*100);
-		todayValue = todayValue/100;
+
+        soldeValue = Round.roundAmount(soldeValue);
+        futurValue = Round.roundAmount(futurValue);
+        todayValue = Round.roundAmount(todayValue);
 		
 		holder.getItemView().setOnClickListener(new OnClickListener() {
 			
