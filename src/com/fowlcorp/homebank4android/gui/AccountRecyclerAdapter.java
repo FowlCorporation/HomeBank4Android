@@ -156,26 +156,29 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			}
 
 		}
-        try {
+		try {
 
-            holder.setMode((ImageView) holder.getView().findViewById(R.id.pay_mode_icon));
+			holder.setMode((ImageView) holder.getView().findViewById(R.id.pay_mode_icon));
 
-            switch (operation.getPayMode()) {
-                case PayMode.CREDIT_CARD:
-                case PayMode.DEBIT_CARD:
-                    holder.getMode().setImageResource(R.drawable.card);
-                    break;
-                case PayMode.CASH:
-                    holder.getMode().setImageResource(R.drawable.espece);
-                    break;
-                case PayMode.TRANSFERT:
-                    holder.getMode().setImageResource(R.drawable.transfert);
-                    break;
-                default:
-                    break;
-            }
-        } catch (Exception e) {
-        }
+			switch (operation.getPayMode()) {
+			case PayMode.CREDIT_CARD:
+			case PayMode.DEBIT_CARD:
+				holder.getMode().setImageResource(R.drawable.card);
+				break;
+			case PayMode.CASH:
+				holder.getMode().setImageResource(R.drawable.espece);
+				break;
+			case PayMode.TRANSFERT:
+				holder.getMode().setImageResource(R.drawable.transfert);
+				break;
+			case PayMode.ELECTRONIC_PAYMENT:
+				holder.getMode().setImageResource(R.drawable.nfc);
+				break;
+			default:
+				break;
+			}
+		} catch (Exception e) {
+		}
 	}
 
 	@Override
