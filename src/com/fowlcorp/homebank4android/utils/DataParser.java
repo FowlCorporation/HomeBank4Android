@@ -43,7 +43,7 @@ import com.fowlcorp.homebank4android.model.Payee;
 import com.fowlcorp.homebank4android.model.Tag;
 
 /**
- * @author Axel
+ * @author Axel, Cédric
  *
  */
 public class DataParser {
