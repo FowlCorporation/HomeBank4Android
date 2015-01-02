@@ -127,7 +127,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			holder.getUnSplitLinear().setVisibility(LinearLayout.GONE);
 
 			LinearLayout splitLayout = holder.getSplitLinear();
-
+			splitLayout.removeAllViews();
 			LayoutInflater inflater = activity.getLayoutInflater();
 			for(Couple subOp : operation.getSplits()){
 				View view = inflater.inflate(R.layout.split_layout, null);
