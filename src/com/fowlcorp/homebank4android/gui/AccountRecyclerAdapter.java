@@ -157,9 +157,6 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 
 		}
 		try {
-
-			holder.setMode((ImageView) holder.getView().findViewById(R.id.pay_mode_icon));
-
 			switch (operation.getPayMode()) {
 			case PayMode.CREDIT_CARD:
 			case PayMode.DEBIT_CARD:
@@ -175,7 +172,8 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				holder.getMode().setImageResource(R.drawable.nfc);
 				break;
 			default:
-				break;
+                holder.getMode().setImageDrawable(null);
+                break;
 			}
 		} catch (Exception e) {
 		}
