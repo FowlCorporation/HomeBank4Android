@@ -144,7 +144,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			holder.getUnSplitLinear().setVisibility(LinearLayout.GONE);
 			
 			LinearLayout splitLayout = holder.getSplitLinear();
-			
+			splitLayout.removeAllViews();
 			LayoutInflater inflater = activity.getLayoutInflater();
 			for(Couple subOp : operation.getSplits()){
 			View view = inflater.inflate(R.layout.split_layout, null);
@@ -152,7 +152,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			TextView category = (TextView) view.findViewById(R.id.splitLayout_category);
 			//TextView memo = (TextView) view.findViewById(R.id.splitLayout_memo);
 			TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
-			//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
+
 			category.setText(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 			amount.setText(colorText(activity.getString(R.string.cardLayout_montant) + " ", String.valueOf(subOp.getAmount())));
 			
