@@ -107,6 +107,8 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		} catch (Exception e) {
 		}
 		if(!operation.isSplit()){
+			holder.getSplitLinear().removeAllViews();
+			holder.getUnSplitLinear().setVisibility(LinearLayout.VISIBLE);
 			try {
 				holder.getCategory().setText(activity.getString(R.string.cardLayout_category) + " " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
 			} catch (Exception e) {
@@ -154,7 +156,6 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 
 		}
         try {
-            holder.getMode().setImageResource(-1); // reset icon
             switch (operation.getPayMode()) {
                 case PayMode.CREDIT_CARD:
                 case PayMode.DEBIT_CARD:
