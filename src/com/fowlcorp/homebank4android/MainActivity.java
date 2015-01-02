@@ -42,6 +42,7 @@ import com.fowlcorp.homebank4android.gui.DrawerItem;
 import com.fowlcorp.homebank4android.gui.OverviewFragment;
 import com.fowlcorp.homebank4android.gui.PagerSwipeFragment;
 import com.fowlcorp.homebank4android.model.Account;
+import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
 
@@ -218,8 +219,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		drawerList = new ArrayList<DrawerItem>(); //create the list of the drawer items
 
 		for(int i=0;i<accountList.size();i++){//add data to the bank list
-			if(!bankList.contains(accountList.get(i).getBankName())){ //if the list doesn't contain the bank of this item
-				bankList.add(accountList.get(i).getBankName()); //add the bankname to the list
+			if(!bankList.contains(getNameByType(accountList.get(i).getType()))){ //if the list doesn't contain the bank of this item
+				bankList.add(getNameByType(accountList.get(i).getType())); //add the bankname to the list
 			}
 		}
 		//add the overview item to the drawerlist
@@ -229,8 +230,18 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		for(int i=0;i<bankList.size();i++){//for each bank name
 			drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));//add the bank to the drawer as a title
 			for(int j=0;j<accountList.size();j++){//for each account
-				if(accountList.get(j).getBankName().equals(bankList.get(i))){ //if the account correspond to the bank name
-					drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.bank,accountList.get(j).getKey())); //add the account in the drawer list
+				if(getNameByType(accountList.get(j).getType()).equals(bankList.get(i))){ //if the account correspond to the bank name
+					switch (accountList.get(j).getType()) {
+					case AccountType.BANK:
+						drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.bank,accountList.get(j).getKey())); //add the account in the drawer list
+						break;
+					case AccountType.CASH:
+						drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.espece,accountList.get(j).getKey())); //add the account in the drawer list
+						break;
+					default:
+						drawerList.add(new DrawerItem(accountList.get(j).getName(), -1,accountList.get(j).getKey())); //add the account in the drawer list
+					}
+					
 				}
 			}
 		}
@@ -291,5 +302,31 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 	public void setmNavigationDrawerFragment(
 			NavigationDrawerFragment mNavigationDrawerFragment) {
 		this.mNavigationDrawerFragment = mNavigationDrawerFragment;
+	}
+	
+	public String getNameByType(int index){
+		String result ="";
+		switch (index) {
+		case AccountType.NONE:
+			result = getString(R.string.account_type_none);
+			break;
+		case AccountType.BANK:
+			result = getString(R.string.account_type_bank);
+			break;
+		case AccountType.ASSET:
+			result = getString(R.string.account_type_asset);
+			break;
+		case AccountType.CREDITCARD:
+			result = getString(R.string.account_type_creditCard);
+			break;
+		case AccountType.LIABILITY:
+			result = getString(R.string.account_type_liability);
+			break;
+		case AccountType.CASH:
+			result = getString(R.string.account_type_cash);
+			break;
+		}
+		
+		return result;
 	}
 }

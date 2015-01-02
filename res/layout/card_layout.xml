@@ -28,44 +28,62 @@
                     android:layout_weight="0.5"
                     android:gravity="start"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_date" />
-                
-                <ImageView
-                android:id="@+id/pay_mode_icon"
-                android:layout_weight="0.5"
-                android:layout_width="20dp"
-                android:layout_height="20dp" />
+                    android:text="@string/date" />
 
-            <!--<TextView
+                <ImageView
+                    android:id="@+id/pay_mode_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="0.5" />
+
+                <!--
+                <TextView
                     android:id="@+id/cardLayout_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_weight="0.5"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_category" /> -->
+                    android:text="@string/category" />
+                -->
             </LinearLayout>
-
+            
             <TextView
+                    android:id="@+id/cardLayout_tier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:text="@string/payee" />
+
+            <LinearLayout
+                android:id="@+id/no_split_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
                     android:id="@+id/cardLayout_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_category" />
-            
-            <TextView
-                android:id="@+id/cardLayout_tier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:text="@string/cardLayout_tier" />
+                    android:text="@string/category" />
 
-            <TextView
-                android:id="@+id/cardLayout_memo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:text="@string/cardLayout_memo" />
+                
+
+                <TextView
+                    android:id="@+id/cardLayout_memo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:text="@string/wording" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/split_linear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +96,7 @@
                     android:layout_weight="0.5"
                     android:gravity="start"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_solde" />
+                    android:text="@string/balance" />
 
                 <TextView
                     android:id="@+id/cardLayout_montant"
@@ -87,7 +105,7 @@
                     android:layout_gravity="end"
                     android:layout_weight="0.5"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_montant" />
+                    android:text="@string/amount" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
