@@ -41,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -107,6 +108,8 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		} catch (Exception e) {
 		}
 		if(!operation.isSplit()){
+			holder.getSplitLinear().removeAllViews();
+			holder.getUnSplitLinear().setVisibility(LinearLayout.VISIBLE);
 			try {
 				holder.getCategory().setText(activity.getString(R.string.category) + " " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
 			} catch (Exception e) {
@@ -154,8 +157,12 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 
 		}
         try {
+
+            holder.setMode((ImageView) holder.getView().findViewById(R.id.pay_mode_icon));
+
             switch (operation.getPayMode()) {
                 case PayMode.CREDIT_CARD:
+                case PayMode.DEBIT_CARD:
                     holder.getMode().setImageResource(R.drawable.card);
                     break;
                 case PayMode.CASH:
