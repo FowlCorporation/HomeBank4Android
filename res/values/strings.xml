@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">HomeBank</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -14,7 +13,6 @@
     <string name="title_activity_detailed_card">Details</string>
     <string name="overViewDrawerItem">Overview</string>
     <string name="title_activity_drop_box_file">DropBoxFileActivity</string>
-<<<<<<< HEAD
     <string name="all_operations">All</string>
     <string name="payed_operations">Paid</string>
     <string name="unpayed_operation">Unpaid</string>
@@ -24,7 +22,6 @@
     <string name="account_type_asset">Asset</string>
     <string name="account_type_creditCard">Credit card</string>
     <string name="account_type_liability">Liability</string>
-=======
     <string name="none">None</string>
     <string name="cleared">Cleared</string>
     <string name="reconciled">Reconciled</string>
@@ -39,6 +36,4 @@
     <string name="today">Today</string>
     <string name="future">Future</string>
     <string name="bank">Bank</string>
->>>>>>> feature/GUI
-
 </resources>
