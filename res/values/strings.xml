@@ -39,5 +39,7 @@
     <string name="bank">Bank</string>
     <string name="title_activity_about">About</string>
     <string name="hello_world">Hello world!</string>
+    <string name="About">About</string>
+    <string name="Authors">Authors</string>
 
 </resources>

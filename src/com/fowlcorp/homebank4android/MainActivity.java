@@ -189,6 +189,11 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 			startActivity(intent); //start the activity of preferences
 			return true;
 		}
+		if (id == R.id.action_about) { //the settings button is selected
+			Intent intent = new Intent(getApplicationContext(), About.class);
+			startActivity(intent); //start the activity of preferences
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
