@@ -98,9 +98,9 @@ public class DropBoxFileActivity extends Activity {
 					pathList = new ArrayList<String>();
 					currentPath = "/";
 					File file = new File(currentPath);
-					String[] listFile = file.list();
+					File[] listFile = file.listFiles();
 					for(int i=0;i<listFile.length;i++){
-						pathList.add(listFile[i]);
+						pathList.add(listFile[i].getAbsolutePath());
 						System.out.println(pathList.get(i));
 					}
 					adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.listview_layout, android.R.id.text1,pathList);
@@ -110,8 +110,9 @@ public class DropBoxFileActivity extends Activity {
 						@Override
 						public void onItemClick(AdapterView<?> parent, View view,
 								int position, long id) {
-							File newFile = new File(currentPath, pathList.get(position));
+							File newFile = new File(pathList.get(position));
 							String newCurrent = newFile.getAbsolutePath();
+							System.out.println("file is : "+newCurrent);
 								if((newFile.isFile())){
 									Intent resultData = new Intent();
 									resultData.putExtra("pathResult", newCurrent);
@@ -120,11 +121,11 @@ public class DropBoxFileActivity extends Activity {
 									finish();
 								} else {
 									//currentPath = newCurrent;
-									String[] newListFile = newFile.list();
+									File[] newListFile = newFile.listFiles();
 									System.out.println("number of file : "+newListFile.length);
 									pathList.clear();
 									for(int i=0;i<newListFile.length;i++){
-										pathList.add(newListFile[i]);
+										pathList.add(newListFile[i].getAbsolutePath());
 									}
 									adapter.notifyDataSetChanged();
 								}
