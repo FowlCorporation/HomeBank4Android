@@ -36,4 +36,6 @@
     <string name="today">Today</string>
     <string name="future">Future</string>
     <string name="bank">Bank</string>
+    <string name="radio_drop">Dropbox file</string>
+    <string name="radio_local">Local file</string>
 </resources>

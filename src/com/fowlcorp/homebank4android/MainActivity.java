@@ -46,6 +46,7 @@ import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -99,23 +100,34 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		//get the path of the file in the preference
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		String pathPref = sharedPreferences.getString("dropPath", "");
-		//System.out.println(pathPref); //debug
+		Boolean isDropPath = sharedPreferences.getBoolean("isDropPath", false);
 
-
-		try {
-			dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-			DbxPath path = new DbxPath(pathPref); //create the path of the file
-			file = dbxFs.open(path); //open the file
-		} catch (InvalidPathException | DbxException e) { //Dropbox exception
-			e.printStackTrace();
+		if(isDropPath){
+			try {
+				dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
+				DbxPath path = new DbxPath(pathPref); //create the path of the file
+				file = dbxFs.open(path); //open the file
+			} catch (InvalidPathException | DbxException e) { //Dropbox exception
+				e.printStackTrace();
+			}
+			try {
+				dp = new DataParser(getApplicationContext(), file);
+				return true;
+			} catch (Exception e) { //exception : the file is corrupted or is not a homebank database
+				Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
+				startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
+			}
+		} else {
+			File localFile = new File(pathPref);
+			try {
+				dp = new DataParser(getApplicationContext(), localFile);
+				return true;
+			} catch (Exception e) { //exception : the file is corrupted or is not a homebank database
+				Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
+				startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
+			}
 		}
-		try {
-			dp = new DataParser(getApplicationContext(), file);
-			return true;
-		} catch (Exception e) { //exception : the file is corrupted or is not a homebank database
-			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
-			startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
-		}
+		
 		return false;
 	}
 
@@ -129,6 +141,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		} else if(requestCode == DROP_PATH_OK){
 			if(resultCode == Activity.RESULT_OK){ //if the filechooser end correctly
 				String result = data.getStringExtra("pathResult"); //store the new path in the preferences
+				Boolean isDrop = data.getBooleanExtra("isDropPath", false);
+				sharedPreferences.edit().putBoolean("isDropPath", isDrop).commit();
 				sharedPreferences.edit().putString("dropPath", result).commit();
 				dropBoxCall();
 				doTEst();

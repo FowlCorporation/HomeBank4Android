@@ -19,13 +19,13 @@
         android:id="@+id/radio_local"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RadioButton" />
+        android:text="@string/radio_local" />
         
         <RadioButton
         android:id="@+id/radio_drop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RadioButton" />
+        android:text="@string/radio_drop" />
     </RadioGroup>
     
 
