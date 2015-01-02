@@ -32,6 +32,7 @@ public class DetailedCardActivity extends Activity {
 		category = (AutoCompleteTextView) findViewById(R.id.detailedCardCategory);
 		payee = (AutoCompleteTextView) findViewById(R.id.detailedCardPayee);
 		amount = (EditText) findViewById(R.id.detailedCardAmount);
+		wording = (EditText) findViewById(R.id.detailedCardWording);
 		
 		try {
 			date.setText((String) bdl.getString("Date"), TextView.BufferType.SPANNABLE);
@@ -45,10 +46,10 @@ public class DetailedCardActivity extends Activity {
 			payee.setText(bdl.getString("Payee"));
 		} catch (Exception e) {
 		}
-//		try {
-//			wording.setText(bdl.getString("Wording"), TextView.BufferType.SPANNABLE);
-//		} catch (Exception e) {
-//		}
+		try {
+			wording.setText(bdl.getString("Wording"));
+		} catch (Exception e) {
+		}
 		try {
 			amount.setText(bdl.getString("Amount"));
 		} catch (Exception e) {

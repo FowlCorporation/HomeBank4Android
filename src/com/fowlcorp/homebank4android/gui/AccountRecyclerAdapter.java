@@ -100,30 +100,30 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		montantdec = montantdec / 100;
 
 		try {
-			holder.getDate().setText(activity.getString(R.string.cardLayout_date) + " " + df.format(myDate.getTime()));
+			holder.getDate().setText(activity.getString(R.string.date) + " " + df.format(myDate.getTime()));
 		} catch (Exception e) {
 		}
 		try {
-			holder.getTier().setText(activity.getString(R.string.cardLayout_tier) + " " + operation.getPayee().getName());
+			holder.getTier().setText(activity.getString(R.string.payee) + " " + operation.getPayee().getName());
 		} catch (Exception e) {
 		}
 		if(!operation.isSplit()){
 			holder.getSplitLinear().removeAllViews();
 			holder.getUnSplitLinear().setVisibility(LinearLayout.VISIBLE);
 			try {
-				holder.getCategory().setText(activity.getString(R.string.cardLayout_category) + " " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
+				holder.getCategory().setText(activity.getString(R.string.category) + " " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
 			} catch (Exception e) {
 			}
 			try {
-				holder.getMemo().setText(activity.getString(R.string.cardLayout_memo) + " " + operation.getWording());
+				holder.getMemo().setText(activity.getString(R.string.wording) + " " + operation.getWording());
 			} catch (Exception e) {
 			}
 			try {
-				holder.getMontant().setText(colorText(activity.getString(R.string.cardLayout_montant) + " ", String.valueOf(operation.getAmount())));
+				holder.getMontant().setText(colorText(activity.getString(R.string.amount) + " ", String.valueOf(operation.getAmount())));
 			} catch (Exception e) {
 			}
 			try {
-				holder.getSolde().setText(colorText(activity.getString(R.string.cardLayout_solde) + " ", String.valueOf(montantdec)));
+				holder.getSolde().setText(colorText(activity.getString(R.string.balance) + " ", String.valueOf(montantdec)));
 			} catch (Exception e) {
 			}
 		} else {
@@ -139,17 +139,17 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				//TextView memo = (TextView) view.findViewById(R.id.splitLayout_memo);
 				TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
 				//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
-				category.setText(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
-				amount.setText(colorText(activity.getString(R.string.cardLayout_montant) + " ", String.valueOf(subOp.getAmount())));
+				category.setText(activity.getString(R.string.category) + " " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
+				amount.setText(colorText(activity.getString(R.string.amount) + " ", String.valueOf(subOp.getAmount())));
 
 				splitLayout.addView(view);
 
 				try {
-					holder.getMontant().setText(colorText(activity.getString(R.string.cardLayout_montant) + " ", String.valueOf(operation.getAmount())));
+					holder.getMontant().setText(colorText(activity.getString(R.string.amount) + " ", String.valueOf(operation.getAmount())));
 				} catch (Exception e) {
 				}
 				try {
-					holder.getSolde().setText(colorText(activity.getString(R.string.cardLayout_solde) + " ", String.valueOf(montantdec)));
+					holder.getSolde().setText(colorText(activity.getString(R.string.balance) + " ", String.valueOf(montantdec)));
 				} catch (Exception e) {
 				}
 

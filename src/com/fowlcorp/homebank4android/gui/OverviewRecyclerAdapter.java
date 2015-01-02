@@ -88,9 +88,9 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
 		});
 		
 		holder.getTitle().setText(account.getName());
-		holder.getSolde().setText(colorText(activity.getString(R.string.overViewCard_solde) + " ", String.valueOf(soldeValue)));
-		holder.getFutur().setText(colorText(activity.getString(R.string.overViewCard_future) + " ", String.valueOf(futurValue)));
-		holder.getToday().setText(colorText(activity.getString(R.string.overviewCard_today) + " ", String.valueOf(todayValue)));
+		holder.getSolde().setText(colorText(activity.getString(R.string.balance) + " ", String.valueOf(soldeValue)));
+		holder.getFutur().setText(colorText(activity.getString(R.string.future) + " ", String.valueOf(futurValue)));
+		holder.getToday().setText(colorText(activity.getString(R.string.today) + " ", String.valueOf(todayValue)));
 				
 	}
 

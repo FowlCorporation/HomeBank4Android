@@ -28,7 +28,7 @@
                     android:layout_weight="0.5"
                     android:gravity="start"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_date" />
+                    android:text="@string/date" />
 
                 <ImageView
                     android:id="@+id/pay_mode_icon"
@@ -44,7 +44,7 @@
                     android:layout_gravity="end"
                     android:layout_weight="0.5"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_category" />
+                    android:text="@string/category" />
                 -->
             </LinearLayout>
             
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_tier" />
+                    android:text="@string/payee" />
 
             <LinearLayout
                 android:id="@+id/no_split_linear"
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_category" />
+                    android:text="@string/category" />
 
                 
 
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_memo" />
+                    android:text="@string/wording" />
             </LinearLayout>
 
             <LinearLayout
@@ -96,7 +96,7 @@
                     android:layout_weight="0.5"
                     android:gravity="start"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_solde" />
+                    android:text="@string/balance" />
 
                 <TextView
                     android:id="@+id/cardLayout_montant"
@@ -105,7 +105,7 @@
                     android:layout_gravity="end"
                     android:layout_weight="0.5"
                     android:orientation="horizontal"
-                    android:text="@string/cardLayout_montant" />
+                    android:text="@string/amount" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

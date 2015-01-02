@@ -29,7 +29,7 @@
                 android:id="@+id/overview_card_solde"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cardLayout_solde"
+                android:text="@string/balance"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
