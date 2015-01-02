@@ -249,7 +249,7 @@ public class DataParser {
 				}
 
 				if(op.isSplit()) { // handle split operations
-					String separator = el.getAttribute("smem").replace("|","\\|");
+					String separator = "\\|\\|";
 					String[] samt = el.getAttribute("samt").split(separator);
 					String[] scat = el.getAttribute("scat").split(separator);
 
