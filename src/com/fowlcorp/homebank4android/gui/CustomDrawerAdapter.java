@@ -63,12 +63,12 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
  
             DrawerItem dItem = (DrawerItem) this.drawerItemList.get(position);
  
-            if (dItem.isOverview()) {
+            /*if (dItem.isOverview()) {
                   drawerHolder.headerLayout.setVisibility(LinearLayout.INVISIBLE);
                   drawerHolder.itemLayout.setVisibility(LinearLayout.VISIBLE);
                   drawerHolder.ItemName.setText(dItem.getItemName());
  
-            }else if(dItem.isHeader()){
+            }else*/ if(dItem.isHeader()){
             	
             	drawerHolder.headerLayout.setVisibility(LinearLayout.VISIBLE);
                 drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);

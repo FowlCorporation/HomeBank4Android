@@ -29,6 +29,7 @@ public class Account extends AccPayCatTagAbstract {
     private double futureAccountBalance;
 	private String bankName, accountNumber;
     private boolean modified;
+    private int type;
 	
 	public Account(int key, String name) {
 		super(key, name);
@@ -103,5 +104,13 @@ public class Account extends AccPayCatTagAbstract {
 
     public void setModified(boolean modified) {
         this.modified = modified;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

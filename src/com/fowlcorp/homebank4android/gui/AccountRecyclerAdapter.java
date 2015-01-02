@@ -127,6 +127,23 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			holder.getSolde().setText(colorText(activity.getString(R.string.cardLayout_solde) + " ", String.valueOf(montantdec)));
 		} catch (Exception e) {
 		}
+		try {
+			switch (operation.getPayMode()) {
+			case 1:
+				holder.getMode().setImageResource(R.drawable.card);
+				break;
+				
+			case 3:
+				holder.getMode().setImageResource(R.drawable.espece);
+				break;
+			case 4:
+				holder.getMode().setImageResource(R.drawable.transfert);
+				break;
+			default:
+				break;
+			}
+		} catch (Exception e) {
+		}
 
 	}
 
