@@ -11,23 +11,10 @@
     <string name="action_settings">Settings</string>
     <string name="dropbox_header">Dropbox Settings</string>
     <string name="dropbox_header_description">Modify the Dropbox Settings</string>
-    <string name="cardLayout_date">Date : </string>
-    <string name="cardLayout_category">Category : </string>
-    <string name="cardLayout_tier">Payee : </string>
-    <string name="cardLayout_memo">Memo : </string>
-    <string name="cardLayout_solde">Balance : </string>
-    <string name="cardLayout_montant">Amount : </string>
-    <string name="overviewCard_today">Today : </string>
-    <string name="overViewCard_future">Future : </string>
-    <string name="overViewCard_solde">Bank : </string>
     <string name="title_activity_detailed_card">Details</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="detailedCardLayout_date">Date</string>
-    <string name="detailedCardLayout_category">Category</string>
-    <string name="detailedCardLayout_payee">Payee</string>
-    <string name="detailedCardLayout_amount">Amount</string>
     <string name="overViewDrawerItem">Overview</string>
     <string name="title_activity_drop_box_file">DropBoxFileActivity</string>
+<<<<<<< HEAD
     <string name="all_operations">All</string>
     <string name="payed_operations">Paid</string>
     <string name="unpayed_operation">Unpaid</string>
@@ -37,5 +24,21 @@
     <string name="account_type_asset">Asset</string>
     <string name="account_type_creditCard">Credit card</string>
     <string name="account_type_liability">Liability</string>
+=======
+    <string name="none">None</string>
+    <string name="cleared">Cleared</string>
+    <string name="reconciled">Reconciled</string>
+    <string name="remind">Remind</string>
+    <string name="label">Label</string>
+    <string name="wording">Wording</string>
+    <string name="amount">Amount</string>
+    <string name="payee">Payee</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="balance">Balance</string>
+    <string name="today">Today</string>
+    <string name="future">Future</string>
+    <string name="bank">Bank</string>
+>>>>>>> feature/GUI
 
 </resources>
