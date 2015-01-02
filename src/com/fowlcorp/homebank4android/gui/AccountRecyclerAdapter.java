@@ -28,6 +28,7 @@ import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Couple;
 import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.PayMode;
+import com.fowlcorp.homebank4android.utils.Round;
 
 import android.app.Activity;
 import android.content.Context;
@@ -89,15 +90,12 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Amount", String.valueOf(operation.getAmount()));
+					intent.putExtra("Amount", String.valueOf(Round.roundAmount(operation.getAmount())));
 				} catch (Exception e) {
 				}
 				activity.startActivity(intent);
 			}
 		});
-
-		double montantdec = Math.round(operation.getBalanceAccount() * 100);
-		montantdec = montantdec / 100;
 
 		try {
 			holder.getDate().setText(activity.getString(R.string.date) + " " + df.format(myDate.getTime()));
@@ -118,14 +116,6 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				holder.getMemo().setText(activity.getString(R.string.wording) + " " + operation.getWording());
 			} catch (Exception e) {
 			}
-			try {
-				holder.getMontant().setText(colorText(activity.getString(R.string.amount) + " ", String.valueOf(operation.getAmount())));
-			} catch (Exception e) {
-			}
-			try {
-				holder.getSolde().setText(colorText(activity.getString(R.string.balance) + " ", String.valueOf(montantdec)));
-			} catch (Exception e) {
-			}
 		} else {
 			holder.getUnSplitLinear().setVisibility(LinearLayout.GONE);
 
@@ -144,22 +134,20 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 
 				splitLayout.addView(view);
 
-				try {
-					holder.getMontant().setText(colorText(activity.getString(R.string.amount) + " ", String.valueOf(operation.getAmount())));
-				} catch (Exception e) {
-				}
-				try {
-					holder.getSolde().setText(colorText(activity.getString(R.string.balance) + " ", String.valueOf(montantdec)));
-				} catch (Exception e) {
-				}
-
 			}
 
 		}
+
+        try {
+            holder.getMontant().setText(colorText(activity.getString(R.string.amount) + " ", String.valueOf(Round.roundAmount(operation.getAmount()))));
+        } catch (Exception e) {
+        }
+        try {
+            holder.getSolde().setText(colorText(activity.getString(R.string.balance) + " ", String.valueOf(Round.roundAmount(operation.getBalanceAccount()))));
+        } catch (Exception e) {
+        }
+
 		try {
-
-			holder.setMode((ImageView) holder.getView().findViewById(R.id.pay_mode_icon));
-
 			switch (operation.getPayMode()) {
 			case PayMode.CREDIT_CARD:
 			case PayMode.DEBIT_CARD:
@@ -175,7 +163,8 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				holder.getMode().setImageResource(R.drawable.nfc);
 				break;
 			default:
-				break;
+                holder.getMode().setImageDrawable(null);
+                break;
 			}
 		} catch (Exception e) {
 		}

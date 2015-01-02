@@ -220,23 +220,28 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
 		for(int i=0;i<accountList.size();i++){//add data to the bank list
 			if(!bankList.contains(getNameByType(accountList.get(i).getType()))){ //if the list doesn't contain the bank of this item
-				bankList.add(getNameByType(accountList.get(i).getType())); //add the bankname to the list
+				bankList.add(getNameByType(accountList.get(i).getType())); //add the bankname to the list	
 			}
 		}
 		//add the overview item to the drawerlist
 		drawerList.add(new DrawerItem(getResources().getString(R.string.overViewDrawerItem),R.drawable.home,true,false));
-
 		//add data to the drawerlist
 		for(int i=0;i<bankList.size();i++){//for each bank name
-			drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));//add the bank to the drawer as a title
+			if(bankList.get(i).equals(getNameByType(AccountType.BANK))){
+				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.bank, false, true));//add the bank to the drawer as a title
+			} else if(bankList.get(i).equals(getNameByType(AccountType.CASH))){
+				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.espece, false, true));//add the bank to the drawer as a title
+			} else {
+				drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));//add the bank to the drawer as a title
+			}
 			for(int j=0;j<accountList.size();j++){//for each account
 				if(getNameByType(accountList.get(j).getType()).equals(bankList.get(i))){ //if the account correspond to the bank name
 					switch (accountList.get(j).getType()) {
 					case AccountType.BANK:
-						drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.bank,accountList.get(j).getKey())); //add the account in the drawer list
+						drawerList.add(new DrawerItem(accountList.get(j).getName(), -1,accountList.get(j).getKey())); //add the account in the drawer list
 						break;
 					case AccountType.CASH:
-						drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.espece,accountList.get(j).getKey())); //add the account in the drawer list
+						drawerList.add(new DrawerItem(accountList.get(j).getName(), -1,accountList.get(j).getKey())); //add the account in the drawer list
 						break;
 					default:
 						drawerList.add(new DrawerItem(accountList.get(j).getName(), -1,accountList.get(j).getKey())); //add the account in the drawer list
