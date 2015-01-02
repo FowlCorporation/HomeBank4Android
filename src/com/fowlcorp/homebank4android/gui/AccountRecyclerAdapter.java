@@ -41,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -156,6 +157,9 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 
 		}
         try {
+
+            holder.setMode((ImageView) holder.getView().findViewById(R.id.pay_mode_icon));
+
             switch (operation.getPayMode()) {
                 case PayMode.CREDIT_CARD:
                 case PayMode.DEBIT_CARD:
