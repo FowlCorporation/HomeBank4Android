@@ -25,6 +25,7 @@ import java.util.Locale;
 import com.fowlcorp.homebank4android.DetailedCardActivity;
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.model.Couple;
 import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.PayMode;
 
@@ -145,15 +146,15 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			LinearLayout splitLayout = holder.getSplitLinear();
 			
 			LayoutInflater inflater = activity.getLayoutInflater();
-			for(int i=0;i<operation.getSplits().size();i++){
+			for(Couple subOp : operation.getSplits()){
 			View view = inflater.inflate(R.layout.split_layout, null);
 			
 			TextView category = (TextView) view.findViewById(R.id.splitLayout_category);
 			//TextView memo = (TextView) view.findViewById(R.id.splitLayout_memo);
 			TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
-			//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (operation.getSplits().get(i).getCategory().getParent() == null ? "" : operation.getSplits().get(i).getCategory().getParent().getName() + ": ") + operation.getSplits().get(i).getCategory().getName());
-			category.setText(activity.getString(R.string.cardLayout_category) + " " + (operation.getSplits().get(i).getCategory().getParent() == null ? "" : operation.getSplits().get(i).getCategory().getParent().getName() + ": ") + operation.getSplits().get(i).getCategory().getName());
-			amount.setText(colorText(activity.getString(R.string.cardLayout_montant) + " ", String.valueOf(operation.getSplits().get(i).getAmount())));
+			//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
+			category.setText(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
+			amount.setText(colorText(activity.getString(R.string.cardLayout_montant) + " ", String.valueOf(subOp.getAmount())));
 			
 			splitLayout.addView(view);
 			
