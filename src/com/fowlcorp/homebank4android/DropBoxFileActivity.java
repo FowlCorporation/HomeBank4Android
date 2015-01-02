@@ -30,11 +30,13 @@ import android.widget.Toast;
 
 public class DropBoxFileActivity extends Activity {
 
+	static final int REQUEST_LINK_TO_DBX = 0;
+
 	private DbxAccountManager dropBoxAccountMgr;
 	private DbxFileSystem dbxFs;
 	private ArrayList<String> pathList;
 	private RadioGroup radioGroup;
-	
+
 	private String currentPath;
 	private ArrayAdapter<String> adapter;
 
@@ -45,9 +47,11 @@ public class DropBoxFileActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_drop_box_file);
 
-		
+
 		listView = (ListView) findViewById(R.id.dropPathList);
 		radioGroup = (RadioGroup) findViewById(R.id.radio_group);
+		
+		final Activity thisActivity=this;
 
 		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -57,6 +61,10 @@ public class DropBoxFileActivity extends Activity {
 					try {
 						dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
 								"sjt7o80sdtdjsxi");
+						if(!dropBoxAccountMgr.hasLinkedAccount()){ //if the user has not linked to the app before
+							System.out.println("start activity");
+							dropBoxAccountMgr.startLink(thisActivity, REQUEST_LINK_TO_DBX); //launch an activity to link to dropbox
+						}
 						final DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
 						final DbxPath current = DbxPath.ROOT;
 						List<DbxFileInfo> infos = dbxFs.listFolder(current);
@@ -113,31 +121,43 @@ public class DropBoxFileActivity extends Activity {
 							File newFile = new File(pathList.get(position));
 							String newCurrent = newFile.getAbsolutePath();
 							System.out.println("file is : "+newCurrent);
-								if((newFile.isFile())){
-									Intent resultData = new Intent();
-									resultData.putExtra("pathResult", newCurrent);
-									resultData.putExtra("isDropPath", false);
-									setResult(Activity.RESULT_OK, resultData);
-									finish();
-								} else {
-									//currentPath = newCurrent;
-									File[] newListFile = newFile.listFiles();
-									System.out.println("number of file : "+newListFile.length);
-									pathList.clear();
-									for(int i=0;i<newListFile.length;i++){
-										pathList.add(newListFile[i].getAbsolutePath());
-									}
-									adapter.notifyDataSetChanged();
+							if((newFile.isFile())){
+								Intent resultData = new Intent();
+								resultData.putExtra("pathResult", newCurrent);
+								resultData.putExtra("isDropPath", false);
+								setResult(Activity.RESULT_OK, resultData);
+								finish();
+							} else {
+								//currentPath = newCurrent;
+								File[] newListFile = newFile.listFiles();
+								System.out.println("number of file : "+newListFile.length);
+								pathList.clear();
+								for(int i=0;i<newListFile.length;i++){
+									pathList.add(newListFile[i].getAbsolutePath());
 								}
+								adapter.notifyDataSetChanged();
+							}
 						}
 					});
 
-					
+
 				}
 			}
 		});
 
 
+
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) { //called when an activity whith result ends
+		if (requestCode == REQUEST_LINK_TO_DBX) {
+			if (resultCode == Activity.RESULT_OK) { //if the dropbox link activity end correctly
+			} else {
+			}
+		} 
+
+		super.onActivityResult(requestCode, resultCode, data);
 
 	}
 

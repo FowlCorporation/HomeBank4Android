@@ -73,11 +73,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		//Connect to the dropbox api with the id and key of the dropbox app
 		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e","sjt7o80sdtdjsxi");
 
-		if(!dropBoxAccountMgr.hasLinkedAccount()){ //if the user has not linked to the app before
-			dropBoxAccountMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX); //launch an activity to link to dropbox
-		} else {
-			dropBoxCall();//connect to dropbox
-		}
+		dropBoxCall();
 		
 		doTEst();
 		
