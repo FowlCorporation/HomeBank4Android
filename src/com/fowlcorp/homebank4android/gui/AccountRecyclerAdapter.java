@@ -154,8 +154,10 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 
 		}
         try {
+            holder.getMode().setImageResource(-1); // reset icon
             switch (operation.getPayMode()) {
                 case PayMode.CREDIT_CARD:
+                case PayMode.DEBIT_CARD:
                     holder.getMode().setImageResource(R.drawable.card);
                     break;
                 case PayMode.CASH:
