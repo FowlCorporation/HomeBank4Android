@@ -5,10 +5,10 @@ package com.fowlcorp.homebank4android.model;
  */
 public class AccountType {
 
-    public static final int NONE = 0;
-    public static final int BANK = 1;
-    public static final int CASH = 2;
-    public static final int ASSET = 3; // actif (avoir)
-    public static final int CREDITCARD = 4;
-    public static final int LIABILITY = 5; // passif (dettes)
+	public static final int NONE = 0;
+	public static final int BANK = 1;
+	public static final int CASH = 2;
+	public static final int ASSET = 3; // actif (avoir)
+	public static final int CREDITCARD = 4;
+	public static final int LIABILITY = 5; // passif (dettes)
 }

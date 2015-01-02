@@ -29,7 +29,13 @@
     <string name="overViewDrawerItem">Overview</string>
     <string name="title_activity_drop_box_file">DropBoxFileActivity</string>
     <string name="all_operations">All</string>
-    <string name="payed_operations">Payed</string>
-    <string name="unpayed_operation">Unpayed</string>
+    <string name="payed_operations">Paid</string>
+    <string name="unpayed_operation">Unpaid</string>
+    <string name="account_type_none">No type</string>
+    <string name="account_type_bank">Bank</string>
+    <string name="account_type_cash">Cash</string>
+    <string name="account_type_asset">Asset</string>
+    <string name="account_type_creditCard">Credit card</string>
+    <string name="account_type_liability">Liability</string>
 
 </resources>

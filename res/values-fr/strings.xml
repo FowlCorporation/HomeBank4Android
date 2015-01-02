@@ -17,5 +17,11 @@
     <string name="all_operations">Toutes</string>
     <string name="payed_operations">Raprochées</string>
     <string name="unpayed_operation">Non raprochées</string>
+    <string name="account_type_none">Sans type</string>
+    <string name="account_type_bank">Banque</string>
+    <string name="account_type_cash">Espèces</string>
+    <string name="account_type_asset">Biens</string>
+    <string name="account_type_creditCard">Carte de crédit</string>
+    <string name="account_type_liability">Dettes</string>
 
 </resources>
