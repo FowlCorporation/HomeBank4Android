@@ -39,5 +39,6 @@
     <string name="bank">Bank</string>
     <string name="title_activity_about">About</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="radio_drop">Dropbox file</string>
+    <string name="radio_local">Local file</string>
 </resources>

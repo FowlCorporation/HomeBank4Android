@@ -19,7 +19,12 @@ package com.fowlcorp.homebank4android.utils;
 
 import android.content.Context;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +57,11 @@ public class DataParser {
 	Context context;
 
 	public DataParser(Context context, DbxFile file) {
+		this.context = context;
+		parseXmlFile(file);
+	}
+	
+	public DataParser(Context context, File file) throws ParserConfigurationException, SAXException, IOException {
 		this.context = context;
 		parseXmlFile(file);
 	}
@@ -93,6 +103,23 @@ public class DataParser {
 		} catch (ParserConfigurationException | SAXException | IOException pce) {
 			pce.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Parse a DropBox tracked file
+	 * @param file
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
+	 */
+	private void parseXmlFile(File file) throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			//Using factory get an instance of document builder
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			//parse using builder to get DOM representation of the XML file
+			// TODO: point to the right file
+			FileInputStream in = new FileInputStream(file);
+			dom = db.parse(in);
 	}
 
 	/**

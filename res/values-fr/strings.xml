@@ -22,5 +22,7 @@
     <string name="account_type_asset">Biens</string>
     <string name="account_type_creditCard">Carte de crédit</string>
     <string name="account_type_liability">Dettes</string>
+    <string name="radio_drop">Fichier Dropbox</string>
+    <string name="radio_local">Fichier local</string>
 
 </resources>
