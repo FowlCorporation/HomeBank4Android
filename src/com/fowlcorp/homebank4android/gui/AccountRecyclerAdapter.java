@@ -139,22 +139,48 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			} catch (Exception e) {
 			}
 		} else {
-			holder.getUnSplitLinear().setVisibility(LinearLayout.INVISIBLE);
+			holder.getUnSplitLinear().setVisibility(LinearLayout.GONE);
 			
 			LinearLayout splitLayout = holder.getSplitLinear();
 			
 			LayoutInflater inflater = activity.getLayoutInflater();
 			for(int i=0;i<operation.getSplits().size();i++){
-			View view = inflater.inflate(R.layout.overviewcard,splitLayout);
+			View view = inflater.inflate(R.layout.split_layout, null);
 			
 			TextView category = (TextView) view.findViewById(R.id.splitLayout_category);
 			//TextView memo = (TextView) view.findViewById(R.id.splitLayout_memo);
 			TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
-			
+			//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (operation.getSplits().get(i).getCategory().getParent() == null ? "" : operation.getSplits().get(i).getCategory().getParent().getName() + ": ") + operation.getSplits().get(i).getCategory().getName());
 			category.setText(activity.getString(R.string.cardLayout_category) + " " + (operation.getSplits().get(i).getCategory().getParent() == null ? "" : operation.getSplits().get(i).getCategory().getParent().getName() + ": ") + operation.getSplits().get(i).getCategory().getName());
-			amount.setText(activity.getString(R.string.cardLayout_solde) + " " + operation.getSplits().get(i).getAmount());
+			amount.setText(colorText(activity.getString(R.string.cardLayout_montant) + " ", String.valueOf(operation.getSplits().get(i).getAmount())));
 			
 			splitLayout.addView(view);
+			
+			try {
+				holder.getMontant().setText(colorText(activity.getString(R.string.cardLayout_montant) + " ", String.valueOf(operation.getAmount())));
+			} catch (Exception e) {
+			}
+			try {
+				holder.getSolde().setText(colorText(activity.getString(R.string.cardLayout_solde) + " ", String.valueOf(montantdec)));
+			} catch (Exception e) {
+			}
+			try {
+				switch (operation.getPayMode()) {
+				case 1:
+					holder.getMode().setImageResource(R.drawable.card);
+					break;
+
+				case 3:
+					holder.getMode().setImageResource(R.drawable.espece);
+					break;
+				case 4:
+					holder.getMode().setImageResource(R.drawable.transfert);
+					break;
+				default:
+					break;
+				}
+			} catch (Exception e) {
+			}
 			}
 		}
 

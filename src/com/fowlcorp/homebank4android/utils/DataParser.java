@@ -252,7 +252,8 @@ public class DataParser {
 					String separator = "\\|\\|";
 					String[] samt = el.getAttribute("samt").split(separator);
 					String[] scat = el.getAttribute("scat").split(separator);
-
+					System.out.println("taile samt : "+samt.length);
+					System.out.println("taile scat : "+scat.length);
 					for(int j = 0; j < samt.length; j++) {
 						op.getSplits().add(new Couple(Double.parseDouble(samt[j]), categories.get(Integer.parseInt(scat[j]))));
 					}

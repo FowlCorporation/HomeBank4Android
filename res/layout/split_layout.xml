@@ -4,25 +4,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/splitLayout_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:text="@string/cardLayout_category" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#bdbdbd" />
 
-    <TextView
-        android:id="@+id/splitLayout_amount"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:text="@string/cardLayout_tier" />
+        android:paddingLeft="20dp"
+        android:orientation="vertical" >
 
-  <!--   <TextView
+        <TextView
+            android:id="@+id/splitLayout_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:text="@string/cardLayout_category" />
+
+        <TextView
+            android:id="@+id/splitLayout_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:text="@string/cardLayout_tier" />
+
+        <!--
+         <TextView
         android:id="@+id/splitLayout_memo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:text="@string/cardLayout_memo" /> -->
+        android:text="@string/cardLayout_memo" />
+        -->
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#bdbdbd" />
 
 </LinearLayout>
