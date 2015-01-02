@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
+import com.fowlcorp.homebank4android.utils.Round;
 
 public class OverViewCard extends CardView{
 	
@@ -35,14 +36,9 @@ public class OverViewCard extends CardView{
         futurValue = selectedAcc.getFutureAccountBalance();
 		todayValue = selectedAcc.getTodayAccountBalance();
 			
-		soldeValue = Math.round(soldeValue*100);
-		soldeValue = soldeValue/100;
-			
-		futurValue = Math.round(futurValue*100);
-		futurValue = futurValue/100;
-			
-		todayValue = Math.round(todayValue*100);
-		todayValue = todayValue/100;
+		soldeValue = Round.roundAmount(soldeValue);
+        futurValue = Round.roundAmount(futurValue);
+        todayValue = Round.roundAmount(todayValue);
 		
 		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 		View view = inflater.inflate(R.layout.overviewcard,parent);
@@ -51,9 +47,9 @@ public class OverViewCard extends CardView{
 		futurView = (TextView) view.findViewById(R.id.overviewCard_future);
 		todayView = (TextView) view.findViewById(R.id.overviewCard_today);
 		
-		soldeView.setText(colorText(context.getString(R.string.overViewCard_solde) + " ", String.valueOf(soldeValue)));
-		futurView.setText(colorText(context.getString(R.string.overViewCard_future) + " ", String.valueOf(futurValue)));
-		todayView.setText(colorText(context.getString(R.string.overviewCard_today) + " ", String.valueOf(todayValue)));
+		soldeView.setText(colorText(context.getString(R.string.balance) + " ", String.valueOf(soldeValue)));
+		futurView.setText(colorText(context.getString(R.string.future) + " ", String.valueOf(futurValue)));
+		todayView.setText(colorText(context.getString(R.string.today) + " ", String.valueOf(todayValue)));
 		
 		this.addView(view);
 		

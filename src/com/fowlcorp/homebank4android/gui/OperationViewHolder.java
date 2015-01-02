@@ -8,6 +8,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class OperationViewHolder extends RecyclerView.ViewHolder {
@@ -20,6 +21,8 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 	private TextView montant;
 	private ImageView mode;
 	private Context context;
+	private LinearLayout splitLinear;
+	private LinearLayout unSplitLinear;
 	private View view;
 
 	public OperationViewHolder(View view) {
@@ -32,6 +35,8 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 		solde = (TextView) view.findViewById(R.id.cardLayout_solde);
 		montant = (TextView) view.findViewById(R.id.cardLayout_montant);
 		mode = (ImageView) view.findViewById(R.id.pay_mode_icon);
+		splitLinear = (LinearLayout) view.findViewById(R.id.split_linear);
+		unSplitLinear = (LinearLayout) view.findViewById(R.id.no_split_linear);
 	}
 
 	public TextView getDate() {
@@ -104,6 +109,22 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 
 	public void setMode(ImageView mode) {
 		this.mode = mode;
+	}
+
+	public LinearLayout getSplitLinear() {
+		return splitLinear;
+	}
+
+	public void setSplitLinear(LinearLayout splitLinear) {
+		this.splitLinear = splitLinear;
+	}
+
+	public LinearLayout getUnSplitLinear() {
+		return unSplitLinear;
+	}
+
+	public void setUnSplitLinear(LinearLayout unSplitLinear) {
+		this.unSplitLinear = unSplitLinear;
 	}
 
 	

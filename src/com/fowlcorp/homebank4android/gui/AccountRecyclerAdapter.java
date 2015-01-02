@@ -25,8 +25,12 @@ import java.util.Locale;
 import com.fowlcorp.homebank4android.DetailedCardActivity;
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.model.Couple;
 import com.fowlcorp.homebank4android.model.Operation;
+import com.fowlcorp.homebank4android.model.PayMode;
+import com.fowlcorp.homebank4android.utils.Round;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -38,6 +42,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHolder> {
 	private List<Operation> listOperation;
@@ -69,82 +76,98 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				try {
 					intent.putExtra("Date", df.format(myDate.getTime()));
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 				try {
 					intent.putExtra("Category", (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 				try {
 					intent.putExtra("Payee", operation.getPayee().getName());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 				try {
 					intent.putExtra("Wording", operation.getWording());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 				try {
-					intent.putExtra("Amount", String.valueOf(operation.getAmount()));
+					intent.putExtra("Amount", String.valueOf(Round.roundAmount(operation.getAmount())));
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 				activity.startActivity(intent);
 			}
 		});
 
-		double montantdec = Math.round(operation.getBalanceAccount() * 100);
-		montantdec = montantdec / 100;
+		try {
+			holder.getDate().setText(activity.getString(R.string.date) + " " + df.format(myDate.getTime()));
+		} catch (Exception e) {
+		}
+		try {
+			holder.getTier().setText(activity.getString(R.string.payee) + " " + operation.getPayee().getName());
+		} catch (Exception e) {
+		}
+		if(!operation.isSplit()){
+			holder.getSplitLinear().removeAllViews();
+			holder.getUnSplitLinear().setVisibility(LinearLayout.VISIBLE);
+			try {
+				holder.getCategory().setText(activity.getString(R.string.category) + " " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
+			} catch (Exception e) {
+			}
+			try {
+				holder.getMemo().setText(activity.getString(R.string.wording) + " " + operation.getWording());
+			} catch (Exception e) {
+			}
+		} else {
+			holder.getUnSplitLinear().setVisibility(LinearLayout.GONE);
+
+			LinearLayout splitLayout = holder.getSplitLinear();
+			splitLayout.removeAllViews();
+			LayoutInflater inflater = activity.getLayoutInflater();
+			for(Couple subOp : operation.getSplits()){
+				View view = inflater.inflate(R.layout.split_layout, null);
+
+				TextView category = (TextView) view.findViewById(R.id.splitLayout_category);
+				//TextView memo = (TextView) view.findViewById(R.id.splitLayout_memo);
+				TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
+				//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
+				category.setText(activity.getString(R.string.category) + " " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
+				amount.setText(colorText(activity.getString(R.string.amount) + " ", String.valueOf(subOp.getAmount())));
+
+				splitLayout.addView(view);
+
+			}
+
+		}
+
+        try {
+            holder.getMontant().setText(colorText(activity.getString(R.string.amount) + " ", String.valueOf(Round.roundAmount(operation.getAmount()))));
+        } catch (Exception e) {
+        }
+        try {
+            holder.getSolde().setText(colorText(activity.getString(R.string.balance) + " ", String.valueOf(Round.roundAmount(operation.getBalanceAccount()))));
+        } catch (Exception e) {
+        }
 
 		try {
-			holder.getDate().setText(activity.getString(R.string.cardLayout_date) + " " + df.format(myDate.getTime()));
-		} catch (Exception e) {
-		}
-		try {
-			holder.getCategory().setText(activity.getString(R.string.cardLayout_category) + " " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
-		} catch (Exception e) {
-		}
-		try {
-			holder.getTier().setText(activity.getString(R.string.cardLayout_tier) + " " + operation.getPayee().getName());
-		} catch (Exception e) {
-		}
-		try {
-			holder.getMemo().setText(activity.getString(R.string.cardLayout_memo) + " " + operation.getWording());
-		} catch (Exception e) {
-		}
-		try {
-			holder.getMontant().setText(colorText(activity.getString(R.string.cardLayout_montant) + " ", String.valueOf(operation.getAmount())));
-		} catch (Exception e) {
-		}
-		try {
-			holder.getSolde().setText(colorText(activity.getString(R.string.cardLayout_solde) + " ", String.valueOf(montantdec)));
-		} catch (Exception e) {
-		}
-		try {
 			switch (operation.getPayMode()) {
-			case 1:
+			case PayMode.CREDIT_CARD:
+			case PayMode.DEBIT_CARD:
 				holder.getMode().setImageResource(R.drawable.card);
 				break;
-				
-			case 3:
+			case PayMode.CASH:
 				holder.getMode().setImageResource(R.drawable.espece);
 				break;
-			case 4:
+			case PayMode.TRANSFERT:
 				holder.getMode().setImageResource(R.drawable.transfert);
 				break;
-			default:
+			case PayMode.ELECTRONIC_PAYMENT:
+				holder.getMode().setImageResource(R.drawable.nfc);
 				break;
+			default:
+                holder.getMode().setImageDrawable(null);
+                break;
 			}
 		} catch (Exception e) {
 		}
-
 	}
 
 	@Override
