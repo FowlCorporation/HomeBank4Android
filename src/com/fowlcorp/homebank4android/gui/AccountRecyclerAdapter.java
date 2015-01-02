@@ -26,6 +26,7 @@ import com.fowlcorp.homebank4android.DetailedCardActivity;
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Operation;
+import com.fowlcorp.homebank4android.model.PayMode;
 
 import android.app.Activity;
 import android.content.Context;
@@ -166,14 +167,13 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			}
 			try {
 				switch (operation.getPayMode()) {
-				case 1:
+				case PayMode.CREDIT_CARD:
 					holder.getMode().setImageResource(R.drawable.card);
 					break;
-
-				case 3:
+				case PayMode.CASH:
 					holder.getMode().setImageResource(R.drawable.espece);
 					break;
-				case 4:
+				case PayMode.TRANSFERT:
 					holder.getMode().setImageResource(R.drawable.transfert);
 					break;
 				default:
