@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:text="HomeBank"
+        android:text="@string/HomeBank"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView

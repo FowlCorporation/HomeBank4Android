@@ -20,9 +20,7 @@ package com.fowlcorp.homebank4android.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
 import android.app.Activity;
-//import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
