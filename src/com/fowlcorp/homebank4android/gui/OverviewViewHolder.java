@@ -4,6 +4,7 @@ import com.fowlcorp.homebank4android.R;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -14,6 +15,7 @@ public class OverviewViewHolder extends RecyclerView.ViewHolder{
 	private TextView solde;
 	private TextView futur;
 	private TextView today;
+	private ImageView icon;
 	
 	private View itemView;
 
@@ -25,6 +27,7 @@ public class OverviewViewHolder extends RecyclerView.ViewHolder{
 		solde = (TextView) itemView.findViewById(R.id.overview_card_solde);
 		futur = (TextView) itemView.findViewById(R.id.overview_card_futur);
 		today = (TextView) itemView.findViewById(R.id.overview_card_today);
+		icon = (ImageView) itemView.findViewById(R.id.overview_card_icon);
 	}
 
 	public TextView getTitle() {
@@ -65,6 +68,14 @@ public class OverviewViewHolder extends RecyclerView.ViewHolder{
 
 	public void setItemView(View itemView) {
 		this.itemView = itemView;
+	}
+
+	public ImageView getIcon() {
+		return icon;
+	}
+
+	public void setIcon(ImageView icon) {
+		this.icon = icon;
 	}
 	
 	
