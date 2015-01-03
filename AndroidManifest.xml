@@ -73,8 +73,12 @@
                 android:value="com.fowlcorp.homebank4android.MainActivity" />
         </activity>
         <activity
-            android:name=".About"
+            android:name=".AboutActivity"
             android:label="@string/title_activity_about" >
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fowlcorp.homebank4android.MainActivity" />
         </activity>
     </application>
 
