@@ -17,8 +17,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/section_label"
-        android:layout_alignBottom="@+id/section_label"
+        android:layout_above="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:text="HomeBank"
         android:textAppearance="?android:attr/textAppearanceLarge" />

@@ -41,5 +41,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="About">About</string>
     <string name="Authors">Authors</string>
+    <string name="HomeBank">HomeBank</string>
 
 </resources>
