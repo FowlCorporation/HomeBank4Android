@@ -11,33 +11,48 @@
     <TextView
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:text="@string/HomeBank"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toLeftOf="@+id/textView2"
         android:text="@string/Authors" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignLeft="@+id/section_label"
+        android:layout_alignStart="@+id/section_label"
         android:layout_below="@+id/section_label"
-        android:layout_marginTop="24dp"
-        android:text="Axel BROCHARD, Cédric HUGUENIN, Martin SCHUTZ" />
+        android:columnCount="3" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_columnSpan="2"
+            android:layout_gravity="center"
+            android:layout_row="1"
+            android:text="@string/HomeBank"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="start|top"
+            android:layout_row="2"
+            android:text="@string/Authors" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_gravity="top"
+            android:layout_marginTop="14dp"
+            android:layout_row="2"
+            android:text="Axel BROCHARD, Cédric HUGUENIN, Martin SCHUTZ" />
+
+        <Space />
+    </GridLayout>
 
 </RelativeLayout>
