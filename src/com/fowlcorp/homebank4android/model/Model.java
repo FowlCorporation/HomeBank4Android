@@ -1,3 +1,20 @@
+/**
+ *	Copyright (C) 2014 Fowl Corporation
+ *
+ *	This program is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	This program is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.fowlcorp.homebank4android.model;
 
 import java.util.Calendar;
@@ -13,17 +30,18 @@ public class Model {
     private HashMap<Integer,Tag> tags;
 	private HashMap<Integer,List<Operation>> operations; // one List for each account
     private int selectedAccount;
-    private double selectedTodayAccountBalance;
-    private double selectedBankAccountBalance;
-    private double selectedFutureAccountBalance;
 	
 	public Model() {
 		
 	}
 
     public void updateOperationAccountBalance() {
+        Account selectedAcc = accounts.get(selectedAccount);
+        if(selectedAcc.isModified() == false) { // balances already up to date
+            return;
+        }
         Collections.sort(operations.get(selectedAccount));
-        double todayBalance = accounts.get(selectedAccount).getInitBalance();
+        double todayBalance = selectedAcc.getInitBalance();
         double bankBalance = todayBalance, futureBalance = todayBalance;
         Calendar today = Calendar.getInstance();
         today.setTimeInMillis(System.currentTimeMillis());
@@ -32,7 +50,7 @@ public class Model {
             if(op.getAccount().getKey() == selectedAccount) {
                 if(op.getDate().compareTo(today) <= 0) { // today or past operation
                     todayBalance += op.getAmount();
-                    if(op.getFlag() == 3 || op.getFlag() == 1) {
+                    if(op.isReconciled()) {
                         bankBalance += op.getAmount();
                     }
                 }
@@ -40,12 +58,13 @@ public class Model {
                 op.setBalanceAccount(futureBalance);
             }
         }
-        setSelectedTodayAccountBalance(todayBalance);
-        setSelectedBankAccountBalance(bankBalance);
-        setSelectedFutureAccountBalance(futureBalance);
+        selectedAcc.setTodayAccountBalance(todayBalance);
+        selectedAcc.setBankAccountBalance(bankBalance);
+        selectedAcc.setFutureAccountBalance(futureBalance);
         System.err.println("Today : " + todayBalance);
         System.err.println("Bank : " + bankBalance);
         System.err.println("Future : " + futureBalance);
+        selectedAcc.setModified(false);
     }
 
 	public HashMap<Integer, Payee> getPayees() {
@@ -78,6 +97,7 @@ public class Model {
 
 	public void setOperations(List<Operation> operations, Account acc) {
 		this.operations.put(acc.getKey(), operations);
+        acc.setModified(true);
 	}
 
     public HashMap<Integer, List<Operation>> getOperations() {
@@ -92,14 +112,6 @@ public class Model {
         return selectedAccount;
     }
 
-    public double getSelectedTodayAccountBalance() {
-        return selectedTodayAccountBalance;
-    }
-
-    public void setSelectedTodayAccountBalance(double selectedTodayAccountBalance) {
-        this.selectedTodayAccountBalance = selectedTodayAccountBalance;
-    }
-
     public void setSelectedAccount(int selectedAccount) {
         this.selectedAccount = selectedAccount;
     }
@@ -112,19 +124,4 @@ public class Model {
         this.tags = tags;
     }
 
-    public double getSelectedBankAccountBalance() {
-        return selectedBankAccountBalance;
-    }
-
-    public void setSelectedBankAccountBalance(double selectedBankAccountBalance) {
-        this.selectedBankAccountBalance = selectedBankAccountBalance;
-    }
-
-    public double getSelectedFutureAccountBalance() {
-        return selectedFutureAccountBalance;
-    }
-
-    public void setSelectedFutureAccountBalance(double selectedFutureAccountBalance) {
-        this.selectedFutureAccountBalance = selectedFutureAccountBalance;
-    }
 }

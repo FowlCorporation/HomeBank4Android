@@ -2,6 +2,7 @@ package com.fowlcorp.homebank4android;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
@@ -24,11 +25,14 @@ public class DetailedCardActivity extends Activity {
 
 		setContentView(R.layout.activity_detailed_card);
 		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		//Get ids
 		date = (EditText) findViewById(R.id.detailedCardDate);
 		category = (AutoCompleteTextView) findViewById(R.id.detailedCardCategory);
 		payee = (AutoCompleteTextView) findViewById(R.id.detailedCardPayee);
 		amount = (EditText) findViewById(R.id.detailedCardAmount);
+		wording = (EditText) findViewById(R.id.detailedCardWording);
 		
 		try {
 			date.setText((String) bdl.getString("Date"), TextView.BufferType.SPANNABLE);
@@ -42,10 +46,10 @@ public class DetailedCardActivity extends Activity {
 			payee.setText(bdl.getString("Payee"));
 		} catch (Exception e) {
 		}
-//		try {
-//			wording.setText(bdl.getString("Wording"), TextView.BufferType.SPANNABLE);
-//		} catch (Exception e) {
-//		}
+		try {
+			wording.setText(bdl.getString("Wording"));
+		} catch (Exception e) {
+		}
 		try {
 			amount.setText(bdl.getString("Amount"));
 		} catch (Exception e) {
@@ -67,7 +71,10 @@ public class DetailedCardActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		} else {
+			onBackPressed();
+			return true;
 		}
-		return super.onOptionsItemSelected(item);
+		//return super.onOptionsItemSelected(item);
 	}
 }

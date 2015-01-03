@@ -46,6 +46,8 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
                   drawerHolder.ItemName = (TextView) view
                               .findViewById(R.id.drawer_itemName);
                   drawerHolder.icon = (ImageView) view.findViewById(R.id.drawer_icon);
+                  
+                  drawerHolder.iconHeader = (ImageView) view.findViewById(R.id.drawer_icon_header);
  
                   drawerHolder.title = (TextView) view.findViewById(R.id.drawerTitle);
  
@@ -63,16 +65,21 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
  
             DrawerItem dItem = (DrawerItem) this.drawerItemList.get(position);
  
-            if (dItem.isOverview()) {
+            /*if (dItem.isOverview()) {
                   drawerHolder.headerLayout.setVisibility(LinearLayout.INVISIBLE);
                   drawerHolder.itemLayout.setVisibility(LinearLayout.VISIBLE);
                   drawerHolder.ItemName.setText(dItem.getItemName());
  
-            }else if(dItem.isHeader()){
+            }else*/ if(dItem.isHeader()){
             	
             	drawerHolder.headerLayout.setVisibility(LinearLayout.VISIBLE);
                 drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
                 drawerHolder.title.setText(dItem.getItemName());
+                try {
+					drawerHolder.iconHeader.setImageDrawable(view.getResources().getDrawable(
+					              dItem.getImgResID()));
+				} catch (NotFoundException e) {
+				}
             } else {
             
  
@@ -111,7 +118,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
  
       private static class DrawerItemHolder {
             TextView ItemName, title;
-            ImageView icon;
+            ImageView icon, iconHeader;
             LinearLayout headerLayout, itemLayout;
       }
 

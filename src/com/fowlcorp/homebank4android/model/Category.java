@@ -25,6 +25,7 @@ import java.util.ArrayList;
  */
 public class Category extends AccPayCatTagAbstract {
 
+    private Category parent;
 	private ArrayList<Category> subCategories;			//Key of the sub categories
 	private int flags;									//Flags of the category (usage to be determined)
 
@@ -35,7 +36,8 @@ public class Category extends AccPayCatTagAbstract {
 	 */
 	public Category(int key, String name) {
 		super(key, name);
-		subCategories = new ArrayList<Category>();
+        setParent(null);
+		setSubCategories(new ArrayList<Category>());
 	}
 
 	/**
@@ -46,8 +48,8 @@ public class Category extends AccPayCatTagAbstract {
 	 */
 	public Category(int key, String name, int flags) {
 		super(key, name);
-		this.flags = flags;
-		subCategories = new ArrayList<Category>();
+		this.setFlags(flags);
+		setSubCategories(new ArrayList<Category>());
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class Category extends AccPayCatTagAbstract {
 	 * @param category	The Category object to add to the list of children
 	 */
 	public void addSubCategory(Category category) {
-		subCategories.add(category);
+		getSubCategories().add(category);
 	}
 
 	// Getters and Setters
@@ -72,11 +74,31 @@ public class Category extends AccPayCatTagAbstract {
 	 * @return ArrayList of sub categories
 	 */
 	public ArrayList<Category> getSubcategories() {
-		return subCategories;
+		return getSubCategories();
 	}
 	
 	@Override
 	public String toString() {
-		return "Category : "+getKey() +", name : " + getName() + (subCategories.isEmpty() ? "" : ", " + subCategories.size() +" sub categorie(s)");
+		return "Category : "+getKey() +", name : " + getName() + (getSubCategories().isEmpty() ? "" : ", " + getSubCategories().size() +" sub categorie(s)");
 	}
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
+    }
+
+    public ArrayList<Category> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(ArrayList<Category> subCategories) {
+        this.subCategories = subCategories;
+    }
+
+    public void setFlags(int flags) {
+        this.flags = flags;
+    }
 }
