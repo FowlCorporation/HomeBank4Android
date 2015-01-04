@@ -89,7 +89,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		toolBar = (Toolbar) findViewById(R.id.toolbar);
 
 		setSupportActionBar(toolBar);
-		//getSupportActionBar().show();
 
 
 		//invoke the fragment
