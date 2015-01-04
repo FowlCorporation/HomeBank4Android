@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Color;
 //import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.common.view.SlidingTabLayout;
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
@@ -51,6 +53,8 @@ public class PagerSwipeFragment extends Fragment{
 
 	private AccountRecyclerAdapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
+	
+	private SlidingTabLayout mSlidingTabLayout;
 
 
 	public PagerSwipeFragment(MainActivity activity){//empty constructor
@@ -83,6 +87,12 @@ public class PagerSwipeFragment extends Fragment{
 		
 		ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         mViewPager.setAdapter(pager);
+        
+        mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs);
+        mSlidingTabLayout.setViewPager(mViewPager);
+        
+       // mSlidingTabLayout.setSelectedIndicatorColors(R.color.background_material_light);
+        
         System.out.println(sectionNumber);
 		return rootView;
 	}
