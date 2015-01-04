@@ -26,9 +26,10 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
@@ -308,6 +309,6 @@ public class NavigationDrawerFragment extends Fragment {
 	}
 
 	private ActionBar getActionBar() {
-		return getActivity().getActionBar();
+		return mainAct.getSupportActionBar();
 	}
 }

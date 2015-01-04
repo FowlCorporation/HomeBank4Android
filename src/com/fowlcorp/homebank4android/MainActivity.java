@@ -18,7 +18,8 @@
 package com.fowlcorp.homebank4android;
 
 
-import android.app.ActionBar;
+
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -49,7 +53,7 @@ import com.fowlcorp.homebank4android.utils.DataParser;
 import java.io.File;
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	static final int REQUEST_LINK_TO_DBX = 0;
 	static final int DROP_PATH_OK = 1000;
@@ -66,6 +70,9 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 	private DataParser dp; //the parser of the file
 	private SharedPreferences sharedPreferences; //preferences of the app
 
+	private Toolbar toolBar;
+	private ActionBar actionBar;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); //restore the saved state
@@ -74,13 +81,18 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e","sjt7o80sdtdjsxi");
 
 		dropBoxCall();
-		
+
 		doTEst();
-		
+
 		setContentView(R.layout.activity_main); //invoke the layout
 
+		toolBar = (Toolbar) findViewById(R.id.toolbar);
+
+		setSupportActionBar(toolBar);
+		getSupportActionBar().show();
+
 		//invoke the fragment
-		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
+		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 		mNavigationDrawerFragment.setRetainInstance(true); //use for orientation change
 		mTitle = getTitle(); //set the title of the fragment (name of the app by default)
 
@@ -123,7 +135,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 				startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -170,9 +182,9 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 	}
 
 	public void restoreActionBar() {
-		ActionBar actionBar = getActionBar(); //get the action bar
-		actionBar.setDisplayShowTitleEnabled(true); //display the title
-		actionBar.setTitle(mTitle); //set the title
+		toolBar.setTitle(mTitle);
+		//actionBar.setDisplayShowTitleEnabled(true); //display the title
+		//actionBar.setTitle(mTitle); //set the title
 	}
 
 	@Override
@@ -261,12 +273,12 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 					default:
 						drawerList.add(new DrawerItem(accountList.get(j).getName(), -1,accountList.get(j).getKey())); //add the account in the drawer list
 					}
-					
+
 				}
 			}
 		}
 	}
-	
+
 	public void updateGUI(){
 		mNavigationDrawerFragment.update();
 	}
@@ -288,9 +300,9 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		}
 	}
 
-/*----------------------------------------------------*/
+	/*----------------------------------------------------*/
 	/*getters and setters*/
-	
+
 	public Model getModel() {
 		return model;
 	}
@@ -323,7 +335,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 			NavigationDrawerFragment mNavigationDrawerFragment) {
 		this.mNavigationDrawerFragment = mNavigationDrawerFragment;
 	}
-	
+
 	public String getNameByType(int index){
 		String result ="";
 		switch (index) {
@@ -346,7 +358,17 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 			result = getString(R.string.account_type_cash);
 			break;
 		}
-		
+
 		return result;
 	}
+
+	@Override
+	public ActionBar getSupportActionBar() {
+		// TODO Auto-generated method stub
+		return super.getSupportActionBar();
+	}
+
+
+
+
 }

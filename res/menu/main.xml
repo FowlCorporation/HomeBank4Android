@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_example"
-        android:showAsAction="withText|ifRoom"
+        android:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/action_example"/>
     <item
