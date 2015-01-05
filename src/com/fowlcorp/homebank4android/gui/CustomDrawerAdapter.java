@@ -75,29 +75,24 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
             	drawerHolder.headerLayout.setVisibility(LinearLayout.VISIBLE);
                 drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
                 drawerHolder.title.setText(dItem.getItemName());
-                if(dItem.getImgResID()==-1){
-              	  drawerHolder.iconHeader.setImageDrawable(null);
-                } else {
-              	  drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(dItem.getImgResID()));
-                }
+                try {
+					drawerHolder.iconHeader.setImageDrawable(view.getResources().getDrawable(
+					              dItem.getImgResID()));
+				} catch (NotFoundException e) {
+					drawerHolder.iconHeader.setImageDrawable(null);
+				}
             } else {
             
  
                   drawerHolder.headerLayout.setVisibility(LinearLayout.INVISIBLE);
                   drawerHolder.itemLayout.setVisibility(LinearLayout.VISIBLE);
  
-                  if(dItem.getImgResID()==-1){
-                	  drawerHolder.iconHeader.setImageDrawable(null);
-                  } else {
-                	  drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(dItem.getImgResID()));
-                  }
-                  
-                  /*try {
+                  try {
 					drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(
 					              dItem.getImgResID()));
 				} catch (NotFoundException e) {
 					drawerHolder.iconHeader.setImageDrawable(null);
-				}*/
+				}
                   drawerHolder.ItemName.setText(dItem.getItemName());
  
             }
