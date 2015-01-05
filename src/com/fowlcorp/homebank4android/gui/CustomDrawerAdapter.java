@@ -79,6 +79,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
 					drawerHolder.iconHeader.setImageDrawable(view.getResources().getDrawable(
 					              dItem.getImgResID()));
 				} catch (NotFoundException e) {
+					drawerHolder.iconHeader.setImageDrawable(null);
 				}
             } else {
             
@@ -90,6 +91,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
 					drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(
 					              dItem.getImgResID()));
 				} catch (NotFoundException e) {
+					drawerHolder.iconHeader.setImageDrawable(null);
 				}
                   drawerHolder.ItemName.setText(dItem.getItemName());
  
