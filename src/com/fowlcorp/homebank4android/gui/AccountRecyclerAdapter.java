@@ -162,6 +162,9 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			case PayMode.ELECTRONIC_PAYMENT:
 				holder.getMode().setImageResource(R.drawable.nfc);
 				break;
+			case PayMode.CHEQUE:
+				holder.getMode().setImageResource(R.drawable.cheque);
+				break;
 			default:
                 holder.getMode().setImageDrawable(null);
                 break;
