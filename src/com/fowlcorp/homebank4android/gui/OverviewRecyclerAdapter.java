@@ -98,6 +98,7 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
 			holder.getIcon().setImageResource(R.drawable.espece);
 			break;
 		default:
+			holder.getIcon().setImageDrawable(null);
 			break;
 		}
 				
