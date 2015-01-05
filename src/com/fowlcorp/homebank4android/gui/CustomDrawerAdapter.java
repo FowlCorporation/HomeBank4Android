@@ -64,6 +64,8 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
             }
  
             DrawerItem dItem = (DrawerItem) this.drawerItemList.get(position);
+            
+
  
             /*if (dItem.isOverview()) {
                   drawerHolder.headerLayout.setVisibility(LinearLayout.INVISIBLE);
@@ -91,7 +93,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
 					drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(
 					              dItem.getImgResID()));
 				} catch (NotFoundException e) {
-					drawerHolder.iconHeader.setImageDrawable(null);
+					drawerHolder.icon.setImageDrawable(null);
 				}
                   drawerHolder.ItemName.setText(dItem.getItemName());
  
