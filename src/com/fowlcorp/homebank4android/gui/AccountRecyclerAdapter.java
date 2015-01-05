@@ -38,6 +38,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -171,6 +172,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			}
 		} catch (Exception e) {
 		}
+		
 	}
 
 	@Override
