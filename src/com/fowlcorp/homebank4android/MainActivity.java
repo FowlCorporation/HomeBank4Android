@@ -20,12 +20,16 @@ package com.fowlcorp.homebank4android;
 
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -35,13 +39,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.dropbox.sync.android.DbxAccountManager;
-import com.dropbox.sync.android.DbxException;
-import com.dropbox.sync.android.DbxFile;
-import com.dropbox.sync.android.DbxFileSystem;
-import com.dropbox.sync.android.DbxPath;
-import com.dropbox.sync.android.DbxPath.InvalidPathException;
-import com.fowlcorp.homebank4android.gui.AccountFragment;
+import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.DropboxAPI.DropboxFileInfo;
+import com.dropbox.client2.android.AndroidAuthSession;
+import com.dropbox.client2.exception.DropboxException;
+import com.dropbox.client2.session.AppKeyPair;
+import com.dropbox.client2.session.Session.AccessType;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
 import com.fowlcorp.homebank4android.gui.OverviewFragment;
 import com.fowlcorp.homebank4android.gui.PagerSwipeFragment;
@@ -50,23 +53,23 @@ import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
 
-import java.io.File;
-import java.util.ArrayList;
-
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	static final int REQUEST_LINK_TO_DBX = 0;
 	static final int DROP_PATH_OK = 1000;
 
+	final static private String APP_KEY = "6a6wdjwu9kuhwzz";
+	final static private String APP_SECRET = "ne5ries25tyj83s";
+	final static private AccessType ACCESS_TYPE = AccessType.DROPBOX;
+
+	private DropboxAPI<AndroidAuthSession> mDBApi;
+
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 	private CharSequence mTitle; //the title of the current fragment
-	private DbxAccountManager dropBoxAccountMgr;
-	private DbxFileSystem dbxFs;
 	private Model model; //datamodel
 	private ArrayList<Account> accountList; //a list of the accounts
 	private ArrayList<String> bankList; //a list of the bank name
 	private ArrayList<DrawerItem> drawerList; //a list of the object to diplay in the drawer
-	private DbxFile file; //the homebank file
 	private DataParser dp; //the parser of the file
 	private SharedPreferences sharedPreferences; //preferences of the app
 
@@ -78,7 +81,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		super.onCreate(savedInstanceState); //restore the saved state
 
 		//Connect to the dropbox api with the id and key of the dropbox app
-		dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e","sjt7o80sdtdjsxi");
+		AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
+		AndroidAuthSession session = new AndroidAuthSession(appKeys, ACCESS_TYPE);
+		mDBApi = new DropboxAPI<AndroidAuthSession>(session);
 
 		dropBoxCall();
 
@@ -111,19 +116,25 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		Boolean isDropPath = sharedPreferences.getBoolean("isDropPath", false);
 
 		if(isDropPath){
+			File file;
 			try {
-				dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-				DbxPath path = new DbxPath(pathPref); //create the path of the file
-				file = dbxFs.open(path); //open the file
-			} catch (InvalidPathException | DbxException e) { //Dropbox exception
-				e.printStackTrace();
-			}
-			try {
-				dp = new DataParser(getApplicationContext(), file);
-				return true;
-			} catch (Exception e) { //exception : the file is corrupted or is not a homebank database
-				Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
-				startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
+				file = new File(pathPref);
+				FileOutputStream outputStream = new FileOutputStream(file);
+				DropboxFileInfo info = mDBApi.getFile(pathPref, null, outputStream, null);
+
+				try {
+					dp = new DataParser(getApplicationContext(), file);
+					return true;
+				} catch (Exception e) { //exception : the file is corrupted or is not a homebank database
+					Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
+					startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
+				}
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (DropboxException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		} else {
 			File localFile = new File(pathPref);
@@ -287,7 +298,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	protected void onDestroy() {
 		super.onDestroy();
 		try {
-			dbxFs.shutDown();
+			//dbxFs.shutDown();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

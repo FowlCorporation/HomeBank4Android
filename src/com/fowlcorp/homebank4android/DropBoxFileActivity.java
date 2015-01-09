@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.android.AndroidAuthSession;
+import com.dropbox.client2.session.AppKeyPair;
+import com.dropbox.client2.session.Session.AccessType;
 import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxException;
 import com.dropbox.sync.android.DbxFile;
@@ -15,7 +19,9 @@ import com.dropbox.sync.android.DbxFileSystem;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.DropBoxManager.Entry;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,9 +37,13 @@ import android.widget.Toast;
 public class DropBoxFileActivity extends Activity {
 
 	static final int REQUEST_LINK_TO_DBX = 0;
-
-	private DbxAccountManager dropBoxAccountMgr;
-	private DbxFileSystem dbxFs;
+	
+	final static private String APP_KEY = "6a6wdjwu9kuhwzz";
+	final static private String APP_SECRET = "ne5ries25tyj83s";
+	final static private AccessType ACCESS_TYPE = AccessType.DROPBOX;
+	
+	private DropboxAPI<AndroidAuthSession> mDBApi;
+	
 	private ArrayList<String> pathList;
 	private RadioGroup radioGroup;
 
@@ -41,6 +51,9 @@ public class DropBoxFileActivity extends Activity {
 	private ArrayAdapter<String> adapter;
 
 	private ListView listView;
+	
+	private SharedPreferences sharedPreferences; //preferences of the app
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +72,22 @@ public class DropBoxFileActivity extends Activity {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				if(checkedId == R.id.radio_drop){
 					try {
-						dropBoxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), "40u2ttil28t3g8e", 	
-								"sjt7o80sdtdjsxi");
-						if(!dropBoxAccountMgr.hasLinkedAccount()){ //if the user has not linked to the app before
-							System.out.println("start activity");
-							dropBoxAccountMgr.startLink(thisActivity, REQUEST_LINK_TO_DBX); //launch an activity to link to dropbox
-						}
-						final DbxFileSystem dbxFs = DbxFileSystem.forAccount(dropBoxAccountMgr.getLinkedAccount());
-						final DbxPath current = DbxPath.ROOT;
-						List<DbxFileInfo> infos = dbxFs.listFolder(current);
+						AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
+						AndroidAuthSession session = new AndroidAuthSession(appKeys, ACCESS_TYPE);
+						mDBApi = new DropboxAPI<AndroidAuthSession>(session);
+						mDBApi.getSession().startOAuth2Authentication(DropBoxFileActivity.this);
+						AsyncTask<String, String, ArrayList<String>> listingThread = new AsyncTask<String, String, ArrayList<String>>() {
+
+							@Override
+							protected ArrayList<String> doInBackground(
+									String... path) {
+								ArrayList<String> list = new ArrayList<String>();
+								Entry existingEntry = mDBApi.metadata(path, 0, null, true, null);
+								existingEntry.
+								return list;
+							}
+
+						};
 						pathList = new ArrayList<String>();
 						for(int i=0;i<infos.size();i++){
 							pathList.add(infos.get(i).path.toString());
@@ -147,6 +167,21 @@ public class DropBoxFileActivity extends Activity {
 
 
 
+	}
+	
+	protected void onResume() {
+	    super.onResume();
+
+	    if (mDBApi.getSession().authenticationSuccessful()) {
+	        try {
+	            // Required to complete auth, sets the access token on the session
+	            mDBApi.getSession().finishAuthentication();
+	            String accessToken = mDBApi.getSession().getOAuth2AccessToken();
+	            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+	            sharedPreferences.edit().putString("token", accessToken).commit();
+	        } catch (IllegalStateException e) {
+	        }
+	    }
 	}
 
 	@Override
