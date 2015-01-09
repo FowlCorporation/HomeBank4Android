@@ -83,7 +83,7 @@ public class DropBoxFileActivity extends Activity {
 									String... path) {
 								ArrayList<String> list = new ArrayList<String>();
 								Entry existingEntry = mDBApi.metadata(path, 0, null, true, null);
-								existingEntry.
+								
 								return list;
 							}
 
