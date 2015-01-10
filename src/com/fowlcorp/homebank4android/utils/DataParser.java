@@ -38,7 +38,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.dropbox.sync.android.DbxFile;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Category;
@@ -56,10 +55,6 @@ public class DataParser {
 	Document dom;
 	Context context;
 
-	public DataParser(Context context, DbxFile file) {
-		this.context = context;
-		parseXmlFile(file);
-	}
 	
 	public DataParser(Context context, File file) throws ParserConfigurationException, SAXException, IOException {
 		this.context = context;
@@ -86,24 +81,8 @@ public class DataParser {
 		}
 	}
 
-	/**
-	 * Parse a DropBox tracked file
-	 * @param file
-	 */
-	private void parseXmlFile(DbxFile file) {
-		//get the factory
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		try {
-			//Using factory get an instance of document builder
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			//parse using builder to get DOM representation of the XML file
-			// TODO: point to the right file
-			dom = db.parse(file.getReadStream());
 
-		} catch (ParserConfigurationException | SAXException | IOException pce) {
-			pce.printStackTrace();
-		}
-	}
+
 	
 	/**
 	 * Parse a DropBox tracked file

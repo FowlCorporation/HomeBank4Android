@@ -39,12 +39,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.dropbox.client2.DropboxAPI;
-import com.dropbox.client2.DropboxAPI.DropboxFileInfo;
-import com.dropbox.client2.android.AndroidAuthSession;
-import com.dropbox.client2.exception.DropboxException;
-import com.dropbox.client2.session.AppKeyPair;
-import com.dropbox.client2.session.Session.AccessType;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
 import com.fowlcorp.homebank4android.gui.OverviewFragment;
 import com.fowlcorp.homebank4android.gui.PagerSwipeFragment;
@@ -60,9 +54,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
 	final static private String APP_KEY = "6a6wdjwu9kuhwzz";
 	final static private String APP_SECRET = "ne5ries25tyj83s";
-	final static private AccessType ACCESS_TYPE = AccessType.DROPBOX;
+	//final static private AccessType ACCESS_TYPE = AccessType.DROPBOX;
 
-	private DropboxAPI<AndroidAuthSession> mDBApi;
 
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 	private CharSequence mTitle; //the title of the current fragment
@@ -79,11 +72,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); //restore the saved state
-
-		//Connect to the dropbox api with the id and key of the dropbox app
-		AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
-		AndroidAuthSession session = new AndroidAuthSession(appKeys, ACCESS_TYPE);
-		mDBApi = new DropboxAPI<AndroidAuthSession>(session);
 
 		dropBoxCall();
 
@@ -113,38 +101,14 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		//get the path of the file in the preference
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		String pathPref = sharedPreferences.getString("dropPath", "");
-		Boolean isDropPath = sharedPreferences.getBoolean("isDropPath", false);
 
-		if(isDropPath){
-			File file;
-			try {
-				file = new File(pathPref);
-				FileOutputStream outputStream = new FileOutputStream(file);
-				DropboxFileInfo info = mDBApi.getFile(pathPref, null, outputStream, null);
-
-				try {
-					dp = new DataParser(getApplicationContext(), file);
-					return true;
-				} catch (Exception e) { //exception : the file is corrupted or is not a homebank database
-					Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
-					startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
-				}
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (DropboxException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		} else {
-			File localFile = new File(pathPref);
-			try {
-				dp = new DataParser(getApplicationContext(), localFile);
-				return true;
-			} catch (Exception e) { //exception : the file is corrupted or is not a homebank database
-				Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
-				startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
-			}
+		File localFile = new File(pathPref);
+		try {
+			dp = new DataParser(getApplicationContext(), localFile);
+			return true;
+		} catch (Exception e) { //exception : the file is corrupted or is not a homebank database
+			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
+			startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
 		}
 
 		return false;
@@ -152,16 +116,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) { //called when an activity whith result ends
-		if (requestCode == REQUEST_LINK_TO_DBX) {
-			if (resultCode == Activity.RESULT_OK) { //if the dropbox link activity end correctly
-				dropBoxCall();
-			} else {
-			}
-		} else if(requestCode == DROP_PATH_OK){
+		if(requestCode == DROP_PATH_OK){
 			if(resultCode == Activity.RESULT_OK){ //if the filechooser end correctly
 				String result = data.getStringExtra("pathResult"); //store the new path in the preferences
-				Boolean isDrop = data.getBooleanExtra("isDropPath", false);
-				sharedPreferences.edit().putBoolean("isDropPath", isDrop).commit();
 				sharedPreferences.edit().putString("dropPath", result).commit();
 				dropBoxCall();
 				doTEst();

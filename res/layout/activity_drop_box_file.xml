@@ -9,24 +9,6 @@
     android:orientation="vertical"
     tools:context="com.fowlcorp.homebank4android.DropBoxFileActivity" >
 
-    <RadioGroup
-        android:id="@+id/radio_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <RadioButton
-        android:id="@+id/radio_local"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/radio_local" />
-        
-        <RadioButton
-        android:id="@+id/radio_drop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/radio_drop" />
-    </RadioGroup>
     
 
     <ListView
