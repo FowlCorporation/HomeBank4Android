@@ -16,8 +16,6 @@
 
 package com.common.view;
 
-import com.fowlcorp.homebank4android.R;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;

@@ -18,7 +18,7 @@
 package com.fowlcorp.homebank4android.model;
 
 /**
- * Created by Ced on 24/12/2014.
+ * @author Cédric
  */
 public class PayMode {
 

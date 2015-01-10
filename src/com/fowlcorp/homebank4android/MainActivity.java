@@ -21,8 +21,6 @@ package com.fowlcorp.homebank4android;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -52,11 +50,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	static final int REQUEST_LINK_TO_DBX = 0;
 	static final int DROP_PATH_OK = 1000;
 
-	final static private String APP_KEY = "6a6wdjwu9kuhwzz";
-	final static private String APP_SECRET = "ne5ries25tyj83s";
-	//final static private AccessType ACCESS_TYPE = AccessType.DROPBOX;
-
-
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 	private CharSequence mTitle; //the title of the current fragment
 	private Model model; //datamodel
@@ -67,8 +60,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	private SharedPreferences sharedPreferences; //preferences of the app
 
 	private Toolbar toolBar;
-	private ActionBar actionBar;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); //restore the saved state

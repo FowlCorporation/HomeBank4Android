@@ -17,7 +17,6 @@
 
 package com.fowlcorp.homebank4android.model;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 

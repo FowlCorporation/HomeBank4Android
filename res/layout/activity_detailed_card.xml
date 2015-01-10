@@ -104,49 +104,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="2"
-                    android:layout_row="5"
+            android:layout_row="5"
             android:orientation="vertical" >
 
-           <GridLayout
-                android:layout_width="match_parent"
+            <RadioButton
+                android:id="@+id/detailedCardState_none"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:rowCount="2"
-                android:orientation="horizontal" >
+                android:checked="true"
+                android:text="@string/none" />
 
-                <RadioButton
-                    android:id="@+id/detailedCardState_none"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="0"
-                    android:layout_row="0"
-                    android:checked="true"
-                    android:text="@string/none" />
+            <RadioButton
+                android:id="@+id/detailedCardState_cleared"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cleared" />
 
-                <RadioButton
-                    android:id="@+id/detailedCardState_cleared"
-                    android:layout_width="wrap_content"
-                    android:layout_column="0"
-                    android:layout_row="1"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cleared" />
+            <RadioButton
+                android:id="@+id/detailedCardState_reconciled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reconciled" />
 
-                <RadioButton
-                    android:id="@+id/detailedCardState_reconciled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_row="0"
-                    android:text="@string/reconciled" />
-
-                <RadioButton
-                    android:id="@+id/detailedCardState_remind"
-                    android:layout_column="1"
-                    android:layout_row="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/remind" />
-            </GridLayout>
+            <RadioButton
+                android:id="@+id/detailedCardState_remind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/remind" />
         </RadioGroup>
 
         <TextView

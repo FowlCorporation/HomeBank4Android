@@ -17,9 +17,6 @@
 
 package com.fowlcorp.homebank4android;
 
-import java.util.List;
-
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBarActivity;
