@@ -38,6 +38,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -162,12 +163,16 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			case PayMode.ELECTRONIC_PAYMENT:
 				holder.getMode().setImageResource(R.drawable.nfc);
 				break;
+			case PayMode.CHEQUE:
+				holder.getMode().setImageResource(R.drawable.cheque);
+				break;
 			default:
                 holder.getMode().setImageDrawable(null);
                 break;
 			}
 		} catch (Exception e) {
 		}
+		
 	}
 
 	@Override

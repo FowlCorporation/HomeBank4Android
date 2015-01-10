@@ -21,6 +21,7 @@ import com.fowlcorp.homebank4android.DetailedCardActivity;
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
+import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.utils.Round;
@@ -58,6 +59,7 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
         soldeValue = selectedAcc.getBankAccountBalance();
         futurValue = selectedAcc.getFutureAccountBalance();
         todayValue = selectedAcc.getTodayAccountBalance();
+        
 
         soldeValue = Round.roundAmount(soldeValue);
         futurValue = Round.roundAmount(futurValue);
@@ -87,6 +89,18 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
 		holder.getSolde().setText(colorText(activity.getString(R.string.balance) + " ", String.valueOf(soldeValue)));
 		holder.getFutur().setText(colorText(activity.getString(R.string.future) + " ", String.valueOf(futurValue)));
 		holder.getToday().setText(colorText(activity.getString(R.string.today) + " ", String.valueOf(todayValue)));
+		
+		switch (account.getType()) {
+		case AccountType.BANK:
+			holder.getIcon().setImageResource(R.drawable.bank);
+			break;
+		case AccountType.CASH:
+			holder.getIcon().setImageResource(R.drawable.espece);
+			break;
+		default:
+			holder.getIcon().setImageDrawable(null);
+			break;
+		}
 				
 	}
 
