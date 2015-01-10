@@ -1,28 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="app_name">HomeBank</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
+    <string name="navigation_drawer_close">Fermer le volet de navigation</string>
     <string name="action_example">Ajouter une opération</string>
     <string name="action_settings">Paramètres</string>
-    <string name="category">Catégorie</string>
-    <string name="amount">Montant</string>
-    <string name="balance">Solde :</string>
-    <string name="payee">Tier :</string>
     <string name="dropbox_header">Paramètres Dropbox</string>
-    <string name="dropbox_header_description">Changer les paramètres Dropbox</string>
-    <string name="overViewCard_solde">Solde :</string>
-    <string name="today">Aujourd\'hui :</string>
-    <string name="pref_header_general">Général</string>
-    <string name="title_activity_settings">Paramètres</string>
-    <string name="overViewDrawerItem">Synthèse</string>
+    <string name="dropbox_header_description">Modifier les paramètres Dropbox</string>
+    <string name="title_activity_detailed_card">Détails</string>
+    <string name="overViewDrawerItem">Vue d\'ensemble</string>
+    <string name="title_activity_drop_box_file">DropBoxFileActivity</string>
     <string name="all_operations">Toutes</string>
-    <string name="payed_operations">Raprochées</string>
-    <string name="unpayed_operation">Non raprochées</string>
-    <string name="account_type_none">Sans type</string>
+    <string name="payed_operations">Payées</string>
+    <string name="unpayed_operation">Impayées</string>
+    <string name="account_type_none">Aucun type</string>
     <string name="account_type_bank">Banque</string>
-    <string name="account_type_cash">Espèces</string>
-    <string name="account_type_asset">Biens</string>
+    <string name="account_type_cash">Èspèce</string>
+    <string name="account_type_asset">Bien</string>
     <string name="account_type_creditCard">Carte de crédit</string>
-    <string name="account_type_liability">Dettes</string>
+    <string name="account_type_liability">Dette</string>
+    <string name="none">Aucun</string>
+    <string name="cleared">Autorisée</string>
+    <string name="reconciled">Rapprochée</string>
+    <string name="remind">Rappel</string>
+    <string name="label">Info</string>
+    <string name="wording">Mémo</string>
+    <string name="amount">Montant</string>
+    <string name="payee">Tier</string>
+    <string name="category">Catégorie</string>
+    <string name="date">Date</string>
+    <string name="balance">Solde</string>
+    <string name="today">Aujourd\'hui</string>
+    <string name="future">Futur</string>
+    <string name="bank">Banque</string>
+    <string name="title_activity_about">À propos</string>
+    <string name="hello_world">Hello world!</string>
     <string name="radio_drop">Fichier Dropbox</string>
     <string name="radio_local">Fichier local</string>
-
+    <string name="About">À propos</string>
+    <string name="Authors">Auteurs</string>
+    <string name="HomeBank">HomeBank</string>
 </resources>
