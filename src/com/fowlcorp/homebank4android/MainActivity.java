@@ -124,10 +124,11 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	public void onNavigationDrawerItemSelected(int position) { //when a drawer item is selected
 		// update the main content by replacing fragments
 		try {
+			System.out.println("replace fragment");
 			FragmentManager fragmentManager = getSupportFragmentManager(); //get the fragment manager
 			FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
 			if(drawerList.get(position).isOverview()){ //if the item is the overview
-				tx.replace(R.id.container,OverviewFragment.newInstance(this)).commit(); //invoke the overview fragment
+				tx.replace(R.id.container,OverviewFragment.newInstance(this)).commitAllowingStateLoss(); //invoke the overview fragment
 			} else { //if it is an account
 				tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, this)).commit(); //invoke the account fragment
 			}
