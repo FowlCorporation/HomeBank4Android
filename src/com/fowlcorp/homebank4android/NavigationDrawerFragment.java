@@ -269,7 +269,8 @@ public class NavigationDrawerFragment extends Fragment {
 		dataList.addAll(accountList);
 		adapter = new CustomDrawerAdapter(getActivity(), R.layout.custom_drawer_item, dataList);//create an adapter to the ListView
 		mDrawerListView.setAdapter(adapter);
-		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true); //change the color of the selected item
+		//mDrawerListView.setItemChecked(mCurrentSelectedPosition, true); //change the color of the selected item
+		//mainAct.onNavigationDrawerItemSelected(0);//call the activity
 		this.selectItem(0);
 		mainAct.onSectionAttached(0);
 		mainAct.restoreActionBar();
