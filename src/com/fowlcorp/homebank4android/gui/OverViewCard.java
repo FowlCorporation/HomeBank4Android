@@ -67,9 +67,9 @@ public class OverViewCard {
 		futurView = (TextView) view.findViewById(R.id.overviewCard_future);
 		todayView = (TextView) view.findViewById(R.id.overviewCard_today);
 		
-		soldeView.setText(colorText(context.getString(R.string.balance) + " ", String.valueOf(soldeValue)));
-		futurView.setText(colorText(context.getString(R.string.future) + " ", String.valueOf(futurValue)));
-		todayView.setText(colorText(context.getString(R.string.today) + " ", String.valueOf(todayValue)));
+		soldeView.setText(colorText(context.getString(R.string.balance) + " : ", String.valueOf(soldeValue)));
+		futurView.setText(colorText(context.getString(R.string.future) + " : ", String.valueOf(futurValue)));
+		todayView.setText(colorText(context.getString(R.string.today) + " : ", String.valueOf(todayValue)));
 		
 		
 	}
