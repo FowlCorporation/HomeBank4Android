@@ -19,6 +19,12 @@ package com.fowlcorp.homebank4android;
 
 import java.util.Locale;
 
+<<<<<<< HEAD
+=======
+import com.common.view.SlidingTabLayout;
+
+import android.app.Activity;
+>>>>>>> feature/About
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -46,7 +52,8 @@ public class AboutActivity extends ActionBarActivity {
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
+	private ViewPager mViewPager;
+	private SlidingTabLayout mSlidingTabLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,9 @@ public class AboutActivity extends ActionBarActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		
+		mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+        mSlidingTabLayout.setViewPager(mViewPager);
 
 	}
 
@@ -112,16 +122,16 @@ public class AboutActivity extends ActionBarActivity {
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			Locale l = Locale.getDefault();
 			switch (position) {
-			case 0:
-				return getString(R.string.title_section1).toUpperCase(l);
-			case 1:
-				return getString(R.string.title_section2).toUpperCase(l);
-			case 2:
-				return getString(R.string.title_section3).toUpperCase(l);
-			}
-			return null;
+	        case 0:
+	            return getApplication().getString(R.string.all_operations);
+	        case 1:
+	            return getApplication().getString(R.string.payed_operations);
+	        case 2:
+	            return getApplication().getString(R.string.unpayed_operation);
+	    }
+	 
+	    return null;
 		}
 	}
 
