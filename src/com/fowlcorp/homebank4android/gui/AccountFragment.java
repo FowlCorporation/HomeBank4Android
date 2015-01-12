@@ -127,7 +127,7 @@ public class AccountFragment extends Fragment{
 		mAdapter = new AccountRecyclerAdapter(listOperation, activity);
         mRecyclerView.setAdapter(mAdapter);
 
-        overview.addView(over);
+        overview.addView(over.getView());
 		return rootView;
 	}
 
