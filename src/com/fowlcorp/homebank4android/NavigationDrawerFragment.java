@@ -174,7 +174,7 @@ public class NavigationDrawerFragment extends Fragment {
 			}
 		};
 		if (!mUserLearnedDrawer && !mFromSavedInstanceState) { //if the user is not aware
-			mDrawerLayout.openDrawer(mFragmentContainerView); //show the navigation drawer
+			//mDrawerLayout.openDrawer(mFragmentContainerView); //show the navigation drawer
 		}
 
 		// Defer code dependent on restoration of previous instance state.

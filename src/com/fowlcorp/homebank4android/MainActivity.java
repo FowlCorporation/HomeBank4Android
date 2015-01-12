@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
@@ -36,6 +37,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.fowlcorp.homebank4android.gui.DrawerItem;
 import com.fowlcorp.homebank4android.gui.OverviewFragment;
@@ -58,19 +61,22 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	private ArrayList<DrawerItem> drawerList; //a list of the object to diplay in the drawer
 	private DataParser dp; //the parser of the file
 	private SharedPreferences sharedPreferences; //preferences of the app
+	private ProgressBar progressBar;
+	private DrawerLayout drawerLayout;
 
 	private Toolbar toolBar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); //restore the saved state
 
-		dropBoxCall();
-
-		doTEst();
+		
 
 		setContentView(R.layout.toolbar_layout); //invoke the layout
 
 		toolBar = (Toolbar) findViewById(R.id.toolbar);
+		progressBar = (ProgressBar) findViewById(R.id.progressBar);
+		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		
 
 		setSupportActionBar(toolBar);
 
@@ -84,8 +90,35 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 
+		
+		AsyncTask<String, String, String> asyncTask = new AsyncTask<String, String, String>() {
+			
+			@Override
+			protected void onPreExecute() {
+				progressBar.setVisibility(View.VISIBLE);
+				drawerLayout.setVisibility(View.GONE);
+				super.onPreExecute();
+			}
 
+			@Override
+			protected String doInBackground(String... params) {
+				dropBoxCall();
 
+				doTEst();
+				return null;
+			}
+			
+			@Override
+			protected void onPostExecute(String result) {
+				// TODO Auto-generated method stub
+				super.onPostExecute(result);
+				progressBar.setVisibility(View.GONE);
+				drawerLayout.setVisibility(View.VISIBLE);
+				updateGUI();
+			}
+		};
+		
+		asyncTask.execute(new String());
 	}
 
 	public boolean dropBoxCall(){
