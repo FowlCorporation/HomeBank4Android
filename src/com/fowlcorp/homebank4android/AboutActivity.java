@@ -19,12 +19,10 @@ package com.fowlcorp.homebank4android;
 
 import java.util.Locale;
 
-<<<<<<< HEAD
-=======
+
 import com.common.view.SlidingTabLayout;
 
 import android.app.Activity;
->>>>>>> feature/About
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
