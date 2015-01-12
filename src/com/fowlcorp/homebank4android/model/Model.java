@@ -49,12 +49,16 @@ public class Model {
         for(Operation op : operations.get(selectedAccount)) {
             if(op.getAccount().getKey() == selectedAccount) {
                 if(op.getDate().compareTo(today) <= 0) { // today or past operation
-                    todayBalance += op.getAmount();
+                    if(!op.isRemind()) {
+                        todayBalance += op.getAmount();
+                    }
                     if(op.isReconciled()) {
                         bankBalance += op.getAmount();
                     }
                 }
-                futureBalance += op.getAmount();
+                if(!op.isRemind()) {
+                    futureBalance += op.getAmount();
+                }
                 op.setBalanceAccount(futureBalance);
             }
         }

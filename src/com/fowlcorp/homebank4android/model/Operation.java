@@ -62,7 +62,7 @@ public class Operation implements Comparable {
 	public boolean isReconciled() {
 //        #define OF_VALID	 (1<<0)
 //        #define OF_INCOME	 (1<<1)
-//        #define OF_AUTO	 (1<<2)	//tmp flag scheduled
+//        #define OF_AUTO	 (1<<2)  //tmp flag scheduled
 //        #define OF_ADDED	 (1<<3)  //tmp flag
 //        #define OF_CHANGED (1<<4)  //tmp flag
 //        #define OF_REMIND	 (1<<5)
@@ -181,6 +181,10 @@ public class Operation implements Comparable {
 
 	public boolean isSplit() {
 		return (flag&0x100) != 0;
+	}
+	
+	public boolean isRemind() {
+		return (flag&0x20) != 0;
 	}
 
 	public ArrayList<Couple> getSplits() {
