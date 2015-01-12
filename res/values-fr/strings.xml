@@ -18,7 +18,7 @@
     <string name="unpayed_operation">Impayées</string>
     <string name="account_type_none">Aucun type</string>
     <string name="account_type_bank">Banque</string>
-    <string name="account_type_cash">Èspèce</string>
+    <string name="account_type_cash">Espèce</string>
     <string name="account_type_asset">Bien</string>
     <string name="account_type_creditCard">Carte de crédit</string>
     <string name="account_type_liability">Dette</string>
