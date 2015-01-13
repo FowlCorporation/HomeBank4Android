@@ -141,7 +141,7 @@ public class DataParser {
 					c.setParent(categories.get(parent));
 				}
 				// DEBUG
-				System.err.println(c.toString());
+				//System.err.println(c.toString());
 			}
 		}
 		return categories;
@@ -174,7 +174,7 @@ public class DataParser {
                 }
 				accounts.put(a.getKey(), a);
 				// DEBUG
-				System.err.println(a.toString());
+				//System.err.println(a.toString());
 			}
 		}
 		return accounts;
@@ -196,7 +196,7 @@ public class DataParser {
 				Tag t = new Tag(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
 				tags.put(t.getKey(), t);
 				// DEBUG
-				System.err.println(t.toString());
+				//System.err.println(t.toString());
 			}
 		}
 		return tags;
@@ -264,7 +264,7 @@ public class DataParser {
 
 				operations.get(accountKey).add(op);
 				// DEBUG
-				System.err.println(op.toString());
+				//System.err.println(op.toString());
 			}
 		}
 		return operations;
