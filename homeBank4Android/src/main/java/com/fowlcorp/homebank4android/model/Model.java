@@ -65,9 +65,9 @@ public class Model {
         selectedAcc.setTodayAccountBalance(todayBalance);
         selectedAcc.setBankAccountBalance(bankBalance);
         selectedAcc.setFutureAccountBalance(futureBalance);
-        System.err.println("Today : " + todayBalance);
-        System.err.println("Bank : " + bankBalance);
-        System.err.println("Future : " + futureBalance);
+        //System.err.println("Today : " + todayBalance);
+        //System.err.println("Bank : " + bankBalance);
+        //System.err.println("Future : " + futureBalance);
         selectedAcc.setModified(false);
     }
 
