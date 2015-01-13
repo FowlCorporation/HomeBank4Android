@@ -118,11 +118,11 @@ public class AboutActivity extends ActionBarActivity {
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 	        case 0:
-	            return getApplication().getString(R.string.All);
+	            return getApplication().getString(R.string.Authors);
 	        case 1:
-	            return getApplication().getString(R.string.Paid);
+	            return getApplication().getString(R.string.License);
 	        case 2:
-	            return getApplication().getString(R.string.Unpaid);
+	            return getApplication().getString(R.string.Credits);
 	    }
 	 
 	    return null;

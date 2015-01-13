@@ -34,4 +34,6 @@
     <string name="About">About</string>
     <string name="hello_world">Hello world!</string>
     <string name="Authors">Authors</string>
+    <string name="License">License</string>
+    <string name="Credits">Credits</string>
 </resources>
