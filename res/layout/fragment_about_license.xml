@@ -9,18 +9,19 @@
     tools:context="com.fowlcorp.homebank4android.About$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/section_label"
+        android:id="@+id/fragment_about_credits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Authors" />
+        android:text="@string/License" />
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/section_label"
-        android:layout_below="@+id/section_label"
+        android:layout_alignStart="@+id/fragment_about_credits"
+        android:layout_alignLeft="@+id/fragment_about_credits"
+        android:layout_below="@+id/fragment_about_credits"
         android:columnCount="3" >
 
         <TextView
