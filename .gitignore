@@ -2,10 +2,10 @@
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
+/.idea/gradle.xml
 .DS_Store
 build
 Axel.xml
 bin/
 cardView/gen/
-gen/android/support/v7/appcompat/R.java
 gen/
