@@ -56,11 +56,11 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 	public CharSequence getPageTitle(int position) {
 		switch (position) {
         case 0:
-            return activity.getString(R.string.all_operations);
+            return activity.getString(R.string.All);
         case 1:
-            return activity.getString(R.string.payed_operations);
+            return activity.getString(R.string.Paid);
         case 2:
-            return activity.getString(R.string.unpayed_operation);
+            return activity.getString(R.string.Unpaid);
     }
  
     return null;

@@ -244,7 +244,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			}
 		}
 		//add the overview item to the drawerlist
-		drawerList.add(new DrawerItem(getResources().getString(R.string.overViewDrawerItem),R.drawable.home,true,false));
+		drawerList.add(new DrawerItem(getResources().getString(R.string.Overview),R.drawable.home,true,false));
 		//add data to the drawerlist
 		for(int i=0;i<bankList.size();i++){//for each bank name
 			if(bankList.get(i).equals(getNameByType(AccountType.BANK))){
@@ -333,22 +333,22 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		String result ="";
 		switch (index) {
 		case AccountType.NONE:
-			result = getString(R.string.account_type_none);
+			result = getString(R.string.None);
 			break;
 		case AccountType.BANK:
-			result = getString(R.string.account_type_bank);
+			result = getString(R.string.Bank);
 			break;
 		case AccountType.ASSET:
-			result = getString(R.string.account_type_asset);
+			result = getString(R.string.Asset);
 			break;
 		case AccountType.CREDITCARD:
-			result = getString(R.string.account_type_creditCard);
+			result = getString(R.string.Credit_Card);
 			break;
 		case AccountType.LIABILITY:
-			result = getString(R.string.account_type_liability);
+			result = getString(R.string.Liability);
 			break;
 		case AccountType.CASH:
-			result = getString(R.string.account_type_cash);
+			result = getString(R.string.Cash);
 			break;
 		}
 
