@@ -8,7 +8,7 @@
         android:id="@+id/detailed_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#33b5e5"
+        android:background="#03a9f4"
         android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
