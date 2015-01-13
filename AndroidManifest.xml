@@ -15,14 +15,14 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/homebank"
-        android:label="@string/app_name"
+        android:label="@string/HomeBank"
         android:logo="@drawable/homebank"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name" >
+            android:label="@string/HomeBank" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +46,7 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
+            android:label="@string/Settings"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -54,15 +54,7 @@
         </activity>
         <activity
             android:name=".DetailedCardActivity"
-            android:label="@string/title_activity_detailed_card"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.fowlcorp.homebank4android.MainActivity" />
-        </activity>
-        <activity
-            android:name=".DropBoxFileActivity"
-            android:label="@string/title_activity_drop_box_file"
+            android:label="@string/Details"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -70,7 +62,7 @@
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:label="@string/title_activity_about"
+            android:label="@string/About"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

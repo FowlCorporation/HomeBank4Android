@@ -35,7 +35,7 @@
             android:layout_column="1"
             android:layout_gravity="start|center_vertical"
             android:layout_row="1"
-            android:text="@string/date" />
+            android:text="@string/Date" />
 
         <EditText
             android:id="@+id/detailedCardDate"
@@ -55,7 +55,7 @@
             android:layout_column="1"
             android:layout_gravity="start|center_vertical"
             android:layout_row="2"
-            android:text="@string/category" />
+            android:text="@string/Category" />
 
         <AutoCompleteTextView
             android:id="@+id/detailedCardCategory"
@@ -71,7 +71,7 @@
             android:layout_column="1"
             android:layout_gravity="start|center_vertical"
             android:layout_row="3"
-            android:text="@string/payee" />
+            android:text="@string/Payee" />
 
         <AutoCompleteTextView
             android:id="@+id/detailedCardPayee"
@@ -87,7 +87,7 @@
             android:layout_column="1"
             android:layout_gravity="start|center_vertical"
             android:layout_row="4"
-            android:text="@string/amount" />
+            android:text="@string/Amount" />
 
         <EditText
             android:id="@+id/detailedCardAmount"
@@ -112,25 +112,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/none" />
+                android:text="@string/None" />
 
             <RadioButton
                 android:id="@+id/detailedCardState_cleared"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cleared" />
+                android:text="@string/Cleared" />
 
             <RadioButton
                 android:id="@+id/detailedCardState_reconciled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/reconciled" />
+                android:text="@string/Reconciled" />
 
             <RadioButton
                 android:id="@+id/detailedCardState_remind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/remind" />
+                android:text="@string/Remind" />
         </RadioGroup>
 
         <TextView
@@ -138,7 +138,7 @@
             android:layout_column="1"
             android:layout_gravity="start|center_vertical"
             android:layout_row="6"
-            android:text="@string/wording" />
+            android:text="@string/Wording" />
 
         <EditText
             android:id="@+id/detailedCardWording"
@@ -153,7 +153,7 @@
             android:layout_column="1"
             android:layout_gravity="start|center_vertical"
             android:layout_row="7"
-            android:text="@string/label" />
+            android:text="@string/Label" />
 
         <EditText
             android:id="@+id/detailedCardInfo"
