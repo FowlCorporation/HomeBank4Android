@@ -17,12 +17,8 @@
 
 package com.fowlcorp.homebank4android;
 
-import java.util.Locale;
-
-
 import com.common.view.SlidingTabLayout;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -122,11 +118,11 @@ public class AboutActivity extends ActionBarActivity {
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 	        case 0:
-	            return getApplication().getString(R.string.all_operations);
+	            return getApplication().getString(R.string.Authors);
 	        case 1:
-	            return getApplication().getString(R.string.payed_operations);
+	            return getApplication().getString(R.string.License);
 	        case 2:
-	            return getApplication().getString(R.string.unpayed_operation);
+	            return getApplication().getString(R.string.Credits);
 	    }
 	 
 	    return null;

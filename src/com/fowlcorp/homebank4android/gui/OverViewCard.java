@@ -20,14 +20,12 @@ package com.fowlcorp.homebank4android.gui;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.widget.CardView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.R;
@@ -67,9 +65,9 @@ public class OverViewCard {
 		futurView = (TextView) view.findViewById(R.id.overviewCard_future);
 		todayView = (TextView) view.findViewById(R.id.overviewCard_today);
 		
-		soldeView.setText(colorText(context.getString(R.string.balance) + " ", String.valueOf(soldeValue)));
-		futurView.setText(colorText(context.getString(R.string.future) + " ", String.valueOf(futurValue)));
-		todayView.setText(colorText(context.getString(R.string.today) + " ", String.valueOf(todayValue)));
+		soldeView.setText(colorText(context.getString(R.string.Balance) + " : ", String.valueOf(soldeValue)));
+		futurView.setText(colorText(context.getString(R.string.Future) + " : ", String.valueOf(futurValue)));
+		todayView.setText(colorText(context.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
 		
 		
 	}
