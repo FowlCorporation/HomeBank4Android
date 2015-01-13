@@ -28,6 +28,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
@@ -71,6 +74,18 @@ public class OverviewFragment extends Fragment{
 		
 		View rootView = inflater.inflate(R.layout.recycle_layout, container,false);
 		RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+        LinearLayout overView = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
+
+        View overViewView = inflater.inflate(R.layout.overview_card_layout, overView,true);
+
+        TextView title = (TextView) overViewView.findViewById(R.id.overview_card_title);
+        TextView solde = (TextView) overViewView.findViewById(R.id.overview_card_solde);
+        TextView futur = (TextView) overViewView.findViewById(R.id.overview_card_futur);
+        TextView today = (TextView) overViewView.findViewById(R.id.overview_card_today);
+        //ImageView icon = (ImageView) overViewView.findViewById(R.id.overview_card_icon);
+
+        title.setText(activity.getString(R.string.Overview));
+
 		
 		recycler.setHasFixedSize(false);
 
