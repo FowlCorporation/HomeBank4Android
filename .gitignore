@@ -5,3 +5,7 @@
 .DS_Store
 build
 Axel.xml
+bin/
+cardView/gen/
+gen/android/support/v7/appcompat/R.java
+gen/
