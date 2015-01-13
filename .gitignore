@@ -1,8 +1,6 @@
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
-/.idea/gradle.xml
+.idea
 .DS_Store
 build
 Axel.xml
