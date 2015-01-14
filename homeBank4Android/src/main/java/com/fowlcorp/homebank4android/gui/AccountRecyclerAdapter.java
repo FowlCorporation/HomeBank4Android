@@ -96,19 +96,20 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 					intent.putExtra("Amount", String.valueOf(Round.roundAmount(operation.getAmount())));
 				} catch (Exception e) {
 				}
+                try {
+                    intent.putExtra("Type", operation.getPayMode());
+                } catch (Exception e) {
+                }
                 Pair datePair = Pair.create(holder.getDate(), "date");
                 Pair categoryPair = Pair.create(holder.getCategory(), "category");
                 Pair wordingPair = Pair.create(holder.getMemo(), "wording");
                 Pair payeePair = Pair.create(holder.getTier(), "payee");
                 Pair amountPair = Pair.create(holder.getMontant(), "amount");
                 Pair cardPair = Pair.create(holder.getCard(), "card");
+                Pair iconPair = Pair.create(holder.getMode(), "icon");
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                        datePair,
-                        categoryPair,
-                        wordingPair,
-                        payeePair,
-                        amountPair,
-                        cardPair);
+                        cardPair
+                );
                 ActivityCompat.startActivity(activity, intent, options.toBundle());
                 //activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
 				//activity.startActivity(intent);
@@ -164,6 +165,8 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		try {
 			switch (operation.getPayMode()) {
 			case PayMode.CREDIT_CARD:
+                holder.getMode().setImageResource(R.drawable.card);
+                break;
 			case PayMode.DEBIT_CARD:
 				holder.getMode().setImageResource(R.drawable.card);
 				break;

@@ -28,6 +28,7 @@ import com.fowlcorp.homebank4android.model.Account;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 	
@@ -38,7 +39,8 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 	
 	public CustomFragmentPagerAdapter(FragmentManager mFragmentManager, int position, MainActivity activity) {
 		super(mFragmentManager);
-		
+        ((MainActivity) activity).onSectionAttached(position);//notify main activity
+
 		this.activity = activity;
         drawerList = activity.getDrawerList();
         accountList = activity.getAccountList();
@@ -47,14 +49,15 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
                 position = i;
             }
         }
+
         int key = accountList.get(position).getKey(); //compute the balance of the account
         activity.getModel().setSelectedAccount(key);
 		
 		fragList = new ArrayList<Fragment>();
-		fragList.add(AccountFragment.newInstance(key, activity, AccountFragment.DISPLAY_ALL));
-		fragList.add(AccountFragment.newInstance(key, activity, AccountFragment.DISPLAY_PAID));
-		fragList.add(AccountFragment.newInstance(key, activity, AccountFragment.DISPLAY_UNPAID));
-        fragList.add(AccountFragment.newInstance(key, activity, AccountFragment.DISPLAY_REMIND));
+		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_ALL));
+		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_PAID));
+		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_UNPAID));
+        fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_REMIND));
 	}
 
 	@Override

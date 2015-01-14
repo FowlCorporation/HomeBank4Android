@@ -21,6 +21,8 @@ package com.fowlcorp.homebank4android.gui;
 
 import java.util.List;
 import android.graphics.Color;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -59,7 +61,7 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
 	}
 
 	@Override
-	public void onBindViewHolder(OverviewViewHolder holder, int position) {
+	public void onBindViewHolder(final OverviewViewHolder holder, int position) {
 		final Account account = listAccount.get(position);
 		
 		int key = account.getKey();
@@ -87,7 +89,11 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
 					}
 				}
 				try {
-					activity.getmNavigationDrawerFragment().selectItem(position);
+					//activity.getmNavigationDrawerFragment().selectItem(position);
+                    FragmentManager fragmentManager = activity.getSupportFragmentManager(); //get the fragment manager
+                    FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
+                    //tx.addSharedElement(holder.getTitle(), "toolbar");
+                    tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, activity)).commit(); //invoke the account fragment
 					activity.onSectionAttached(position);
 					activity.restoreActionBar();
 				} catch (Exception e) {

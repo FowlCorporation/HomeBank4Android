@@ -200,6 +200,15 @@
             android:layout_row="7"
             android:ems="10"
             android:inputType="textAutoCorrect" />
+
+        <ImageView
+            android:id="@+id/detailedCardIcon"
+            android:layout_column="2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:transitionName="icon"
+            android:layout_gravity="center"
+            />
     </GridLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
