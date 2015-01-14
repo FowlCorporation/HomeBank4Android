@@ -1,34 +1,23 @@
-/**
- *	Copyright (C) 2014 Fowl Corporation
+/*
+ * Copyright © 2015 Fowl Corporation
  *
- *	This program is free software: you can redistribute it and/or modify
- *	it under the terms of the GNU General Public License as published by
- *	the Free Software Foundation, either version 3 of the License, or
- *	(at your option) any later version.
+ * This file is part of HomeBank4Android.
  *
- *	This program is distributed in the hope that it will be useful,
- *	but WITHOUT ANY WARRANTY; without even the implied warranty of
- *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *	GNU General Public License for more details.
+ * HomeBank4Android is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *	You should have received a copy of the GNU General Public License
- *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * HomeBank4Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with HomeBank4Android.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.fowlcorp.homebank4android.gui;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
-
-import com.fowlcorp.homebank4android.DetailedCardActivity;
-import com.fowlcorp.homebank4android.MainActivity;
-import com.fowlcorp.homebank4android.R;
-import com.fowlcorp.homebank4android.model.Couple;
-import com.fowlcorp.homebank4android.model.Operation;
-import com.fowlcorp.homebank4android.model.PayMode;
-import com.fowlcorp.homebank4android.utils.Round;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -38,10 +27,23 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.fowlcorp.homebank4android.DetailedCardActivity;
+import com.fowlcorp.homebank4android.MainActivity;
+import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.model.Couple;
+import com.fowlcorp.homebank4android.model.Operation;
+import com.fowlcorp.homebank4android.model.PayMode;
+import com.fowlcorp.homebank4android.utils.Round;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHolder> {
 	private List<Operation> listOperation;
