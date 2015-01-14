@@ -75,12 +75,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		setContentView(R.layout.toolbar_layout); //invoke the layout
 
 		toolBar = (Toolbar) findViewById(R.id.toolbar);
-		progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		
 
 		setSupportActionBar(toolBar);
-
 
 		//invoke the fragment
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);

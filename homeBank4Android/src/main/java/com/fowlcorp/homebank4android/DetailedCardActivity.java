@@ -24,7 +24,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.fowlcorp.homebank4android.model.PayMode;
 
 public class DetailedCardActivity extends ActionBarActivity {
 	private EditText date;
@@ -33,6 +36,7 @@ public class DetailedCardActivity extends ActionBarActivity {
 	private TextView wording;
 	private TextView balance;
 	private EditText amount;
+    private ImageView image;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,7 @@ public class DetailedCardActivity extends ActionBarActivity {
 		payee = (AutoCompleteTextView) findViewById(R.id.detailedCardPayee);
 		amount = (EditText) findViewById(R.id.detailedCardAmount);
 		wording = (EditText) findViewById(R.id.detailedCardWording);
+        image = (ImageView) findViewById(R.id.detailedCardIcon);
 		
 		try {
 			date.setText((String) bdl.getString("Date"), TextView.BufferType.SPANNABLE);
@@ -73,6 +78,33 @@ public class DetailedCardActivity extends ActionBarActivity {
 			amount.setText(bdl.getString("Amount"));
 		} catch (Exception e) {
 		}
+        int typeAccount = bdl.getInt("Type", -1);
+        try {
+            switch (typeAccount) {
+                case PayMode.CREDIT_CARD:
+                    image.setImageResource(R.drawable.card);
+                    break;
+                case PayMode.DEBIT_CARD:
+                    image.setImageResource(R.drawable.card);
+                    break;
+                case PayMode.CASH:
+                    image.setImageResource(R.drawable.espece);
+                    break;
+                case PayMode.TRANSFERT:
+                    image.setImageResource(R.drawable.transfert);
+                    break;
+                case PayMode.ELECTRONIC_PAYMENT:
+                    image.setImageResource(R.drawable.nfc);
+                    break;
+                case PayMode.CHEQUE:
+                    image.setImageResource(R.drawable.cheque);
+                    break;
+                default:
+                    image.setImageDrawable(null);
+                    break;
+            }
+        } catch (Exception e) {
+        }
 	}
 
 	@Override
