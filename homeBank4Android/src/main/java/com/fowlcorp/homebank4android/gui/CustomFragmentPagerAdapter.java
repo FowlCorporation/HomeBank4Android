@@ -37,9 +37,10 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 		this.activity = activity;
 		
 		fragList = new ArrayList<Fragment>();
-		fragList.add(AccountFragment.newInstance(position, activity, true, false));
-		fragList.add(AccountFragment.newInstance(position, activity, false, true));
-		fragList.add(AccountFragment.newInstance(position, activity, false, false));
+		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_ALL));
+		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_PAID));
+		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_UNPAID));
+        fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_REMIND));
 	}
 
 	@Override
@@ -61,6 +62,9 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
             return activity.getString(R.string.Paid);
         case 2:
             return activity.getString(R.string.Unpaid);
+        case 3:
+            return activity.getString(R.string.Remind);
+
     }
  
     return null;

@@ -39,6 +39,12 @@ import com.fowlcorp.homebank4android.model.Operation;
 public class AccountFragment extends Fragment{
 
 	private static final String ARG_SECTION_NUMBER = "section_number";
+
+    public static final int DISPLAY_ALL = 0;
+    public static final int DISPLAY_PAID = 1;
+    public static final int DISPLAY_UNPAID = 2;
+    public static final int DISPLAY_REMIND = 3;
+
 	private int sectionNumber; //the number of the section in the drawer
 	private ArrayList<Account> accountList; //the list of account
 	private List<Operation> operation; //the list of operation of an account
@@ -49,22 +55,20 @@ public class AccountFragment extends Fragment{
 	private AccountRecyclerAdapter mAdapter; //the adapter for the recycle view
 	private RecyclerView.LayoutManager mLayoutManager; //the layout manager
 	
-	private boolean isPayed = false; //if the display operations are payed
-	private boolean displayAll = true; //if all the operations are to be displayed
+    private int displayValue;
 
 
-	public AccountFragment(MainActivity activity, boolean displayAll, boolean isPayed){//empty constructor
+	public AccountFragment(MainActivity activity, int displayValue){//empty constructor
 		this.activity = activity;
-		this.isPayed = isPayed;
-		this.displayAll = displayAll;
+        this.displayValue = displayValue;
 		model = activity.getModel();
 		accountList = activity.getAccountList();
 		drawerList = activity.getDrawerList();
 	}
 	
-	public static final AccountFragment newInstance(int position, MainActivity activity, boolean displayAll, boolean isPayed)
+	public static final AccountFragment newInstance(int position, MainActivity activity, int displayValue)
 	{
-		AccountFragment f = new AccountFragment(activity, displayAll, isPayed);
+		AccountFragment f = new AccountFragment(activity, displayValue);
 		Bundle bdl = new Bundle(2);
 		bdl.putInt(ARG_SECTION_NUMBER, position);
 		f.setArguments(bdl);
@@ -91,24 +95,33 @@ public class AccountFragment extends Fragment{
 
 		operation = model.getOperations(model.getAccounts().get(key)); //get the operations of the account
 		ArrayList<Operation> listTemp = new ArrayList<Operation>();
-		
-		if(!displayAll){ //if the operation are discriminated
-			if(isPayed){
-				for(Operation op : operation){
-					 if(op.isReconciled()){
-						 listTemp.add(op);
-					 }
-				}
-			}else {
+
+        switch (displayValue){
+            case DISPLAY_ALL:
+                listTemp.addAll(operation); //get all the operation to display all
+                break;
+            case DISPLAY_PAID:
                 for(Operation op : operation){
-					 if(!op.isReconciled()){
-						 listTemp.add(op);
-					 }
-				}
-			}
-		} else {
-			listTemp.addAll(operation); //get all the operation to display all
-		}
+                    if(op.isReconciled()){
+                        listTemp.add(op);
+                    }
+                }
+                break;
+            case DISPLAY_UNPAID:
+                for(Operation op : operation){
+                    if(!op.isReconciled()){
+                        listTemp.add(op);
+                    }
+                }
+                break;
+            case DISPLAY_REMIND:
+                for(Operation op : operation){
+                    if(op.isRemind()){
+                        listTemp.add(op);
+                    }
+                }
+
+        }
 
 		ArrayList<Operation> listOperation = new ArrayList<Operation>();
 		for(int i=listTemp.size()-1;i>=0;i--){ //revert the sort

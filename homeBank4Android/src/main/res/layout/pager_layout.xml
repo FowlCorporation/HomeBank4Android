@@ -6,7 +6,7 @@
 
     <com.common.view.SlidingTabLayout
         android:id="@+id/sliding_tabs"
-        android:background="#33b5e5"
+        android:background="#03a9f4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

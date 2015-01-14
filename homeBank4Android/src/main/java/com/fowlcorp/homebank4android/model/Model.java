@@ -30,6 +30,9 @@ public class Model {
     private HashMap<Integer,Tag> tags;
 	private HashMap<Integer,List<Operation>> operations; // one List for each account
     private int selectedAccount;
+	private double grandTotalBank;
+	private double grandTotalToday;
+	private double grandTotalFuture;
 	
 	public Model() {
 		
@@ -65,11 +68,28 @@ public class Model {
         selectedAcc.setTodayAccountBalance(todayBalance);
         selectedAcc.setBankAccountBalance(bankBalance);
         selectedAcc.setFutureAccountBalance(futureBalance);
-        System.err.println("Today : " + todayBalance);
-        System.err.println("Bank : " + bankBalance);
-        System.err.println("Future : " + futureBalance);
+        //System.err.println("Today : " + todayBalance);
+        //System.err.println("Bank : " + bankBalance);
+        //System.err.println("Future : " + futureBalance);
         selectedAcc.setModified(false);
+
+		updateGrandTotal();
     }
+
+	public void updateGrandTotal() {
+		setGrandTotalBank(0);
+		setGrandTotalToday(0);
+		setGrandTotalFuture(0);
+		for(Account acc : accounts.values()) {
+			setGrandTotalBank(getGrandTotalBank() + acc.getBankAccountBalance());
+			setGrandTotalFuture(getGrandTotalFuture() + acc.getFutureAccountBalance());
+			setGrandTotalToday(getGrandTotalToday() + acc.getTodayAccountBalance());
+		}
+
+//		System.err.println("Today : " + getGrandTotalBank());
+//		System.err.println("Bank : " + getGrandTotalFuture());
+//		System.err.println("Future : " + getGrandTotalToday());
+	}
 
 	public HashMap<Integer, Payee> getPayees() {
 		return payees;
@@ -128,4 +148,27 @@ public class Model {
         this.tags = tags;
     }
 
+	public double getGrandTotalBank() {
+		return grandTotalBank;
+	}
+
+	public void setGrandTotalBank(double grandTotalBank) {
+		this.grandTotalBank = grandTotalBank;
+	}
+
+	public double getGrandTotalToday() {
+		return grandTotalToday;
+	}
+
+	public void setGrandTotalToday(double grandTotalToday) {
+		this.grandTotalToday = grandTotalToday;
+	}
+
+	public double getGrandTotalFuture() {
+		return grandTotalFuture;
+	}
+
+	public void setGrandTotalFuture(double grandTotalFuture) {
+		this.grandTotalFuture = grandTotalFuture;
+	}
 }
