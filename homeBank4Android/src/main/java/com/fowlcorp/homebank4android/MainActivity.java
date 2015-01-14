@@ -235,6 +235,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			accountList = new ArrayList<>();//if the model is empty create an empty list
 		}
 
+		for(Account acc : model.getAccounts().values()) {
+			model.updateOperationAccountBalance(acc.getKey());
+		}
+
 		bankList = new ArrayList<String>(); //create a list of bank name
 		drawerList = new ArrayList<DrawerItem>(); //create the list of the drawer items
 
