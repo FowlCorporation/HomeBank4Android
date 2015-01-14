@@ -1,3 +1,22 @@
+<!--
+  ~ Copyright © 2015 Fowl Corporation
+  ~
+  ~ This file is part of HomeBank4Android.
+  ~
+  ~ HomeBank4Android is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ HomeBank4Android is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with HomeBank4Android.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,20 +27,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.fowlcorp.homebank4android.About$PlaceholderFragment" >
 
-    <TextView
-        android:id="@+id/fragment_about_credits"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Credits" />
-
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/fragment_about_credits"
-        android:layout_alignLeft="@+id/fragment_about_credits"
-        android:layout_below="@+id/fragment_about_credits"
         android:columnCount="3" >
 
         <TextView
@@ -54,7 +64,7 @@
             android:layout_gravity="right|center_vertical"
             android:layout_marginTop="14dp"
             android:layout_row="2"
-            android:text="Axel BROCHARD, Cédric HUGUENIN, Martin SCHUTZ" />
+            android:text="GPLv3" />
 
     </GridLayout>
 

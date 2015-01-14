@@ -1,27 +1,26 @@
-/**
- *	Copyright (C) 2014 Fowl Corporation
+/*
+ * Copyright © 2015 Fowl Corporation
  *
- *	This program is free software: you can redistribute it and/or modify
- *	it under the terms of the GNU General Public License as published by
- *	the Free Software Foundation, either version 3 of the License, or
- *	(at your option) any later version.
+ * This file is part of HomeBank4Android.
  *
- *	This program is distributed in the hope that it will be useful,
- *	but WITHOUT ANY WARRANTY; without even the implied warranty of
- *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *	GNU General Public License for more details.
+ * HomeBank4Android is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *	You should have received a copy of the GNU General Public License
- *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * HomeBank4Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with HomeBank4Android.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.fowlcorp.homebank4android;
 
 
 
-
-import java.io.File;
-import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -48,6 +47,9 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -105,10 +107,14 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			protected String doInBackground(String... params) {
 				dropBoxCall();
 
-				doTEst();
+                try {
+                    doTEst();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
 
-				return null;
+                return null;
 			}
 			
 			@Override
@@ -120,8 +126,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 Log.e("Debug", "End of parsing");
                 Log.e("Debug", String.valueOf(model.getGrandTotalBank()));
                 //model.updateGrandTotal();
-				updateGUI();
-			}
+                try {
+                    updateGUI();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 		};
 		
 		asyncTask.execute(new String());
