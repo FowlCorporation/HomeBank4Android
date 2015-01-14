@@ -22,9 +22,6 @@ package com.fowlcorp.homebank4android;
 
 
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -50,6 +47,9 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -107,10 +107,14 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			protected String doInBackground(String... params) {
 				dropBoxCall();
 
-				doTEst();
+                try {
+                    doTEst();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
 
-				return null;
+                return null;
 			}
 			
 			@Override
@@ -122,8 +126,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 Log.e("Debug", "End of parsing");
                 Log.e("Debug", String.valueOf(model.getGrandTotalBank()));
                 //model.updateGrandTotal();
-				updateGUI();
-			}
+                try {
+                    updateGUI();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 		};
 		
 		asyncTask.execute(new String());
