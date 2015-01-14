@@ -17,12 +17,11 @@
 
 package com.fowlcorp.homebank4android;
 
-import com.common.view.SlidingTabLayout;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +30,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.common.view.SlidingTabLayout;
+import com.fowlcorp.homebank4android.gui.AboutFragmentAuthors;
+import com.fowlcorp.homebank4android.gui.AboutFragmentCredits;
+import com.fowlcorp.homebank4android.gui.AboutFragmentLicense;
+import com.fowlcorp.homebank4android.gui.MyPagerAdapter;
+
+import java.util.List;
+import java.util.Vector;
 
 public class AboutActivity extends ActionBarActivity {
 
@@ -48,20 +56,29 @@ public class AboutActivity extends ActionBarActivity {
 	 */
 	private ViewPager mViewPager;
 	private SlidingTabLayout mSlidingTabLayout;
+    private MyPagerAdapter mPagerAdapter;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 		
 		Toolbar toolbar = (Toolbar) findViewById(R.id.about_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
+        // Création de la liste de Fragments que fera défiler le PagerAdapter
+        List fragments = new Vector();
+
+        // Ajout des Fragments dans la liste
+        fragments.add(Fragment.instantiate(this, AboutFragmentAuthors.class.getName()));
+        fragments.add(Fragment.instantiate(this,AboutFragmentLicense.class.getName()));
+        fragments.add(Fragment.instantiate(this,AboutFragmentCredits.class.getName()));
+
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -69,6 +86,13 @@ public class AboutActivity extends ActionBarActivity {
 		mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(mViewPager);
 
+
+
+        // Création de l'adapter qui s'occupera de l'affichage de la liste de
+        // Fragments
+        this.mPagerAdapter = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
+        // Affectation de l'adapter au ViewPager
+        mViewPager.setAdapter(this.mPagerAdapter);
 	}
 
 	@Override
