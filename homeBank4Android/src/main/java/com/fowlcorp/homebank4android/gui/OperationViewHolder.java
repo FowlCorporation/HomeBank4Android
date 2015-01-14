@@ -20,6 +20,7 @@ package com.fowlcorp.homebank4android.gui;
 import com.fowlcorp.homebank4android.R;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 	private TextView memo;
 	private TextView solde;
 	private TextView montant;
+    private CardView card;
 	private ImageView mode;
 	private Context context;
 	private LinearLayout splitLinear;
@@ -43,6 +45,7 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 	public OperationViewHolder(View view) {
 		super(view);
 		this.view = view;
+        card = (CardView) view.findViewById(R.id.card_view);
 		date = (TextView) view.findViewById(R.id.cardLayout_date);
 		category = (TextView) view.findViewById(R.id.cardLayout_category);
 		tier = (TextView) view.findViewById(R.id.cardLayout_tier);
@@ -142,8 +145,11 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 		this.unSplitLinear = unSplitLinear;
 	}
 
-	
-	
-	
-	
+    public CardView getCard() {
+        return card;
+    }
+
+    public void setCard(CardView card) {
+        this.card = card;
+    }
 }

@@ -30,8 +30,12 @@ import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.PayMode;
 import com.fowlcorp.homebank4android.utils.Round;
 
+
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -59,7 +63,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 	}
 
 	@Override
-	public void onBindViewHolder(OperationViewHolder holder, int position) {
+	public void onBindViewHolder(final OperationViewHolder holder, int position) {
 		final Operation operation = listOperation.get(position);
 
 		myDate = Calendar.getInstance();
@@ -90,7 +94,22 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 					intent.putExtra("Amount", String.valueOf(Round.roundAmount(operation.getAmount())));
 				} catch (Exception e) {
 				}
-				activity.startActivity(intent);
+                Pair datePair = Pair.create(holder.getDate(), "date");
+                Pair categoryPair = Pair.create(holder.getCategory(), "category");
+                Pair wordingPair = Pair.create(holder.getMemo(), "wording");
+                Pair payeePair = Pair.create(holder.getTier(), "payee");
+                Pair amountPair = Pair.create(holder.getMontant(), "amount");
+                Pair cardPair = Pair.create(holder.getCard(), "card");
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                        datePair,
+                        categoryPair,
+                        wordingPair,
+                        payeePair,
+                        amountPair,
+                        cardPair);
+                ActivityCompat.startActivity(activity, intent, options.toBundle());
+                //activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+				//activity.startActivity(intent);
 			}
 		});
 
