@@ -91,7 +91,8 @@ public class AccountFragment extends Fragment{
 		}
 		int key = accountList.get(sectionNumber).getKey(); //compute the balance of the account
 		model.setSelectedAccount(key);*/
-		model.updateOperationAccountBalance();
+		model.setSelectedAccount(sectionNumber);
+		//model.updateOperationAccountBalance();
 
 		operation = model.getOperations(model.getAccounts().get(sectionNumber)); //get the operations of the account
 		ArrayList<Operation> listTemp = new ArrayList<Operation>();

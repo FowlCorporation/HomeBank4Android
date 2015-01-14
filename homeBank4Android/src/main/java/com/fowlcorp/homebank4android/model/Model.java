@@ -33,47 +33,50 @@ public class Model {
 	private double grandTotalBank;
 	private double grandTotalToday;
 	private double grandTotalFuture;
-	
+
 	public Model() {
-		
+
 	}
 
-    public void updateOperationAccountBalance() {
-        Account selectedAcc = accounts.get(selectedAccount);
-        if(selectedAcc.isModified() == false) { // balances already up to date
-            return;
-        }
-        Collections.sort(operations.get(selectedAccount));
-        double todayBalance = selectedAcc.getInitBalance();
-        double bankBalance = todayBalance, futureBalance = todayBalance;
-        Calendar today = Calendar.getInstance();
-        today.setTimeInMillis(System.currentTimeMillis());
-        //System.err.println(accounts.get(selectedAccount));
-        for(Operation op : operations.get(selectedAccount)) {
-            if(op.getAccount().getKey() == selectedAccount) {
-                if(op.getDate().compareTo(today) <= 0) { // today or past operation
-                    if(!op.isRemind()) {
-                        todayBalance += op.getAmount();
-                    }
-                    if(op.isReconciled()) {
-                        bankBalance += op.getAmount();
-                    }
-                }
-                if(!op.isRemind()) {
-                    futureBalance += op.getAmount();
-                }
-                op.setBalanceAccount(futureBalance);
-            }
-        }
-        selectedAcc.setTodayAccountBalance(todayBalance);
-        selectedAcc.setBankAccountBalance(bankBalance);
-        selectedAcc.setFutureAccountBalance(futureBalance);
-        //System.err.println("Today : " + todayBalance);
-        //System.err.println("Bank : " + bankBalance);
-        //System.err.println("Future : " + futureBalance);
-        selectedAcc.setModified(false);
+	public void updateOperationAccountBalance(int accountKey) {
+		Account selectedAcc = accounts.get(accountKey);
+		if(selectedAcc.isModified() == false) { // balances already up to date
+			return;
+		}
+		Collections.sort(operations.get(accountKey));
+		double todayBalance = selectedAcc.getInitBalance();
+		double bankBalance = todayBalance, futureBalance = todayBalance;
+		Calendar today = Calendar.getInstance();
+		today.setTimeInMillis(System.currentTimeMillis());
+		//System.err.println(accounts.get(selectedAccount));
+		for(Operation op : operations.get(accountKey)) {
+			if(op.getAccount().getKey() == accountKey) {
+				if(op.getDate().compareTo(today) <= 0) { // today or past operation
+					if(!op.isRemind()) {
+						todayBalance += op.getAmount();
+					}
+					if(op.isReconciled()) {
+						bankBalance += op.getAmount();
+					}
+				}
+				if(!op.isRemind()) {
+					futureBalance += op.getAmount();
+				}
+				op.setBalanceAccount(futureBalance);
+			}
+		}
+		selectedAcc.setTodayAccountBalance(todayBalance);
+		selectedAcc.setBankAccountBalance(bankBalance);
+		selectedAcc.setFutureAccountBalance(futureBalance);
+		//System.err.println("Today : " + todayBalance);
+		//System.err.println("Bank : " + bankBalance);
+		//System.err.println("Future : " + futureBalance);
+		selectedAcc.setModified(false);
 
 		updateGrandTotal();
+	}
+    public void updateOperationAccountBalance() {
+        updateOperationAccountBalance(selectedAccount);
     }
 
 	public void updateGrandTotal() {
