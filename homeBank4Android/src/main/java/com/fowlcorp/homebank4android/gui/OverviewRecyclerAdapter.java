@@ -62,7 +62,7 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
 		
 		int key = account.getKey();
 		model.setSelectedAccount(key);
-		model.updateOperationAccountBalance();
+		//model.updateOperationAccountBalance();
         Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
         soldeValue = selectedAcc.getBankAccountBalance();
         futurValue = selectedAcc.getFutureAccountBalance();
