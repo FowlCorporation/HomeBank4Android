@@ -86,16 +86,17 @@ public class AccountFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		for(int i=0;i<accountList.size();i++){ //find the account in the drawerlist
+		/*for(int i=0;i<accountList.size();i++){ //find the account in the drawerlist
 			if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
 				sectionNumber = i;
 			}
 		}
 		int key = accountList.get(sectionNumber).getKey(); //compute the balance of the account
-		model.setSelectedAccount(key);
+		model.setSelectedAccount(key);*/
+		model.setSelectedAccount(sectionNumber);
 		//model.updateOperationAccountBalance();
 
-		operation = model.getOperations(model.getAccounts().get(key)); //get the operations of the account
+		operation = model.getOperations(model.getAccounts().get(sectionNumber)); //get the operations of the account
 		ArrayList<Operation> listTemp = new ArrayList<Operation>();
 
         switch (displayValue){

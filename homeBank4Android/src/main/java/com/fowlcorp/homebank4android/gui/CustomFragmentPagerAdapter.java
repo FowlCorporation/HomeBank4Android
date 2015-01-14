@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
+import com.fowlcorp.homebank4android.model.Account;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -32,17 +33,28 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 	
 	private ArrayList<Fragment> fragList;
 	private MainActivity activity;
+    private ArrayList<Account> accountList; //the list of account
+    private ArrayList<DrawerItem> drawerList; //the draweritem list
 	
 	public CustomFragmentPagerAdapter(FragmentManager mFragmentManager, int position, MainActivity activity) {
 		super(mFragmentManager);
 		
 		this.activity = activity;
+        drawerList = activity.getDrawerList();
+        accountList = activity.getAccountList();
+        for(int i=0;i<accountList.size();i++){ //find the account in the drawerlist
+            if(drawerList.get(position).getKey() == accountList.get(i).getKey()){
+                position = i;
+            }
+        }
+        int key = accountList.get(position).getKey(); //compute the balance of the account
+        activity.getModel().setSelectedAccount(key);
 		
 		fragList = new ArrayList<Fragment>();
-		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_ALL));
-		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_PAID));
-		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_UNPAID));
-        fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_REMIND));
+		fragList.add(AccountFragment.newInstance(key, activity, AccountFragment.DISPLAY_ALL));
+		fragList.add(AccountFragment.newInstance(key, activity, AccountFragment.DISPLAY_PAID));
+		fragList.add(AccountFragment.newInstance(key, activity, AccountFragment.DISPLAY_UNPAID));
+        fragList.add(AccountFragment.newInstance(key, activity, AccountFragment.DISPLAY_REMIND));
 	}
 
 	@Override

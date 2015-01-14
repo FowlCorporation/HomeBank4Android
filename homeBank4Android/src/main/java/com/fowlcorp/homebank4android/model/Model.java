@@ -91,9 +91,9 @@ public class Model {
 			setGrandTotalToday(getGrandTotalToday() + acc.getTodayAccountBalance());
 		}
 
-//		System.err.println("Today : " + getGrandTotalBank());
-//		System.err.println("Bank : " + getGrandTotalFuture());
-//		System.err.println("Future : " + getGrandTotalToday());
+		System.err.println("Today : " + getGrandTotalBank());
+		System.err.println("Bank : " + getGrandTotalFuture());
+		System.err.println("Future : " + getGrandTotalToday());
 	}
 
 	public HashMap<Integer, Payee> getPayees() {
@@ -142,6 +142,7 @@ public class Model {
     }
 
     public void setSelectedAccount(int selectedAccount) {
+        System.err.println("New operation selected");
         this.selectedAccount = selectedAccount;
     }
 
