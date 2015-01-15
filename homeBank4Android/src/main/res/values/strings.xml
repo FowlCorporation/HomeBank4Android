@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright © 2015 Fowl Corporation
+  ~ Copyright © 2014-2015 Fowl Corporation
   ~
   ~ This file is part of HomeBank4Android.
   ~
@@ -67,5 +67,6 @@
     <string name="Original_Work">Original Work</string>
     <string name="Original_Contributors">Original Contributors</string>
     <string name="Icon">Icon</string>
+    <string name="State">State</string>
 
 </resources>
