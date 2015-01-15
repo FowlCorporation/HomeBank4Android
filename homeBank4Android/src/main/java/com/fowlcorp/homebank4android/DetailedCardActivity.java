@@ -19,14 +19,18 @@
 
 package com.fowlcorp.homebank4android;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,10 +40,23 @@ import android.widget.TextView;
 import com.fowlcorp.homebank4android.gui.MyRadioGroup;
 import com.fowlcorp.homebank4android.model.PayMode;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class DetailedCardActivity extends ActionBarActivity {
 
     private TextView balance;
     private MyRadioGroup detailedCardStateGroup;
+    private LinearLayout layout;
+    private EditText date;
+    private AutoCompleteTextView category;
+    private AutoCompleteTextView payee;
+    private EditText amount;
+    private EditText wording;
+    private EditText info;
+    private RadioButton none, reconciled, remind, cleared;
+    private Calendar myCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +76,7 @@ public class DetailedCardActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Get ids
-        LinearLayout layout;
-        EditText date;
-        AutoCompleteTextView category;
-        AutoCompleteTextView payee;
-        EditText amount;
-        EditText wording;
-        EditText info;
-        RadioButton none, reconciled, remind, cleared;
+
 
         layout = (LinearLayout) findViewById(R.id.detailedCardLayout_root);
         date = (EditText) findViewById(R.id.detailedCardDate);
@@ -82,6 +91,34 @@ public class DetailedCardActivity extends ActionBarActivity {
         cleared = (RadioButton) findViewById(R.id.detailedCardState_cleared);
 
         ImageView image = (ImageView) findViewById(R.id.detailedCardIcon);
+        date.setInputType(InputType.TYPE_NULL);
+        myCalendar = Calendar.getInstance();
+
+        final DatePickerDialog.OnDateSetListener dateDiag = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+       date.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(DetailedCardActivity.this, dateDiag, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
 
         try {
             date.setText(bdl.getString("Date"), TextView.BufferType.SPANNABLE);
@@ -169,5 +206,13 @@ public class DetailedCardActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateLabel() {
+
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+
+        date.setText(sdf.format(myCalendar.getTime()));
     }
 }
