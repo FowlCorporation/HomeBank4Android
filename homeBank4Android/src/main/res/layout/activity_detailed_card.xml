@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2015 Fowl Corporation
+  ~ Copyright © 2014-2015 Fowl Corporation
   ~
   ~ This file is part of HomeBank4Android.
   ~
@@ -20,7 +20,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:id="@+id/detailedCardLayout_root">
 
     <android.support.v7.widget.Toolbar
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -135,39 +136,57 @@
             android:ems="10"
             android:inputType="numberDecimal" />
 
-        <RadioGroup
-            android:id="@+id/detailedCardState"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/detailedCardStateLabel"
+            android:layout_column="1"
+            android:layout_gravity="start|center_vertical"
+            android:layout_row="5"
+            android:transitionName="category"
+            android:text="@string/State"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <GridLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="2"
             android:layout_row="5"
-            android:orientation="vertical" >
+            android:id="@+id/detailedCardState_layout">
 
             <RadioButton
                 android:id="@+id/detailedCardState_none"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/None" />
-
-            <RadioButton
-                android:id="@+id/detailedCardState_cleared"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Cleared" />
+                android:text="@string/None"
+                android:layout_column="1"
+                android:layout_row="1" />
 
             <RadioButton
                 android:id="@+id/detailedCardState_reconciled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Reconciled" />
+                android:text="@string/Reconciled"
+                android:layout_column="2"
+                android:layout_row="1" />
 
             <RadioButton
                 android:id="@+id/detailedCardState_remind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Remind" />
-        </RadioGroup>
+                android:text="@string/Remind"
+                android:layout_column="1"
+                android:layout_row="2" />
+
+            <RadioButton
+                android:id="@+id/detailedCardState_cleared"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Cleared"
+                android:layout_column="2"
+                android:layout_row="2" />
+
+        </GridLayout>
 
         <TextView
             android:id="@+id/detailedCardWordingLabel"

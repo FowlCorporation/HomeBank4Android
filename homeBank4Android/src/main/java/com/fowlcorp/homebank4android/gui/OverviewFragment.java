@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015 Fowl Corporation
+ * Copyright © 2014-2015 Fowl Corporation
  *
  * This file is part of HomeBank4Android.
  *
@@ -21,7 +21,6 @@ package com.fowlcorp.homebank4android.gui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -99,8 +98,8 @@ public class OverviewFragment extends Fragment{
         View overViewView = inflater.inflate(R.layout.overview_overview_card_layout, overView,true);
 
         title = (TextView) overViewView.findViewById(R.id.overview_card_title);
-        solde = (TextView) overViewView.findViewById(R.id.overview_card_solde);
-        futur = (TextView) overViewView.findViewById(R.id.overview_card_futur);
+        solde = (TextView) overViewView.findViewById(R.id.overview_card_balance);
+        futur = (TextView) overViewView.findViewById(R.id.overview_card_future);
         today = (TextView) overViewView.findViewById(R.id.overview_card_today);
         icon = (ImageView) overViewView.findViewById(R.id.overview_card_icon);
 

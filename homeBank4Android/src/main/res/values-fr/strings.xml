@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright © 2015 Fowl Corporation
+  ~ Copyright © 2014-2015 Fowl Corporation
   ~
   ~ This file is part of HomeBank4Android.
   ~
@@ -19,10 +19,6 @@
   -->
 
 <resources>
-    <string name="HomeBank">HomeBank</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
     <string name="navigation_drawer_close">Fermer le volet de navigation</string>
     <string name="action_example">Ajouter une opération</string>
@@ -50,14 +46,28 @@
     <string name="Balance">Solde</string>
     <string name="Today">Aujourd\'hui</string>
     <string name="Future">Futur</string>
-    <string name="hello_world">Hello world!</string>
     <string name="About">À propos</string>
     <string name="Authors">Auteurs</string>
-    <string name="LicenseText">This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/gpl.html</string>
-    <string name="GPLv3">GPLv3</string>
-    <string name="AboutAuthors_Intro">This application has been developped by three student of TELECOM Nancy. This is the Android version of Homebank (see Credit tab).</string>
-    <string name="HomeBank4Android">HomeBank4Android</string>
+    <string name="AboutAuthors_Intro">Cette application a été développée par trois élèves de TELECOM Nancy. Il s\'agit de la version pour Android de l\'application Homebank (cf. onglet Crédits).</string>
     <string name="Credits">Crédits</string>
     <string name="License">Licence</string>
     <string name="pref_title_ringtone">Sonnerie</string>
+    <string name="Icon">Icône</string>
+    <string name="OriginalContributorsLink">Vous trouverez la liste complète des contributeurs ici : https://launchpad.net/homebank/+topcontributors</string>
+    <string name="OriginalWorkDescription">HomeBank4Android est un portage sur Android de HomeBank. HomeBank est une application de bureau principalement développée par Maxime DOYEN.\n\nHomeBank est un programme libre ayant pour but de vous aider à gérer votre comptabilité personnelle.</string>
+    <string name="OriginalWorkLink">Vous trouverez le programme original ici : http://homebank.free.fr/</string>
+    <string name="Original_Contributors">Contributeurs Originaux</string>
+    <string name="Original_Work">Travail Original</string>
+    <string name="pref_header_general">Général</string>
+    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_ringtone_silent">Silencieux</string>
+    <string name="pref_title_add_friends_to_messages">Ajouter des amis aux messages</string>
+    <string name="pref_title_display_name">Nom affiché</string>
+    <string name="pref_title_new_message_notifications">Nouveau message de notification</string>
+    <string name="pref_title_social_recommendations">Activer les recommandations sociales</string>
+    <string name="pref_title_sync_frequency">Fréquence de synchronisation</string>
+    <string name="pref_title_system_sync_settings">Paramètres système de synchronisation</string>
+    <string name="pref_title_vibrate">Vibrer</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="pref_header_data_sync">Données de synchronisation</string>
 </resources>

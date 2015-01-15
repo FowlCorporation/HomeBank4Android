@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015 Fowl Corporation
+ * Copyright © 2014-2015 Fowl Corporation
  *
  * This file is part of HomeBank4Android.
  *
@@ -36,39 +36,38 @@ import com.fowlcorp.homebank4android.utils.Round;
 import android.view.LayoutInflater;
 
 
-public class OverViewCard {
-	
+class OverViewCard {
 
-	private TextView soldeView;
-	private TextView futurView;
-	private TextView todayView;
-	
-	private double soldeValue;
-	private double futurValue;
-	private double todayValue;
-	
-	private View view;
 
-	public OverViewCard(Context context, LayoutInflater inflater, ViewGroup parent, Model model ) {
+	public OverViewCard(Context context, LayoutInflater inflater, ViewGroup parent, Model model) {
 		
+
         Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
-        soldeValue = selectedAcc.getBankAccountBalance();
-        futurValue = selectedAcc.getFutureAccountBalance();
-		todayValue = selectedAcc.getTodayAccountBalance();
-			
-		soldeValue = Round.roundAmount(soldeValue);
-        futurValue = Round.roundAmount(futurValue);
+
+        double balanceValue;
+        double futureValue;
+        double todayValue;
+
+        balanceValue = selectedAcc.getBankAccountBalance();
+        futureValue = selectedAcc.getFutureAccountBalance();
+        todayValue = selectedAcc.getTodayAccountBalance();
+
+        balanceValue = Round.roundAmount(balanceValue);
+        futureValue = Round.roundAmount(futureValue);
         todayValue = Round.roundAmount(todayValue);
 
-		view = inflater.inflate(R.layout.overviewcard,parent);
-		
-		
-		soldeView = (TextView) view.findViewById(R.id.overviewCard_solde);
-		futurView = (TextView) view.findViewById(R.id.overviewCard_future);
-		todayView = (TextView) view.findViewById(R.id.overviewCard_today);
-		
-		soldeView.setText(colorText(context.getString(R.string.Balance) + " : ", String.valueOf(soldeValue)));
-		futurView.setText(colorText(context.getString(R.string.Future) + " : ", String.valueOf(futurValue)));
+		View view = inflater.inflate(R.layout.overviewcard,parent);
+
+        TextView balanceView;
+        TextView todayView;
+        TextView futureView;
+
+        balanceView = (TextView) view.findViewById(R.id.overviewCard_solde);
+        futureView = (TextView) view.findViewById(R.id.overviewCard_future);
+        todayView = (TextView) view.findViewById(R.id.overviewCard_today);
+
+        balanceView.setText(colorText(context.getString(R.string.Balance) + " : ", String.valueOf(balanceValue)));
+		futureView.setText(colorText(context.getString(R.string.Future) + " : ", String.valueOf(futureValue)));
 		todayView.setText(colorText(context.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
 		
 		
@@ -80,13 +79,7 @@ public class OverViewCard {
 		return span;
 	}
 
-	public View getView() {
-		return view;
-	}
 
-	public void setView(View view) {
-		this.view = view;
-	}
 	
 	
 

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015 Fowl Corporation
+ * Copyright © 2014-2015 Fowl Corporation
  *
  * This file is part of HomeBank4Android.
  *
@@ -19,7 +19,6 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import java.util.List;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -29,8 +28,8 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
@@ -39,15 +38,13 @@ import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.Round;
 
+import java.util.List;
+
 public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHolder> {
     private List<Account> listAccount;
     private Model model;
-    
-    private double soldeValue;
-	private double futurValue;
-	private double todayValue;
-	
-	private MainActivity activity;
+
+    private MainActivity activity;
     
     public OverviewRecyclerAdapter(List<Account> listAccount ,MainActivity activity, Model model) {
     	this.listAccount = listAccount;
@@ -68,13 +65,18 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
 		model.setSelectedAccount(key);
 		//model.updateOperationAccountBalance();
         Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
-        soldeValue = selectedAcc.getBankAccountBalance();
-        futurValue = selectedAcc.getFutureAccountBalance();
-        todayValue = selectedAcc.getTodayAccountBalance();
-        
 
-        soldeValue = Round.roundAmount(soldeValue);
-        futurValue = Round.roundAmount(futurValue);
+        double balanceValue;
+        double futureValue;
+        double todayValue;
+
+        balanceValue = selectedAcc.getBankAccountBalance();
+        futureValue = selectedAcc.getFutureAccountBalance();
+        todayValue = selectedAcc.getTodayAccountBalance();
+
+
+        balanceValue = Round.roundAmount(balanceValue);
+        futureValue = Round.roundAmount(futureValue);
         todayValue = Round.roundAmount(todayValue);
 		
 		holder.getItemView().setOnClickListener(new OnClickListener() {
@@ -102,8 +104,8 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
 		});
 		
 		holder.getTitle().setText(account.getName());
-		holder.getSolde().setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(soldeValue)));
-		holder.getFutur().setText(colorText(activity.getString(R.string.Future) + " : ", String.valueOf(futurValue)));
+		holder.getBalance().setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(balanceValue)));
+		holder.getFuture().setText(colorText(activity.getString(R.string.Future) + " : ", String.valueOf(futureValue)));
 		holder.getToday().setText(colorText(activity.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
 		
 		switch (account.getType()) {

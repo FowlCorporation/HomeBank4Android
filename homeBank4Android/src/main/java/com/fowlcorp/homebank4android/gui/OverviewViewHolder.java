@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015 Fowl Corporation
+ * Copyright © 2014-2015 Fowl Corporation
  *
  * This file is part of HomeBank4Android.
  *
@@ -19,20 +19,20 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import com.fowlcorp.homebank4android.R;
-
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.fowlcorp.homebank4android.R;
 
 
 
 public class OverviewViewHolder extends RecyclerView.ViewHolder{
 	
 	private TextView title;
-	private TextView solde;
-	private TextView futur;
+	private TextView balance;
+	private TextView future;
 	private TextView today;
 	private ImageView icon;
 	
@@ -43,8 +43,8 @@ public class OverviewViewHolder extends RecyclerView.ViewHolder{
 		this.itemView = itemView;
 		
 		title = (TextView) itemView.findViewById(R.id.overview_card_title);
-		solde = (TextView) itemView.findViewById(R.id.overview_card_solde);
-		futur = (TextView) itemView.findViewById(R.id.overview_card_futur);
+		balance = (TextView) itemView.findViewById(R.id.overview_card_balance);
+		future = (TextView) itemView.findViewById(R.id.overview_card_future);
 		today = (TextView) itemView.findViewById(R.id.overview_card_today);
 		icon = (ImageView) itemView.findViewById(R.id.overview_card_icon);
 	}
@@ -57,20 +57,20 @@ public class OverviewViewHolder extends RecyclerView.ViewHolder{
 		this.title = title;
 	}
 
-	public TextView getSolde() {
-		return solde;
+	public TextView getBalance() {
+		return balance;
 	}
 
-	public void setSolde(TextView solde) {
-		this.solde = solde;
+	public void setBalance(TextView balance) {
+		this.balance = balance;
 	}
 
-	public TextView getFutur() {
-		return futur;
+	public TextView getFuture() {
+		return future;
 	}
 
-	public void setFutur(TextView futur) {
-		this.futur = futur;
+	public void setFuture(TextView future) {
+		this.future = future;
 	}
 
 	public TextView getToday() {

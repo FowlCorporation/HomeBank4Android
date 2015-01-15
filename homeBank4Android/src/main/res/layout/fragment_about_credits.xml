@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2015 Fowl Corporation
+  ~ Copyright © 2014-2015 Fowl Corporation
   ~
   ~ This file is part of HomeBank4Android.
   ~
@@ -54,9 +54,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_gravity="left|center_vertical"
+            android:layout_gravity="start|center_vertical"
             android:layout_row="3"
-            android:text="@string/OriginalWorkDescription" />
+            android:text="@string/OriginalWorkDescription"
+            android:gravity="start" />
 
         <Space
             android:layout_width="13dp"
@@ -69,22 +70,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_gravity="left|center_vertical"
+            android:layout_gravity="start|center_vertical"
             android:layout_row="5"
             android:text="@string/Original_Work"
             android:linksClickable="false"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="start" />
 
         <TextView
             android:id="@+id/originalWorkLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_gravity="left|center_vertical"
+            android:layout_gravity="start|center_vertical"
             android:layout_row="6"
             android:text="@string/OriginalWorkLink"
             android:linksClickable="true"
-            android:autoLink="web" />
+            android:autoLink="web"
+            android:gravity="start"/>
 
         <Space
             android:layout_width="13dp"
@@ -97,22 +100,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_gravity="left|center_vertical"
+            android:layout_gravity="start|center_vertical"
             android:layout_row="8"
             android:text="@string/Original_Contributors"
             android:linksClickable="false"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="start"/>
 
         <TextView
             android:id="@+id/originalContributorsLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_gravity="left|center_vertical"
+            android:layout_gravity="start|center_vertical"
             android:layout_row="9"
             android:text="@string/OriginalContributorsLink"
             android:linksClickable="true"
-            android:autoLink="web" />
+            android:autoLink="web"
+            android:gravity="start"/>
 
     </GridLayout>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright © 2015 Fowl Corporation
+  ~ Copyright © 2014-2015 Fowl Corporation
   ~
   ~ This file is part of HomeBank4Android.
   ~
@@ -36,7 +36,8 @@
         android:label="@string/HomeBank"
         android:logo="@drawable/homebank"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"

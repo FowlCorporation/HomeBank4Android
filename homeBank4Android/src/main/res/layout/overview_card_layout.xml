@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright © 2015 Fowl Corporation
+  ~ Copyright © 2014-2015 Fowl Corporation
   ~
   ~ This file is part of HomeBank4Android.
   ~
@@ -60,14 +60,14 @@
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/overview_card_solde"
+                        android:id="@+id/overview_card_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Balance"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/overview_card_futur"
+                        android:id="@+id/overview_card_future"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Medium Text"
@@ -85,7 +85,8 @@
                     android:id="@+id/overview_card_icon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/bank" />
+                    android:src="@drawable/bank"
+                    android:contentDescription="@string/Icon" />
 
             </LinearLayout>
 

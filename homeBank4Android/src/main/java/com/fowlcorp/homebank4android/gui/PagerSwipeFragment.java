@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015 Fowl Corporation
+ * Copyright © 2014-2015 Fowl Corporation
  *
  * This file is part of HomeBank4Android.
  *
@@ -19,9 +19,6 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -33,7 +30,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+
+
 
 import com.common.view.SlidingTabLayout;
 import com.fowlcorp.homebank4android.MainActivity;
@@ -41,6 +39,9 @@ import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PagerSwipeFragment extends Fragment{
 
@@ -62,7 +63,6 @@ public class PagerSwipeFragment extends Fragment{
     private View rootView;
 	
 	private SlidingTabLayout mSlidingTabLayout;
-
 
 	public PagerSwipeFragment(MainActivity activity){//empty constructor
 		this.activity = activity;

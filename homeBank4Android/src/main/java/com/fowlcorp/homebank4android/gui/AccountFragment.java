@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015 Fowl Corporation
+ * Copyright © 2014-2015 Fowl Corporation
  *
  * This file is part of HomeBank4Android.
  *
@@ -138,6 +138,8 @@ public class AccountFragment extends Fragment{
 		}
 		
 		View rootView = inflater.inflate(R.layout.recycle_layout, container, false); //the recycler layout
+
+
 		RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
         OverViewCard over = new OverViewCard(activity.getApplicationContext(), inflater, overview, model); //create the overview card

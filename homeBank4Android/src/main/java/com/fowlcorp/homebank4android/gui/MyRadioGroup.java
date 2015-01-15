@@ -19,20 +19,31 @@
 
 package com.fowlcorp.homebank4android.gui;
 
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+/**
+ * @author Axel
+ */
+public class MyRadioGroup implements RadioButton.OnCheckedChangeListener {
+    private CompoundButton checkedButton = null;
 
-import com.fowlcorp.homebank4android.R;
+    public void addRadioButton(RadioButton rb) {
+        rb.setOnCheckedChangeListener(this);
 
-public class AboutFragmentLicense extends Fragment {
+        if (checkedButton == null) {
+            checkedButton = rb;
+        }
+    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_about_license, container, false);
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            checkedButton.setChecked(false);
+            checkedButton = buttonView;
+        }
+    }
+
+    public CompoundButton getCheckedRadioButton() {
+        return checkedButton;
     }
 }

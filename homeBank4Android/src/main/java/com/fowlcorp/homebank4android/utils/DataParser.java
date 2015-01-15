@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015 Fowl Corporation
+ * Copyright © 2014-2015 Fowl Corporation
  *
  * This file is part of HomeBank4Android.
  *
@@ -21,6 +21,19 @@ package com.fowlcorp.homebank4android.utils;
 
 import android.content.Context;
 
+import com.fowlcorp.homebank4android.model.Account;
+import com.fowlcorp.homebank4android.model.AccountType;
+import com.fowlcorp.homebank4android.model.Category;
+import com.fowlcorp.homebank4android.model.Couple;
+import com.fowlcorp.homebank4android.model.Operation;
+import com.fowlcorp.homebank4android.model.Payee;
+import com.fowlcorp.homebank4android.model.Tag;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,19 +44,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import com.fowlcorp.homebank4android.model.Account;
-import com.fowlcorp.homebank4android.model.AccountType;
-import com.fowlcorp.homebank4android.model.Category;
-import com.fowlcorp.homebank4android.model.Couple;
-import com.fowlcorp.homebank4android.model.Operation;
-import com.fowlcorp.homebank4android.model.Payee;
-import com.fowlcorp.homebank4android.model.Tag;
 
 /**
  * @author Axel, Cédric
@@ -257,8 +257,9 @@ public class DataParser {
 					String separator = "\\|\\|";
 					String[] samt = el.getAttribute("samt").split(separator);
 					String[] scat = el.getAttribute("scat").split(separator);
-					System.out.println("taile samt : "+samt.length);
-					System.out.println("taile scat : "+scat.length);
+					//DEBUG
+                    //System.out.println("taile samt : "+samt.length);
+					//System.out.println("taile scat : "+scat.length);
 					for(int j = 0; j < samt.length; j++) {
 						op.getSplits().add(new Couple(Double.parseDouble(samt[j]), categories.get(Integer.parseInt(scat[j]))));
 					}

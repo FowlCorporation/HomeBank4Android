@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015 Fowl Corporation
+ * Copyright © 2014-2015 Fowl Corporation
  *
  * This file is part of HomeBank4Android.
  *
@@ -19,23 +19,16 @@
 
 package com.fowlcorp.homebank4android;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fowlcorp.homebank4android.gui.CustomDrawerAdapter;
-import com.fowlcorp.homebank4android.gui.DrawerItem;
-import com.fowlcorp.homebank4android.model.Model;
-
 import android.app.Activity;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +38,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.fowlcorp.homebank4android.gui.CustomDrawerAdapter;
+import com.fowlcorp.homebank4android.gui.DrawerItem;
+import com.fowlcorp.homebank4android.model.Model;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class NavigationDrawerFragment extends Fragment {
@@ -70,9 +70,8 @@ public class NavigationDrawerFragment extends Fragment {
 	private MainActivity mainAct;
 	
 	private List<DrawerItem> dataList;
-	private CustomDrawerAdapter adapter;
 
-	public NavigationDrawerFragment() { //empty constructor
+    public NavigationDrawerFragment() { //empty constructor
 	}
 
 
@@ -265,12 +264,15 @@ public class NavigationDrawerFragment extends Fragment {
 	}
 	
 	public void update(){
+
+        CustomDrawerAdapter adapter;
+
 		model = mainAct.getModel();//get the model
 		accountList = mainAct.getDrawerList();
 		dataList.clear();
 		dataList.addAll(accountList);
-		adapter = new CustomDrawerAdapter(getActivity(), R.layout.custom_drawer_item, dataList);//create an adapter to the ListView
-		mDrawerListView.setAdapter(adapter);
+        adapter = new CustomDrawerAdapter(getActivity(), R.layout.custom_drawer_item, dataList);
+        mDrawerListView.setAdapter(adapter);
 		//mDrawerListView.setItemChecked(mCurrentSelectedPosition, true); //change the color of the selected item
 		//mainAct.onNavigationDrawerItemSelected(0);//call the activity
 		this.selectItem(0);
