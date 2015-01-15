@@ -36,10 +36,10 @@ import com.fowlcorp.homebank4android.utils.Round;
 import android.view.LayoutInflater;
 
 
-class OverViewCard {
+public class OverviewCard {
 
 
-	public OverViewCard(Context context, LayoutInflater inflater, ViewGroup parent, Model model) {
+	public OverviewCard(Context context, LayoutInflater inflater, ViewGroup parent, Model model) {
 		
 
         Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());

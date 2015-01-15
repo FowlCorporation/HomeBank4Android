@@ -142,7 +142,7 @@ public class AccountFragment extends Fragment{
 
 		RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
-        OverViewCard over = new OverViewCard(activity.getApplicationContext(), inflater, overview, model); //create the overview card
+        OverviewCard over = new OverviewCard(activity.getApplicationContext(), inflater, overview, model); //create the overview card
 
 		mRecyclerView.setHasFixedSize(false);
 
