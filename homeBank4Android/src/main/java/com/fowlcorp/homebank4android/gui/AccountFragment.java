@@ -23,13 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.res.Configuration;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.fowlcorp.homebank4android.MainActivity;
@@ -37,6 +41,8 @@ import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
+
+import static android.support.v7.widget.LinearLayoutManager.HORIZONTAL;
 
 public class AccountFragment extends Fragment{
 
@@ -55,7 +61,7 @@ public class AccountFragment extends Fragment{
 	private MainActivity activity;
 
 	private AccountRecyclerAdapter mAdapter; //the adapter for the recycle view
-	private RecyclerView.LayoutManager mLayoutManager; //the layout manager
+	private LinearLayoutManager mLayoutManager; //the layout manager
 	
     private int displayValue;
 
@@ -139,6 +145,9 @@ public class AccountFragment extends Fragment{
 		mRecyclerView.setHasFixedSize(false);
 
 		mLayoutManager = new LinearLayoutManager(activity);
+    if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+        mLayoutManager.setOrientation(HORIZONTAL);
+    }
 		mRecyclerView.setLayoutManager(mLayoutManager);
 		mAdapter = new AccountRecyclerAdapter(listOperation, activity);
         mRecyclerView.setAdapter(mAdapter);

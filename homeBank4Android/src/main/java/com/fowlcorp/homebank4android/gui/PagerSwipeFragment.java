@@ -23,14 +23,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
 import com.common.view.SlidingTabLayout;
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
@@ -47,9 +51,15 @@ public class PagerSwipeFragment extends Fragment{
 	private Model model;
 	private ArrayList<DrawerItem> drawerList;
 	private MainActivity activity;
+    private ViewGroup container;
 
 	private AccountRecyclerAdapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
+    private ViewPager mViewPager;
+    private FragmentPagerAdapter pager;
+    private LayoutInflater inflater;
+
+    private View rootView;
 	
 	private SlidingTabLayout mSlidingTabLayout;
 
@@ -76,13 +86,15 @@ public class PagerSwipeFragment extends Fragment{
 		sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER); //get the position of the account in the drawer
 	}
 
-	@Override
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	
-		FragmentPagerAdapter pager = new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, activity);
-		View rootView = inflater.inflate(R.layout.pager_layout, container, false);
+	    this.inflater = inflater;
+        this.container = container;
+		pager = new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, activity);
+		rootView = inflater.inflate(R.layout.pager_layout, container, false);
 		
-		ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+		mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         mViewPager.setAdapter(pager);
         
         mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs);
