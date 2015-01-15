@@ -48,7 +48,7 @@
     <string name="Future">Futur</string>
     <string name="About">À propos</string>
     <string name="Authors">Auteurs</string>
-    <string name="AboutAuthors_Intro">Cette application a été développée par trois élèves de TELECOM Nancy. Il s'agit de la version pour Android de l'application Homebank (cf. onglet Crédits).</string>
+    <string name="AboutAuthors_Intro">Cette application a été développée par trois élèves de TELECOM Nancy. Il s\'agit de la version pour Android de l\'application Homebank (cf. onglet Crédits).</string>
     <string name="Credits">Crédits</string>
     <string name="License">Licence</string>
     <string name="pref_title_ringtone">Sonnerie</string>

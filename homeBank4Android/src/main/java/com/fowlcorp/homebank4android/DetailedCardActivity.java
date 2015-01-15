@@ -33,15 +33,9 @@ import android.widget.TextView;
 import com.fowlcorp.homebank4android.model.PayMode;
 
 public class DetailedCardActivity extends ActionBarActivity {
-	private EditText date;
-	private AutoCompleteTextView category;
-	private AutoCompleteTextView payee;
-	private TextView wording;
-	private TextView balance;
-	private EditText amount;
-    private ImageView image;
+    private TextView balance;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle bdl = this.getIntent().getExtras();
@@ -54,15 +48,24 @@ public class DetailedCardActivity extends ActionBarActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		//Get ids
-		date = (EditText) findViewById(R.id.detailedCardDate);
-		category = (AutoCompleteTextView) findViewById(R.id.detailedCardCategory);
-		payee = (AutoCompleteTextView) findViewById(R.id.detailedCardPayee);
-		amount = (EditText) findViewById(R.id.detailedCardAmount);
-		wording = (EditText) findViewById(R.id.detailedCardWording);
-        image = (ImageView) findViewById(R.id.detailedCardIcon);
+        EditText date;
+        AutoCompleteTextView category;
+        AutoCompleteTextView payee;
+        EditText amount;
+        EditText wording;
+        EditText info;
+
+        date = (EditText) findViewById(R.id.detailedCardDate);
+        category = (AutoCompleteTextView) findViewById(R.id.detailedCardCategory);
+        payee = (AutoCompleteTextView) findViewById(R.id.detailedCardPayee);
+        amount = (EditText) findViewById(R.id.detailedCardAmount);
+        info = (EditText) findViewById(R.id.detailedCardInfo);
+        wording = (EditText) findViewById(R.id.detailedCardWording);
+
+        ImageView image = (ImageView) findViewById(R.id.detailedCardIcon);
 		
 		try {
-			date.setText((String) bdl.getString("Date"), TextView.BufferType.SPANNABLE);
+			date.setText(bdl.getString("Date"), TextView.BufferType.SPANNABLE);
 		} catch (Exception e) {
 		}
 		try {
@@ -77,6 +80,10 @@ public class DetailedCardActivity extends ActionBarActivity {
 			wording.setText(bdl.getString("Wording"));
 		} catch (Exception e) {
 		}
+        try {
+            wording.setText(bdl.getString("Info"));
+        } catch (Exception e) {
+        }
 		try {
 			amount.setText(bdl.getString("Amount"));
 		} catch (Exception e) {
