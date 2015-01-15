@@ -286,8 +286,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 drawerList.add(new DrawerItem(bankList.get(i), R.drawable.asset, false, true));
             } else if(bankList.get(i).equals(getNameByType(AccountType.CREDITCARD))){
                 drawerList.add(new DrawerItem(bankList.get(i), R.drawable.card, false, true));
-            } else if(bankList.get(i).equals(getNameByType(AccountType.NONE))){
-                drawerList.add(new DrawerItem(bankList.get(i), R.drawable., false, true))
+            } else if(bankList.get(i).equals(getNameByType(AccountType.NONE))){;
 			} else {
 				drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));//add the bank to the drawer as a title
 			}
