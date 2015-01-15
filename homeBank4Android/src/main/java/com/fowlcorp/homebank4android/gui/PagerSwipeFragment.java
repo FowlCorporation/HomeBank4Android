@@ -19,9 +19,6 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,12 +28,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.common.view.SlidingTabLayout;
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PagerSwipeFragment extends Fragment{
 
@@ -52,7 +53,6 @@ public class PagerSwipeFragment extends Fragment{
 	private RecyclerView.LayoutManager mLayoutManager;
 	
 	private SlidingTabLayout mSlidingTabLayout;
-
 
 	public PagerSwipeFragment(MainActivity activity){//empty constructor
 		this.activity = activity;
