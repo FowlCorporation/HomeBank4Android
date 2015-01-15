@@ -45,25 +45,25 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
     private Model model;
 
     private MainActivity activity;
-    
+
     public OverviewRecyclerAdapter(List<Account> listAccount ,MainActivity activity, Model model) {
-    	this.listAccount = listAccount;
-    	this.model = model;
-    	this.activity = activity;
-	}
+        this.listAccount = listAccount;
+        this.model = model;
+        this.activity = activity;
+    }
 
-	@Override
-	public int getItemCount() {
-		return listAccount.size();
-	}
+    @Override
+    public int getItemCount() {
+        return listAccount.size();
+    }
 
-	@Override
-	public void onBindViewHolder(final OverviewViewHolder holder, int position) {
-		final Account account = listAccount.get(position);
-		
-		int key = account.getKey();
-		model.setSelectedAccount(key);
-		//model.updateOperationAccountBalance();
+    @Override
+    public void onBindViewHolder(final OverviewViewHolder holder, int position) {
+        final Account account = listAccount.get(position);
+
+        int key = account.getKey();
+        model.setSelectedAccount(key);
+        //model.updateOperationAccountBalance();
         Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
 
         double balanceValue;
@@ -78,62 +78,68 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
         balanceValue = Round.roundAmount(balanceValue);
         futureValue = Round.roundAmount(futureValue);
         todayValue = Round.roundAmount(todayValue);
-		
-		holder.getItemView().setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				int position = -1;
-				for(int i = 0; i<activity.getDrawerList().size();i++){
-					if(activity.getDrawerList().get(i).getKey() == account.getKey()){
-						position = i;
-						break;
-					}
-				}
-				try {
-					//activity.getmNavigationDrawerFragment().selectItem(position);
+
+        holder.getItemView().setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                int position = -1;
+                for(int i = 0; i<activity.getDrawerList().size();i++){
+                    if(activity.getDrawerList().get(i).getKey() == account.getKey()){
+                        position = i;
+                        break;
+                    }
+                }
+                try {
+                    //activity.getmNavigationDrawerFragment().selectItem(position);
                     FragmentManager fragmentManager = activity.getSupportFragmentManager(); //get the fragment manager
                     FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
                     //tx.addSharedElement(holder.getTitle(), "toolbar");
                     tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, activity)).commit(); //invoke the account fragment
-					activity.onSectionAttached(position);
-					activity.restoreActionBar();
-				} catch (Exception e) {
-				}
-			}
-		});
-		
-		holder.getTitle().setText(account.getName());
-		holder.getBalance().setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(balanceValue)));
-		holder.getFuture().setText(colorText(activity.getString(R.string.Future) + " : ", String.valueOf(futureValue)));
-		holder.getToday().setText(colorText(activity.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
-		
-		switch (account.getType()) {
-		case AccountType.BANK:
-			holder.getIcon().setImageResource(R.drawable.bank);
-			break;
-		case AccountType.CASH:
-			holder.getIcon().setImageResource(R.drawable.espece);
-			break;
-		default:
-			holder.getIcon().setImageDrawable(null);
-			break;
-		}
-				
-	}
+                    activity.onSectionAttached(position);
+                    activity.restoreActionBar();
+                } catch (Exception e) {
+                }
+            }
+        });
 
-	@Override
-	public OverviewViewHolder onCreateViewHolder(ViewGroup parent, int arg1) {
-		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.overview_card_layout, parent, false);
+        holder.getTitle().setText(account.getName());
+        holder.getBalance().setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(balanceValue)));
+        holder.getFuture().setText(colorText(activity.getString(R.string.Future) + " : ", String.valueOf(futureValue)));
+        holder.getToday().setText(colorText(activity.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
 
-		return new OverviewViewHolder(v);
-	}
+        switch (account.getType()) {
+            case AccountType.BANK:
+                holder.getIcon().setImageResource(R.drawable.bank);
+                break;
+            case AccountType.CASH:
+                holder.getIcon().setImageResource(R.drawable.espece);
+                break;
+            case AccountType.ASSET:
+                holder.getIcon().setImageResource(R.drawable.asset);
+                break;
+            case AccountType.CREDITCARD:
+                holder.getIcon().setImageResource(R.drawable.card);
+                break;
+            default:
+                holder.getIcon().setImageDrawable(null);
+                break;
+        }
 
-	
-	private Spannable colorText(String fieldName, String value) {
+    }
+
+    @Override
+    public OverviewViewHolder onCreateViewHolder(ViewGroup parent, int arg1) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.overview_card_layout, parent, false);
+
+        return new OverviewViewHolder(v);
+    }
+
+
+    private Spannable colorText(String fieldName, String value) {
         Spannable span = new SpannableString(fieldName + value);
         span.setSpan(new ForegroundColorSpan((value.charAt(0) == '-' ? Color.rgb(206, 92, 0) : Color.rgb(78, 154, 54))), fieldName.length(), fieldName.length() + value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return span;
     }
-  
+
 }

@@ -29,7 +29,6 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -282,7 +281,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			if(bankList.get(i).equals(getNameByType(AccountType.BANK))){
 				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.bank, false, true));//add the bank to the drawer as a title
 			} else if(bankList.get(i).equals(getNameByType(AccountType.CASH))){
-				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.espece, false, true));//add the bank to the drawer as a title
+				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.espece, false, true));
+            } else if(bankList.get(i).equals(getNameByType(AccountType.ASSET))){
+                drawerList.add(new DrawerItem(bankList.get(i), R.drawable.asset, false, true));
+            } else if(bankList.get(i).equals(getNameByType(AccountType.CREDITCARD))){
+                drawerList.add(new DrawerItem(bankList.get(i), R.drawable.card, false, true));
+            } else if(bankList.get(i).equals(getNameByType(AccountType.NONE))){
+                drawerList.add(new DrawerItem(bankList.get(i), R.drawable., false, true))
 			} else {
 				drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));//add the bank to the drawer as a title
 			}
