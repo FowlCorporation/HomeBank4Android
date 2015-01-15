@@ -25,6 +25,7 @@ import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -33,7 +34,6 @@ import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.Round;
-import android.view.LayoutInflater;
 
 
 public class OverviewCard {
@@ -41,7 +41,6 @@ public class OverviewCard {
 
 	public OverviewCard(Context context, LayoutInflater inflater, ViewGroup parent, Model model) {
 		
-
         Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
 
         double balanceValue;
@@ -69,18 +68,11 @@ public class OverviewCard {
         balanceView.setText(colorText(context.getString(R.string.Balance) + " : ", String.valueOf(balanceValue)));
 		futureView.setText(colorText(context.getString(R.string.Future) + " : ", String.valueOf(futureValue)));
 		todayView.setText(colorText(context.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
-		
-		
-	}
+    }
 	
 	private Spannable colorText(String fieldName, String value) {
 		Spannable span = new SpannableString(fieldName + value);
 		span.setSpan(new ForegroundColorSpan((value.charAt(0) == '-' ? Color.rgb(206, 92, 0) : Color.rgb(78, 154, 54))), fieldName.length(), fieldName.length() + value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		return span;
 	}
-
-
-	
-	
-
 }

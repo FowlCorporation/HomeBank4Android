@@ -68,5 +68,10 @@
     <string name="Original_Contributors">Original Contributors</string>
     <string name="Icon">Icon</string>
     <string name="State">State</string>
+    <string name="Artworks">Artworks</string>
+    <string name="ArtworkTemplatic">Some icons are from Templatic.com</string>
+    <string name="ArtworkCoelho">Some icons are from Everaldo Coelho.</string>
+    <string name="ArtworkMoore">Some icons are from Alexander Moore.</string>
+    <string name="ArtworkIcons8">Some icons are from icons8.</string>
 
 </resources>
