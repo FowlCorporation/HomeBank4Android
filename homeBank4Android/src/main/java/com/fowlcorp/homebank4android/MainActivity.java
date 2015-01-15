@@ -38,6 +38,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ProgressBar;
 
 import com.fowlcorp.homebank4android.gui.DrawerItem;
@@ -69,9 +70,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	private Toolbar toolBar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState); //restore the saved state
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
-		
+        super.onCreate(savedInstanceState); //restore the saved state
+
 
 		setContentView(R.layout.toolbar_layout); //invoke the layout
 

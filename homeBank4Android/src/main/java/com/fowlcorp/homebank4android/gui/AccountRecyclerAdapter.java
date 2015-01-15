@@ -33,8 +33,10 @@ import com.fowlcorp.homebank4android.model.PayMode;
 import com.fowlcorp.homebank4android.utils.Round;
 
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -42,6 +44,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
+import android.transition.TransitionValues;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,16 +71,21 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		return listOperation.size();
 	}
 
-	@Override
+
+    @Override
 	public void onBindViewHolder(final OperationViewHolder holder, int position) {
 		final Operation operation = listOperation.get(position);
+
+
 
 		myDate = Calendar.getInstance();
 		myDate.setTime(operation.getDate().getTime());
 		final SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 		holder.getView().setOnClickListener(new OnClickListener() {
 
-			@Override
+
+
+            @Override
 			public void onClick(View v) {
 				Intent intent = new Intent(activity.getApplicationContext(), DetailedCardActivity.class);
 				try {
@@ -100,6 +112,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
                     intent.putExtra("Type", operation.getPayMode());
                 } catch (Exception e) {
                 }
+
                 Pair datePair = Pair.create(holder.getDate(), "date");
                 Pair categoryPair = Pair.create(holder.getCategory(), "category");
                 Pair wordingPair = Pair.create(holder.getWording(), "wording");
@@ -114,6 +127,8 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
                 //activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
 				//activity.startActivity(intent);
 			}
+
+
 		});
 
 		try {

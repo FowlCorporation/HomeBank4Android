@@ -19,12 +19,19 @@
 
 package com.fowlcorp.homebank4android;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,14 +42,21 @@ import com.fowlcorp.homebank4android.model.PayMode;
 public class DetailedCardActivity extends ActionBarActivity {
     private TextView balance;
 
+
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
+        this.getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 		super.onCreate(savedInstanceState);
+
 		Bundle bdl = this.getIntent().getExtras();
 
 		setContentView(R.layout.activity_detailed_card);
-		
-		Toolbar toolbar = (Toolbar) findViewById(R.id.detailed_toolbar); 
+       /* TransitionInflater transitionInflater = TransitionInflater.from(this);
+        final Transition transition = transitionInflater.inflateTransition(R.transition.cardview_fade);
+
+        this.getWindow().setExitTransition(transition);*/
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.detailed_toolbar);
 		
 		setSupportActionBar(toolbar); 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -123,6 +137,7 @@ public class DetailedCardActivity extends ActionBarActivity {
 		getMenuInflater().inflate(R.menu.detailed_card, menu);
 		return true;
 	}
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
