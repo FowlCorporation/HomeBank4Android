@@ -66,5 +66,6 @@
     <string name="OriginalContributorsLink">And the full list of contributors here: https://launchpad.net/homebank/+topcontributors</string>
     <string name="Original_Work">Original Work</string>
     <string name="Original_Contributors">Original Contributors</string>
+    <string name="Icon">Icon</string>
 
 </resources>
