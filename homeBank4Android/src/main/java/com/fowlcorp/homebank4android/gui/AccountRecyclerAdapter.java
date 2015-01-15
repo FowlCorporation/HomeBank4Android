@@ -19,10 +19,21 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
+import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.DetailedCardActivity;
 import com.fowlcorp.homebank4android.MainActivity;
@@ -32,29 +43,10 @@ import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.PayMode;
 import com.fowlcorp.homebank4android.utils.Round;
 
-
-import android.annotation.TargetApi;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
-import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
-import android.transition.TransitionValues;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHolder> {
 	private List<Operation> listOperation;
@@ -180,13 +172,13 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		try {
 			switch (operation.getPayMode()) {
 			case PayMode.CREDIT_CARD:
-                holder.getMode().setImageResource(R.drawable.card);
+                holder.getMode().setImageResource(R.drawable.mastercard);
                 break;
 			case PayMode.DEBIT_CARD:
 				holder.getMode().setImageResource(R.drawable.card);
 				break;
 			case PayMode.CASH:
-				holder.getMode().setImageResource(R.drawable.espece);
+				holder.getMode().setImageResource(R.drawable.cash);
 				break;
 			case PayMode.TRANSFERT:
 				holder.getMode().setImageResource(R.drawable.transfert);

@@ -275,18 +275,21 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			}
 		}
 		//add the overview item to the drawerlist
-		drawerList.add(new DrawerItem(getResources().getString(R.string.Overview),R.drawable.home,true,false));
+		drawerList.add(new DrawerItem(getResources().getString(R.string.Overview),R.drawable.overview,true,false));
 		//add data to the drawerlist
 		for(int i=0;i<bankList.size();i++){//for each bank name
 			if(bankList.get(i).equals(getNameByType(AccountType.BANK))){
 				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.bank, false, true));//add the bank to the drawer as a title
 			} else if(bankList.get(i).equals(getNameByType(AccountType.CASH))){
-				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.espece, false, true));
+				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.cash_account, false, true));
             } else if(bankList.get(i).equals(getNameByType(AccountType.ASSET))){
                 drawerList.add(new DrawerItem(bankList.get(i), R.drawable.asset, false, true));
             } else if(bankList.get(i).equals(getNameByType(AccountType.CREDITCARD))){
                 drawerList.add(new DrawerItem(bankList.get(i), R.drawable.card, false, true));
-            } else if(bankList.get(i).equals(getNameByType(AccountType.NONE))){;
+            } else if(bankList.get(i).equals(getNameByType(AccountType.LIABILITY))){
+                drawerList.add(new DrawerItem(bankList.get(i), R.drawable.liability, false, true));
+            } else if(bankList.get(i).equals(getNameByType(AccountType.NONE))){
+                drawerList.add(new DrawerItem(bankList.get(i), R.drawable.notype, false, true));
 			} else {
 				drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));//add the bank to the drawer as a title
 			}

@@ -113,13 +113,16 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
                 holder.getIcon().setImageResource(R.drawable.bank);
                 break;
             case AccountType.CASH:
-                holder.getIcon().setImageResource(R.drawable.espece);
+                holder.getIcon().setImageResource(R.drawable.cash_account);
                 break;
             case AccountType.ASSET:
                 holder.getIcon().setImageResource(R.drawable.asset);
                 break;
             case AccountType.CREDITCARD:
                 holder.getIcon().setImageResource(R.drawable.card);
+                break;
+            case AccountType.LIABILITY:
+                holder.getIcon().setImageResource(R.drawable.liability);
                 break;
             default:
                 holder.getIcon().setImageDrawable(null);

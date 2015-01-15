@@ -156,13 +156,13 @@ public class DetailedCardActivity extends ActionBarActivity {
         try {
             switch (typeAccount) {
                 case PayMode.CREDIT_CARD:
-                    image.setImageResource(R.drawable.card);
+                    image.setImageResource(R.drawable.mastercard);
                     break;
                 case PayMode.DEBIT_CARD:
                     image.setImageResource(R.drawable.card);
                     break;
                 case PayMode.CASH:
-                    image.setImageResource(R.drawable.espece);
+                    image.setImageResource(R.drawable.cash);
                     break;
                 case PayMode.TRANSFERT:
                     image.setImageResource(R.drawable.transfert);
