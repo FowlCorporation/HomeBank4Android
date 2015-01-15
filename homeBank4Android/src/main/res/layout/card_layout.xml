@@ -38,6 +38,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/card_root_linear"
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
