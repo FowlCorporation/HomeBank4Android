@@ -19,13 +19,12 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,6 +33,8 @@ import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.Round;
+import android.view.LayoutInflater;
+
 
 public class OverViewCard {
 	
@@ -48,7 +49,7 @@ public class OverViewCard {
 	
 	private View view;
 
-	public OverViewCard(Context context, ViewGroup parent, Model model ) {
+	public OverViewCard(Context context, LayoutInflater inflater, ViewGroup parent, Model model ) {
 		
         Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
         soldeValue = selectedAcc.getBankAccountBalance();
@@ -58,8 +59,7 @@ public class OverViewCard {
 		soldeValue = Round.roundAmount(soldeValue);
         futurValue = Round.roundAmount(futurValue);
         todayValue = Round.roundAmount(todayValue);
-		
-		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+
 		view = inflater.inflate(R.layout.overviewcard,parent);
 		
 		
