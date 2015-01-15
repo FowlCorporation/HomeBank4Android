@@ -17,7 +17,7 @@
   ~ along with HomeBank4Android.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,55 +28,79 @@
     tools:context="com.fowlcorp.homebank4android.About$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/fragment_about_authors"
+            android:id="@+id/aboutAuthorsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+            android:layout_row="1"
+            android:text="@string/HomeBank4Android"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_horizontal"
+        android:layout_column="1"
+        android:layout_columnSpan="2" />
+
+    <Space
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_column="1"
+        android:layout_row="2" />
+
+    <TextView
+            android:id="@+id/aboutAuthors_Intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="top|left"
+            android:layout_row="3"
+            android:text="@string/AboutAuthors_Intro"
+        android:gravity="fill_horizontal|start"
+        android:layout_columnSpan="2" />
+
+    <Space
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_column="1"
+        android:layout_row="4" />
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Authors" />
+        android:id="@+id/imageView"
+        android:layout_column="1"
+        android:layout_row="5"
+        android:layout_rowSpan="2"
+        android:contentDescription="@string/HomeBank4Android"
+        android:src="@drawable/homebank"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_gravity="top|left"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp" />
 
-    <GridLayout
-        android:layout_width="match_parent"
+    <TextView
+        tools:ignore="HardcodedText"
+        android:id="@+id/aboutAuthors_AuthorsTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/fragment_about_authors"
-        android:layout_alignLeft="@+id/fragment_about_authors"
-        android:layout_below="@+id/fragment_about_authors"
-        android:columnCount="3" >
+        android:layout_column="2"
+        android:layout_gravity="top|left"
+        android:layout_row="5"
+        android:text="@string/Authors"
+        android:gravity="top|start"
+        android:textStyle="bold"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp" />
 
-        <TextView
-            android:id="@+id/textView1"
+    <TextView
+            android:id="@+id/aboutAuthors_Authors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_columnSpan="2"
-            android:layout_gravity="center"
-            android:layout_row="1"
-            android:text="@string/HomeBank"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Space />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_gravity="left|center_vertical"
-            android:layout_row="2"
-            android:text="@string/Authors" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
             android:layout_column="2"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginTop="14dp"
-            android:layout_row="2"
-            android:text="Axel BROCHARD, Cédric HUGUENIN, Martin SCHUTZ" />
+            android:layout_gravity="top|left"
+            android:layout_row="6"
+            android:text="Axel BROCHARD\nCédric HUGUENIN\nMartin SCHUTZ"
+            tools:ignore="HardcodedText"
+        android:gravity="start"
+        android:layout_marginLeft="13dp" />
 
-    </GridLayout>
-
-</RelativeLayout>
+</GridLayout>
