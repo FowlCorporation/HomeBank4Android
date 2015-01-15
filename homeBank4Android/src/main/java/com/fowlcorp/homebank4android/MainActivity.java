@@ -105,9 +105,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
 			@Override
 			protected String doInBackground(String... params) {
-				dropBoxCall();
+
 
                 try {
+                    dropBoxCall();
                     doTEst();
                 } catch (Exception e) {
                     e.printStackTrace();
