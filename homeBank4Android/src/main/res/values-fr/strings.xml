@@ -57,4 +57,7 @@
     <string name="GPLv3">GPLv3</string>
     <string name="AboutAuthors_Intro">This application has been developped by three student of TELECOM Nancy. This is the Android version of Homebank (see Credit tab).</string>
     <string name="HomeBank4Android">HomeBank4Android</string>
+    <string name="Credits">Crédits</string>
+    <string name="License">Licence</string>
+    <string name="pref_title_ringtone">Sonnerie</string>
 </resources>

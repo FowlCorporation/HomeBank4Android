@@ -17,55 +17,103 @@
   ~ along with HomeBank4Android.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.fowlcorp.homebank4android.About$PlaceholderFragment" >
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:columnCount="3" >
+        android:columnCount="3"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
-        <TextView
-            android:id="@+id/textView1"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/homebankLogoFull"
             android:layout_column="1"
-            android:layout_columnSpan="2"
-            android:layout_gravity="center"
+            android:contentDescription="@string/HomeBank"
             android:layout_row="1"
-            android:text="@string/HomeBank"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:src="@drawable/homebankfull"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center_horizontal" />
 
-        <Space />
+        <Space
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_row="2"
+            android:layout_column="1" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/originalWorkDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:layout_gravity="left|center_vertical"
-            android:layout_row="2"
-            android:text="@string/Authors" />
+            android:layout_row="3"
+            android:text="@string/OriginalWorkDescription" />
+
+        <Space
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_row="4"
+            android:layout_column="1" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/originalWork"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_column="2"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginTop="14dp"
-            android:layout_row="2"
-            android:text="GPLv3" />
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left|center_vertical"
+            android:layout_row="5"
+            android:text="@string/Original_Work"
+            android:linksClickable="false"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/originalWorkLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left|center_vertical"
+            android:layout_row="6"
+            android:text="@string/OriginalWorkLink"
+            android:linksClickable="true"
+            android:autoLink="web" />
+
+        <Space
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_row="7"
+            android:layout_column="1" />
+
+        <TextView
+            android:id="@+id/originalContributors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left|center_vertical"
+            android:layout_row="8"
+            android:text="@string/Original_Contributors"
+            android:linksClickable="false"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/originalContributorsLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left|center_vertical"
+            android:layout_row="9"
+            android:text="@string/OriginalContributorsLink"
+            android:linksClickable="true"
+            android:autoLink="web" />
 
     </GridLayout>
 
-</RelativeLayout>
+</ScrollView>
