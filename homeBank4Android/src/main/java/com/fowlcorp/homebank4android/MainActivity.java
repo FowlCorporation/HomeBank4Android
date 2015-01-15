@@ -53,8 +53,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-	static final int REQUEST_LINK_TO_DBX = 0;
-	static final int DROP_PATH_OK = 1000;
+    static final int DROP_PATH_OK = 1000;
 
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 	private CharSequence mTitle; //the title of the current fragment
@@ -124,8 +123,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 				super.onPostExecute(result);
 				progressBar.setVisibility(View.GONE);
 				drawerLayout.setVisibility(View.VISIBLE);
-                Log.e("Debug", "End of parsing");
-                Log.e("Debug", String.valueOf(model.getGrandTotalBank()));
+                Log.d("Debug", "End of parsing");
+                Log.d("Debug", String.valueOf(model.getGrandTotalBank()));
                 //model.updateGrandTotal();
                 try {
                     updateGUI();
