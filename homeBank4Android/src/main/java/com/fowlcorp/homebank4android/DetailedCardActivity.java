@@ -31,15 +31,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.fowlcorp.homebank4android.gui.MyRadioGroup;
 import com.fowlcorp.homebank4android.model.PayMode;
 
 public class DetailedCardActivity extends ActionBarActivity {
 
     private TextView balance;
-    private RadioGroup detailedCardStateGroup;
+    private MyRadioGroup detailedCardStateGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,12 +108,11 @@ public class DetailedCardActivity extends ActionBarActivity {
         } catch (Exception e) {
         }
         try {
-            detailedCardStateGroup = new RadioGroup(this);
-            detailedCardStateGroup.addView(none);
-            detailedCardStateGroup.addView(reconciled);
-            detailedCardStateGroup.addView(remind);
-            detailedCardStateGroup.addView(cleared);
-            layout.addView(detailedCardStateGroup);
+            detailedCardStateGroup = new MyRadioGroup();
+            detailedCardStateGroup.addRadioButton(none);
+            detailedCardStateGroup.addRadioButton(reconciled);
+            detailedCardStateGroup.addRadioButton(remind);
+            detailedCardStateGroup.addRadioButton(cleared);
         } catch (Exception e) {
         }
         int typeAccount = bdl.getInt("Type", -1);
