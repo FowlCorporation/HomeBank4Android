@@ -35,12 +35,12 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.Round;
 
-public class OverViewCard {
+public class OverviewCard {
 
 
     private View view;
 
-	public OverViewCard(Context context, ViewGroup parent, Model model ) {
+	public OverviewCard(Context context, ViewGroup parent, Model model) {
 
         Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
 

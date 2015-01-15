@@ -132,7 +132,7 @@ public class AccountFragment extends Fragment{
 		}
 		
 		View rootView = inflater.inflate(R.layout.recycle_layout, container, false); //the recycler layout
-		OverViewCard over = new OverViewCard(getActivity(), (ViewGroup) this.getView(), model); //create the overview card
+		OverviewCard over = new OverviewCard(getActivity(), (ViewGroup) this.getView(), model); //create the overview card
 		RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 

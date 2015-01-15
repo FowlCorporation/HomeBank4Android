@@ -81,7 +81,7 @@ public class DetailedCardActivity extends ActionBarActivity {
 		} catch (Exception e) {
 		}
         try {
-            wording.setText(bdl.getString("Info"));
+            info.setText(bdl.getString("Info"));
         } catch (Exception e) {
         }
 		try {

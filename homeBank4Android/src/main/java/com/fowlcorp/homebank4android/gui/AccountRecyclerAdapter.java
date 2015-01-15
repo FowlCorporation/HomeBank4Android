@@ -102,9 +102,9 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
                 }
                 Pair datePair = Pair.create(holder.getDate(), "date");
                 Pair categoryPair = Pair.create(holder.getCategory(), "category");
-                Pair wordingPair = Pair.create(holder.getMemo(), "wording");
-                Pair payeePair = Pair.create(holder.getTier(), "payee");
-                Pair amountPair = Pair.create(holder.getMontant(), "amount");
+                Pair wordingPair = Pair.create(holder.getWording(), "wording");
+                Pair payeePair = Pair.create(holder.getPayee(), "payee");
+                Pair amountPair = Pair.create(holder.getAmount(), "amount");
                 Pair cardPair = Pair.create(holder.getCard(), "card");
                 Pair iconPair = Pair.create(holder.getMode(), "icon");
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
@@ -121,7 +121,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		} catch (Exception e) {
 		}
 		try {
-			holder.getTier().setText(activity.getString(R.string.Payee) + " : " + operation.getPayee().getName());
+			holder.getPayee().setText(activity.getString(R.string.Payee) + " : " + operation.getPayee().getName());
 		} catch (Exception e) {
 		}
 		if(!operation.isSplit()){
@@ -132,7 +132,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			} catch (Exception e) {
 			}
 			try {
-				holder.getMemo().setText(activity.getString(R.string.Wording) + " : " + operation.getWording());
+				holder.getWording().setText(activity.getString(R.string.Wording) + " : " + operation.getWording());
 			} catch (Exception e) {
 			}
 		} else {
@@ -154,11 +154,11 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			}
 		}
 		try {
-			holder.getMontant().setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(Round.roundAmount(operation.getAmount()))));
+			holder.getAmount().setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(Round.roundAmount(operation.getAmount()))));
 		} catch (Exception e) {
 		}
 		try {
-			holder.getSolde().setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(Round.roundAmount(operation.getBalanceAccount()))));
+			holder.getBalance().setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(Round.roundAmount(operation.getBalanceAccount()))));
 		} catch (Exception e) {
 		}
 

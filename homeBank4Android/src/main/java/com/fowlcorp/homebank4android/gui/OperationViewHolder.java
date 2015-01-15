@@ -19,8 +19,6 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import com.fowlcorp.homebank4android.R;
-
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -29,14 +27,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fowlcorp.homebank4android.R;
+
 public class OperationViewHolder extends RecyclerView.ViewHolder {
 	
 	private TextView date;
 	private TextView category;
-	private TextView tier;
-	private TextView memo;
-	private TextView solde;
-	private TextView montant;
+	private TextView payee;
+	private TextView wording;
+	private TextView balance;
+	private TextView amount;
     private CardView card;
 	private ImageView mode;
 	private Context context;
@@ -50,10 +50,10 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
         card = (CardView) view.findViewById(R.id.card_view);
 		date = (TextView) view.findViewById(R.id.cardLayout_date);
 		category = (TextView) view.findViewById(R.id.cardLayout_category);
-		tier = (TextView) view.findViewById(R.id.cardLayout_tier);
-		memo = (TextView) view.findViewById(R.id.cardLayout_memo);
-		solde = (TextView) view.findViewById(R.id.cardLayout_solde);
-		montant = (TextView) view.findViewById(R.id.cardLayout_montant);
+		payee = (TextView) view.findViewById(R.id.cardLayout_tier);
+		wording = (TextView) view.findViewById(R.id.cardLayout_memo);
+		balance = (TextView) view.findViewById(R.id.cardLayout_solde);
+		amount = (TextView) view.findViewById(R.id.cardLayout_montant);
 		mode = (ImageView) view.findViewById(R.id.pay_mode_icon);
 		splitLinear = (LinearLayout) view.findViewById(R.id.split_linear);
 		unSplitLinear = (LinearLayout) view.findViewById(R.id.no_split_linear);
@@ -75,36 +75,36 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 		this.category = category;
 	}
 
-	public TextView getTier() {
-		return tier;
+	public TextView getPayee() {
+		return payee;
 	}
 
-	public void setTier(TextView tier) {
-		this.tier = tier;
+	public void setPayee(TextView payee) {
+		this.payee = payee;
 	}
 
-	public TextView getMemo() {
-		return memo;
+	public TextView getWording() {
+		return wording;
 	}
 
-	public void setMemo(TextView memo) {
-		this.memo = memo;
+	public void setWording(TextView wording) {
+		this.wording = wording;
 	}
 
-	public TextView getSolde() {
-		return solde;
+	public TextView getBalance() {
+		return balance;
 	}
 
-	public void setSolde(TextView solde) {
-		this.solde = solde;
+	public void setBalance(TextView balance) {
+		this.balance = balance;
 	}
 
-	public TextView getMontant() {
-		return montant;
+	public TextView getAmount() {
+		return amount;
 	}
 
-	public void setMontant(TextView montant) {
-		this.montant = montant;
+	public void setAmount(TextView amount) {
+		this.amount = amount;
 	}
 
 	public Context getContext() {
