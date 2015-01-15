@@ -96,7 +96,7 @@ public class OverviewFragment extends Fragment{
 		RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         LinearLayout overView = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 
-        View overViewView = inflater.inflate(R.layout.overview_card_layout, overView,true);
+        View overViewView = inflater.inflate(R.layout.overview_overview_card_layout, overView,true);
 
         title = (TextView) overViewView.findViewById(R.id.overview_card_title);
         solde = (TextView) overViewView.findViewById(R.id.overview_card_solde);

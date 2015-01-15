@@ -25,9 +25,11 @@ package com.fowlcorp.homebank4android;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -180,16 +182,22 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			FragmentManager fragmentManager = getSupportFragmentManager(); //get the fragment manager
 			FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
 			if(drawerList.get(position).isOverview()){ //if the item is the overview
-				tx.replace(R.id.container,OverviewFragment.newInstance(this)).commitAllowingStateLoss(); //invoke the overview fragment
+				tx.replace(R.id.container, OverviewFragment.newInstance(this), "tag").commitAllowingStateLoss(); //invoke the overview fragment
 			} else { //if it is an account
-				tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, this)).commit(); //invoke the account fragment
+				tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, this), "tag").commit(); //invoke the account fragment
 			}
 		} catch (Exception e) {
 			e.printStackTrace(); //debug
 		}
 	}
 
-	public void onSectionAttached(int number) {
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        updateGUI();
+    }
+
+    public void onSectionAttached(int number) {
 		mTitle = drawerList.get(number).getItemName(); //replace the current title bu the title of the fragment
 	}
 
@@ -212,7 +220,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	@Override
+
+
+    @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
