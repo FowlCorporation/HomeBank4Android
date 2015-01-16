@@ -23,8 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -127,9 +129,16 @@ public class OverviewFragment extends Fragment{
 	}
 
     private Spannable colorText(String fieldName, String value) {
-        Spannable span = new SpannableString(fieldName + value);
+        Spannable span = new SpannableString(fieldName + value + getCurrency());
         span.setSpan(new ForegroundColorSpan((value.charAt(0) == '-' ? Color.rgb(206, 92, 0) : Color.rgb(78, 154, 54))), fieldName.length(), fieldName.length() + value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return span;
+    }
+
+    private String getCurrency(){
+        String result;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        result = " "+sharedPreferences.getString("currency", "€");
+        return result;
     }
 
     private void updateOverViewView(){

@@ -20,8 +20,11 @@
 package com.fowlcorp.homebank4android.gui;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -38,9 +41,10 @@ import com.fowlcorp.homebank4android.utils.Round;
 
 public class OverviewCard {
 
+    private Activity activity;
 
-	public OverviewCard(Context context, LayoutInflater inflater, ViewGroup parent, Model model) {
-		
+	public OverviewCard(Activity activity, LayoutInflater inflater, ViewGroup parent, Model model) {
+		this.activity=activity;
         Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
 
         double balanceValue;
@@ -65,14 +69,20 @@ public class OverviewCard {
         futureView = (TextView) view.findViewById(R.id.overviewCard_future);
         todayView = (TextView) view.findViewById(R.id.overviewCard_today);
 
-        balanceView.setText(colorText(context.getString(R.string.Balance) + " : ", String.valueOf(balanceValue)));
-		futureView.setText(colorText(context.getString(R.string.Future) + " : ", String.valueOf(futureValue)));
-		todayView.setText(colorText(context.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
+        balanceView.setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(balanceValue)));
+		futureView.setText(colorText(activity.getString(R.string.Future) + " : ", String.valueOf(futureValue)));
+		todayView.setText(colorText(activity.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
     }
 	
 	private Spannable colorText(String fieldName, String value) {
-		Spannable span = new SpannableString(fieldName + value);
+		Spannable span = new SpannableString(fieldName + value + getCurrency());
 		span.setSpan(new ForegroundColorSpan((value.charAt(0) == '-' ? Color.rgb(206, 92, 0) : Color.rgb(78, 154, 54))), fieldName.length(), fieldName.length() + value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		return span;
 	}
+    private String getCurrency(){
+        String result;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        result = " "+sharedPreferences.getString("currency", "€");
+        return result;
+    }
 }

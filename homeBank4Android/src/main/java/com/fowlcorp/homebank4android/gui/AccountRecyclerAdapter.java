@@ -178,16 +178,16 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
 				//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 				category.setText(activity.getString(R.string.Category) + " : " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
-				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(subOp.getAmount()))+getCurrency());
+				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(subOp.getAmount())));
 				splitLayout.addView(view);
 			}
 		}
 		try {
-			holder.getAmount().setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(Round.roundAmount(operation.getAmount())))+getCurrency());
+			holder.getAmount().setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(Round.roundAmount(operation.getAmount()))));
 		} catch (Exception e) {
 		}
 		try {
-			holder.getBalance().setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(Round.roundAmount(operation.getBalanceAccount())))+getCurrency());
+			holder.getBalance().setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(Round.roundAmount(operation.getBalanceAccount()))));
 		} catch (Exception e) {
 		}
 
@@ -242,7 +242,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 
 
 	private Spannable colorText(String fieldName, String value) {
-		Spannable span = new SpannableString(fieldName + value);
+		Spannable span = new SpannableString(fieldName + value + getCurrency());
 		span.setSpan(new ForegroundColorSpan((value.charAt(0) == '-' ? Color.rgb(206, 92, 0) : Color.rgb(78, 154, 54))), fieldName.length(), fieldName.length() + value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		return span;
 	}
