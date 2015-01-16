@@ -72,7 +72,7 @@
     <string name="ArtworkCoelho">Some icons are from Everaldo Coelho.</string>
     <string name="ArtworkMoore">Some icons are from Alexander Moore.</string>
     <string name="ArtworkIcons8">Some icons are from icons8.</string>
-    <string name="title_activity_first_launch">firstLaunchActivity</string>
+    <string name="title_activity_first_launch" translatable="false">firstLaunchActivity</string>
     <string name="action_settings">Settings</string>
     <string name="Welcome">Welcome</string>
     <string name="Next">Next</string>
