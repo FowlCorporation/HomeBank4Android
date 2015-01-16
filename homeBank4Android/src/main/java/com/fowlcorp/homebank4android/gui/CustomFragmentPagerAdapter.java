@@ -29,6 +29,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 
 public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 	
@@ -37,7 +39,7 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
     private ArrayList<Account> accountList; //the list of account
     private ArrayList<DrawerItem> drawerList; //the draweritem list
 	
-	public CustomFragmentPagerAdapter(FragmentManager mFragmentManager, int position, MainActivity activity) {
+	public CustomFragmentPagerAdapter(FragmentManager mFragmentManager, int position, final MainActivity activity) {
 		super(mFragmentManager);
         ((MainActivity) activity).onSectionAttached(position);//notify main activity
 
@@ -58,6 +60,7 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_PAID));
 		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_UNPAID));
         fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_REMIND));
+
 	}
 
 	@Override
