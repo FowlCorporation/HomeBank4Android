@@ -104,6 +104,26 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
                     intent.putExtra("Type", operation.getPayMode());
                 } catch (Exception e) {
                 }
+//                try {
+//                    intent.putExtra("Info", operation.getInfo());
+//                } catch (Exception e) {
+//                }
+                try {
+                    intent.putExtra("Reconciled", operation.isReconciled());
+                } catch (Exception e) {
+                }
+                try {
+                    intent.putExtra("Reconciled", operation.isReconciled());
+                } catch (Exception e) {
+                }
+                try {
+                    intent.putExtra("Remind", operation.isRemind());
+                } catch (Exception e) {
+                }
+                try {
+                    intent.putExtra("Split", operation.isSplit());
+                } catch (Exception e) {
+                }
 
                 Pair datePair = Pair.create(holder.getDate(), "date");
                 Pair categoryPair = Pair.create(holder.getCategory(), "category");

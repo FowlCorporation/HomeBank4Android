@@ -123,34 +123,41 @@ public class DetailedCardActivity extends ActionBarActivity {
         try {
             date.setText(bdl.getString("Date"), TextView.BufferType.SPANNABLE);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         try {
             category.setText(bdl.getString("Category"));
         } catch (Exception e) {
+            e.printStackTrace();
         }
         try {
             payee.setText(bdl.getString("Payee"));
         } catch (Exception e) {
+            e.printStackTrace();
         }
         try {
             wording.setText(bdl.getString("Wording"));
         } catch (Exception e) {
+            e.printStackTrace();
         }
         try {
             info.setText(bdl.getString("Info"));
         } catch (Exception e) {
+            e.printStackTrace();
         }
         try {
             amount.setText(bdl.getString("Amount"));
         } catch (Exception e) {
+           e.printStackTrace();
         }
         try {
             detailedCardStateGroup = new MyRadioGroup();
-            detailedCardStateGroup.addRadioButton(none);
-            detailedCardStateGroup.addRadioButton(reconciled);
-            detailedCardStateGroup.addRadioButton(remind);
-            detailedCardStateGroup.addRadioButton(cleared);
+            detailedCardStateGroup.addRadioButton(none, false);
+            detailedCardStateGroup.addRadioButton(reconciled, bdl.getBoolean("Reconciled"));
+            detailedCardStateGroup.addRadioButton(remind, bdl.getBoolean("Remind"));
+            detailedCardStateGroup.addRadioButton(cleared, false);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         int typeAccount = bdl.getInt("Type", -1);
         try {
@@ -178,6 +185,7 @@ public class DetailedCardActivity extends ActionBarActivity {
                     break;
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
