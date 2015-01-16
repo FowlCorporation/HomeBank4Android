@@ -38,7 +38,7 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 	private TextView balance;
 	private TextView amount;
     private CardView card;
-	private ImageView mode;
+	private ImageView mode, option;
 	private Context context;
 	private LinearLayout splitLinear;
 	private LinearLayout unSplitLinear;
@@ -56,6 +56,7 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 		balance = (TextView) view.findViewById(R.id.cardLayout_solde);
 		amount = (TextView) view.findViewById(R.id.cardLayout_montant);
 		mode = (ImageView) view.findViewById(R.id.pay_mode_icon);
+        option = (ImageView) view.findViewById(R.id.optionnal_icon);
         rootLayout = (LinearLayout) view.findViewById(R.id.card_root_linear);
 		splitLinear = (LinearLayout) view.findViewById(R.id.split_linear);
 		unSplitLinear = (LinearLayout) view.findViewById(R.id.no_split_linear);
@@ -163,5 +164,13 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 
     public void setRootLayout(LinearLayout rootLayout) {
         this.rootLayout = rootLayout;
+    }
+
+    public ImageView getOption() {
+        return option;
+    }
+
+    public void setOption(ImageView option) {
+        this.option = option;
     }
 }

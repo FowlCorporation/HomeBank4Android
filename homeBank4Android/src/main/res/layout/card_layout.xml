@@ -60,7 +60,12 @@
                     android:id="@+id/pay_mode_icon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.33" />
+                <ImageView
+                    android:id="@+id/optionnal_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="0.33" />
 
                 <!--
                 <TextView

@@ -189,6 +189,14 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		} catch (Exception e) {
 		}
 
+        if(operation.isSplit()){
+            holder.getOption().setImageResource(R.drawable.split);
+        } else if(operation.isRemind()){
+            holder.getOption().setImageResource(R.drawable.remind);
+        }else {
+            holder.getOption().setImageDrawable(null);
+        }
+
 		try {
 			switch (operation.getPayMode()) {
 			case PayMode.CREDIT_CARD:
