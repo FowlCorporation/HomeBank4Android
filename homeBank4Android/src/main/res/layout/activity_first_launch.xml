@@ -9,8 +9,7 @@
     android:paddingBottom="5dp"
     android:orientation="vertical"
     tools:context="com.fowlcorp.homebank4android.firstLaunchActivity"
-    android:weightSum="1"
-    android:background="#ff0387d3">
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/first_launch_title"
