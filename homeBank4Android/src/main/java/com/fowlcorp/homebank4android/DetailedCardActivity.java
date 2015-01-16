@@ -118,6 +118,17 @@ public class DetailedCardActivity extends ActionBarActivity {
             }
         });
 
+        date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    new DatePickerDialog(DetailedCardActivity.this, dateDiag, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            }
+        });
+
 
 
         try {
