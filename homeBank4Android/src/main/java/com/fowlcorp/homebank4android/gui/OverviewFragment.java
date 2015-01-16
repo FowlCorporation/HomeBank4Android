@@ -141,6 +141,6 @@ public class OverviewFragment extends Fragment{
         solde.setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(soldeValue)));
         futur.setText(colorText(activity.getString(R.string.Future) + " : ", String.valueOf(futurValue)));
         today.setText(colorText(activity.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
-        icon.setImageDrawable(null);
+        icon.setImageDrawable(getResources().getDrawable(R.drawable.overview));
     }
 }
