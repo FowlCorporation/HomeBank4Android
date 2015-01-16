@@ -29,6 +29,8 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -36,12 +38,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
 
+import com.fowlcorp.homebank4android.gui.AccountFragment;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
 import com.fowlcorp.homebank4android.gui.OverviewFragment;
 import com.fowlcorp.homebank4android.gui.PagerSwipeFragment;
@@ -236,9 +240,24 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             FragmentManager fragmentManager = getSupportFragmentManager(); //get the fragment manager
             FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
             if(drawerList.get(position).isOverview()){ //if the item is the overview
-                tx.replace(R.id.container, OverviewFragment.newInstance(this), "tag").commitAllowingStateLoss(); //invoke the overview fragment
+                tx.replace(R.id.container, OverviewFragment.newInstance(this), "overview").commitAllowingStateLoss(); //invoke the overview fragment
             } else { //if it is an account
-                tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, this), "tag").commit(); //invoke the account fragment
+                PagerSwipeFragment pagerFrag = PagerSwipeFragment.newInstance(position, this);
+                pagerFrag.getView().setFocusableInTouchMode(true);
+                pagerFrag.getView().requestFocus();
+                pagerFrag.getView().setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK) {
+                            Log.i("tag", "onKey Back listener is working!!!");
+                            updateGUI();
+                            return true;
+                        }
+                        return false;
+
+                    }
+                });
+                tx.replace(R.id.container,pagerFrag).commit(); //invoke the account fragment
             }
         } catch (Exception e) {
             e.printStackTrace(); //debug
@@ -274,7 +293,17 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         return super.onCreateOptionsMenu(menu);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
+        if(f instanceof PagerSwipeFragment){
+            updateGUI();
+        } else if(f instanceof AccountFragment){
+            updateGUI();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
