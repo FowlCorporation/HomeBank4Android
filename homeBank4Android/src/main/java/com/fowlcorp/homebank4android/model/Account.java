@@ -29,6 +29,7 @@ public class Account extends AccPayCatTagAbstract {
     private double todayAccountBalance;
     private double bankAccountBalance;
     private double futureAccountBalance;
+	private double minimumBalance;
 	private String bankName, accountNumber;
     private boolean modified;
     private int type;
@@ -73,7 +74,7 @@ public class Account extends AccPayCatTagAbstract {
 	
 	@Override
 	public String toString() {
-		return "Account : "+getKey() +", " + getName() + (getBankName() == null ? "" : ", bank name : " + getBankName())  + (getAccountNumber() == null ? "" : ", account number : " + getAccountNumber()) + ", initial balance : " + getInitBalance();
+		return "Account : "+getKey() +", " + getName() + (getBankName() == null ? "" : ", bank name : " + getBankName())  + (getAccountNumber() == null ? "" : ", account number : " + getAccountNumber()) + ", initial balance : " + getInitBalance() + ", minimum : " + getMinimumBalance();
 	}
 
     public double getTodayAccountBalance() {
@@ -115,4 +116,13 @@ public class Account extends AccPayCatTagAbstract {
     public void setType(int type) {
         this.type = type;
     }
+
+
+	public double getMinimumBalance() {
+		return minimumBalance;
+	}
+
+	public void setMinimumBalance(double minimumBalance) {
+		this.minimumBalance = minimumBalance;
+	}
 }

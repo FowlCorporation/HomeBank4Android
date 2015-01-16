@@ -169,6 +169,9 @@ public class DataParser {
 				if(el.hasAttribute("number")) {
 					a.setAccountNumber(el.getAttribute("number"));
 				}
+				if(el.hasAttribute("minimum")) {
+					a.setMinimumBalance(Double.parseDouble(el.getAttribute("minimum")));
+				}
                 if(el.hasAttribute("type")) {
                     a.setType(Integer.parseInt(el.getAttribute("type")));
                 } else {
