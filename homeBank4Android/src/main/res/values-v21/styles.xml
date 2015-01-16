@@ -20,7 +20,10 @@
 
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorPrimaryDark">#0288d1</item>
+        <item name="android:colorPrimaryDark">#ff0387d3</item>
+        <item name="android:colorPrimary">#ff14B9CC</item>
+        <item name="android:colorAccent">#ffCCB614</item>
+        <item name="android:colorActivatedHighlight">#ffCCB614</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
