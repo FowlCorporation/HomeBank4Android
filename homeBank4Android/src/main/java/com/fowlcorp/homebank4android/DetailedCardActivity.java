@@ -199,13 +199,15 @@ public class DetailedCardActivity extends ActionBarActivity {
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(intent); //start the activity of preferences
             return true;
-        }
-        if (id == R.id.action_about) { //the settings button is selected
+        } else if (id == R.id.action_about) { //the settings button is selected
             Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
             startActivity(intent); //start the activity of preferences
             return true;
+        } else {
+            onBackPressed();
+            return true;
         }
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item);
     }
 
     private void updateLabel() {
