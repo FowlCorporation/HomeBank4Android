@@ -9,27 +9,33 @@
 
     <TextView
         android:id="@+id/first_launch_title"
-        android:textSize="30dp"
-        android:text="@string/hello_world"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:textSize="30sp"
+        android:text="@string/Welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="start" />
+
+    <Space
+        android:layout_width="13dp"
+        android:layout_height="13dp" />
 
     <TextView
         android:id="@+id/first_launch_content"
-        android:textSize="30dp"
-        android:text="@string/hello_world"
-        android:gravity="center"
+        android:text="@string/WelcomeContent"
+        android:gravity="start"
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:linksClickable="true"
+        android:autoLink="web" />
 
     <Button
         android:id="@+id/first_launch_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello world!"
-        android:textSize="20dp"
-        />
+        android:text="@string/Next"
+        android:textSize="20sp"
+        android:layout_gravity="right" />
 
 </LinearLayout>
