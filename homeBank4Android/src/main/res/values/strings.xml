@@ -16,8 +16,7 @@
   ~
   ~ You should have received a copy of the GNU General Public License
   ~ along with HomeBank4Android.  If not, see <http://www.gnu.org/licenses/>.
-  -->
-
+-->
 <resources>
 
     <string name="HomeBank" translatable="false">HomeBank</string>
@@ -73,5 +72,7 @@
     <string name="ArtworkCoelho">Some icons are from Everaldo Coelho.</string>
     <string name="ArtworkMoore">Some icons are from Alexander Moore.</string>
     <string name="ArtworkIcons8">Some icons are from icons8.</string>
+    <string name="title_activity_first_launch">firstLaunchActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
