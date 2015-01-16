@@ -28,10 +28,14 @@ import android.widget.RadioButton;
 public class MyRadioGroup implements RadioButton.OnCheckedChangeListener {
     private CompoundButton checkedButton = null;
 
-    public void addRadioButton(RadioButton rb) {
+    public void addRadioButton(RadioButton rb, Boolean checked) {
         rb.setOnCheckedChangeListener(this);
 
         if (checkedButton == null) {
+            checkedButton = rb;
+        } else if (checked) {
+            checkedButton.setChecked(false);
+            rb.setChecked(true);
             checkedButton = rb;
         }
     }
@@ -43,7 +47,8 @@ public class MyRadioGroup implements RadioButton.OnCheckedChangeListener {
         }
     }
 
-    public CompoundButton getCheckedRadioButton() {
+    public CompoundButton getCheckedButton() {
+
         return checkedButton;
     }
 }
