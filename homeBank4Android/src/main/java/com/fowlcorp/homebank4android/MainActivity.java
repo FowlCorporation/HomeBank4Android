@@ -264,11 +264,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        updateGUI();
-    }
 
     public void onSectionAttached(int number) {
         mTitle = drawerList.get(number).getItemName(); //replace the current title bu the title of the fragment

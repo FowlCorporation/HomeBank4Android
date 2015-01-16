@@ -112,6 +112,13 @@ public class PagerSwipeFragment extends Fragment{
 		((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));//notify main activity
 	}
 
-
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        Log.e("conf", "conf changed in pager");
+        int position = mViewPager.getCurrentItem();
+        mViewPager.setAdapter(new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, activity));
+        mViewPager.invalidate();
+        mViewPager.setCurrentItem(position);
+        super.onConfigurationChanged(newConfig);
+    }
 }
