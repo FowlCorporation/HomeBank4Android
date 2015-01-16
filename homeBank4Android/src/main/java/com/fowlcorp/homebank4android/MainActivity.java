@@ -57,6 +57,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     static final int DROP_PATH_OK = 1000;
     static final int FIRST_OK = 2000;
+    static final int SETTINGS_OK = 3000;
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle; //the title of the current fragment
@@ -219,7 +220,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
             asyncTask.execute(new String());
 
-        } else {
+        } else if(requestCode == SETTINGS_OK){
+            updateGUI();
+        }else {
             super.onActivityResult(requestCode, resultCode, data);
         }
 
@@ -281,7 +284,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         int id = item.getItemId();
         if (id == R.id.action_settings) { //the settings button is selected
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(intent); //start the activity of preferences
+            startActivityForResult(intent, SETTINGS_OK); //start the activity of preferences
             return true;
         }
         if (id == R.id.action_about) { //the settings button is selected
