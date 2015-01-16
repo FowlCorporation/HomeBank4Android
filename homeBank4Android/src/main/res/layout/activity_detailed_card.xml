@@ -47,6 +47,10 @@
         android:layout_marginRight="1dp"
         card_view:cardCornerRadius="4dp" >
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
     <GridLayout
         android:id="@+id/GridLayout1"
         android:layout_width="match_parent"
@@ -229,5 +233,6 @@
             android:layout_gravity="center"
             />
     </GridLayout>
+        </ScrollView>
     </android.support.v7.widget.CardView>
 </LinearLayout>

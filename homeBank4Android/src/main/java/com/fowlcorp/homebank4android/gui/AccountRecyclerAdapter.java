@@ -73,7 +73,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		myDate = Calendar.getInstance();
 		myDate.setTime(operation.getDate().getTime());
 		final SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-		holder.getView().setOnClickListener(new OnClickListener() {
+		holder.getRootLayout().setOnClickListener(new OnClickListener() {
 
 
 

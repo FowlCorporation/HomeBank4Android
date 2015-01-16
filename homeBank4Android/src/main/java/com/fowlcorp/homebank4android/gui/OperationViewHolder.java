@@ -43,6 +43,7 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 	private LinearLayout splitLinear;
 	private LinearLayout unSplitLinear;
 	private View view;
+    private LinearLayout rootLayout;
 
 	public OperationViewHolder(View view) {
 		super(view);
@@ -55,6 +56,7 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 		balance = (TextView) view.findViewById(R.id.cardLayout_solde);
 		amount = (TextView) view.findViewById(R.id.cardLayout_montant);
 		mode = (ImageView) view.findViewById(R.id.pay_mode_icon);
+        rootLayout = (LinearLayout) view.findViewById(R.id.card_root_linear);
 		splitLinear = (LinearLayout) view.findViewById(R.id.split_linear);
 		unSplitLinear = (LinearLayout) view.findViewById(R.id.no_split_linear);
 	}
@@ -153,5 +155,13 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 
     public void setCard(CardView card) {
         this.card = card;
+    }
+
+    public LinearLayout getRootLayout() {
+        return rootLayout;
+    }
+
+    public void setRootLayout(LinearLayout rootLayout) {
+        this.rootLayout = rootLayout;
     }
 }
