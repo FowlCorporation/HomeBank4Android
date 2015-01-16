@@ -1,35 +1,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingBottom="5dp"
     android:orientation="vertical"
-    tools:context="com.fowlcorp.homebank4android.firstLaunchActivity">
+    tools:context="com.fowlcorp.homebank4android.firstLaunchActivity"
+    android:weightSum="1"
+    android:background="#ff0387d3">
 
     <TextView
         android:id="@+id/first_launch_title"
-        android:textSize="30dp"
-        android:text="@string/hello_world"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:textSize="30sp"
+        android:text="@string/Welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:gravity="start"
+        android:textColor="#ffffffff" />
 
-    <TextView
-        android:id="@+id/first_launch_content"
-        android:textSize="30dp"
-        android:text="@string/hello_world"
-        android:gravity="center"
-        android:layout_width="match_parent"
+    <Space
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_gravity="top" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:id="@+id/scrollView"
         android:layout_weight="1"
-        android:layout_height="wrap_content" />
+        android:layout_gravity="top">
+
+        <TextView
+            android:id="@+id/first_launch_content"
+            android:text="@string/WelcomeContent"
+            android:gravity="top|start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:layout_gravity="top"
+            android:background="#ffffffff"
+            android:padding="5dp" />
+    </ScrollView>
 
     <Button
         android:id="@+id/first_launch_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello world!"
-        android:textSize="20dp"
-        />
+        android:text="@string/Next"
+        android:textSize="20sp"
+        android:layout_gravity="right|bottom" />
 
 </LinearLayout>

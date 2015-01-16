@@ -70,4 +70,14 @@
     <string name="pref_title_vibrate">Vibrer</string>
     <string name="title_activity_settings">Paramètres</string>
     <string name="pref_header_data_sync">Données de synchronisation</string>
+    <string name="Next">Suivant</string>
+    <string name="State">État</string>
+    <string name="Welcome">Bienvenue</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="WelcomeContent">Bienvenue sur HomeBank4Android, le portage libre de HomeBank (cf. À Propos). HomeBank4Android utilise le même fichier xhb que l\'application de bureau HomeBank.\n\n Nous vous recommandons de synchroniser votre fichier xhb entre votre ordinateur et vos appareils Android à l\'aide d\'une solution tièrce comme BitTorrent Sync que vous pouvez télécharger ici : https://play.google.com/store/apps/details?id=com.bittorrent.sync\nVous trouverez plus de détails à propos de BitTorrent Sync ici : https://www.getsync.com\n\nSur le prochain écran, il vous sera demandé de sélectionner votre fichier xhb sur l\'appareil.\n\nPour l\'instant HomeBank4Android est uniquement une visionneuse, vous ne serez pas en mesure d\'ajouter ou d\'éditer des opérations.</string>
+    <string name="ArtworkCoelho">Certaines icônes proviennent du travail d\'Everaldo Coelho.</string>
+    <string name="ArtworkIcons8">Certaines icônes proviennent du travail d\'icons8.</string>
+    <string name="ArtworkMoore">Certaines icônes proviennent du travail d\'Alexander Moore.</string>
+    <string name="ArtworkTemplatic">Certaines icônes proviennent du travail de Templatic.com</string>
+    <string name="Artworks">Graphisme</string>
 </resources>
