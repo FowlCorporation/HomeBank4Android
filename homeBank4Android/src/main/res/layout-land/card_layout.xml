@@ -38,11 +38,15 @@
         android:layout_marginRight="1dp"
         card_view:cardCornerRadius="4dp" >
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:id="@+id/card_root_linear"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/card_root_linear"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
 
 
@@ -58,76 +62,77 @@
 
 
 
-            <TextView
-                android:id="@+id/cardLayout_tier"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:transitionName="payee"
-                android:text="@string/Payee" />
-
-            <LinearLayout
-                android:id="@+id/no_split_linear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
                 <TextView
-                    android:id="@+id/cardLayout_category"
+                    android:id="@+id/cardLayout_tier"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:transitionName="category"
-                    android:text="@string/Category" />
+                    android:transitionName="payee"
+                    android:text="@string/Payee" />
 
-
-
-                <TextView
-                    android:id="@+id/cardLayout_memo"
+                <LinearLayout
+                    android:id="@+id/no_split_linear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:transitionName="wording"
-                    android:text="@string/Wording" />
-            </LinearLayout>
+                    android:orientation="vertical" >
 
-            <LinearLayout
-                android:id="@+id/split_linear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                    <TextView
+                        android:id="@+id/cardLayout_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:transitionName="category"
+                        android:text="@string/Category" />
 
 
-                <TextView
-                    android:id="@+id/cardLayout_solde"
-                    android:layout_width="wrap_content"
+
+                    <TextView
+                        android:id="@+id/cardLayout_memo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:transitionName="wording"
+                        android:text="@string/Wording" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/split_linear"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="0.5"
-                    android:text="@string/Balance" />
+                    android:orientation="horizontal" >
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/cardLayout_montant"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="0.5"
-                    android:transitionName="amount"
-                    android:text="@string/Amount" />
-            </LinearLayout>
-            <ImageView
-                android:id="@+id/pay_mode_icon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
+                    android:orientation="horizontal" >
 
-        </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/cardLayout_solde"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="0.5"
+                        android:text="@string/Balance" />
+
+                    <TextView
+                        android:id="@+id/cardLayout_montant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="0.5"
+                        android:transitionName="amount"
+                        android:text="@string/Amount" />
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/pay_mode_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"/>
+
+            </LinearLayout>
+        </ScrollView>
     </android.support.v7.widget.CardView>
 
 </LinearLayout>
