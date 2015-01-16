@@ -3,7 +3,7 @@ HomeBank4Android
 
 Home Bank Application for Android devices
 
-Copyright (C) 2014 Fowl Corporation
+Copyright (C) 2014-2015 Fowl Corporation
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
