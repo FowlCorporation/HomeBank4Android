@@ -178,7 +178,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
 				//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 				category.setText(activity.getString(R.string.Category) + " : " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
-				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(subOp.getAmount())));
+				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", ""+Round.roundAmount(subOp.getAmount())));
 				splitLayout.addView(view);
 			}
 		}
