@@ -20,7 +20,9 @@
 package com.fowlcorp.homebank4android.gui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -176,16 +178,16 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
 				//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 				category.setText(activity.getString(R.string.Category) + " : " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
-				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(subOp.getAmount())));
+				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(subOp.getAmount()))+getCurrency());
 				splitLayout.addView(view);
 			}
 		}
 		try {
-			holder.getAmount().setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(Round.roundAmount(operation.getAmount()))));
+			holder.getAmount().setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(Round.roundAmount(operation.getAmount())))+getCurrency());
 		} catch (Exception e) {
 		}
 		try {
-			holder.getBalance().setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(Round.roundAmount(operation.getBalanceAccount()))));
+			holder.getBalance().setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(Round.roundAmount(operation.getBalanceAccount())))+getCurrency());
 		} catch (Exception e) {
 		}
 
@@ -193,8 +195,13 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
             holder.getOption().setImageResource(R.drawable.split);
         } else if(operation.isRemind()){
             holder.getOption().setImageResource(R.drawable.remind);
+            holder.getCard().setCardBackgroundColor(Color.parseColor("#ffebee"));
         }else {
             holder.getOption().setImageDrawable(null);
+        }
+
+        if(!operation.isReconciled() && !operation.isRemind()){
+            holder.getCard().setCardBackgroundColor(Color.parseColor("#fff3e0"));
         }
 
 		try {
@@ -239,5 +246,12 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		span.setSpan(new ForegroundColorSpan((value.charAt(0) == '-' ? Color.rgb(206, 92, 0) : Color.rgb(78, 154, 54))), fieldName.length(), fieldName.length() + value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		return span;
 	}
+
+    private String getCurrency(){
+        String result;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        result = " "+sharedPreferences.getString("currency", "€");
+        return result;
+    }
 
 }
