@@ -23,7 +23,7 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -34,9 +34,41 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="android:colorActivatedHighlight">#ffCCB614</item>
+        <item name="android:colorActivatedHighlight">@color/colorAccent_Light</item>
+        <item name="android:colorFocusedHighlight">@color/colorAccent_Light</item>
+        <item name="android:windowActionBar">false</item>
     </style>
-    
 
-    
+    <!--Currently not in use-->
+    <style name="AppTheme.Toolbar" parent="Theme.AppCompat.NoActionBar">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- This would set the toolbar's background color,
+              but setting this also changes the popup menu's background,
+              even if we define popupTheme for our <Toolbar> -->
+        <!--<item name="android:background">@color/colorPrimary_Light</item>-->
+        <item name="android:minHeight">?attr/actionBarSize</item>
+
+        <!-- android:textColorPrimary is the  color of the title text
+             in the Toolbar, in the Theme.AppCompat theme:  -->
+        <item name="android:textColorPrimary">@color/colorToolbarText_Light</item>
+        <!-- android:textColorSecondary is the color of the menu
+             overflow icon (three vertical dots) -->
+        <item name="android:textColorSecondary">@color/colorToolbarText_Light</item>
+        <item name="android:textColorTertiary">@color/colorToolbarText_Light</item>
+        <!-- android:textColorPrimaryInverse is the  color of the title
+             text in the Toolbar, in the Theme.AppCompat.Light theme:  -->
+        <!-- <item name="android:textColorPrimaryInverse">@color/abc_primary_text_material_light</item> -->
+
+        <!--<item name="android:popupBackground">@color/colorToolbarText_Light</item>-->
+
+        <!-- android:actionMenuTextColor is the color of the text of
+              action (menu) items in the Toolbar, at least in the
+              Theme.AppCompat theme.
+              For some reason, they already get the textColorPrimary
+              when running on API 21, but not on older versions of
+              Android, so this is only necessary to support older
+              Android versions.-->
+        <!--<item name="actionMenuTextColor">@color/abc_primary_text_material_light</item>-->
+    </style>
+
 </resources>

@@ -27,7 +27,7 @@
             android:id="@+id/about_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#03a9f4"
+            android:background="@color/colorPrimary_Light"
             android:minHeight="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
@@ -35,7 +35,7 @@
         
     <com.common.view.SlidingTabLayout
         android:id="@+id/sliding_tabs"
-        android:background="#03a9f4"
+        android:background="@color/colorPrimary_Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
         

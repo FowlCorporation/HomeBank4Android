@@ -19,9 +19,13 @@
   -->
 
 <resources>
-    <color name="colorPrimaryDark_Light">#0387d3</color>
+    <color name="colorPrimaryDark_Light">#0288d1</color>
     <color name="colorPrimary_Light">#03a9f4</color>
-    <color name="colorAccent_Light">#CCB614</color>
-    <color name="colorFocusedHighlight">#FFAC00</color>
-    <color name="colorBackgroundOverview_Light">#b3e5fc</color>
+    <color name="colorPrimaryLight_Light">#b3e5fc</color>
+    <color name="colorAccentFallbackDark_Light">#ffc400</color>
+    <color name="colorAccent_Light">#ffd740</color>
+    <color name="colorAccentFallbackLight_Light">#ffe57f</color>
+    <color name="colorSelectedTab_Light">#ffffff</color>
+    <color name="colorToolbarText_Light">#ffffff</color>
+    <color name="colorBackground">#bdbdbd</color>
 </resources>
