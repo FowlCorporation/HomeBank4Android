@@ -19,6 +19,7 @@
 
 package com.fowlcorp.homebank4android.gui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -53,9 +54,9 @@ import java.util.Locale;
 public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHolder> {
 	private List<Operation> listOperation;
 	private Calendar myDate;
-	private MainActivity activity;
+	private Activity activity;
 
-	public AccountRecyclerAdapter(List<Operation> listOperation, MainActivity activity) {
+	public AccountRecyclerAdapter(List<Operation> listOperation, Activity activity) {
 		this.listOperation = listOperation;
 		this.activity = activity;
 	}

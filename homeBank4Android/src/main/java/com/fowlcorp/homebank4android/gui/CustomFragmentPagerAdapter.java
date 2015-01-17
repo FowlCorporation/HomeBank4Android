@@ -26,37 +26,38 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
+import com.fowlcorp.homebank4android.model.Model;
+
+import android.app.Activity;
 
 import java.util.ArrayList;
 
 public class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
 
 	private ArrayList<Fragment> fragList;
-	private MainActivity activity;
-	private ArrayList<Account> accountList; //the list of account
-	private ArrayList<DrawerItem> drawerList; //the draweritem list
+	private Activity activity;
+    private Model model;
 
-	public CustomFragmentPagerAdapter(FragmentManager mFragmentManager, int position, final MainActivity activity) {
+	public CustomFragmentPagerAdapter(FragmentManager mFragmentManager, int position, int key, final Activity activity, Model model) {
 		super(mFragmentManager);
-		((MainActivity) activity).onSectionAttached(position);//notify main activity
+        //activity.onSectionAttached(position);//notify main activity
 
 		this.activity = activity;
-		drawerList = activity.getDrawerList();
-		accountList = activity.getAccountList();
-		for (int i = 0; i < accountList.size(); i++) { //find the account in the drawerlist
+
+       /* for(int i=0;i<accountList.size();i++){ //find the account in the drawerList
 			if (drawerList.get(position).getKey() == accountList.get(i).getKey()) {
 				position = i;
+                break;
 			}
-		}
+        }*/
 
-		int key = accountList.get(position).getKey(); //compute the balance of the account
-		activity.getModel().setSelectedAccount(key);
+        model.setSelectedAccount(key);
 
-		fragList = new ArrayList<Fragment>();
-		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_ALL));
-		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_PAID));
-		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_UNPAID));
-		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_REMIND));
+		fragList = new ArrayList<>();
+		fragList.add(AccountFragment.newInstance(position, model, AccountFragment.DISPLAY_ALL));
+		fragList.add(AccountFragment.newInstance(position, model, AccountFragment.DISPLAY_PAID));
+		fragList.add(AccountFragment.newInstance(position, model, AccountFragment.DISPLAY_UNPAID));
+        fragList.add(AccountFragment.newInstance(position, model, AccountFragment.DISPLAY_REMIND));
 
 	}
 
