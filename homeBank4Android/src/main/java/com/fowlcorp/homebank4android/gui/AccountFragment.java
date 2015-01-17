@@ -19,9 +19,6 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -39,27 +36,30 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.support.v7.widget.LinearLayoutManager.HORIZONTAL;
 
-public class AccountFragment extends Fragment{
+public class AccountFragment extends Fragment {
 
 	private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_MODEL = "model";
     private static final String ARG_DISPLAY_VALUE = "display_value";
 
-    public static final int DISPLAY_ALL = 0;
-    public static final int DISPLAY_PAID = 1;
-    public static final int DISPLAY_UNPAID = 2;
-    public static final int DISPLAY_REMIND = 3;
+	public static final int DISPLAY_ALL = 0;
+	public static final int DISPLAY_PAID = 1;
+	public static final int DISPLAY_UNPAID = 2;
+	public static final int DISPLAY_REMIND = 3;
 
 	private int sectionNumber; //the number of the section in the drawer
 	private ArrayList<Account> accountList; //the list of account
+
     private Model model; //the data model
-	private MainActivity activity;
 
-    private int displayValue;
+	private int displayValue;
 
-    public AccountFragment(){
+	public AccountFragment(){//empty constructor
 	}
 
 	public static AccountFragment newInstance(int position, Model model, int displayValue)	{
@@ -84,49 +84,40 @@ public class AccountFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		/*for(int i=0;i<accountList.size();i++){ //find the account in the drawerList
-			if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
-				sectionNumber = i;
-			}
-		}*/
-
 		int key = accountList.get(sectionNumber).getKey();
-		//model.setSelectedAccount(key);
-		//model.setSelectedAccount(sectionNumber);
-		//model.updateOperationAccountBalance();
 
         List<Operation> operation = model.getOperations(model.getAccounts().get(key));
 		ArrayList<Operation> listTemp = new ArrayList<>();
 
-        switch (displayValue){
-            case DISPLAY_ALL:
-                listTemp.addAll(operation); //get all the operation to display all
-                break;
-            case DISPLAY_PAID:
-                for(Operation op : operation){
-                    if(op.isReconciled()){
-                        listTemp.add(op);
-                    }
-                }
-                break;
-            case DISPLAY_UNPAID:
-                for(Operation op : operation){
-                    if(!op.isReconciled()){
-                        listTemp.add(op);
-                    }
-                }
-                break;
-            case DISPLAY_REMIND:
-                for(Operation op : operation){
-                    if(op.isRemind()){
-                        listTemp.add(op);
-                    }
-                }
+		switch (displayValue) {
+			case DISPLAY_ALL:
+				listTemp.addAll(operation); //get all the operation to display all
+				break;
+			case DISPLAY_PAID:
+				for (Operation op : operation) {
+					if (op.isReconciled()) {
+						listTemp.add(op);
+					}
+				}
+				break;
+			case DISPLAY_UNPAID:
+				for (Operation op : operation) {
+					if (!op.isReconciled()) {
+						listTemp.add(op);
+					}
+				}
+				break;
+			case DISPLAY_REMIND:
+				for (Operation op : operation) {
+					if (op.isRemind()) {
+						listTemp.add(op);
+					}
+				}
 
-        }
+		}
 
 		ArrayList<Operation> listOperation = new ArrayList<>();
-		for(int i=listTemp.size()-1;i>=0;i--){ //revert the sort
+		for (int i = listTemp.size() - 1; i >= 0; i--) { //revert the sort
 			listOperation.add(listTemp.get(i));
 		}
 
@@ -135,17 +126,17 @@ public class AccountFragment extends Fragment{
 
 		RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
 		LinearLayout overview = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
-        new OverviewCard(activity, inflater, overview, model); //create the overview card
+		OverviewCard over = new OverviewCard(getActivity(), inflater, overview, model); //create the overview card
 
 		mRecyclerView.setHasFixedSize(false);
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(activity);
-    if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-        mLayoutManager.setOrientation(HORIZONTAL);
-    }
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			mLayoutManager.setOrientation(HORIZONTAL);
+		}
 		mRecyclerView.setLayoutManager(mLayoutManager);
-        AccountRecyclerAdapter mAdapter = new AccountRecyclerAdapter(listOperation, activity);
-        mRecyclerView.setAdapter(mAdapter);
+        AccountRecyclerAdapter mAdapter = new AccountRecyclerAdapter(listOperation, getActivity());
+		mRecyclerView.setAdapter(mAdapter);
 
 		return rootView;
 	}
@@ -153,9 +144,7 @@ public class AccountFragment extends Fragment{
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-        this.activity = (MainActivity) activity;
 	}
-
 
 
 }

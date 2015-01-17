@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -30,8 +31,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 
 import com.common.view.SlidingTabLayout;
 import com.fowlcorp.homebank4android.MainActivity;
@@ -43,7 +42,7 @@ import com.fowlcorp.homebank4android.model.Operation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PagerSwipeFragment extends Fragment{
+public class PagerSwipeFragment extends Fragment {
 
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private int sectionNumber;
@@ -51,19 +50,19 @@ public class PagerSwipeFragment extends Fragment{
 	private List<Operation> operation;
 	private Model model;
 	private ArrayList<DrawerItem> drawerList;
-	private MainActivity activity;
-    private ViewGroup container;
+	//private MainActivity activity;
+	private ViewGroup container;
 
 	private AccountRecyclerAdapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
-    private ViewPager mViewPager;
-    private FragmentPagerAdapter pager;
-    private LayoutInflater inflater;
+	private ViewPager mViewPager;
+	private FragmentPagerAdapter pager;
+	private LayoutInflater inflater;
 
     private static final String ARG_MODEL = "model";
 
-    private View rootView;
-	
+	private View rootView;
+
 	private SlidingTabLayout mSlidingTabLayout;
 
     public PagerSwipeFragment() {//empty constructor
@@ -78,8 +77,7 @@ public class PagerSwipeFragment extends Fragment{
 		return f;
 	}
 
-	public void onCreate(Bundle savedInstanceState)
-	{
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER); //get the position of the account in the drawer
         model = (Model) getArguments().getSerializable(ARG_MODEL);
@@ -87,22 +85,32 @@ public class PagerSwipeFragment extends Fragment{
 	}
 
 
-    @Override
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	    this.inflater = inflater;
-        this.container = container;
-		pager = new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, activity);
+		this.inflater = inflater;
+		this.container = container;
+
+        /*for(int i=0;i<accountList.size();i++){ //find the account in the drawerList
+            if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
+                sectionNumber = i;
+                break;
+            }
+        }
+        int key = accountList.get(sectionNumber).getKey(); //compute the balance of the account
+
+		pager = new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, key, getActivity(), model);*/
+        pager =  getNewAdapter(getChildFragmentManager(), sectionNumber, getActivity(), model);
 		rootView = inflater.inflate(R.layout.pager_layout, container, false);
-		
+
 		mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
-        mViewPager.setAdapter(pager);
-        
-        mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs);
-        mSlidingTabLayout.setViewPager(mViewPager);
-        
-       // mSlidingTabLayout.setSelectedIndicatorColors(R.color.background_material_light);
-        
-        System.out.println(sectionNumber);
+		mViewPager.setAdapter(pager);
+
+		mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs);
+		mSlidingTabLayout.setViewPager(mViewPager);
+
+		// mSlidingTabLayout.setSelectedIndicatorColors(R.color.background_material_light);
+
+		System.out.println(sectionNumber);
 		return rootView;
 	}
 
@@ -110,17 +118,30 @@ public class PagerSwipeFragment extends Fragment{
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));//notify main activity
-        this.activity = (MainActivity) activity;
-        drawerList = this.activity.getDrawerList();
+        //this.activity = (MainActivity) activity;
+        drawerList = ((MainActivity)activity).getDrawerList();
 	}
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        Log.e("conf", "conf changed in pager");
-        int position = mViewPager.getCurrentItem();
-        mViewPager.setAdapter(new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, activity));
-        mViewPager.invalidate();
-        mViewPager.setCurrentItem(position);
-        super.onConfigurationChanged(newConfig);
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		Log.e("conf", "conf changed in pager");
+		int position = mViewPager.getCurrentItem();
+		mViewPager.setAdapter(getNewAdapter(getChildFragmentManager(), sectionNumber, getActivity(), model));
+		mViewPager.invalidate();
+		mViewPager.setCurrentItem(position);
+		super.onConfigurationChanged(newConfig);
     }
+
+    private CustomFragmentPagerAdapter getNewAdapter(FragmentManager frag, int sectionNumber, Activity activity, Model model){
+        for(int i=0;i<accountList.size();i++){ //find the account in the drawerList
+            if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
+                sectionNumber = i;
+                break;
+            }
+        }
+        int key = accountList.get(sectionNumber).getKey(); //compute the balance of the account
+
+        CustomFragmentPagerAdapter pager = new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, key, getActivity(), model);
+        return pager;
+	}
 }
