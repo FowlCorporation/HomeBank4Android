@@ -23,13 +23,14 @@
         <!--Override : must be present in general style-->
         <item name="android:colorActivatedHighlight">@color/colorAccent_Light</item>
         <item name="android:colorFocusedHighlight">@color/colorAccent_Light</item>
-        <item name="android:progressTint">@color/colorAccent_Light</item>
+        <item name="android:progressDrawable">@color/colorAccent_Light</item>
         <item name="android:windowActionBar">false</item>
 
         <!--Specific-->
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark_Light</item>
         <item name="android:colorPrimary">@color/colorPrimary_Light</item>
         <item name="android:colorAccent">@color/colorAccent_Light</item>
+        <item name="android:progressTint">@color/colorAccent_Light</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>

@@ -36,6 +36,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:colorActivatedHighlight">@color/colorAccent_Light</item>
         <item name="android:colorFocusedHighlight">@color/colorAccent_Light</item>
+        <item name="android:progressDrawable">@color/colorAccent_Light</item>
         <item name="android:windowActionBar">false</item>
     </style>
 
