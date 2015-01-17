@@ -97,7 +97,7 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
                     FragmentManager fragmentManager = activity.getSupportFragmentManager(); //get the fragment manager
                     FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
                     //tx.addSharedElement(holder.getTitle(), "toolbar");
-                    tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, activity)).commit(); //invoke the account fragment
+                    tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, model)).commit(); //invoke the account fragment
                     activity.onSectionAttached(position);
                     activity.restoreActionBar();
                 } catch (Exception e) {

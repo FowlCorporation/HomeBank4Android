@@ -242,7 +242,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             if(drawerList.get(position).isOverview()){ //if the item is the overview
                 tx.replace(R.id.container, OverviewFragment.newInstance(model), "overview").commitAllowingStateLoss(); //invoke the overview fragment
             } else { //if it is an account
-                PagerSwipeFragment pagerFrag = PagerSwipeFragment.newInstance(position, this);
+                PagerSwipeFragment pagerFrag = PagerSwipeFragment.newInstance(position, model);
                 tx.replace(R.id.container,pagerFrag).commit(); //invoke the account fragment
             }
         } catch (Exception e) {

@@ -73,8 +73,7 @@ public class AccountFragment extends Fragment{
 	}
 
     @Override
-	public void onCreate(Bundle savedInstanceState)
-	{
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER); //get the position of the account in the drawer
         displayValue = getArguments().getInt(ARG_DISPLAY_VALUE);

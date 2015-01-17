@@ -60,22 +60,20 @@ public class PagerSwipeFragment extends Fragment{
     private FragmentPagerAdapter pager;
     private LayoutInflater inflater;
 
+    private static final String ARG_MODEL = "model";
+
     private View rootView;
 	
 	private SlidingTabLayout mSlidingTabLayout;
 
-	public PagerSwipeFragment(MainActivity activity){//empty constructor
-		this.activity = activity;
-		model = activity.getModel();
-		accountList = activity.getAccountList();
-		drawerList = activity.getDrawerList();
-	}
+    public PagerSwipeFragment() {//empty constructor
+    }
 
-	public static final PagerSwipeFragment newInstance(int position, MainActivity activity)
-	{
-		PagerSwipeFragment f = new PagerSwipeFragment(activity);
+	public static final PagerSwipeFragment newInstance(int position, Model model) {
+		PagerSwipeFragment f = new PagerSwipeFragment();
 		Bundle bdl = new Bundle(2);
-		bdl.putInt(ARG_SECTION_NUMBER, position);
+        bdl.putInt(ARG_SECTION_NUMBER, position);
+        bdl.putSerializable(ARG_MODEL, model);
 		f.setArguments(bdl);
 		return f;
 	}
@@ -84,6 +82,8 @@ public class PagerSwipeFragment extends Fragment{
 	{
 		super.onCreate(savedInstanceState);
 		sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER); //get the position of the account in the drawer
+        model = (Model) getArguments().getSerializable(ARG_MODEL);
+        accountList = new ArrayList<>(model.getAccounts().values());
 	}
 
 
@@ -110,6 +110,8 @@ public class PagerSwipeFragment extends Fragment{
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));//notify main activity
+        this.activity = (MainActivity) activity;
+        drawerList = this.activity.getDrawerList();
 	}
 
     @Override
