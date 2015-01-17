@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -51,7 +52,7 @@ public class PagerSwipeFragment extends Fragment{
 	private List<Operation> operation;
 	private Model model;
 	private ArrayList<DrawerItem> drawerList;
-	private MainActivity activity;
+	//private MainActivity activity;
     private ViewGroup container;
 
 	private AccountRecyclerAdapter mAdapter;
@@ -91,7 +92,17 @@ public class PagerSwipeFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    this.inflater = inflater;
         this.container = container;
-		pager = new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, activity);
+
+        /*for(int i=0;i<accountList.size();i++){ //find the account in the drawerList
+            if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
+                sectionNumber = i;
+                break;
+            }
+        }
+        int key = accountList.get(sectionNumber).getKey(); //compute the balance of the account
+
+		pager = new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, key, getActivity(), model);*/
+        pager =  getNewAdapter(getChildFragmentManager(), sectionNumber, getActivity(), model);
 		rootView = inflater.inflate(R.layout.pager_layout, container, false);
 		
 		mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
@@ -110,17 +121,30 @@ public class PagerSwipeFragment extends Fragment{
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));//notify main activity
-        this.activity = (MainActivity) activity;
-        drawerList = this.activity.getDrawerList();
+        //this.activity = (MainActivity) activity;
+        drawerList = ((MainActivity)activity).getDrawerList();
 	}
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         Log.e("conf", "conf changed in pager");
         int position = mViewPager.getCurrentItem();
-        mViewPager.setAdapter(new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, activity));
+        mViewPager.setAdapter(getNewAdapter(getChildFragmentManager(), sectionNumber, getActivity(), model));
         mViewPager.invalidate();
         mViewPager.setCurrentItem(position);
         super.onConfigurationChanged(newConfig);
+    }
+
+    private CustomFragmentPagerAdapter getNewAdapter(FragmentManager frag, int sectionNumber, Activity activity, Model model){
+        for(int i=0;i<accountList.size();i++){ //find the account in the drawerList
+            if(drawerList.get(sectionNumber).getKey() == accountList.get(i).getKey()){
+                sectionNumber = i;
+                break;
+            }
+        }
+        int key = accountList.get(sectionNumber).getKey(); //compute the balance of the account
+
+        CustomFragmentPagerAdapter pager = new CustomFragmentPagerAdapter(getChildFragmentManager(), sectionNumber, key, getActivity(), model);
+        return pager;
     }
 }
