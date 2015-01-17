@@ -18,15 +18,11 @@
   ~ along with HomeBank4Android.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<resources>
-    <color name="colorPrimaryDark_Light">#0288d1</color>
-    <color name="colorPrimary_Light">#03a9f4</color>
-    <color name="colorPrimaryLight_Light">#b3e5fc</color>
-    <color name="colorAccentFallbackDark_Light">#ffc400</color>
-    <color name="colorAccent_Light">#ffd740</color>
-    <color name="colorAccentFallbackLight_Light">#ffe57f</color>
-    <color name="colorSelectedTab_Light">#ffffff</color>
-    <color name="colorToolbarText_Light">#ffffff</color>
-    <color name="colorBackground">#bdbdbd</color>
-    <color name="colorBackgroundNavigation">@color/background_material_light</color>
-</resources>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true" android:drawable="@color/colorPrimaryLight_Light" />
+    <item android:state_selected="true" android:drawable="@color/colorPrimaryLight_Light" />
+    <!--<item android:state_pressed="true" android:drawable="@color/colorPrimaryLight_Light" />-->
+    <!--<item android:state_checked="true" android:drawable="@color/colorPrimaryLight_Light" />-->
+    <item android:state_active="true" android:drawable="@color/colorAccent_Light" />
+    <item android:drawable="@color/colorBackgroundNavigation" />
+</selector>
