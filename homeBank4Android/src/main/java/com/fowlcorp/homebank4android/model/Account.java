@@ -19,11 +19,13 @@
 
 package com.fowlcorp.homebank4android.model;
 
+import java.io.Serializable;
+
 /**
  * @author Axel
  *
  */
-public class Account extends AccPayCatTagAbstract {
+public class Account extends AccPayCatTagAbstract implements Serializable {
 
 	private double initBalance;
     private double todayAccountBalance;

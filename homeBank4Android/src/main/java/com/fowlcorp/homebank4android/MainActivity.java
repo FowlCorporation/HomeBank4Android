@@ -240,23 +240,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             FragmentManager fragmentManager = getSupportFragmentManager(); //get the fragment manager
             FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
             if(drawerList.get(position).isOverview()){ //if the item is the overview
-                tx.replace(R.id.container, OverviewFragment.newInstance(this), "overview").commitAllowingStateLoss(); //invoke the overview fragment
+                tx.replace(R.id.container, OverviewFragment.newInstance(model), "overview").commitAllowingStateLoss(); //invoke the overview fragment
             } else { //if it is an account
-                PagerSwipeFragment pagerFrag = PagerSwipeFragment.newInstance(position, this);
-                pagerFrag.getView().setFocusableInTouchMode(true);
-                pagerFrag.getView().requestFocus();
-                pagerFrag.getView().setOnKeyListener(new View.OnKeyListener() {
-                    @Override
-                    public boolean onKey(View v, int keyCode, KeyEvent event) {
-                        if (keyCode == KeyEvent.KEYCODE_BACK) {
-                            Log.i("tag", "onKey Back listener is working!!!");
-                            updateGUI();
-                            return true;
-                        }
-                        return false;
-
-                    }
-                });
+                PagerSwipeFragment pagerFrag = PagerSwipeFragment.newInstance(position, model);
                 tx.replace(R.id.container,pagerFrag).commit(); //invoke the account fragment
             }
         } catch (Exception e) {

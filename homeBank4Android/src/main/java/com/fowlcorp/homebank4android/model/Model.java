@@ -19,12 +19,13 @@
 
 package com.fowlcorp.homebank4android.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class Model {
+public class Model implements Serializable {
 	
 	private HashMap<Integer,Payee> payees;
 	private HashMap<Integer,Category> categories;

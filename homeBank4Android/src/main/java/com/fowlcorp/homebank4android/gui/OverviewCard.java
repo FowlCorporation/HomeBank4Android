@@ -21,7 +21,6 @@ package com.fowlcorp.homebank4android.gui;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
