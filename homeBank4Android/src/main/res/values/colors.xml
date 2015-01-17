@@ -29,4 +29,5 @@
     <color name="colorToolbarText_Light">#ffffff</color>
     <color name="colorBackground">#bdbdbd</color>
     <color name="colorBackgroundNavigation">@color/background_material_light</color>
+    <color name="colorSeparationNavigation">@color/colorPrimaryDark_Light</color>
 </resources>
