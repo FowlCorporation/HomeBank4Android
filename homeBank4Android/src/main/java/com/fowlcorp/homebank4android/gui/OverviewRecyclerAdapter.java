@@ -99,6 +99,7 @@ public class OverviewRecyclerAdapter extends RecyclerView.Adapter<OverviewViewHo
                     //tx.addSharedElement(holder.getTitle(), "toolbar");
                     tx.replace(R.id.container,PagerSwipeFragment.newInstance(position, model)).commit(); //invoke the account fragment
                     activity.onSectionAttached(position);
+                    activity.getmNavigationDrawerFragment().selectItem(position);
                     activity.restoreActionBar();
                 } catch (Exception e) {
                 }
