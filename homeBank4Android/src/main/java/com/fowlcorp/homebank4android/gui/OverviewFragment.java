@@ -21,9 +21,11 @@ package com.fowlcorp.homebank4android.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -37,6 +39,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -69,7 +72,11 @@ public class OverviewFragment extends Fragment{
 	
 	private LinearLayoutManager mLayoutManager;
 	private OverviewRecyclerAdapter mAdapter;
+    private RecyclerView recycler;
     private LinearLayout overView;
+    private FrameLayout frame;
+    private LayoutInflater inflater;
+    private ViewGroup container;
 
     private static final String ARG_MODEL = "model";
 
@@ -95,9 +102,32 @@ public class OverviewFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
-		View rootView = inflater.inflate(R.layout.recycle_layout, container,false);
-		RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+        this.inflater=inflater;
+        this.container=container;
+        frame = new FrameLayout(getActivity());
+		View rootView = updateView();
+
+		mAdapter = new OverviewRecyclerAdapter(accountList, activity, model);
+        recycler.setAdapter(mAdapter);
+
+        updateOverViewView();
+        frame.addView(rootView);
+		return frame;
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		((MainActivity) activity).onSectionAttached(0);
+        this.activity = (MainActivity) activity;
+        drawerList = this.activity.getDrawerList();
+	}
+
+    private View updateView() {
+         View rootView = inflater.inflate(R.layout.recycle_layout, container,false);
+        recycler = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+
+
         LinearLayout overView = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 
         View overViewView = inflater.inflate(R.layout.overview_overview_card_layout, overView,true);
@@ -112,26 +142,13 @@ public class OverviewFragment extends Fragment{
 
 
 
-		
-		recycler.setHasFixedSize(false);
 
-		mLayoutManager = new LinearLayoutManager(activity);
-		recycler.setLayoutManager(mLayoutManager);
+        recycler.setHasFixedSize(false);
 
-		mAdapter = new OverviewRecyclerAdapter(accountList, activity, model);
-        recycler.setAdapter(mAdapter);
-
-        updateOverViewView();
-		return rootView;
-	}
-	
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		((MainActivity) activity).onSectionAttached(0);
-        this.activity = (MainActivity) activity;
-        drawerList = this.activity.getDrawerList();
-	}
+        mLayoutManager = new LinearLayoutManager(activity);
+        recycler.setLayoutManager(mLayoutManager);
+        return rootView;
+    }
 
     private Spannable colorText(String fieldName, String value) {
         Spannable span = new SpannableString(fieldName + value + getCurrency());
@@ -156,5 +173,17 @@ public class OverviewFragment extends Fragment{
         futur.setText(colorText(activity.getString(R.string.Future) + " : ", String.valueOf(futurValue)));
         today.setText(colorText(activity.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
         icon.setImageDrawable(getResources().getDrawable(R.drawable.overview));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        Log.e("conf", "conf changed in pager");
+        frame.removeAllViews();
+        View view = updateView();
+        updateOverViewView();
+        recycler.setAdapter(new OverviewRecyclerAdapter(accountList, activity, model));
+        recycler.invalidate();
+        frame.addView(view);
+        super.onConfigurationChanged(newConfig);
     }
 }
