@@ -1,11 +1,11 @@
 <resources>
-    <string-array name="currency">
+    <string-array name="currency" translatable="false">
         <item>Euro €</item>
         <item>Dollar $</item>
         <item>Pound £</item>
     </string-array>
 
-    <string-array name="currencyValue">
+    <string-array name="currencyValue" translatable="false">
         <item>€</item>
         <item>$</item>
         <item>£</item>
