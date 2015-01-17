@@ -21,7 +21,6 @@ package com.fowlcorp.homebank4android.gui;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
@@ -41,48 +40,49 @@ import com.fowlcorp.homebank4android.utils.Round;
 
 public class OverviewCard {
 
-    private Activity activity;
+	private Activity activity;
 
 	public OverviewCard(Activity activity, LayoutInflater inflater, ViewGroup parent, Model model) {
-		this.activity=activity;
-        Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
+		this.activity = activity;
+		Account selectedAcc = model.getAccounts().get(model.getSelectedAccount());
 
-        double balanceValue;
-        double futureValue;
-        double todayValue;
+		double balanceValue;
+		double futureValue;
+		double todayValue;
 
-        balanceValue = selectedAcc.getBankAccountBalance();
-        futureValue = selectedAcc.getFutureAccountBalance();
-        todayValue = selectedAcc.getTodayAccountBalance();
+		balanceValue = selectedAcc.getBankAccountBalance();
+		futureValue = selectedAcc.getFutureAccountBalance();
+		todayValue = selectedAcc.getTodayAccountBalance();
 
-        balanceValue = Round.roundAmount(balanceValue);
-        futureValue = Round.roundAmount(futureValue);
-        todayValue = Round.roundAmount(todayValue);
+		balanceValue = Round.roundAmount(balanceValue);
+		futureValue = Round.roundAmount(futureValue);
+		todayValue = Round.roundAmount(todayValue);
 
-		View view = inflater.inflate(R.layout.overviewcard,parent);
+		View view = inflater.inflate(R.layout.overviewcard, parent);
 
-        TextView balanceView;
-        TextView todayView;
-        TextView futureView;
+		TextView balanceView;
+		TextView todayView;
+		TextView futureView;
 
-        balanceView = (TextView) view.findViewById(R.id.overviewCard_solde);
-        futureView = (TextView) view.findViewById(R.id.overviewCard_future);
-        todayView = (TextView) view.findViewById(R.id.overviewCard_today);
+		balanceView = (TextView) view.findViewById(R.id.overviewCard_solde);
+		futureView = (TextView) view.findViewById(R.id.overviewCard_future);
+		todayView = (TextView) view.findViewById(R.id.overviewCard_today);
 
-        balanceView.setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(balanceValue)));
+		balanceView.setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(balanceValue)));
 		futureView.setText(colorText(activity.getString(R.string.Future) + " : ", String.valueOf(futureValue)));
 		todayView.setText(colorText(activity.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
-    }
-	
+	}
+
 	private Spannable colorText(String fieldName, String value) {
 		Spannable span = new SpannableString(fieldName + value + getCurrency());
 		span.setSpan(new ForegroundColorSpan((value.charAt(0) == '-' ? Color.rgb(206, 92, 0) : Color.rgb(78, 154, 54))), fieldName.length(), fieldName.length() + value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		return span;
 	}
-    private String getCurrency(){
-        String result;
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        result = " "+sharedPreferences.getString("currency", "€");
-        return result;
-    }
+
+	private String getCurrency() {
+		String result;
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+		result = " " + sharedPreferences.getString("currency", "€");
+		return result;
+	}
 }

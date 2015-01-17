@@ -19,9 +19,6 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -48,108 +45,107 @@ import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.utils.Round;
 
-public class OverviewFragment extends Fragment{
+import java.util.ArrayList;
+import java.util.List;
+
+public class OverviewFragment extends Fragment {
 
 	private ArrayList<Account> accountList;
 	private List<Operation> operation;
 	private Model model;
 	private ArrayList<DrawerItem> drawerList;
 
-    private double soldeValue;
-    private double futurValue;
-    private double todayValue;
+	private double soldeValue;
+	private double futurValue;
+	private double todayValue;
 
-    TextView title;
-    TextView solde;
-    TextView futur;
-    TextView today;
-    ImageView icon;
+	TextView title;
+	TextView solde;
+	TextView futur;
+	TextView today;
+	ImageView icon;
 
 	private MainActivity activity;
-	
+
 	private LinearLayoutManager mLayoutManager;
 	private OverviewRecyclerAdapter mAdapter;
-    private LinearLayout overView;
+	private LinearLayout overView;
 
-	public OverviewFragment(MainActivity activity){
+	public OverviewFragment(MainActivity activity) {
 		this.activity = activity;
 		model = activity.getModel();
 		accountList = activity.getAccountList();
 		drawerList = activity.getDrawerList();
 	}
-	
-	public static final OverviewFragment newInstance(MainActivity activity)
-	{
-		 OverviewFragment f = new OverviewFragment(activity);
-		    return f;
+
+	public static final OverviewFragment newInstance(MainActivity activity) {
+		OverviewFragment f = new OverviewFragment(activity);
+		return f;
 	}
-	
-	public void onCreate(Bundle savedInstanceState)
-	{
+
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		
-		View rootView = inflater.inflate(R.layout.recycle_layout, container,false);
+							 Bundle savedInstanceState) {
+
+		View rootView = inflater.inflate(R.layout.recycle_layout, container, false);
 		RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
-        LinearLayout overView = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
+		LinearLayout overView = (LinearLayout) rootView.findViewById(R.id.fragmentOverview);
 
-        View overViewView = inflater.inflate(R.layout.overview_overview_card_layout, overView,true);
+		View overViewView = inflater.inflate(R.layout.overview_overview_card_layout, overView, true);
 
-        title = (TextView) overViewView.findViewById(R.id.overview_card_title);
-        solde = (TextView) overViewView.findViewById(R.id.overview_card_balance);
-        futur = (TextView) overViewView.findViewById(R.id.overview_card_future);
-        today = (TextView) overViewView.findViewById(R.id.overview_card_today);
-        icon = (ImageView) overViewView.findViewById(R.id.overview_card_icon);
+		title = (TextView) overViewView.findViewById(R.id.overview_card_title);
+		solde = (TextView) overViewView.findViewById(R.id.overview_card_balance);
+		futur = (TextView) overViewView.findViewById(R.id.overview_card_future);
+		today = (TextView) overViewView.findViewById(R.id.overview_card_today);
+		icon = (ImageView) overViewView.findViewById(R.id.overview_card_icon);
 
-        Log.e("Debug",String.valueOf(model.getGrandTotalBank()));
+		Log.e("Debug", String.valueOf(model.getGrandTotalBank()));
 
 
-
-		
 		recycler.setHasFixedSize(false);
 
 		mLayoutManager = new LinearLayoutManager(activity);
 		recycler.setLayoutManager(mLayoutManager);
 
 		mAdapter = new OverviewRecyclerAdapter(accountList, activity, model);
-        recycler.setAdapter(mAdapter);
+		recycler.setAdapter(mAdapter);
 
-        updateOverViewView();
+		updateOverViewView();
 		return rootView;
 	}
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		((MainActivity) activity).onSectionAttached(0);
 	}
 
-    private Spannable colorText(String fieldName, String value) {
-        Spannable span = new SpannableString(fieldName + value + getCurrency());
-        span.setSpan(new ForegroundColorSpan((value.charAt(0) == '-' ? Color.rgb(206, 92, 0) : Color.rgb(78, 154, 54))), fieldName.length(), fieldName.length() + value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return span;
-    }
+	private Spannable colorText(String fieldName, String value) {
+		Spannable span = new SpannableString(fieldName + value + getCurrency());
+		span.setSpan(new ForegroundColorSpan((value.charAt(0) == '-' ? Color.rgb(206, 92, 0) : Color.rgb(78, 154, 54))), fieldName.length(), fieldName.length() + value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		return span;
+	}
 
-    private String getCurrency(){
-        String result;
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        result = " "+sharedPreferences.getString("currency", "€");
-        return result;
-    }
+	private String getCurrency() {
+		String result;
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+		result = " " + sharedPreferences.getString("currency", "€");
+		return result;
+	}
 
-    private void updateOverViewView(){
-        soldeValue = Round.roundAmount(model.getGrandTotalBank());
-        futurValue = Round.roundAmount(model.getGrandTotalFuture());
-        todayValue = Round.roundAmount(model.getGrandTotalToday());
+	private void updateOverViewView() {
+		soldeValue = Round.roundAmount(model.getGrandTotalBank());
+		futurValue = Round.roundAmount(model.getGrandTotalFuture());
+		todayValue = Round.roundAmount(model.getGrandTotalToday());
 
-        title.setText(activity.getString(R.string.Overview));
-        solde.setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(soldeValue)));
-        futur.setText(colorText(activity.getString(R.string.Future) + " : ", String.valueOf(futurValue)));
-        today.setText(colorText(activity.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
-        icon.setImageDrawable(getResources().getDrawable(R.drawable.overview));
-    }
+		title.setText(activity.getString(R.string.Overview));
+		solde.setText(colorText(activity.getString(R.string.Balance) + " : ", String.valueOf(soldeValue)));
+		futur.setText(colorText(activity.getString(R.string.Future) + " : ", String.valueOf(futurValue)));
+		today.setText(colorText(activity.getString(R.string.Today) + " : ", String.valueOf(todayValue)));
+		icon.setImageDrawable(getResources().getDrawable(R.drawable.overview));
+	}
 }

@@ -68,12 +68,11 @@ public class NavigationDrawerFragment extends Fragment {
 	private Model model;
 	private ArrayList<DrawerItem> accountList;
 	private MainActivity mainAct;
-	
+
 	private List<DrawerItem> dataList;
 
-    public NavigationDrawerFragment() { //empty constructor
+	public NavigationDrawerFragment() { //empty constructor
 	}
-
 
 
 	@Override
@@ -129,10 +128,8 @@ public class NavigationDrawerFragment extends Fragment {
 	 * Users of this fragment must call this method to set up the navigation
 	 * drawer interactions.
 	 *
-	 * @param fragmentId
-	 *            The android:id of this fragment in its activity's layout.
-	 * @param drawerLayout
-	 *            The DrawerLayout containing this fragment's UI.
+	 * @param fragmentId   The android:id of this fragment in its activity's layout.
+	 * @param drawerLayout The DrawerLayout containing this fragment's UI.
 	 */
 	public void setUp(int fragmentId, DrawerLayout drawerLayout) {
 		mFragmentContainerView = getActivity().findViewById(fragmentId);
@@ -140,7 +137,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 		// set a custom shadow that overlays the main content when the drawer
 		// opens
-		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,GravityCompat.START);
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 		// set up the drawer's list view with items and click listener
 
 		final ActionBar actionBar = getActionBar();
@@ -262,17 +259,17 @@ public class NavigationDrawerFragment extends Fragment {
 
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public void update(){
 
-        CustomDrawerAdapter adapter;
+	public void update() {
+
+		CustomDrawerAdapter adapter;
 
 		model = mainAct.getModel();//get the model
 		accountList = mainAct.getDrawerList();
 		dataList.clear();
 		dataList.addAll(accountList);
-        adapter = new CustomDrawerAdapter(getActivity(), R.layout.custom_drawer_item, dataList);
-        mDrawerListView.setAdapter(adapter);
+		adapter = new CustomDrawerAdapter(getActivity(), R.layout.custom_drawer_item, dataList);
+		mDrawerListView.setAdapter(adapter);
 		//mDrawerListView.setItemChecked(mCurrentSelectedPosition, true); //change the color of the selected item
 		//mainAct.onNavigationDrawerItemSelected(0);//call the activity
 		this.selectItem(0);
@@ -302,7 +299,7 @@ public class NavigationDrawerFragment extends Fragment {
 		 */
 		void onNavigationDrawerItemSelected(int position);
 	}
-	
+
 	public Model getModel() {
 		return model;
 	}

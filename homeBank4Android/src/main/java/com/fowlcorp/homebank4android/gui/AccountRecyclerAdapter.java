@@ -66,10 +66,9 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 	}
 
 
-    @Override
+	@Override
 	public void onBindViewHolder(final OperationViewHolder holder, int position) {
 		final Operation operation = listOperation.get(position);
-
 
 
 		myDate = Calendar.getInstance();
@@ -78,8 +77,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		holder.getRootLayout().setOnClickListener(new OnClickListener() {
 
 
-
-            @Override
+			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(activity.getApplicationContext(), DetailedCardActivity.class);
 				try {
@@ -102,43 +100,43 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 					intent.putExtra("Amount", String.valueOf(Round.roundAmount(operation.getAmount())));
 				} catch (Exception e) {
 				}
-                try {
-                    intent.putExtra("Type", operation.getPayMode());
-                } catch (Exception e) {
-                }
+				try {
+					intent.putExtra("Type", operation.getPayMode());
+				} catch (Exception e) {
+				}
 //                try {
 //                    intent.putExtra("Info", operation.getInfo());
 //                } catch (Exception e) {
 //                }
-                try {
-                    intent.putExtra("Reconciled", operation.isReconciled());
-                } catch (Exception e) {
-                }
-                try {
-                    intent.putExtra("Reconciled", operation.isReconciled());
-                } catch (Exception e) {
-                }
-                try {
-                    intent.putExtra("Remind", operation.isRemind());
-                } catch (Exception e) {
-                }
-                try {
-                    intent.putExtra("Split", operation.isSplit());
-                } catch (Exception e) {
-                }
+				try {
+					intent.putExtra("Reconciled", operation.isReconciled());
+				} catch (Exception e) {
+				}
+				try {
+					intent.putExtra("Reconciled", operation.isReconciled());
+				} catch (Exception e) {
+				}
+				try {
+					intent.putExtra("Remind", operation.isRemind());
+				} catch (Exception e) {
+				}
+				try {
+					intent.putExtra("Split", operation.isSplit());
+				} catch (Exception e) {
+				}
 
-                Pair datePair = Pair.create(holder.getDate(), "date");
-                Pair categoryPair = Pair.create(holder.getCategory(), "category");
-                Pair wordingPair = Pair.create(holder.getWording(), "wording");
-                Pair payeePair = Pair.create(holder.getPayee(), "payee");
-                Pair amountPair = Pair.create(holder.getAmount(), "amount");
-                Pair cardPair = Pair.create(holder.getCard(), "card");
-                Pair iconPair = Pair.create(holder.getMode(), "icon");
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                        cardPair
-                );
-                ActivityCompat.startActivity(activity, intent, options.toBundle());
-                //activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+				Pair datePair = Pair.create(holder.getDate(), "date");
+				Pair categoryPair = Pair.create(holder.getCategory(), "category");
+				Pair wordingPair = Pair.create(holder.getWording(), "wording");
+				Pair payeePair = Pair.create(holder.getPayee(), "payee");
+				Pair amountPair = Pair.create(holder.getAmount(), "amount");
+				Pair cardPair = Pair.create(holder.getCard(), "card");
+				Pair iconPair = Pair.create(holder.getMode(), "icon");
+				ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+						cardPair
+				);
+				ActivityCompat.startActivity(activity, intent, options.toBundle());
+				//activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
 				//activity.startActivity(intent);
 			}
 
@@ -153,7 +151,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			holder.getPayee().setText(activity.getString(R.string.Payee) + " : " + operation.getPayee().getName());
 		} catch (Exception e) {
 		}
-		if(!operation.isSplit()){
+		if (!operation.isSplit()) {
 			holder.getSplitLinear().removeAllViews();
 			holder.getUnSplitLinear().setVisibility(LinearLayout.VISIBLE);
 			try {
@@ -170,7 +168,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			LinearLayout splitLayout = holder.getSplitLinear();
 			splitLayout.removeAllViews();
 			LayoutInflater inflater = activity.getLayoutInflater();
-			for(Couple subOp : operation.getSplits()){
+			for (Couple subOp : operation.getSplits()) {
 				View view = inflater.inflate(R.layout.split_layout, null);
 
 				TextView category = (TextView) view.findViewById(R.id.splitLayout_category);
@@ -178,7 +176,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
 				//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 				category.setText(activity.getString(R.string.Category) + " : " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
-				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", String.valueOf(subOp.getAmount())));
+				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", "" + Round.roundAmount(subOp.getAmount())));
 				splitLayout.addView(view);
 			}
 		}
@@ -191,42 +189,42 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		} catch (Exception e) {
 		}
 
-        if(operation.isSplit()){
-            holder.getOption().setImageResource(R.drawable.split);
-        } else if(operation.isRemind()){
-            holder.getOption().setImageResource(R.drawable.remind);
-            holder.getCard().setCardBackgroundColor(Color.parseColor("#ffebee"));
-        }else {
-            holder.getOption().setImageDrawable(null);
-        }
+		if (operation.isSplit()) {
+			holder.getOption().setImageResource(R.drawable.split);
+		} else if (operation.isRemind()) {
+			holder.getOption().setImageResource(R.drawable.remind);
+			holder.getCard().setCardBackgroundColor(Color.parseColor("#ffebee"));
+		} else {
+			holder.getOption().setImageDrawable(null);
+		}
 
-        if(!operation.isReconciled() && !operation.isRemind()){
-            holder.getCard().setCardBackgroundColor(Color.parseColor("#fff3e0"));
-        }
+		if (!operation.isReconciled() && !operation.isRemind()) {
+			holder.getCard().setCardBackgroundColor(Color.parseColor("#fff3e0"));
+		}
 
 		try {
 			switch (operation.getPayMode()) {
-			case PayMode.CREDIT_CARD:
-                holder.getMode().setImageResource(R.drawable.mastercard);
-                break;
-			case PayMode.DEBIT_CARD:
-				holder.getMode().setImageResource(R.drawable.card);
-				break;
-			case PayMode.CASH:
-				holder.getMode().setImageResource(R.drawable.cash);
-				break;
-			case PayMode.TRANSFERT:
-				holder.getMode().setImageResource(R.drawable.transfert);
-				break;
-			case PayMode.ELECTRONIC_PAYMENT:
-				holder.getMode().setImageResource(R.drawable.nfc);
-				break;
-			case PayMode.CHEQUE:
-				holder.getMode().setImageResource(R.drawable.cheque);
-				break;
-			default:
-				holder.getMode().setImageDrawable(null);
-				break;
+				case PayMode.CREDIT_CARD:
+					holder.getMode().setImageResource(R.drawable.mastercard);
+					break;
+				case PayMode.DEBIT_CARD:
+					holder.getMode().setImageResource(R.drawable.card);
+					break;
+				case PayMode.CASH:
+					holder.getMode().setImageResource(R.drawable.cash);
+					break;
+				case PayMode.TRANSFERT:
+					holder.getMode().setImageResource(R.drawable.transfert);
+					break;
+				case PayMode.ELECTRONIC_PAYMENT:
+					holder.getMode().setImageResource(R.drawable.nfc);
+					break;
+				case PayMode.CHEQUE:
+					holder.getMode().setImageResource(R.drawable.cheque);
+					break;
+				default:
+					holder.getMode().setImageDrawable(null);
+					break;
 			}
 		} catch (Exception e) {
 		}
@@ -247,11 +245,11 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		return span;
 	}
 
-    private String getCurrency(){
-        String result;
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        result = " "+sharedPreferences.getString("currency", "€");
-        return result;
-    }
+	private String getCurrency() {
+		String result;
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+		result = " " + sharedPreferences.getString("currency", "€");
+		return result;
+	}
 
 }

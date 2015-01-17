@@ -26,8 +26,8 @@ public class DrawerItem {
 	private boolean isOverview;
 	private boolean isHeader;
 	private int key = -1;
-	
-	public DrawerItem(String itemName, int imgResID, int key){
+
+	public DrawerItem(String itemName, int imgResID, int key) {
 		this.itemName = itemName;
 		this.imgResID = imgResID;
 		this.key = key;
@@ -81,9 +81,6 @@ public class DrawerItem {
 	public void setKey(int key) {
 		this.key = key;
 	}
-	
-	
 
-	
 
 }

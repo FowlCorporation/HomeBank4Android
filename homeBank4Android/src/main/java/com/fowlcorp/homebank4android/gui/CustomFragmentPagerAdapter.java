@@ -19,45 +19,45 @@
 
 package com.fowlcorp.homebank4android.gui;
 
-import java.util.ArrayList;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Account;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
+import java.util.ArrayList;
 
-public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
-	
+public class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
+
 	private ArrayList<Fragment> fragList;
 	private MainActivity activity;
-    private ArrayList<Account> accountList; //the list of account
-    private ArrayList<DrawerItem> drawerList; //the draweritem list
-	
-	public CustomFragmentPagerAdapter(FragmentManager mFragmentManager, int position, MainActivity activity) {
+	private ArrayList<Account> accountList; //the list of account
+	private ArrayList<DrawerItem> drawerList; //the draweritem list
+
+	public CustomFragmentPagerAdapter(FragmentManager mFragmentManager, int position, final MainActivity activity) {
 		super(mFragmentManager);
-        ((MainActivity) activity).onSectionAttached(position);//notify main activity
+		((MainActivity) activity).onSectionAttached(position);//notify main activity
 
 		this.activity = activity;
-        drawerList = activity.getDrawerList();
-        accountList = activity.getAccountList();
-        for(int i=0;i<accountList.size();i++){ //find the account in the drawerlist
-            if(drawerList.get(position).getKey() == accountList.get(i).getKey()){
-                position = i;
-            }
-        }
+		drawerList = activity.getDrawerList();
+		accountList = activity.getAccountList();
+		for (int i = 0; i < accountList.size(); i++) { //find the account in the drawerlist
+			if (drawerList.get(position).getKey() == accountList.get(i).getKey()) {
+				position = i;
+			}
+		}
 
-        int key = accountList.get(position).getKey(); //compute the balance of the account
-        activity.getModel().setSelectedAccount(key);
-		
+		int key = accountList.get(position).getKey(); //compute the balance of the account
+		activity.getModel().setSelectedAccount(key);
+
 		fragList = new ArrayList<Fragment>();
 		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_ALL));
 		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_PAID));
 		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_UNPAID));
-        fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_REMIND));
+		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_REMIND));
+
 	}
 
 	@Override
@@ -69,22 +69,22 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
 	public int getCount() {
 		return fragList.size();
 	}
-	
+
 	@Override
 	public CharSequence getPageTitle(int position) {
 		switch (position) {
-        case 0:
-            return activity.getString(R.string.All);
-        case 1:
-            return activity.getString(R.string.Paid);
-        case 2:
-            return activity.getString(R.string.Unpaid);
-        case 3:
-            return activity.getString(R.string.Remind);
+			case 0:
+				return activity.getString(R.string.All);
+			case 1:
+				return activity.getString(R.string.Paid);
+			case 2:
+				return activity.getString(R.string.Unpaid);
+			case 3:
+				return activity.getString(R.string.Remind);
 
-    }
- 
-    return null;
+		}
+
+		return null;
 	}
 
 }

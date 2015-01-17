@@ -30,9 +30,9 @@ import com.fowlcorp.homebank4android.R;
 
 public class AboutFragmentAuthors extends Fragment {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_about_authors, container, false);
-    }
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+							 Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_about_authors, container, false);
+	}
 }
