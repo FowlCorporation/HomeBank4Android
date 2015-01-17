@@ -59,7 +59,7 @@ public class AccountFragment extends Fragment{
 	private List<Operation> operation; //the list of operation of an account
 	private Model model; //the data model
 	private ArrayList<DrawerItem> drawerList; //the draweritem list
-	private MainActivity activity;
+	private Model model;
 
 	private AccountRecyclerAdapter mAdapter; //the adapter for the recycle view
 	private LinearLayoutManager mLayoutManager; //the layout manager
@@ -67,12 +67,8 @@ public class AccountFragment extends Fragment{
     private int displayValue;
 
 
-	public AccountFragment(MainActivity activity, int displayValue){//empty constructor
-		this.activity = activity;
-        this.displayValue = displayValue;
-		model = activity.getModel();
-		accountList = activity.getAccountList();
-		drawerList = activity.getDrawerList();
+	public AccountFragment(){//empty constructor
+
 	}
 	
 	public static final AccountFragment newInstance(int position, MainActivity activity, int displayValue)
