@@ -24,17 +24,13 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.fowlcorp.homebank4android.MainActivity;
@@ -48,6 +44,8 @@ import static android.support.v7.widget.LinearLayoutManager.HORIZONTAL;
 public class AccountFragment extends Fragment{
 
 	private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_MODEL = "model";
+    private static final String ARG_DISPLAY_VALUE = "display_value";
 
     public static final int DISPLAY_ALL = 0;
     public static final int DISPLAY_PAID = 1;
@@ -58,36 +56,34 @@ public class AccountFragment extends Fragment{
 	private ArrayList<Account> accountList; //the list of account
 	private List<Operation> operation; //the list of operation of an account
 	private Model model; //the data model
-	private ArrayList<DrawerItem> drawerList; //the draweritem list
 	private MainActivity activity;
 
 	private AccountRecyclerAdapter mAdapter; //the adapter for the recycle view
 	private LinearLayoutManager mLayoutManager; //the layout manager
-	
+
     private int displayValue;
 
-
-	public AccountFragment(MainActivity activity, int displayValue){//empty constructor
-		this.activity = activity;
-        this.displayValue = displayValue;
-		model = activity.getModel();
-		accountList = activity.getAccountList();
-		drawerList = activity.getDrawerList();
+    public AccountFragment(){
 	}
 	
-	public static final AccountFragment newInstance(int position, MainActivity activity, int displayValue)
-	{
-		AccountFragment f = new AccountFragment(activity, displayValue);
-		Bundle bdl = new Bundle(2);
-		bdl.putInt(ARG_SECTION_NUMBER, position);
+	public static final AccountFragment newInstance(int position, Model model, int displayValue)	{
+		AccountFragment f = new AccountFragment();
+		Bundle bdl = new Bundle(3);
+        bdl.putInt(ARG_DISPLAY_VALUE, displayValue);
+        bdl.putInt(ARG_SECTION_NUMBER, position);
+        bdl.putSerializable(ARG_MODEL, model);
 		f.setArguments(bdl);
-		return f;
+        return f;
 	}
 
+    @Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER); //get the position of the account in the drawer
+        displayValue = getArguments().getInt(ARG_DISPLAY_VALUE);
+        model = (Model) getArguments().getSerializable(ARG_MODEL);
+        accountList = new ArrayList<>(model.getAccounts().values());
 	}
 
 	@Override
@@ -162,6 +158,7 @@ public class AccountFragment extends Fragment{
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+        this.activity = (MainActivity) activity;
 	}
 
 

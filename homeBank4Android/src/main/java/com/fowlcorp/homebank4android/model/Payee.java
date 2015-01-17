@@ -19,11 +19,13 @@
 
 package com.fowlcorp.homebank4android.model;
 
+import java.io.Serializable;
+
 /**
  * @author Axel
  *
  */
-public class Payee extends AccPayCatTagAbstract {
+public class Payee extends AccPayCatTagAbstract implements Serializable {
 
 	/**
 	 * @param key

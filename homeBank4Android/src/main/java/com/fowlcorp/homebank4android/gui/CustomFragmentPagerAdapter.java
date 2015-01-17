@@ -56,10 +56,10 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter{
         activity.getModel().setSelectedAccount(key);
 		
 		fragList = new ArrayList<Fragment>();
-		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_ALL));
-		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_PAID));
-		fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_UNPAID));
-        fragList.add(AccountFragment.newInstance(position, activity, AccountFragment.DISPLAY_REMIND));
+		fragList.add(AccountFragment.newInstance(position, activity.getModel(), AccountFragment.DISPLAY_ALL));
+		fragList.add(AccountFragment.newInstance(position, activity.getModel(), AccountFragment.DISPLAY_PAID));
+		fragList.add(AccountFragment.newInstance(position, activity.getModel(), AccountFragment.DISPLAY_UNPAID));
+        fragList.add(AccountFragment.newInstance(position, activity.getModel(), AccountFragment.DISPLAY_REMIND));
 
 	}
 

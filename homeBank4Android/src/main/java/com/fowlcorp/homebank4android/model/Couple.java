@@ -19,10 +19,12 @@
 
 package com.fowlcorp.homebank4android.model;
 
+import java.io.Serializable;
+
 /**
  * @author Cédric
  */
-public class Couple {
+public class Couple implements Serializable {
     private Category category;
     private double amount;
 

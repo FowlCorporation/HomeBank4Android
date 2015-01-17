@@ -19,6 +19,7 @@
 
 package com.fowlcorp.homebank4android.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -26,7 +27,7 @@ import java.util.GregorianCalendar;
  * @author Cédric
  *
  */
-public class Operation implements Comparable {
+public class Operation implements Comparable, Serializable {
 
 	private GregorianCalendar date;
 	private int xmlDate;
