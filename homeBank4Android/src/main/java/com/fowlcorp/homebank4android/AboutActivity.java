@@ -75,7 +75,7 @@ public class AboutActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Création de la liste de Fragments que fera défiler le PagerAdapter
-        List fragments = new Vector();
+        List<Fragment> fragments = new Vector();
 
         // Ajout des Fragments dans la liste
         fragments.add(Fragment.instantiate(this, AboutFragmentAuthors.class.getName()));
