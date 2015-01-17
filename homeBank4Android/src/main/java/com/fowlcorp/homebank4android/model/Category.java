@@ -19,12 +19,13 @@
 
 package com.fowlcorp.homebank4android.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author Axel
  */
-public class Category extends AccPayCatTagAbstract {
+public class Category extends AccPayCatTagAbstract implements Serializable {
 
 	private Category parent;
 	private ArrayList<Category> subCategories;            //Key of the sub categories

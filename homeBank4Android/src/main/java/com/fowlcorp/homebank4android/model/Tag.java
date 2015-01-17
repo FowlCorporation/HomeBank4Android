@@ -19,10 +19,12 @@
 
 package com.fowlcorp.homebank4android.model;
 
+import java.io.Serializable;
+
 /**
  * @author Cédric
  */
-public class Tag extends AccPayCatTagAbstract {
+public class Tag extends AccPayCatTagAbstract implements Serializable {
 
 	/**
 	 * Create the object with minimal informations
