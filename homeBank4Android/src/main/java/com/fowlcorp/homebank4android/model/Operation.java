@@ -111,7 +111,7 @@ public class Operation implements Comparable, Serializable {
 	public void setFlag(int flag) {
 		this.flag = flag;
         if(isSplit()) {
-            splits = new ArrayList();
+            splits = new ArrayList<>();
         }
 	}
 	public double getAmount() {

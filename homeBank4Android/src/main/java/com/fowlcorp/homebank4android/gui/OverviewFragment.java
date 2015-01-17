@@ -59,11 +59,11 @@ public class OverviewFragment extends Fragment{
     private double futurValue;
     private double todayValue;
 
-    TextView title;
-    TextView solde;
-    TextView futur;
-    TextView today;
-    ImageView icon;
+    private TextView title;
+    private TextView solde;
+    private TextView futur;
+    private TextView today;
+    private ImageView icon;
 
 	private MainActivity activity;
 	
@@ -71,22 +71,25 @@ public class OverviewFragment extends Fragment{
 	private OverviewRecyclerAdapter mAdapter;
     private LinearLayout overView;
 
-	public OverviewFragment(MainActivity activity){
-		this.activity = activity;
-		model = activity.getModel();
-		accountList = activity.getAccountList();
-		drawerList = activity.getDrawerList();
+    private static final String ARG_MODEL = "model";
+
+    public OverviewFragment(){
+
+    }
+	
+	public static final OverviewFragment newInstance(Model model)	{
+		OverviewFragment f = new OverviewFragment();
+        Bundle bdl = new Bundle(3);
+        bdl.putSerializable(ARG_MODEL, model);
+        f.setArguments(bdl);
+        return f;
 	}
 	
-	public static final OverviewFragment newInstance(MainActivity activity)
-	{
-		 OverviewFragment f = new OverviewFragment(activity);
-		    return f;
-	}
-	
-	public void onCreate(Bundle savedInstanceState)
-	{
+	public void onCreate(Bundle savedInstanceState)	{
 		super.onCreate(savedInstanceState);
+        model = (Model) getArguments().getSerializable(ARG_MODEL);
+        accountList = new ArrayList<>(model.getAccounts().values());
+
 	}
 
 	@Override
@@ -126,6 +129,8 @@ public class OverviewFragment extends Fragment{
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		((MainActivity) activity).onSectionAttached(0);
+        this.activity = (MainActivity) activity;
+        drawerList = this.activity.getDrawerList();
 	}
 
     private Spannable colorText(String fieldName, String value) {
