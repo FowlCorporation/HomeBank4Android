@@ -23,30 +23,31 @@ import java.util.ArrayList;
 
 /**
  * @author Axel
- *
  */
 public class Category extends AccPayCatTagAbstract {
 
-    private Category parent;
-	private ArrayList<Category> subCategories;			//Key of the sub categories
-	private int flags;									//Flags of the category (usage to be determined)
+	private Category parent;
+	private ArrayList<Category> subCategories;            //Key of the sub categories
+	private int flags;                                    //Flags of the category (usage to be determined)
 
 	/**
 	 * Create the category with minimal informations
-	 * @param key	Integer identifying uniquely the category
-	 * @param name	Name of the category
+	 *
+	 * @param key  Integer identifying uniquely the category
+	 * @param name Name of the category
 	 */
 	public Category(int key, String name) {
 		super(key, name);
-        setParent(null);
+		setParent(null);
 		setSubCategories(new ArrayList<Category>());
 	}
 
 	/**
 	 * Create the category with flags informations
-	 * @param key	Integer identifying uniquely the category
-	 * @param flags	Flags of the category 
-	 * @param name	Name of the category
+	 *
+	 * @param key   Integer identifying uniquely the category
+	 * @param flags Flags of the category
+	 * @param name  Name of the category
 	 */
 	public Category(int key, String name, int flags) {
 		super(key, name);
@@ -56,51 +57,55 @@ public class Category extends AccPayCatTagAbstract {
 
 	/**
 	 * Add subcategory to this category
-	 * @param category	The Category object to add to the list of children
+	 *
+	 * @param category The Category object to add to the list of children
 	 */
 	public void addSubCategory(Category category) {
 		getSubCategories().add(category);
 	}
 
 	// Getters and Setters
+
 	/**
 	 * Return flags information
+	 *
 	 * @return int
 	 */
 	public int getFlags() {
 		return flags;
 	}
-	
+
 	/**
 	 * Return subcategories
+	 *
 	 * @return ArrayList of sub categories
 	 */
 	public ArrayList<Category> getSubcategories() {
 		return getSubCategories();
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Category : "+getKey() +", name : " + getName() + (getSubCategories().isEmpty() ? "" : ", " + getSubCategories().size() +" sub categorie(s)");
+		return "Category : " + getKey() + ", name : " + getName() + (getSubCategories().isEmpty() ? "" : ", " + getSubCategories().size() + " sub categorie(s)");
 	}
 
-    public Category getParent() {
-        return parent;
-    }
+	public Category getParent() {
+		return parent;
+	}
 
-    public void setParent(Category parent) {
-        this.parent = parent;
-    }
+	public void setParent(Category parent) {
+		this.parent = parent;
+	}
 
-    public ArrayList<Category> getSubCategories() {
-        return subCategories;
-    }
+	public ArrayList<Category> getSubCategories() {
+		return subCategories;
+	}
 
-    public void setSubCategories(ArrayList<Category> subCategories) {
-        this.subCategories = subCategories;
-    }
+	public void setSubCategories(ArrayList<Category> subCategories) {
+		this.subCategories = subCategories;
+	}
 
-    public void setFlags(int flags) {
-        this.flags = flags;
-    }
+	public void setFlags(int flags) {
+		this.flags = flags;
+	}
 }

@@ -21,30 +21,29 @@ package com.fowlcorp.homebank4android.model;
 
 /**
  * @author Axel
- *
  */
 public class Account extends AccPayCatTagAbstract {
 
 	private double initBalance;
-    private double todayAccountBalance;
-    private double bankAccountBalance;
-    private double futureAccountBalance;
+	private double todayAccountBalance;
+	private double bankAccountBalance;
+	private double futureAccountBalance;
 	private double minimumBalance;
 	private String bankName, accountNumber;
-    private boolean modified;
-    private int type;
-	
+	private boolean modified;
+	private int type;
+
 	public Account(int key, String name) {
 		super(key, name);
-        setModified(true);
-        bankName = "No bank name"; // to avoid NPE
+		setModified(true);
+		bankName = "No bank name"; // to avoid NPE
 	}
-	
+
 	public Account(int key, String name, double initBalance) {
 		super(key, name);
 		this.initBalance = initBalance;
-        setModified(true);
-        bankName = "No bank name"; // to avoid NPE
+		setModified(true);
+		bankName = "No bank name"; // to avoid NPE
 	}
 
 	public double getInitBalance() {
@@ -53,7 +52,7 @@ public class Account extends AccPayCatTagAbstract {
 
 	public void setInitBalance(double initBalance) {
 		this.initBalance = initBalance;
-        modified = false;
+		modified = false;
 	}
 
 	public String getBankName() {
@@ -71,51 +70,51 @@ public class Account extends AccPayCatTagAbstract {
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Account : "+getKey() +", " + getName() + (getBankName() == null ? "" : ", bank name : " + getBankName())  + (getAccountNumber() == null ? "" : ", account number : " + getAccountNumber()) + ", initial balance : " + getInitBalance() + ", minimum : " + getMinimumBalance();
+		return "Account : " + getKey() + ", " + getName() + (getBankName() == null ? "" : ", bank name : " + getBankName()) + (getAccountNumber() == null ? "" : ", account number : " + getAccountNumber()) + ", initial balance : " + getInitBalance() + ", minimum : " + getMinimumBalance();
 	}
 
-    public double getTodayAccountBalance() {
-        return todayAccountBalance;
-    }
+	public double getTodayAccountBalance() {
+		return todayAccountBalance;
+	}
 
-    public void setTodayAccountBalance(double todayAccountBalance) {
-        this.todayAccountBalance = todayAccountBalance;
-    }
+	public void setTodayAccountBalance(double todayAccountBalance) {
+		this.todayAccountBalance = todayAccountBalance;
+	}
 
-    public double getBankAccountBalance() {
-        return bankAccountBalance;
-    }
+	public double getBankAccountBalance() {
+		return bankAccountBalance;
+	}
 
-    public void setBankAccountBalance(double bankAccountBalance) {
-        this.bankAccountBalance = bankAccountBalance;
-    }
+	public void setBankAccountBalance(double bankAccountBalance) {
+		this.bankAccountBalance = bankAccountBalance;
+	}
 
-    public double getFutureAccountBalance() {
-        return futureAccountBalance;
-    }
+	public double getFutureAccountBalance() {
+		return futureAccountBalance;
+	}
 
-    public void setFutureAccountBalance(double futureAccountBalance) {
-        this.futureAccountBalance = futureAccountBalance;
-    }
+	public void setFutureAccountBalance(double futureAccountBalance) {
+		this.futureAccountBalance = futureAccountBalance;
+	}
 
-    public boolean isModified() {
-        return modified;
-    }
+	public boolean isModified() {
+		return modified;
+	}
 
-    public void setModified(boolean modified) {
-        this.modified = modified;
-    }
+	public void setModified(boolean modified) {
+		this.modified = modified;
+	}
 
-    public int getType() {
-        return type;
-    }
+	public int getType() {
+		return type;
+	}
 
-    public void setType(int type) {
-        this.type = type;
-    }
+	public void setType(int type) {
+		this.type = type;
+	}
 
 
 	public double getMinimumBalance() {

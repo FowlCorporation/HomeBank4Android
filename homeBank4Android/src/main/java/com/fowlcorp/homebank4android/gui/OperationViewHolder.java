@@ -30,25 +30,25 @@ import android.widget.TextView;
 import com.fowlcorp.homebank4android.R;
 
 public class OperationViewHolder extends RecyclerView.ViewHolder {
-	
+
 	private TextView date;
 	private TextView category;
 	private TextView payee;
 	private TextView wording;
 	private TextView balance;
 	private TextView amount;
-    private CardView card;
+	private CardView card;
 	private ImageView mode, option;
 	private Context context;
 	private LinearLayout splitLinear;
 	private LinearLayout unSplitLinear;
 	private View view;
-    private LinearLayout rootLayout;
+	private LinearLayout rootLayout;
 
 	public OperationViewHolder(View view) {
 		super(view);
 		this.view = view;
-        card = (CardView) view.findViewById(R.id.card_view);
+		card = (CardView) view.findViewById(R.id.card_view);
 		date = (TextView) view.findViewById(R.id.cardLayout_date);
 		category = (TextView) view.findViewById(R.id.cardLayout_category);
 		payee = (TextView) view.findViewById(R.id.cardLayout_tier);
@@ -56,8 +56,8 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 		balance = (TextView) view.findViewById(R.id.cardLayout_solde);
 		amount = (TextView) view.findViewById(R.id.cardLayout_montant);
 		mode = (ImageView) view.findViewById(R.id.pay_mode_icon);
-        option = (ImageView) view.findViewById(R.id.optionnal_icon);
-        rootLayout = (LinearLayout) view.findViewById(R.id.card_root_linear);
+		option = (ImageView) view.findViewById(R.id.optionnal_icon);
+		rootLayout = (LinearLayout) view.findViewById(R.id.card_root_linear);
 		splitLinear = (LinearLayout) view.findViewById(R.id.split_linear);
 		unSplitLinear = (LinearLayout) view.findViewById(R.id.no_split_linear);
 	}
@@ -150,27 +150,27 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 		this.unSplitLinear = unSplitLinear;
 	}
 
-    public CardView getCard() {
-        return card;
-    }
+	public CardView getCard() {
+		return card;
+	}
 
-    public void setCard(CardView card) {
-        this.card = card;
-    }
+	public void setCard(CardView card) {
+		this.card = card;
+	}
 
-    public LinearLayout getRootLayout() {
-        return rootLayout;
-    }
+	public LinearLayout getRootLayout() {
+		return rootLayout;
+	}
 
-    public void setRootLayout(LinearLayout rootLayout) {
-        this.rootLayout = rootLayout;
-    }
+	public void setRootLayout(LinearLayout rootLayout) {
+		this.rootLayout = rootLayout;
+	}
 
-    public ImageView getOption() {
-        return option;
-    }
+	public ImageView getOption() {
+		return option;
+	}
 
-    public void setOption(ImageView option) {
-        this.option = option;
-    }
+	public void setOption(ImageView option) {
+		this.option = option;
+	}
 }

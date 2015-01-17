@@ -33,56 +33,56 @@ import android.widget.TextView;
 import com.fowlcorp.homebank4android.R;
 
 import java.util.List;
- 
+
 public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
- 
-      Context context;
-      List<DrawerItem> drawerItemList;
-      int layoutResID;
- 
-      public CustomDrawerAdapter(Context context, int layoutResourceID,
-                  List<DrawerItem> listItems) {
-            super(context, layoutResourceID, listItems);
-            this.context = context;
-            this.drawerItemList = listItems;
-            this.layoutResID = layoutResourceID;
- 
-      }
- 
-      @Override
-      public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
- 
-            DrawerItemHolder drawerHolder;
-            View view = convertView;
- 
-            if (view == null) {
-                  LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-                  drawerHolder = new DrawerItemHolder();
- 
-                  view = inflater.inflate(layoutResID, parent, false);
-                  drawerHolder.ItemName = (TextView) view
-                              .findViewById(R.id.drawer_itemName);
-                  drawerHolder.icon = (ImageView) view.findViewById(R.id.drawer_icon);
-                  
-                  drawerHolder.iconHeader = (ImageView) view.findViewById(R.id.drawer_icon_header);
- 
-                  drawerHolder.title = (TextView) view.findViewById(R.id.drawerTitle);
- 
-                  drawerHolder.headerLayout = (LinearLayout) view
-                              .findViewById(R.id.headerLayout);
-                  drawerHolder.itemLayout = (LinearLayout) view
-                              .findViewById(R.id.itemLayout);
- 
-                  view.setTag(drawerHolder);
- 
-            } else {
-                  drawerHolder = (DrawerItemHolder) view.getTag();
- 
-            }
- 
-            DrawerItem dItem = (DrawerItem) this.drawerItemList.get(position);
-            
+
+	Context context;
+	List<DrawerItem> drawerItemList;
+	int layoutResID;
+
+	public CustomDrawerAdapter(Context context, int layoutResourceID,
+							   List<DrawerItem> listItems) {
+		super(context, layoutResourceID, listItems);
+		this.context = context;
+		this.drawerItemList = listItems;
+		this.layoutResID = layoutResourceID;
+
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+
+		DrawerItemHolder drawerHolder;
+		View view = convertView;
+
+		if (view == null) {
+			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+			drawerHolder = new DrawerItemHolder();
+
+			view = inflater.inflate(layoutResID, parent, false);
+			drawerHolder.ItemName = (TextView) view
+					.findViewById(R.id.drawer_itemName);
+			drawerHolder.icon = (ImageView) view.findViewById(R.id.drawer_icon);
+
+			drawerHolder.iconHeader = (ImageView) view.findViewById(R.id.drawer_icon_header);
+
+			drawerHolder.title = (TextView) view.findViewById(R.id.drawerTitle);
+
+			drawerHolder.headerLayout = (LinearLayout) view
+					.findViewById(R.id.headerLayout);
+			drawerHolder.itemLayout = (LinearLayout) view
+					.findViewById(R.id.itemLayout);
+
+			view.setTag(drawerHolder);
+
+		} else {
+			drawerHolder = (DrawerItemHolder) view.getTag();
+
+		}
+
+		DrawerItem dItem = (DrawerItem) this.drawerItemList.get(position);
+
 
  
             /*if (dItem.isOverview()) {
@@ -90,58 +90,59 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
                   drawerHolder.itemLayout.setVisibility(LinearLayout.VISIBLE);
                   drawerHolder.ItemName.setText(dItem.getItemName());
  
-            }else*/ if(dItem.isHeader()){
-            	
-            	drawerHolder.headerLayout.setVisibility(LinearLayout.VISIBLE);
-                drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
-                drawerHolder.title.setText(dItem.getItemName());
-                try {
-					drawerHolder.iconHeader.setImageDrawable(view.getResources().getDrawable(
-					              dItem.getImgResID()));
-				} catch (NotFoundException e) {
-					drawerHolder.iconHeader.setImageDrawable(null);
-				}
-            } else {
-            
- 
-                  drawerHolder.headerLayout.setVisibility(LinearLayout.INVISIBLE);
-                  drawerHolder.itemLayout.setVisibility(LinearLayout.VISIBLE);
- 
-                  try {
-					drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(
-					              dItem.getImgResID()));
-				} catch (NotFoundException e) {
-					drawerHolder.icon.setImageDrawable(null);
-				}
-                  drawerHolder.ItemName.setText(dItem.getItemName());
- 
-            }
+            }else*/
+		if (dItem.isHeader()) {
+
+			drawerHolder.headerLayout.setVisibility(LinearLayout.VISIBLE);
+			drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
+			drawerHolder.title.setText(dItem.getItemName());
+			try {
+				drawerHolder.iconHeader.setImageDrawable(view.getResources().getDrawable(
+						dItem.getImgResID()));
+			} catch (NotFoundException e) {
+				drawerHolder.iconHeader.setImageDrawable(null);
+			}
+		} else {
+
+
+			drawerHolder.headerLayout.setVisibility(LinearLayout.INVISIBLE);
+			drawerHolder.itemLayout.setVisibility(LinearLayout.VISIBLE);
+
+			try {
+				drawerHolder.icon.setImageDrawable(view.getResources().getDrawable(
+						dItem.getImgResID()));
+			} catch (NotFoundException e) {
+				drawerHolder.icon.setImageDrawable(null);
+			}
+			drawerHolder.ItemName.setText(dItem.getItemName());
+
+		}
             
            /* drawerHolder.itemLayout.setVisibility(LinearLayout.INVISIBLE);
             drawerHolder.title.setText(dItem.getItemName());*/
-            
-            return view;
-      }
-      
-      @Override
-    public boolean areAllItemsEnabled() {
-    	// TODO Auto-generated method stub
-    	return false;
-    }
-      
-    @Override
-    public boolean isEnabled(int position) {
-    	if(drawerItemList.get(position).isHeader()){
-    		return false;
-    	} else {
-    		return true;
-    	}
-    }
- 
-      private static class DrawerItemHolder {
-            TextView ItemName, title;
-            ImageView icon, iconHeader;
-            LinearLayout headerLayout, itemLayout;
-      }
+
+		return view;
+	}
+
+	@Override
+	public boolean areAllItemsEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled(int position) {
+		if (drawerItemList.get(position).isHeader()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private static class DrawerItemHolder {
+		TextView ItemName, title;
+		ImageView icon, iconHeader;
+		LinearLayout headerLayout, itemLayout;
+	}
 
 }

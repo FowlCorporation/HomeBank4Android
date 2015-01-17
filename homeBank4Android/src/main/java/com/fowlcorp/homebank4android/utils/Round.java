@@ -21,8 +21,8 @@ package com.fowlcorp.homebank4android.utils;
 
 public class Round {
 
-    public static double roundAmount(double d) {
-        double tmp = Math.round(d * 100);
-        return tmp/100;
-    }
+	public static double roundAmount(double d) {
+		double tmp = Math.round(d * 100);
+		return tmp / 100;
+	}
 }

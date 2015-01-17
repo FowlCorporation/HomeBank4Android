@@ -21,7 +21,6 @@ package com.fowlcorp.homebank4android.model;
 
 /**
  * @author Axel
- *
  */
 public class Payee extends AccPayCatTagAbstract {
 
@@ -35,6 +34,6 @@ public class Payee extends AccPayCatTagAbstract {
 
 	@Override
 	public String toString() {
-		return "Payee : " + getKey() +", name : " + getName();
+		return "Payee : " + getKey() + ", name : " + getName();
 	}
 }

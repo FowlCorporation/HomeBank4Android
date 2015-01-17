@@ -25,13 +25,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Model {
-	
-	private HashMap<Integer,Payee> payees;
-	private HashMap<Integer,Category> categories;
-	private HashMap<Integer,Account> accounts;
-    private HashMap<Integer,Tag> tags;
-	private HashMap<Integer,List<Operation>> operations; // one List for each account
-    private int selectedAccount;
+
+	private HashMap<Integer, Payee> payees;
+	private HashMap<Integer, Category> categories;
+	private HashMap<Integer, Account> accounts;
+	private HashMap<Integer, Tag> tags;
+	private HashMap<Integer, List<Operation>> operations; // one List for each account
+	private int selectedAccount;
 	private double grandTotalBank;
 	private double grandTotalToday;
 	private double grandTotalFuture;
@@ -42,7 +42,7 @@ public class Model {
 
 	public void updateOperationAccountBalance(int accountKey) {
 		Account selectedAcc = accounts.get(accountKey);
-		if(selectedAcc.isModified() == false) { // balances already up to date
+		if (selectedAcc.isModified() == false) { // balances already up to date
 			return;
 		}
 		Collections.sort(operations.get(accountKey));
@@ -51,17 +51,17 @@ public class Model {
 		Calendar today = Calendar.getInstance();
 		today.setTimeInMillis(System.currentTimeMillis());
 		//System.err.println(accounts.get(selectedAccount));
-		for(Operation op : operations.get(accountKey)) {
-			if(op.getAccount().getKey() == accountKey) {
-				if(op.getDate().compareTo(today) <= 0) { // today or past operation
-					if(!op.isRemind()) {
+		for (Operation op : operations.get(accountKey)) {
+			if (op.getAccount().getKey() == accountKey) {
+				if (op.getDate().compareTo(today) <= 0) { // today or past operation
+					if (!op.isRemind()) {
 						todayBalance += op.getAmount();
 					}
-					if(op.isReconciled()) {
+					if (op.isReconciled()) {
 						bankBalance += op.getAmount();
 					}
 				}
-				if(!op.isRemind()) {
+				if (!op.isRemind()) {
 					futureBalance += op.getAmount();
 				}
 				op.setBalanceAccount(futureBalance);
@@ -77,15 +77,16 @@ public class Model {
 
 		updateGrandTotal();
 	}
-    public void updateOperationAccountBalance() {
-        updateOperationAccountBalance(selectedAccount);
-    }
+
+	public void updateOperationAccountBalance() {
+		updateOperationAccountBalance(selectedAccount);
+	}
 
 	public void updateGrandTotal() {
 		setGrandTotalBank(0);
 		setGrandTotalToday(0);
 		setGrandTotalFuture(0);
-		for(Account acc : accounts.values()) {
+		for (Account acc : accounts.values()) {
 			setGrandTotalBank(getGrandTotalBank() + acc.getBankAccountBalance());
 			setGrandTotalFuture(getGrandTotalFuture() + acc.getFutureAccountBalance());
 			setGrandTotalToday(getGrandTotalToday() + acc.getTodayAccountBalance());
@@ -126,33 +127,33 @@ public class Model {
 
 	public void setOperations(List<Operation> operations, Account acc) {
 		this.operations.put(acc.getKey(), operations);
-        acc.setModified(true);
+		acc.setModified(true);
 	}
 
-    public HashMap<Integer, List<Operation>> getOperations() {
-        return operations;
-    }
+	public HashMap<Integer, List<Operation>> getOperations() {
+		return operations;
+	}
 
-    public void setOperations(HashMap<Integer, List<Operation>> operations) {
-        this.operations = operations;
-    }
+	public void setOperations(HashMap<Integer, List<Operation>> operations) {
+		this.operations = operations;
+	}
 
-    public int getSelectedAccount() {
-        return selectedAccount;
-    }
+	public int getSelectedAccount() {
+		return selectedAccount;
+	}
 
-    public void setSelectedAccount(int selectedAccount) {
-        System.err.println("New operation selected");
-        this.selectedAccount = selectedAccount;
-    }
+	public void setSelectedAccount(int selectedAccount) {
+		System.err.println("New operation selected");
+		this.selectedAccount = selectedAccount;
+	}
 
-    public HashMap<Integer, Tag> getTags() {
-        return tags;
-    }
+	public HashMap<Integer, Tag> getTags() {
+		return tags;
+	}
 
-    public void setTags(HashMap<Integer, Tag> tags) {
-        this.tags = tags;
-    }
+	public void setTags(HashMap<Integer, Tag> tags) {
+		this.tags = tags;
+	}
 
 	public double getGrandTotalBank() {
 		return grandTotalBank;

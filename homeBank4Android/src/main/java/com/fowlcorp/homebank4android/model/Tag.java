@@ -24,15 +24,15 @@ package com.fowlcorp.homebank4android.model;
  */
 public class Tag extends AccPayCatTagAbstract {
 
-    /**
-     * Create the object with minimal informations
-     *
-     * @param key  Integer identifying uniquely the object
-     * @param name Name of the object
-     */
-    public Tag(int key, String name) {
-        super(key, name);
-    }
+	/**
+	 * Create the object with minimal informations
+	 *
+	 * @param key  Integer identifying uniquely the object
+	 * @param name Name of the object
+	 */
+	public Tag(int key, String name) {
+		super(key, name);
+	}
 
 
 }

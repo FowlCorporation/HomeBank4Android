@@ -47,24 +47,23 @@ import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * @author Axel, Cédric
- *
  */
 public class DataParser {
 
 	Document dom;
 	Context context;
 
-	
+
 	public DataParser(Context context, File file) throws ParserConfigurationException, SAXException, IOException {
 		this.context = context;
 		parseXmlFile(file);
 	}
-	
+
 	public DataParser(Context context) {
 		this.context = context;
 		parseXmlFile();
 	}
-	
+
 	private void parseXmlFile() {
 		//get the factory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -81,31 +80,31 @@ public class DataParser {
 	}
 
 
-
-	
 	/**
 	 * Parse a DropBox tracked file
+	 *
 	 * @param file
-	 * @throws ParserConfigurationException 
-	 * @throws IOException 
-	 * @throws SAXException 
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 * @throws SAXException
 	 */
 	private void parseXmlFile(File file) throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			//Using factory get an instance of document builder
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			//parse using builder to get DOM representation of the XML file
-			// TODO: point to the right file
-			FileInputStream in = new FileInputStream(file);
-			dom = db.parse(in);
+		//Using factory get an instance of document builder
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		//parse using builder to get DOM representation of the XML file
+		// TODO: point to the right file
+		FileInputStream in = new FileInputStream(file);
+		dom = db.parse(in);
 	}
 
 	/**
 	 * Retrieve the payees from the xml file
+	 *
 	 * @return the payees
 	 */
-	public HashMap<Integer,Payee> parsePayees() {
-		HashMap<Integer,Payee> payees = new HashMap<>();
+	public HashMap<Integer, Payee> parsePayees() {
+		HashMap<Integer, Payee> payees = new HashMap<>();
 		Element docEle = dom.getDocumentElement();
 		Element el;
 		NodeList nl;
@@ -124,20 +123,21 @@ public class DataParser {
 
 	/**
 	 * Retrieve the categories from the xml file
+	 *
 	 * @return the categories
 	 */
-	public HashMap<Integer,Category> parseCategories() {
+	public HashMap<Integer, Category> parseCategories() {
 		Element docEle = dom.getDocumentElement();
 		Element el;
 		NodeList nl;
-		HashMap<Integer,Category> categories = new HashMap<>();
+		HashMap<Integer, Category> categories = new HashMap<>();
 		nl = docEle.getElementsByTagName("cat");
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
 				el = (Element) nl.item(i);
 				Category c = new Category(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
 				categories.put(c.getKey(), c);
-				if(el.hasAttribute("parent")) {
+				if (el.hasAttribute("parent")) {
 					int parent = Integer.parseInt(el.getAttribute("parent"));
 					categories.get(parent).addSubCategory(c);
 					c.setParent(categories.get(parent));
@@ -151,32 +151,33 @@ public class DataParser {
 
 	/**
 	 * Retrieve the accounts from the xml file
+	 *
 	 * @return teh accounts
 	 */
-	public HashMap<Integer,Account> parseAccounts() {
+	public HashMap<Integer, Account> parseAccounts() {
 		Element docEle = dom.getDocumentElement();
 		Element el;
 		NodeList nl;
-		HashMap<Integer,Account> accounts = new HashMap<>();
+		HashMap<Integer, Account> accounts = new HashMap<>();
 		nl = docEle.getElementsByTagName("account");
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
 				el = (Element) nl.item(i);
 				Account a = new Account(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"), Double.parseDouble(el.getAttribute("initial")));
-				if(el.hasAttribute("bankname")) {
+				if (el.hasAttribute("bankname")) {
 					a.setBankName(el.getAttribute("bankname"));
 				}
-				if(el.hasAttribute("number")) {
+				if (el.hasAttribute("number")) {
 					a.setAccountNumber(el.getAttribute("number"));
 				}
-				if(el.hasAttribute("minimum")) {
+				if (el.hasAttribute("minimum")) {
 					a.setMinimumBalance(Double.parseDouble(el.getAttribute("minimum")));
 				}
-                if(el.hasAttribute("type")) {
-                    a.setType(Integer.parseInt(el.getAttribute("type")));
-                } else {
-                    a.setType(AccountType.NONE);
-                }
+				if (el.hasAttribute("type")) {
+					a.setType(Integer.parseInt(el.getAttribute("type")));
+				} else {
+					a.setType(AccountType.NONE);
+				}
 				accounts.put(a.getKey(), a);
 				// DEBUG
 				//System.err.println(a.toString());
@@ -187,13 +188,14 @@ public class DataParser {
 
 	/**
 	 * Retrieve the tags from the xml file
+	 *
 	 * @return the tags
 	 */
-	public HashMap<Integer,Tag> parseTags() {
+	public HashMap<Integer, Tag> parseTags() {
 		Element docEle = dom.getDocumentElement();
 		Element el;
 		NodeList nl;
-		HashMap<Integer,Tag> tags = new HashMap<>();
+		HashMap<Integer, Tag> tags = new HashMap<>();
 		nl = docEle.getElementsByTagName("tag");
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
@@ -209,33 +211,34 @@ public class DataParser {
 
 	/**
 	 * Retrieve the operations from the xml file and make links with the accounts, payees and accounts
-	 * @param accounts the accounts to link with operations
+	 *
+	 * @param accounts   the accounts to link with operations
 	 * @param categories the categories to link with operations
-	 * @param payees the payees to link with operations
+	 * @param payees     the payees to link with operations
 	 * @return the operations
 	 */
-	public HashMap<Integer,List<Operation>> parseOperations(HashMap<Integer,Account> accounts, HashMap<Integer,Category> categories, HashMap<Integer,Payee> payees) {
-		HashMap<Integer,List<Operation>> operations = new HashMap<>();
+	public HashMap<Integer, List<Operation>> parseOperations(HashMap<Integer, Account> accounts, HashMap<Integer, Category> categories, HashMap<Integer, Payee> payees) {
+		HashMap<Integer, List<Operation>> operations = new HashMap<>();
 		Element docEle = dom.getDocumentElement();
 		Element el;
 		NodeList nl;
 		nl = docEle.getElementsByTagName("ope");
 		int accountKey;
 
-        // init
-        for(Integer key : accounts.keySet()) {
-            operations.put(key, new ArrayList<Operation>()); // new Operation List for each account
-        }
+		// init
+		for (Integer key : accounts.keySet()) {
+			operations.put(key, new ArrayList<Operation>()); // new Operation List for each account
+		}
 
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
 				el = (Element) nl.item(i);
 				Category c = null;
 				Payee p = null;
-				if(el.hasAttribute("category")) { // missing for splitted operations
+				if (el.hasAttribute("category")) { // missing for splitted operations
 					c = categories.get(Integer.parseInt(el.getAttribute("category")));
 				}
-				if(el.hasAttribute("payee")) { // may miss
+				if (el.hasAttribute("payee")) { // may miss
 					p = payees.get(Integer.parseInt(el.getAttribute("payee")));
 				}
 				accountKey = Integer.parseInt(el.getAttribute("account"));
@@ -244,26 +247,26 @@ public class DataParser {
 						accounts.get(accountKey),
 						c,
 						p);
-				if(el.hasAttribute("wording")) { // may miss
+				if (el.hasAttribute("wording")) { // may miss
 					op.setWording(el.getAttribute("wording"));
 				}
 
-				if(el.hasAttribute("flags")) { // may miss
+				if (el.hasAttribute("flags")) { // may miss
 					op.setFlag(Integer.parseInt(el.getAttribute("flags")));
 				}
 
-				if(el.hasAttribute("paymode")) { // may miss
+				if (el.hasAttribute("paymode")) { // may miss
 					op.setPayMode(Integer.parseInt(el.getAttribute("paymode")));
 				}
 
-				if(op.isSplit()) { // handle split operations
+				if (op.isSplit()) { // handle split operations
 					String separator = "\\|\\|";
 					String[] samt = el.getAttribute("samt").split(separator);
 					String[] scat = el.getAttribute("scat").split(separator);
 					//DEBUG
-                    //System.out.println("taile samt : "+samt.length);
+					//System.out.println("taile samt : "+samt.length);
 					//System.out.println("taile scat : "+scat.length);
-					for(int j = 0; j < samt.length; j++) {
+					for (int j = 0; j < samt.length; j++) {
 						op.getSplits().add(new Couple(Double.parseDouble(samt[j]), categories.get(Integer.parseInt(scat[j]))));
 					}
 				}

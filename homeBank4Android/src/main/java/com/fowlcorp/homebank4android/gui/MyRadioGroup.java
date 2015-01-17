@@ -26,29 +26,29 @@ import android.widget.RadioButton;
  * @author Axel
  */
 public class MyRadioGroup implements RadioButton.OnCheckedChangeListener {
-    private CompoundButton checkedButton = null;
+	private CompoundButton checkedButton = null;
 
-    public void addRadioButton(RadioButton rb, Boolean checked) {
-        rb.setOnCheckedChangeListener(this);
+	public void addRadioButton(RadioButton rb, Boolean checked) {
+		rb.setOnCheckedChangeListener(this);
 
-        if (checkedButton == null) {
-            checkedButton = rb;
-        } else if (checked) {
-            checkedButton.setChecked(false);
-            rb.setChecked(true);
-            checkedButton = rb;
-        }
-    }
+		if (checkedButton == null) {
+			checkedButton = rb;
+		} else if (checked) {
+			checkedButton.setChecked(false);
+			rb.setChecked(true);
+			checkedButton = rb;
+		}
+	}
 
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            checkedButton.setChecked(false);
-            checkedButton = buttonView;
-        }
-    }
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		if (isChecked) {
+			checkedButton.setChecked(false);
+			checkedButton = buttonView;
+		}
+	}
 
-    public CompoundButton getCheckedButton() {
+	public CompoundButton getCheckedButton() {
 
-        return checkedButton;
-    }
+		return checkedButton;
+	}
 }
