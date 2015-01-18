@@ -58,7 +58,7 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="LicenseText" translatable="false">This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/gpl.html</string>
     <string name="GPLv3" translatable="false">GPLv3</string>
-    <string name="AboutAuthors_Intro">This application has been developed by three student of TELECOM Nancy. This is the Android version of Homebank (see Credit tab).</string>
+    <string name="AboutAuthors_Intro">This application has been developed by three students of TELECOM Nancy. This is the Android version of Homebank (see Credit tab).</string>
     <string name="HomeBank4Android" translatable="false">HomeBank4Android</string>
     <string name="OriginalWorkDescription">HomeBank4Android is an adaptation of HomeBank. HomeBank is a desktop software mainly developed by Maxime DOYEN.\n\nHomeBank is an open source program that aim to help you manage your personal accounting.</string>
     <string name="OriginalWorkLink">You can find the original program here: http://homebank.free.fr/</string>
