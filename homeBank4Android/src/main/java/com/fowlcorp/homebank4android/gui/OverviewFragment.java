@@ -138,7 +138,7 @@ public class OverviewFragment extends Fragment {
 		today = (TextView) overViewView.findViewById(R.id.overview_card_today);
 		icon = (ImageView) overViewView.findViewById(R.id.overview_card_icon);
 
-		Log.e("Debug", String.valueOf(model.getGrandTotalBank()));
+//		Log.e("Debug", String.valueOf(model.getGrandTotalBank()));
 
 
 

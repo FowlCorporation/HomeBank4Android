@@ -22,15 +22,18 @@ package com.fowlcorp.homebank4android.model;
 import java.io.Serializable;
 
 /**
+ * Used to handle split operation
  * @author Cédric
  */
-public class Couple implements Serializable {
+public class Triplet implements Serializable {
     private Category category;
     private double amount;
+	private String wording;
 
-    public Couple(double amount, Category category) {
+    public Triplet(double amount, String wording, Category category) {
         this.amount = amount;
         this.category = category;
+		this.setWording(wording);
     }
 
     public Category getCategory() {
@@ -48,4 +51,12 @@ public class Couple implements Serializable {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+	public String getWording() {
+		return wording;
+	}
+
+	public void setWording(String wording) {
+		this.wording = wording;
+	}
 }

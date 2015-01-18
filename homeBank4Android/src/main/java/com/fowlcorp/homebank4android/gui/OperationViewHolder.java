@@ -56,7 +56,7 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
 		balance = (TextView) view.findViewById(R.id.cardLayout_solde);
 		amount = (TextView) view.findViewById(R.id.cardLayout_montant);
 		mode = (ImageView) view.findViewById(R.id.pay_mode_icon);
-		option = (ImageView) view.findViewById(R.id.optionnal_icon);
+		option = (ImageView) view.findViewById(R.id.optional_icon);
 		rootLayout = (LinearLayout) view.findViewById(R.id.card_root_linear);
 		splitLinear = (LinearLayout) view.findViewById(R.id.split_linear);
 		unSplitLinear = (LinearLayout) view.findViewById(R.id.no_split_linear);

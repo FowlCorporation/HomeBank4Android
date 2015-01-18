@@ -31,7 +31,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,9 +39,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.DetailedCardActivity;
-import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
-import com.fowlcorp.homebank4android.model.Couple;
+import com.fowlcorp.homebank4android.model.Triplet;
 import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.PayMode;
 import com.fowlcorp.homebank4android.utils.Round;
@@ -80,6 +78,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		holder.getRootLayout().setOnClickListener(new OnClickListener() {
 
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(activity.getApplicationContext(), DetailedCardActivity.class);
@@ -129,16 +128,14 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				} catch (Exception e) {
 				}
 
-				Pair datePair = Pair.create(holder.getDate(), "date");
-				Pair categoryPair = Pair.create(holder.getCategory(), "category");
-				Pair wordingPair = Pair.create(holder.getWording(), "wording");
-				Pair payeePair = Pair.create(holder.getPayee(), "payee");
-				Pair amountPair = Pair.create(holder.getAmount(), "amount");
-				Pair cardPair = Pair.create(holder.getCard(), "card");
-				Pair iconPair = Pair.create(holder.getMode(), "icon");
-				ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-						cardPair
-				);
+//				Pair datePair = Pair.create(holder.getDate(), "date");
+//				Pair categoryPair = Pair.create(holder.getCategory(), "category");
+//				Pair wordingPair = Pair.create(holder.getWording(), "wording");
+//				Pair payeePair = Pair.create(holder.getPayee(), "payee");
+//				Pair amountPair = Pair.create(holder.getAmount(), "amount");
+				Pair<View, String> cardPair = Pair.create((View)holder.getCard(), "card");
+//				Pair iconPair = Pair.create(holder.getMode(), "icon");
+				ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardPair);
 				ActivityCompat.startActivity(activity, intent, options.toBundle());
 				//activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
 				//activity.startActivity(intent);
@@ -172,7 +169,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			LinearLayout splitLayout = holder.getSplitLinear();
 			splitLayout.removeAllViews();
 			LayoutInflater inflater = activity.getLayoutInflater();
-			for (Couple subOp : operation.getSplits()) {
+			for (Triplet subOp : operation.getSplits()) {
 				View view = inflater.inflate(R.layout.split_layout, null);
 
 				TextView category = (TextView) view.findViewById(R.id.splitLayout_category);

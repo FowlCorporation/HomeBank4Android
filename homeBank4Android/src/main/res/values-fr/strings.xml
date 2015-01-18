@@ -67,4 +67,12 @@
     <string name="ArtworkMoore">Certaines icônes proviennent du travail d\'Alexander Moore.</string>
     <string name="ArtworkTemplatic">Certaines icônes proviennent du travail de Templatic.com</string>
     <string name="Artworks">Graphisme</string>
+    <string name="desc_CardIcon">Icône de l\'opération</string>
+    <string name="desc_OptionalIcon">Icône optionelle</string>
+    <string name="Currency">Devise</string>
+    <string name="CurrencyDescription">La devise que vous utilisez</string>
+    <string name="CurrencyTitle">Choix de la devise</string>
+    <string name="FilePath">Chemin du fichier</string>
+    <string name="FilePathDescription">Le chemin du fichier HomeBank (xhb)</string>
+    <string name="FilePathTitle">Chemin du fichier HomeBank</string>
 </resources>

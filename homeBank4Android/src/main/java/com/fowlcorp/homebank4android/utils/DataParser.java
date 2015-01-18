@@ -24,7 +24,7 @@ import android.content.Context;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Category;
-import com.fowlcorp.homebank4android.model.Couple;
+import com.fowlcorp.homebank4android.model.Triplet;
 import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.Payee;
 import com.fowlcorp.homebank4android.model.Tag;
@@ -266,12 +266,16 @@ public class DataParser {
 				if (op.isSplit()) { // handle split operations
 					String separator = "\\|\\|";
 					String[] samt = el.getAttribute("samt").split(separator);
-					String[] scat = el.getAttribute("scat").split(separator);
+					String[] scat = el.getAttribute("scat").split(separator,-1);
+					String[] smem = el.getAttribute("smem").split(separator, -1);
 					//DEBUG
 					//System.out.println("taile samt : "+samt.length);
 					//System.out.println("taile scat : "+scat.length);
+					// System.err.println("Length : "+scat.length +", smem length "+smem.length);
+					String tmpCat;
 					for (int j = 0; j < samt.length; j++) {
-						op.getSplits().add(new Couple(Double.parseDouble(samt[j]), categories.get(Integer.parseInt(scat[j]))));
+						tmpCat = scat[j]; // sub category could miss
+						op.getSplits().add(new Triplet(Double.parseDouble(samt[j]), smem[j], tmpCat.length() > 0 ? categories.get(Integer.parseInt(tmpCat)) : new Category(0,"")));
 					}
 				}
 

@@ -34,7 +34,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -135,8 +134,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 					super.onPostExecute(result);
 					progressBar.setVisibility(View.GONE);
 					drawerLayout.setVisibility(View.VISIBLE);
-					Log.d("Debug", "End of parsing");
-					Log.d("Debug", String.valueOf(model.getGrandTotalBank()));
+//					Log.d("Debug", "End of parsing");
+//					Log.d("Debug", String.valueOf(model.getGrandTotalBank()));
 					//model.updateGrandTotal();
 					try {
 						updateGUI();
@@ -146,7 +145,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 				}
 			};
 
-			asyncTask.execute(new String());
+			asyncTask.execute("");
 		}
 	}
 
@@ -208,8 +207,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 					super.onPostExecute(result);
 					progressBar.setVisibility(View.GONE);
 					drawerLayout.setVisibility(View.VISIBLE);
-					Log.d("Debug", "End of parsing");
-					Log.d("Debug", String.valueOf(model.getGrandTotalBank()));
+//					Log.d("Debug", "End of parsing");
+//					Log.d("Debug", String.valueOf(model.getGrandTotalBank()));
 					//model.updateGrandTotal();
 					try {
 						updateGUI();
@@ -219,7 +218,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 				}
 			};
 
-			asyncTask.execute(new String());
+			asyncTask.execute("");
 
 		} else if (requestCode == SETTINGS_OK) {
 			updateGUI();
@@ -236,6 +235,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			System.out.println("replace fragment");
 			FragmentManager fragmentManager = getSupportFragmentManager(); //get the fragment manager
 			FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
+			if(model == null) { // model is not set yet
+				return;
+			}
 			if (drawerList.get(position).isOverview()) { //if the item is the overview
                 tx.replace(R.id.container, OverviewFragment.newInstance(model), "overview").commitAllowingStateLoss(); //invoke the overview fragment
 			} else { //if it is an account
@@ -342,8 +344,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			model.updateOperationAccountBalance(acc.getKey());
 		}
 
-		bankList = new ArrayList<String>(); //create a list of bank name
-		drawerList = new ArrayList<DrawerItem>(); //create the list of the drawer items
+		bankList = new ArrayList<>(); //create a list of bank name
+		drawerList = new ArrayList<>(); //create the list of the drawer items
 
 		for (int i = 0; i < accountList.size(); i++) {//add data to the bank list
 			if (!bankList.contains(getNameByType(accountList.get(i).getType()))) { //if the list doesn't contain the bank of this item
@@ -367,19 +369,19 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			} else if (bankList.get(i).equals(getNameByType(AccountType.NONE))) {
 				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.notype, false, true));
 			} else {
-				drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));//add the bank to the drawer as a title
+				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.empty, false, true));//add the bank to the drawer as a title
 			}
 			for (int j = 0; j < accountList.size(); j++) {//for each account
 				if (getNameByType(accountList.get(j).getType()).equals(bankList.get(i))) { //if the account correspond to the bank name
 					switch (accountList.get(j).getType()) {
 						case AccountType.BANK:
-							drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, accountList.get(j).getKey())); //add the account in the drawer list
+							drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.empty, accountList.get(j).getKey())); //add the account in the drawer list
 							break;
 						case AccountType.CASH:
-							drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, accountList.get(j).getKey())); //add the account in the drawer list
+							drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.empty, accountList.get(j).getKey())); //add the account in the drawer list
 							break;
 						default:
-							drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, accountList.get(j).getKey())); //add the account in the drawer list
+							drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.empty, accountList.get(j).getKey())); //add the account in the drawer list
 					}
 
 				}
@@ -394,18 +396,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		try {
-			//dbxFs.shutDown();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		System.out.println("on destroy");
-		if (isFinishing()) {
-
-		} else {
-
-		}
 	}
 
 	/*----------------------------------------------------*/
