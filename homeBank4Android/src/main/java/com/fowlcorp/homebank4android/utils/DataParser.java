@@ -251,6 +251,10 @@ public class DataParser {
 					op.setWording(el.getAttribute("wording"));
 				}
 
+				if (el.hasAttribute("tags")) { // may miss
+					op.setTags(el.getAttribute("tags"));
+				}
+
 				if (el.hasAttribute("flags")) { // may miss
 					op.setFlag(Integer.parseInt(el.getAttribute("flags")));
 				}

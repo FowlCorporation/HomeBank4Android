@@ -201,7 +201,9 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 
 		if (!operation.isReconciled() && !operation.isRemind()) {
 			holder.getCard().setCardBackgroundColor(Color.parseColor("#fff3e0"));
-		}
+		} else if(operation.isReconciled()){
+            holder.getCard().setCardBackgroundColor(Color.parseColor("#ffffff"));
+        }
 
 		try {
 			switch (operation.getPayMode()) {
