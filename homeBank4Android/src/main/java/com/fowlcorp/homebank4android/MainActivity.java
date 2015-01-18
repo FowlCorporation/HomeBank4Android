@@ -369,19 +369,19 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			} else if (bankList.get(i).equals(getNameByType(AccountType.NONE))) {
 				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.notype, false, true));
 			} else {
-				drawerList.add(new DrawerItem(bankList.get(i), -1, false, true));//add the bank to the drawer as a title
+				drawerList.add(new DrawerItem(bankList.get(i), R.drawable.empty, false, true));//add the bank to the drawer as a title
 			}
 			for (int j = 0; j < accountList.size(); j++) {//for each account
 				if (getNameByType(accountList.get(j).getType()).equals(bankList.get(i))) { //if the account correspond to the bank name
 					switch (accountList.get(j).getType()) {
 						case AccountType.BANK:
-							drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, accountList.get(j).getKey())); //add the account in the drawer list
+							drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.empty, accountList.get(j).getKey())); //add the account in the drawer list
 							break;
 						case AccountType.CASH:
-							drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, accountList.get(j).getKey())); //add the account in the drawer list
+							drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.empty, accountList.get(j).getKey())); //add the account in the drawer list
 							break;
 						default:
-							drawerList.add(new DrawerItem(accountList.get(j).getName(), -1, accountList.get(j).getKey())); //add the account in the drawer list
+							drawerList.add(new DrawerItem(accountList.get(j).getName(), R.drawable.empty, accountList.get(j).getKey())); //add the account in the drawer list
 					}
 
 				}
