@@ -67,4 +67,6 @@
     <string name="ArtworkMoore">Certaines icônes proviennent du travail d\'Alexander Moore.</string>
     <string name="ArtworkTemplatic">Certaines icônes proviennent du travail de Templatic.com</string>
     <string name="Artworks">Graphisme</string>
+    <string name="desc_CardIcon">Icône de l'opération</string>
+    <string name="desc_OptionalIcon">Icône optionelle</string>
 </resources>

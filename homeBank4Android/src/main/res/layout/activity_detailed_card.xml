@@ -232,7 +232,7 @@
             android:layout_height="60dp"
             android:transitionName="icon"
             android:layout_gravity="center"
-            />
+            android:contentDescription="@string/desc_CardIcon"/>
     </GridLayout>
         </ScrollView>
     </android.support.v7.widget.CardView>

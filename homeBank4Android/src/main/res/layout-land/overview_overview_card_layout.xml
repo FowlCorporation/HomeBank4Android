@@ -81,7 +81,8 @@
                     android:id="@+id/overview_card_icon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/bank" />
+                    android:src="@drawable/bank"
+                    android:contentDescription="@string/desc_CardIcon"/>
 
             </LinearLayout>
 
