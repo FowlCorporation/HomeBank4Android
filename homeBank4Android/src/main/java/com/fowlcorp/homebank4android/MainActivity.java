@@ -34,7 +34,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -146,7 +145,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 				}
 			};
 
-			asyncTask.execute(new String());
+			asyncTask.execute("");
 		}
 	}
 
@@ -219,7 +218,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 				}
 			};
 
-			asyncTask.execute(new String());
+			asyncTask.execute("");
 
 		} else if (requestCode == SETTINGS_OK) {
 			updateGUI();
@@ -342,8 +341,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			model.updateOperationAccountBalance(acc.getKey());
 		}
 
-		bankList = new ArrayList<String>(); //create a list of bank name
-		drawerList = new ArrayList<DrawerItem>(); //create the list of the drawer items
+		bankList = new ArrayList<>(); //create a list of bank name
+		drawerList = new ArrayList<>(); //create the list of the drawer items
 
 		for (int i = 0; i < accountList.size(); i++) {//add data to the bank list
 			if (!bankList.contains(getNameByType(accountList.get(i).getType()))) { //if the list doesn't contain the bank of this item
@@ -394,18 +393,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		try {
-			//dbxFs.shutDown();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		System.out.println("on destroy");
-		if (isFinishing()) {
-
-		} else {
-
-		}
 	}
 
 	/*----------------------------------------------------*/

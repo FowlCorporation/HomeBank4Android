@@ -39,7 +39,7 @@ public class Operation implements Comparable, Serializable {
 	private String wording, tags; // wording <=> memo
 	private Category category;
 	private Payee payee;
-	private ArrayList<Couple> splits;
+	private ArrayList<Triplet> splits;
 	
 	
 	public Operation(int xmlDate, double amount, Account account, Category category, Payee payee) {
@@ -190,11 +190,11 @@ public class Operation implements Comparable, Serializable {
 		return (flag&0x20) != 0;
 	}
 
-	public ArrayList<Couple> getSplits() {
+	public ArrayList<Triplet> getSplits() {
 		return splits;
 	}
 
-	public void setSplits(ArrayList<Couple> splits) {
+	public void setSplits(ArrayList<Triplet> splits) {
 		this.splits = splits;
 	}
 }

@@ -31,7 +31,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,9 +39,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.DetailedCardActivity;
-import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
-import com.fowlcorp.homebank4android.model.Couple;
+import com.fowlcorp.homebank4android.model.Triplet;
 import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.PayMode;
 import com.fowlcorp.homebank4android.utils.Round;
@@ -172,7 +170,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			LinearLayout splitLayout = holder.getSplitLinear();
 			splitLayout.removeAllViews();
 			LayoutInflater inflater = activity.getLayoutInflater();
-			for (Couple subOp : operation.getSplits()) {
+			for (Triplet subOp : operation.getSplits()) {
 				View view = inflater.inflate(R.layout.split_layout, null);
 
 				TextView category = (TextView) view.findViewById(R.id.splitLayout_category);
