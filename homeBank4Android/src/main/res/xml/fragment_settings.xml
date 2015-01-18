@@ -21,17 +21,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <EditTextPreference 
         android:key="dropPath"
-        android:title="File path"
-        android:summary="The path of the file"
-        android:dialogTitle="HomeBank file path"/>
+        android:title="@string/FilePath"
+        android:summary="@string/FilePathDescription"
+        android:dialogTitle="@string/FilePathTitle"/>
     <ListPreference
         android:key="currency"
-        android:title="Currency"
-        android:summary="The currency that you are using"
-        android:dialogTitle="Currency chooser"
+        android:title="@string/Currency"
+        android:summary="@string/CurrencyDescription"
+        android:dialogTitle="@string/CurrencyTitle"
         android:entries="@array/currency"
         android:entryValues="@array/currencyValue"/>
-
-    
-
 </PreferenceScreen>
