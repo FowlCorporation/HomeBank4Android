@@ -154,7 +154,7 @@ public class AboutActivity extends ActionBarActivity {
 				case 2:
 					return getApplication().getString(R.string.Credits);
 				case 3:
-					return getApplication().getString(R.string.Artworks);
+					return getApplication().getString(R.string.Artwork);
 			}
 
 			return null;
