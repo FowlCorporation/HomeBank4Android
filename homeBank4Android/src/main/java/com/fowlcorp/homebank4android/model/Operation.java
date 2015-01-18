@@ -27,7 +27,7 @@ import java.util.GregorianCalendar;
  * @author Cédric
  *
  */
-public class Operation implements Comparable, Serializable {
+public class Operation implements Comparable<Operation>, Serializable {
 
 	private GregorianCalendar date;
 	private int xmlDate;
@@ -173,7 +173,8 @@ public class Operation implements Comparable, Serializable {
 		
 	}
 
-	public int compareTo(Object o) {
+	@Override
+	public int compareTo(Operation o) {
 		if(o instanceof  Operation) {
 			Operation operation = (Operation) o;
 			return this.date.compareTo(operation.getDate());
