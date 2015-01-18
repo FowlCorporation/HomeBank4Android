@@ -91,7 +91,7 @@ public class Operation implements Comparable<Operation>, Serializable {
 		this.date = date;
         GregorianCalendar ref = new GregorianCalendar();
         ref.set(1, 0, 1);
-        xmlDate = (int)( (date.getTimeInMillis() - ref.getTimeInMillis()) / (1000 * 60 * 60 * 24));
+        xmlDate = (int)( (date.getTimeInMillis() - ref.getTimeInMillis()) / (1000 * 60 * 60 * 24)) - 1;
 	}
 	public int getXmlDate() {
 		return xmlDate;
