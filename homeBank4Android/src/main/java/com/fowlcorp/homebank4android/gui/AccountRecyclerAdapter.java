@@ -78,6 +78,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		holder.getRootLayout().setOnClickListener(new OnClickListener() {
 
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(activity.getApplicationContext(), DetailedCardActivity.class);
@@ -127,16 +128,14 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				} catch (Exception e) {
 				}
 
-				Pair datePair = Pair.create(holder.getDate(), "date");
-				Pair categoryPair = Pair.create(holder.getCategory(), "category");
-				Pair wordingPair = Pair.create(holder.getWording(), "wording");
-				Pair payeePair = Pair.create(holder.getPayee(), "payee");
-				Pair amountPair = Pair.create(holder.getAmount(), "amount");
-				Pair cardPair = Pair.create(holder.getCard(), "card");
-				Pair iconPair = Pair.create(holder.getMode(), "icon");
-				ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-						cardPair
-				);
+//				Pair datePair = Pair.create(holder.getDate(), "date");
+//				Pair categoryPair = Pair.create(holder.getCategory(), "category");
+//				Pair wordingPair = Pair.create(holder.getWording(), "wording");
+//				Pair payeePair = Pair.create(holder.getPayee(), "payee");
+//				Pair amountPair = Pair.create(holder.getAmount(), "amount");
+				Pair<View, String> cardPair = Pair.create((View)holder.getCard(), "card");
+//				Pair iconPair = Pair.create(holder.getMode(), "icon");
+				ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardPair);
 				ActivityCompat.startActivity(activity, intent, options.toBundle());
 				//activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
 				//activity.startActivity(intent);
