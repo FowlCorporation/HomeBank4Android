@@ -18,16 +18,20 @@
   ~ along with HomeBank4Android.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<resources>
-    <color name="colorPrimaryDark_Light">#ff0288d1</color>
-    <color name="colorPrimary_Light">#ff03a9f4</color>
-    <color name="colorPrimaryLight_Light">#ffb3e5fc</color>
-    <color name="colorAccentFallbackDark_Light">#ffffc400</color>
-    <color name="colorAccent_Light">#ffffd740</color>
-    <color name="colorAccentFallbackLight_Light">#ffffe57f</color>
-    <color name="colorSelectedTab_Light">#ffffffff</color>
-    <color name="colorToolbarText_Light">#ffffffff</color>
-    <color name="colorBackground">#ffbdbdbd</color>
-    <color name="colorBackgroundNavigation">@color/background_material_light</color>
-    <color name="colorSeparationNavigation">@color/colorPrimaryDark_Light</color>
-</resources>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.gc.materialdesign.views.ButtonFloat
+        android:id="@+id/buttonFloat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="24dp"
+        android:background="#1E88E5"
+        materialdesign:animate="true"
+        materialdesign:iconDrawable="@drawable/home" />
+
+</RelativeLayout>
