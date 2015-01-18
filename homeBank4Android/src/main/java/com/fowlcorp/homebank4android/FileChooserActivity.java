@@ -35,7 +35,7 @@ import android.widget.RadioGroup;
 import java.io.File;
 import java.util.ArrayList;
 
-public class DropBoxFileActivity extends Activity {
+public class FileChooserActivity extends Activity {
 
 	static final int REQUEST_LINK_TO_DBX = 0;
 
@@ -131,7 +131,7 @@ public class DropBoxFileActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.drop_box_file, menu);
+		getMenuInflater().inflate(R.menu.file_chooser, menu);
 		return true;
 	}
 
