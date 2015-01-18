@@ -61,10 +61,9 @@ public class DataParser {
 
 	public DataParser(Context context) {
 		this.context = context;
-		parseXmlFile();
 	}
 
-	private void parseXmlFile() {
+	public void parseXmlFile(String fileName) {
 		//get the factory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		try {
@@ -72,7 +71,7 @@ public class DataParser {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			//parse using builder to get DOM representation of the XML file
 			// TODO: point to the right file
-			dom = db.parse(context.getResources().getAssets().open("anonymized.xhb"));
+			dom = db.parse(context.getResources().getAssets().open(fileName));
 
 		} catch (ParserConfigurationException | IOException | SAXException pce) {
 			pce.printStackTrace();
