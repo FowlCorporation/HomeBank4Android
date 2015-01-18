@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -92,13 +93,13 @@ public class DetailedCardActivity extends ActionBarActivity {
 		ImageView image = (ImageView) findViewById(R.id.detailedCardIcon);
 		date.setInputType(InputType.TYPE_NULL);
 		myCalendar = Calendar.getInstance();
+        myCalendar.clear();
 
 		final DatePickerDialog.OnDateSetListener dateDiag = new DatePickerDialog.OnDateSetListener() {
 
 			@Override
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 								  int dayOfMonth) {
-				// TODO Auto-generated method stub
 				myCalendar.set(Calendar.YEAR, year);
 				myCalendar.set(Calendar.MONTH, monthOfYear);
 				myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
