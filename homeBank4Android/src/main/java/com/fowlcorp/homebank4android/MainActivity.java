@@ -235,6 +235,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			System.out.println("replace fragment");
 			FragmentManager fragmentManager = getSupportFragmentManager(); //get the fragment manager
 			FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
+			if(model == null) { // model is not set yet
+				return;
+			}
 			if (drawerList.get(position).isOverview()) { //if the item is the overview
                 tx.replace(R.id.container, OverviewFragment.newInstance(model), "overview").commitAllowingStateLoss(); //invoke the overview fragment
 			} else { //if it is an account
