@@ -134,8 +134,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 					super.onPostExecute(result);
 					progressBar.setVisibility(View.GONE);
 					drawerLayout.setVisibility(View.VISIBLE);
-					Log.d("Debug", "End of parsing");
-					Log.d("Debug", String.valueOf(model.getGrandTotalBank()));
+//					Log.d("Debug", "End of parsing");
+//					Log.d("Debug", String.valueOf(model.getGrandTotalBank()));
 					//model.updateGrandTotal();
 					try {
 						updateGUI();
@@ -207,8 +207,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 					super.onPostExecute(result);
 					progressBar.setVisibility(View.GONE);
 					drawerLayout.setVisibility(View.VISIBLE);
-					Log.d("Debug", "End of parsing");
-					Log.d("Debug", String.valueOf(model.getGrandTotalBank()));
+//					Log.d("Debug", "End of parsing");
+//					Log.d("Debug", String.valueOf(model.getGrandTotalBank()));
 					//model.updateGrandTotal();
 					try {
 						updateGUI();
