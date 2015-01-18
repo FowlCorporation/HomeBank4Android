@@ -79,5 +79,11 @@
     <string name="WelcomeContent">Welcome to HomeBank4Android, the free adaptation of HomeBank (see About). HomeBank4Android uses the same xhb file as desktop HomeBank application.\n\nWe recommend you to sync your xhb file between your computer and your Android device with a third-party solution like BitTorrent Sync which you can found here: https://play.google.com/store/apps/details?id=com.bittorrent.sync\nYou can find more details about BitTorrent Sync here: https://www.getsync.com\n\nOn the next screen you will be asked to select your xhb file on your device.\n\nFor now HomeBank4Android is only a viewer, you will not be able to add or edit operations.</string>
     <string name="desc_CardIcon">Operation icon</string>
     <string name="desc_OptionalIcon">Optional icon</string>
+    <string name="FilePathDescription">The path of the HomeBank (xhb) file</string>
+    <string name="FilePath">File path</string>
+    <string name="FilePathTitle">HomeBank file path</string>
+    <string name="CurrencyDescription">The currency that you are using</string>
+    <string name="Currency">Currency</string>
+    <string name="CurrencyTitle">Currency chooser</string>
 
 </resources>
