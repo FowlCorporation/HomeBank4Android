@@ -43,7 +43,7 @@ public class Model implements Serializable {
 
 	public void updateOperationAccountBalance(int accountKey) {
 		Account selectedAcc = accounts.get(accountKey);
-		if(selectedAcc.isModified() == false) { // balances already up to date
+		if(!selectedAcc.isModified()) { // balances already up to date
 			return;
 		}
 		Collections.sort(operations.get(accountKey));
@@ -92,9 +92,9 @@ public class Model implements Serializable {
 			setGrandTotalToday(getGrandTotalToday() + acc.getTodayAccountBalance());
 		}
 
-		System.err.println("Today : " + getGrandTotalBank());
-		System.err.println("Bank : " + getGrandTotalFuture());
-		System.err.println("Future : " + getGrandTotalToday());
+//		System.err.println("Today : " + getGrandTotalBank());
+//		System.err.println("Bank : " + getGrandTotalFuture());
+//		System.err.println("Future : " + getGrandTotalToday());
 	}
 
 	public HashMap<Integer, Payee> getPayees() {
@@ -143,7 +143,7 @@ public class Model implements Serializable {
     }
 
     public void setSelectedAccount(int selectedAccount) {
-        System.err.println("New operation selected");
+//        System.err.println("New operation selected");
         this.selectedAccount = selectedAccount;
     }
 
