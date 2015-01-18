@@ -31,6 +31,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,7 +54,7 @@ import java.util.Locale;
 
 public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHolder> {
 	private List<Operation> listOperation;
-	private Calendar myDate;
+	//private Calendar myDate;
 	private Activity activity;
 
 	public AccountRecyclerAdapter(List<Operation> listOperation, Activity activity) {
@@ -72,7 +73,8 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		final Operation operation = listOperation.get(position);
 
 
-		myDate = Calendar.getInstance();
+		final Calendar myDate = Calendar.getInstance();
+        myDate.clear();
 		myDate.setTime(operation.getDate().getTime());
 		final SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 		holder.getRootLayout().setOnClickListener(new OnClickListener() {
@@ -82,6 +84,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			public void onClick(View v) {
 				Intent intent = new Intent(activity.getApplicationContext(), DetailedCardActivity.class);
 				try {
+
 					intent.putExtra("Date", df.format(myDate.getTime()));
 				} catch (Exception e) {
 				}
