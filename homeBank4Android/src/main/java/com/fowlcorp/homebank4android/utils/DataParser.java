@@ -81,7 +81,7 @@ public class DataParser {
 
 
 	/**
-	 * Parse a DropBox tracked file
+	 * Parse a file
 	 *
 	 * @param file
 	 * @throws ParserConfigurationException

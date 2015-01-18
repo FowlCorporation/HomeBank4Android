@@ -19,6 +19,6 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.fowlcorp.homebank4android.DropBoxFileActivity" >
+    tools:context="com.fowlcorp.homebank4android.FileChooserActivity" >
 
 </menu>

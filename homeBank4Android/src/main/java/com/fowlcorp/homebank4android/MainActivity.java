@@ -33,7 +33,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -118,7 +117,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
 
 					try {
-						dropBoxCall();
+						initParserFile();
 						doTEst();
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -149,7 +148,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		}
 	}
 
-	public boolean dropBoxCall() {
+	public boolean initParserFile() {
 		//get the path of the file in the preference
 		String pathPref = sharedPreferences.getString("dropPath", "");
 
@@ -158,7 +157,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			dp = new DataParser(getApplicationContext(), localFile);
 			return true;
 		} catch (Exception e) { //exception : the file is corrupted or is not a homebank database
-			Intent intent = new Intent(getApplicationContext(), DropBoxFileActivity.class);
+			Intent intent = new Intent(getApplicationContext(), FileChooserActivity.class);
 			startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
 		}
 
@@ -171,7 +170,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 			if (resultCode == Activity.RESULT_OK) { //if the filechooser end correctly
 				String result = data.getStringExtra("pathResult"); //store the new path in the preferences
 				sharedPreferences.edit().putString("dropPath", result).commit();
-				dropBoxCall();
+				initParserFile();
 				doTEst();
 				updateGUI();
 			}
@@ -191,7 +190,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
 
 					try {
-						dropBoxCall();
+						initParserFile();
 						doTEst();
 					} catch (Exception e) {
 						e.printStackTrace();

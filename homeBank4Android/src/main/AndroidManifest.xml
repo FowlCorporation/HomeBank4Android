@@ -19,7 +19,7 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fowlcorp.homebank4android"
-    android:versionCode="471"
+    android:versionCode="473"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -49,12 +49,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DropBoxFileActivity"
+            android:name=".FileChooserActivity"
             android:label="@string/HomeBank" >
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.fowlcorp.homebank4android.DropBoxFileActivity" />
+                android:value=".FileChooserActivity" />
         </activity>
         <activity
             android:name=".SettingsActivity"
