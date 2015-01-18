@@ -41,40 +41,40 @@
 
     </style>
 
-    <!--Currently not in use-->
-    <style name="AppTheme.Toolbar">
-        <!--Override : must be present in general style-->
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <!-- This would set the toolbar's background color,
-              but setting this also changes the popup menu's background,
-              even if we define popupTheme for our <Toolbar> -->
-        <!--<item name="android:background">@color/colorPrimary_Light</item>-->
-        <item name="android:minHeight">?attr/actionBarSize</item>
+    <!--&lt;!&ndash;Currently not in use&ndash;&gt;-->
+    <!--<style name="AppTheme.Toolbar">-->
+        <!--&lt;!&ndash;Override : must be present in general style&ndash;&gt;-->
+        <!--&lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;-->
+        <!--&lt;!&ndash; This would set the toolbar's background color,-->
+              <!--but setting this also changes the popup menu's background,-->
+              <!--even if we define popupTheme for our <Toolbar> &ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:background">@color/colorPrimary_Light</item>&ndash;&gt;-->
+        <!--<item name="android:minHeight">?attr/actionBarSize</item>-->
 
-        <!-- android:textColorPrimary is the  color of the title text
-             in the Toolbar, in the Theme.AppCompat theme:  -->
-        <item name="android:textColorPrimary">@color/colorToolbarText_Light</item>
-        <!-- android:textColorSecondary is the color of the menu
-             overflow icon (three vertical dots) -->
-        <item name="android:textColorSecondary">@color/colorToolbarText_Light</item>
-        <item name="android:textColorTertiary">@color/colorToolbarText_Light</item>
-        <!-- android:textColorPrimaryInverse is the  color of the title
-             text in the Toolbar, in the Theme.AppCompat.Light theme:  -->
-        <!-- <item name="android:textColorPrimaryInverse">@color/abc_primary_text_material_light</item> -->
+        <!--&lt;!&ndash; android:textColorPrimary is the  color of the title text-->
+             <!--in the Toolbar, in the Theme.AppCompat theme:  &ndash;&gt;-->
+        <!--<item name="android:textColorPrimary">@color/colorToolbarText_Light</item>-->
+        <!--&lt;!&ndash; android:textColorSecondary is the color of the menu-->
+             <!--overflow icon (three vertical dots) &ndash;&gt;-->
+        <!--<item name="android:textColorSecondary">@color/colorToolbarText_Light</item>-->
+        <!--<item name="android:textColorTertiary">@color/colorToolbarText_Light</item>-->
+        <!--&lt;!&ndash; android:textColorPrimaryInverse is the  color of the title-->
+             <!--text in the Toolbar, in the Theme.AppCompat.Light theme:  &ndash;&gt;-->
+        <!--&lt;!&ndash; <item name="android:textColorPrimaryInverse">@color/abc_primary_text_material_light</item> &ndash;&gt;-->
 
-        <!--<item name="android:popupBackground">@color/colorToolbarText_Light</item>-->
+        <!--&lt;!&ndash;<item name="android:popupBackground">@color/colorToolbarText_Light</item>&ndash;&gt;-->
 
-        <!-- android:actionMenuTextColor is the color of the text of
-              action (menu) items in the Toolbar, at least in the
-              Theme.AppCompat theme.
-              For some reason, they already get the textColorPrimary
-              when running on API 21, but not on older versions of
-              Android, so this is only necessary to support older
-              Android versions.-->
-        <!--<item name="actionMenuTextColor">@color/abc_primary_text_material_light</item>-->
+        <!--&lt;!&ndash; android:actionMenuTextColor is the color of the text of-->
+              <!--action (menu) items in the Toolbar, at least in the-->
+              <!--Theme.AppCompat theme.-->
+              <!--For some reason, they already get the textColorPrimary-->
+              <!--when running on API 21, but not on older versions of-->
+              <!--Android, so this is only necessary to support older-->
+              <!--Android versions.&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="actionMenuTextColor">@color/abc_primary_text_material_light</item>&ndash;&gt;-->
 
-        <!--Specific-->
-        <item name="android:transitionName">toolbar</item>
-        <item name="android:touchscreenBlocksFocus">false</item>
-    </style>
+        <!--&lt;!&ndash;Specific&ndash;&gt;-->
+        <!--<item name="android:transitionName">toolbar</item>-->
+        <!--<item name="android:touchscreenBlocksFocus">false</item>-->
+    <!--</style>-->
 </resources>
