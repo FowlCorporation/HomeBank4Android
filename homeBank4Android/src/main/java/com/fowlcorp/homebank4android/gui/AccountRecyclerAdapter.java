@@ -32,6 +32,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -122,7 +123,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				} catch (Exception e) {
 				}
 				try {
-                    Log.d("Debug",  String.valueOf(operation.isSplit()));
+                    Log.d("Debug", String.valueOf(operation.isSplit()));
 					bdl.putBoolean("Split", operation.isSplit());
 				} catch (Exception e) {
 				}
