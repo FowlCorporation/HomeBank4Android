@@ -43,9 +43,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.gui.MyRadioGroup;
-import com.fowlcorp.homebank4android.model.Couple;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.PayMode;
+import com.fowlcorp.homebank4android.model.Triplet;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -165,7 +165,7 @@ public class DetailedCardActivity extends ActionBarActivity {
                 e.printStackTrace();
             }
         } else {
-            ArrayList<Couple> coupleArrayList = (ArrayList<Couple>) bdl.getSerializable("Couple");
+            ArrayList<Triplet> coupleArrayList = (ArrayList<Triplet>) bdl.getSerializable("Couple");
             int key = bdl.getInt("Key");
             int position = bdl.getInt("Position");
             //ArrayList<Couple> coupleArrayList = model.getOperations(model.getAccounts().get(key)).get(position).getSplits();

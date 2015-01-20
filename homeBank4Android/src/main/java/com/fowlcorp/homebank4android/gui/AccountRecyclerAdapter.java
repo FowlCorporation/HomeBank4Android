@@ -32,6 +32,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -122,7 +123,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				} catch (Exception e) {
 				}
 				try {
-                    Log.d("Debug",  String.valueOf(operation.isSplit()));
+                    Log.d("Debug", String.valueOf(operation.isSplit()));
 					bdl.putBoolean("Split", operation.isSplit());
 				} catch (Exception e) {
 				}
@@ -158,17 +159,18 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			holder.getPayee().setText(activity.getString(R.string.Payee) + " : " + operation.getPayee().getName());
 		} catch (Exception e) {
 		}
+        try {
+            holder.getWording().setText(activity.getString(R.string.Wording) + " : " + operation.getWording());
+        } catch (Exception e) {
+        }
 		if (!operation.isSplit()) {
 			holder.getSplitLinear().removeAllViews();
 			holder.getUnSplitLinear().setVisibility(LinearLayout.VISIBLE);
 			try {
-				holder.getCategory().setText(activity.getString(R.string.Category) + " : " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
+				holder.getCategory().setText(activity.getString(R.string.Wording) + " : " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
 			} catch (Exception e) {
 			}
-			try {
-				holder.getWording().setText(activity.getString(R.string.Wording) + " : " + operation.getWording());
-			} catch (Exception e) {
-			}
+
 		} else {
 			holder.getUnSplitLinear().setVisibility(LinearLayout.GONE);
 
@@ -179,11 +181,12 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				View view = inflater.inflate(R.layout.split_layout, null);
 
 				TextView category = (TextView) view.findViewById(R.id.splitLayout_category);
-				//TextView memo = (TextView) view.findViewById(R.id.splitLayout_memo);
+				TextView memo = (TextView) view.findViewById(R.id.splitLayout_memo);
 				TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
 				//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 				category.setText(activity.getString(R.string.Category) + " : " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", "" + Round.roundAmount(subOp.getAmount())));
+                memo.setText(activity.getString(R.string.Category) + " : " + operation.getWording());
 				splitLayout.addView(view);
 			}
 		}
