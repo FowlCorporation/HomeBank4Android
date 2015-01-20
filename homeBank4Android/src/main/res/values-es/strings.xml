@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2014-2015 Fowl Corporation
+  ~
+  ~ This file is part of HomeBank4Android.
+  ~
+  ~ HomeBank4Android is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ HomeBank4Android is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with HomeBank4Android.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="All">Todo</string>
+    <string name="About">Acerca de</string>
+    <string name="Amount">Cantitad</string>
+    <string name="Artwork">Obra</string>
+    <string name="Asset">Activo</string>
+    <string name="Authors">Autores</string>
+    <string name="Balance">Balance</string>
+    <string name="Bank">Banco</string>
+    <string name="Cash">Efectivo</string>
+    <string name="Category">Categoría</string>
+    <string name="Cleared">Despejado</string>
+    <string name="Credit_Card">Tarjeta de crédito</string>
+    <string name="Credits">Créditos</string>
+    <string name="Label">Info</string>
+    <string name="Currency">Moneda</string>
+    <string name="CurrencyDescription">La moneda que está utilizando</string>
+    <string name="Date">Fecha</string>
+    <string name="Details">Detalles</string>
+    <string name="Future">Futuro</string>
+    <string name="Today">Hoy</string>
+    <string name="Icon">Icono</string>
+    <string name="Liability">Passivo</string>
+    <string name="License">Licencia</string>
+    <string name="Next">Siguiente</string>
+    <string name="None">Ninguno</string>
+    <string name="Overview">Visión de conjunto</string>
+    <string name="Paid">Pagado</string>
+    <string name="Payee">Beneficiario</string>
+    <string name="Reconciled">Reconciliado</string>
+    <string name="Remind">Recordar</string>
+    <string name="Settings">Configuración</string>
+    <string name="State">Estado</string>
+    <string name="Unpaid">No pagado</string>
+    <string name="Welcome">Bienvenida</string>
+    <string name="Wording">Memo</string>
+    <string name="action_settings">Configuración</string>
+    <string name="desc_CardIcon">Icono de la operación</string>
+    <string name="desc_OptionalIcon">Icono opcional</string>
+    <string name="navigation_drawer_close">Cierrar el cajón de navegación</string>
+    <string name="navigation_drawer_open">Abrir el cajón de navegación</string>
+    <string name="action_example">Añadir una operación</string>
+    <string name="WelcomeContent">Bienvenido a HomeBank4Android, la adaptación libre de HomeBank (consulte Acerca de). HomeBank4Android utiliza el mismo archivo XHB como la aplicación de escritorio HomeBank\n\nRecomendamos que usted sincronice su archivo XHB entre su computadora y su dispositivo Android con una solución de terceros, como BitTorrent Sync que se puede encontrar aquí : https://play.google.com/store/apps/details?id=com.bittorrent.sync\nUsted puede encontrar más detalles acerca de BitTorrent Sync aquí : https://www.getsync.com\n\nEn la siguiente pantalla le pedirá que seleccione su archivo XHB en su dispositivo.\n\nPor ahora HomeBank4Android es sólo un visor, usted no será capaz de  agregar o modificar operaciones.</string>
+    <string name="FilePathTitle">Ruta del archivo HomeBank</string>
+    <string name="FilePathDescription"> La ruta del archivo HomeBank (XHB)</string>
+    <string name="FilePath">Ruta de archivo</string>
+    <string name="CurrencyTitle">Selector de moneda</string>
+    <string name="ArtworkTemplatic">Algunos iconos son de Templatic.com</string>
+    <string name="ArtworkMoore">Algunos iconos son de Alexander Moore.</string>
+    <string name="ArtworkIcons8">Algunos iconos son de icons8.</string>
+    <string name="ArtworkCoelho">Algunos iconos son de Everaldo Coelho.</string>
+    <string name="AboutAuthors_Intro">Esta aplicación ha sido desarrollada por tres estudiantes de TELECOM Nancy. Es la versión para Android de HomeBank (ver pestaña de crédito).</string>
+    <string name="OriginalContributorsLink">Usted puede encontrar la lista completa de contribuidores aquí : https://launchpad.net/homebank/+topcontributors</string>
+    <string name="OriginalWorkDescription">HomeBank4Android es una adaptación de HomeBank. HomeBank es un software de escritorio desarrollado principalmente por Maxime DOYEN.\n\nHomeBank es un programa de código abierto que pretende ayudarle a manejar su contabilidad personal.</string>
+    <string name="OriginalWorkLink">Usted puede encontrar el programa original aquí : http://homebank.free.fr/</string>
+    <string name="Original_Contributors">Contribuidores Iniciales</string>
+    <string name="Original_Work">Obra Iniciales</string>
+</resources>

@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -31,7 +32,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,9 +40,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.DetailedCardActivity;
-import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
-import com.fowlcorp.homebank4android.model.Couple;
+import com.fowlcorp.homebank4android.model.Triplet;
 import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.PayMode;
 import com.fowlcorp.homebank4android.utils.Round;
@@ -69,7 +68,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 
 
 	@Override
-	public void onBindViewHolder(final OperationViewHolder holder, int position) {
+	public void onBindViewHolder(final OperationViewHolder holder, final int position) {
 		final Operation operation = listOperation.get(position);
 
 
@@ -80,32 +79,34 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		holder.getRootLayout().setOnClickListener(new OnClickListener() {
 
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(activity.getApplicationContext(), DetailedCardActivity.class);
+                Bundle bdl = new Bundle();
 				try {
 
-					intent.putExtra("Date", df.format(myDate.getTime()));
+					bdl.putString("Date", df.format(myDate.getTime()));
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Category", (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
+					bdl.putString("Category", (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Payee", operation.getPayee().getName());
+					bdl.putString("Payee", operation.getPayee().getName());
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Wording", operation.getWording());
+					bdl.putString("Wording", operation.getWording());
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Amount", String.valueOf(Round.roundAmount(operation.getAmount())));
+					bdl.putString("Amount", String.valueOf(Round.roundAmount(operation.getAmount())));
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Type", operation.getPayMode());
+					bdl.putInt("Type", operation.getPayMode());
 				} catch (Exception e) {
 				}
 //                try {
@@ -113,32 +114,34 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 //                } catch (Exception e) {
 //                }
 				try {
-					intent.putExtra("Reconciled", operation.isReconciled());
+					bdl.putBoolean("Reconciled", operation.isReconciled());
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Reconciled", operation.isReconciled());
+					bdl.putBoolean("Remind", operation.isRemind());
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Remind", operation.isRemind());
+                    Log.d("Debug",  String.valueOf(operation.isSplit()));
+					bdl.putBoolean("Split", operation.isSplit());
 				} catch (Exception e) {
 				}
-				try {
-					intent.putExtra("Split", operation.isSplit());
-				} catch (Exception e) {
-				}
+                try {
+                    bdl.putSerializable("Couple", operation.getSplits());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-				Pair datePair = Pair.create(holder.getDate(), "date");
-				Pair categoryPair = Pair.create(holder.getCategory(), "category");
-				Pair wordingPair = Pair.create(holder.getWording(), "wording");
-				Pair payeePair = Pair.create(holder.getPayee(), "payee");
-				Pair amountPair = Pair.create(holder.getAmount(), "amount");
-				Pair cardPair = Pair.create(holder.getCard(), "card");
-				Pair iconPair = Pair.create(holder.getMode(), "icon");
-				ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-						cardPair
-				);
+                intent.putExtras(bdl);
+
+//				Pair datePair = Pair.create(holder.getDate(), "date");
+//				Pair categoryPair = Pair.create(holder.getCategory(), "category");
+//				Pair wordingPair = Pair.create(holder.getWording(), "wording");
+//				Pair payeePair = Pair.create(holder.getPayee(), "payee");
+//				Pair amountPair = Pair.create(holder.getAmount(), "amount");
+				Pair<View, String> cardPair = Pair.create((View)holder.getCard(), "card");
+//				Pair iconPair = Pair.create(holder.getMode(), "icon");
+				ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardPair);
 				ActivityCompat.startActivity(activity, intent, options.toBundle());
 				//activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
 				//activity.startActivity(intent);
@@ -173,7 +176,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			LinearLayout splitLayout = holder.getSplitLinear();
 			splitLayout.removeAllViews();
 			LayoutInflater inflater = activity.getLayoutInflater();
-			for (Couple subOp : operation.getSplits()) {
+			for (Triplet subOp : operation.getSplits()) {
 				View view = inflater.inflate(R.layout.split_layout, null);
 
 				TextView category = (TextView) view.findViewById(R.id.splitLayout_category);

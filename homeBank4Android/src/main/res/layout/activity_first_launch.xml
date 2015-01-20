@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Next"
         android:textSize="20sp"
-        android:layout_gravity="right|bottom" />
+        android:layout_gravity="right|bottom"
+        style="@style/ThemeOverlay.AppCompat.Light" />
 
 </LinearLayout>

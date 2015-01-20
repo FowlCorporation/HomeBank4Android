@@ -41,7 +41,7 @@ public class SettingsFragment extends PreferenceFragment {
 		findPreference("dropPath").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(getActivity(), DropBoxFileActivity.class);
+				Intent intent = new Intent(getActivity(), FileChooserActivity.class);
 				startActivityForResult(intent, DROP_PATH_OK); //start an activity to select a valide file
 				return false;
 			}

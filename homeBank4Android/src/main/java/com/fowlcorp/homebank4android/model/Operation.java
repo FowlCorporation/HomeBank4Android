@@ -27,7 +27,7 @@ import java.util.GregorianCalendar;
  * @author Cédric
  *
  */
-public class Operation implements Comparable, Serializable {
+public class Operation implements Comparable<Operation>, Serializable {
 
 	private GregorianCalendar date;
 	private int xmlDate;
@@ -39,7 +39,7 @@ public class Operation implements Comparable, Serializable {
 	private String wording, tags; // wording <=> memo
 	private Category category;
 	private Payee payee;
-	private ArrayList<Couple> splits;
+	private ArrayList<Triplet> splits;
 	
 	
 	public Operation(int xmlDate, double amount, Account account, Category category, Payee payee) {
@@ -91,7 +91,7 @@ public class Operation implements Comparable, Serializable {
 		this.date = date;
         GregorianCalendar ref = new GregorianCalendar();
         ref.set(1, 0, 1);
-        xmlDate = (int)( (date.getTimeInMillis() - ref.getTimeInMillis()) / (1000 * 60 * 60 * 24));
+        xmlDate = (int)( (date.getTimeInMillis() - ref.getTimeInMillis()) / (1000 * 60 * 60 * 24)) - 1;
 	}
 	public int getXmlDate() {
 		return xmlDate;
@@ -173,7 +173,8 @@ public class Operation implements Comparable, Serializable {
 		
 	}
 
-	public int compareTo(Object o) {
+	@Override
+	public int compareTo(Operation o) {
 		if(o instanceof  Operation) {
 			Operation operation = (Operation) o;
 			return this.date.compareTo(operation.getDate());
@@ -190,11 +191,11 @@ public class Operation implements Comparable, Serializable {
 		return (flag&0x20) != 0;
 	}
 
-	public ArrayList<Couple> getSplits() {
+	public ArrayList<Triplet> getSplits() {
 		return splits;
 	}
 
-	public void setSplits(ArrayList<Couple> splits) {
+	public void setSplits(ArrayList<Triplet> splits) {
 		this.splits = splits;
 	}
 }

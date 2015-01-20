@@ -58,7 +58,7 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="LicenseText" translatable="false">This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/gpl.html</string>
     <string name="GPLv3" translatable="false">GPLv3</string>
-    <string name="AboutAuthors_Intro">This application has been developed by three student of TELECOM Nancy. This is the Android version of Homebank (see Credit tab).</string>
+    <string name="AboutAuthors_Intro">This application has been developed by three students of TELECOM Nancy. This is the Android version of Homebank (see Credit tab).</string>
     <string name="HomeBank4Android" translatable="false">HomeBank4Android</string>
     <string name="OriginalWorkDescription">HomeBank4Android is an adaptation of HomeBank. HomeBank is a desktop software mainly developed by Maxime DOYEN.\n\nHomeBank is an open source program that aim to help you manage your personal accounting.</string>
     <string name="OriginalWorkLink">You can find the original program here: http://homebank.free.fr/</string>
@@ -67,7 +67,7 @@
     <string name="Original_Contributors">Original Contributors</string>
     <string name="Icon">Icon</string>
     <string name="State">State</string>
-    <string name="Artworks">Artworks</string>
+    <string name="Artwork">Artwork</string>
     <string name="ArtworkTemplatic">Some icons are from Templatic.com</string>
     <string name="ArtworkCoelho">Some icons are from Everaldo Coelho.</string>
     <string name="ArtworkMoore">Some icons are from Alexander Moore.</string>
@@ -77,5 +77,13 @@
     <string name="Welcome">Welcome</string>
     <string name="Next">Next</string>
     <string name="WelcomeContent">Welcome to HomeBank4Android, the free adaptation of HomeBank (see About). HomeBank4Android uses the same xhb file as desktop HomeBank application.\n\nWe recommend you to sync your xhb file between your computer and your Android device with a third-party solution like BitTorrent Sync which you can found here: https://play.google.com/store/apps/details?id=com.bittorrent.sync\nYou can find more details about BitTorrent Sync here: https://www.getsync.com\n\nOn the next screen you will be asked to select your xhb file on your device.\n\nFor now HomeBank4Android is only a viewer, you will not be able to add or edit operations.</string>
+    <string name="desc_CardIcon">Operation icon</string>
+    <string name="desc_OptionalIcon">Optional icon</string>
+    <string name="FilePathDescription">The path of the HomeBank (xhb) file</string>
+    <string name="FilePath">File path</string>
+    <string name="FilePathTitle">HomeBank file path</string>
+    <string name="CurrencyDescription">The currency that you are using</string>
+    <string name="Currency">Currency</string>
+    <string name="CurrencyTitle">Currency chooser</string>
 
 </resources>
