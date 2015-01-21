@@ -19,10 +19,12 @@
 
 package com.fowlcorp.homebank4android.model;
 
+import java.io.Serializable;
+
 /**
  * @author Axel
  */
-public abstract class AccPayCatTagAbstract {
+public abstract class AccPayCatTagAbstract implements Serializable{
 
 	private int key;        //Key identifying the object
 	private String name;    //Textual name of the object (name of the account, category, payee...)

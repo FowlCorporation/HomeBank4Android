@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -31,6 +32,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,7 +69,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 
 
 	@Override
-	public void onBindViewHolder(final OperationViewHolder holder, int position) {
+	public void onBindViewHolder(final OperationViewHolder holder, final int position) {
 		final Operation operation = listOperation.get(position);
 
 
@@ -82,29 +84,30 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(activity.getApplicationContext(), DetailedCardActivity.class);
+                Bundle bdl = new Bundle();
 				try {
 
-					intent.putExtra("Date", df.format(myDate.getTime()));
+					bdl.putString("Date", df.format(myDate.getTime()));
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Category", (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
+					bdl.putString("Category", (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Payee", operation.getPayee().getName());
+					bdl.putString("Payee", operation.getPayee().getName());
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Wording", operation.getWording());
+					bdl.putString("Wording", operation.getWording());
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Amount", String.valueOf(Round.roundAmount(operation.getAmount())));
+					bdl.putString("Amount", String.valueOf(Round.roundAmount(operation.getAmount())));
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Type", operation.getPayMode());
+					bdl.putInt("Type", operation.getPayMode());
 				} catch (Exception e) {
 				}
 //                try {
@@ -112,21 +115,25 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 //                } catch (Exception e) {
 //                }
 				try {
-					intent.putExtra("Reconciled", operation.isReconciled());
+					bdl.putBoolean("Reconciled", operation.isReconciled());
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Reconciled", operation.isReconciled());
+					bdl.putBoolean("Remind", operation.isRemind());
 				} catch (Exception e) {
 				}
 				try {
-					intent.putExtra("Remind", operation.isRemind());
+                    Log.d("Debug", String.valueOf(operation.isSplit()));
+					bdl.putBoolean("Split", operation.isSplit());
 				} catch (Exception e) {
 				}
-				try {
-					intent.putExtra("Split", operation.isSplit());
-				} catch (Exception e) {
-				}
+                try {
+                    bdl.putSerializable("Couple", operation.getSplits());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                intent.putExtras(bdl);
 
 //				Pair datePair = Pair.create(holder.getDate(), "date");
 //				Pair categoryPair = Pair.create(holder.getCategory(), "category");
@@ -152,17 +159,18 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			holder.getPayee().setText(activity.getString(R.string.Payee) + " : " + operation.getPayee().getName());
 		} catch (Exception e) {
 		}
+        try {
+            holder.getWording().setText(activity.getString(R.string.Wording) + " : " + operation.getWording());
+        } catch (Exception e) {
+        }
 		if (!operation.isSplit()) {
 			holder.getSplitLinear().removeAllViews();
 			holder.getUnSplitLinear().setVisibility(LinearLayout.VISIBLE);
 			try {
-				holder.getCategory().setText(activity.getString(R.string.Category) + " : " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
+				holder.getCategory().setText(activity.getString(R.string.Wording) + " : " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
 			} catch (Exception e) {
 			}
-			try {
-				holder.getWording().setText(activity.getString(R.string.Wording) + " : " + operation.getWording());
-			} catch (Exception e) {
-			}
+
 		} else {
 			holder.getUnSplitLinear().setVisibility(LinearLayout.GONE);
 
@@ -173,11 +181,12 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				View view = inflater.inflate(R.layout.split_layout, null);
 
 				TextView category = (TextView) view.findViewById(R.id.splitLayout_category);
-				//TextView memo = (TextView) view.findViewById(R.id.splitLayout_memo);
+				TextView memo = (TextView) view.findViewById(R.id.splitLayout_memo);
 				TextView amount = (TextView) view.findViewById(R.id.splitLayout_amount);
 				//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 				category.setText(activity.getString(R.string.Category) + " : " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", "" + Round.roundAmount(subOp.getAmount())));
+                memo.setText(activity.getString(R.string.Category) + " : " + operation.getWording());
 				splitLayout.addView(view);
 			}
 		}
