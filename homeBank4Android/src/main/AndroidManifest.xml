@@ -21,7 +21,7 @@
     package="com.fowlcorp.homebank4android"
 
 
-    android:versionCode="496"
+    android:versionCode="500"
 
     android:versionName="1.0" >
 

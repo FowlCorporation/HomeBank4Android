@@ -51,6 +51,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 public class DetailedCardActivity extends ActionBarActivity {
 
@@ -109,7 +110,7 @@ public class DetailedCardActivity extends ActionBarActivity {
 		ImageView image = (ImageView) findViewById(R.id.detailedCardIcon);
 		date.setInputType(InputType.TYPE_NULL);
 		myCalendar = Calendar.getInstance();
-        myCalendar.clear();
+        //myCalendar.clear();
 
 		final DatePickerDialog.OnDateSetListener dateDiag = new DatePickerDialog.OnDateSetListener() {
 
@@ -128,19 +129,35 @@ public class DetailedCardActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
-				new DatePickerDialog(DetailedCardActivity.this, dateDiag, myCalendar
-						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-						myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-			}
+                try {
+                    StringTokenizer tokens = new StringTokenizer(date.getText().toString(),"/");
+                    int day = Integer.valueOf(tokens.nextToken());
+                    int month = Integer.valueOf(tokens.nextToken())-1;
+                    int year = Integer.valueOf(tokens.nextToken());
+                    new DatePickerDialog(DetailedCardActivity.this, dateDiag, year, month,
+                            day).show();
+                } catch (NumberFormatException e) {
+                    new DatePickerDialog(DetailedCardActivity.this, dateDiag, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            }
 		});
 
 		date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
-					new DatePickerDialog(DetailedCardActivity.this, dateDiag, myCalendar
-							.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-							myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                    try {
+                        StringTokenizer tokens = new StringTokenizer(date.getText().toString(),"/");
+                        int day = Integer.valueOf(tokens.nextToken());
+                        int month = Integer.valueOf(tokens.nextToken())-1;
+                        int year = Integer.valueOf(tokens.nextToken());
+                        new DatePickerDialog(DetailedCardActivity.this, dateDiag, year, month,
+                                day).show();
+                    } catch (NumberFormatException e) {
+                        new DatePickerDialog(DetailedCardActivity.this, dateDiag, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                    }
 				}
 			}
 		});
