@@ -4,14 +4,34 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class PasswordActivity extends ActionBarActivity {
 
+    private EditText passwordField;
+    private Button validateButton;
+    private String password="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        savedInstanceState.getString("Password", password);
         setContentView(R.layout.activity_password);
+        passwordField = (EditText) findViewById(R.id.password_password_field);
+        validateButton = (Button) findViewById(R.id.password_validate_button);
+
+        validateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(passwordField.getText().equals(password)){
+
+                }
+            }
+        });
+
     }
 
 
