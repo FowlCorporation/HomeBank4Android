@@ -102,7 +102,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         if (sharedPreferences.getBoolean("isFirstLaunch", true)) {
             Intent intent = new Intent(getApplicationContext(), firstLaunchActivity.class);
             startActivityForResult(intent, FIRST_OK); //start an activity to select a valide file
-        } else if (sharedPreferences.getBoolean("isPasswordRequired", false)){
+        } else if (sharedPreferences.getBoolean("isPasswordRequired", true)){
             Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
             startActivityForResult(intent, PASSWORD_OK); //start an activity to select a valide file
         } else {
@@ -135,9 +135,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 if (resultCode == Activity.RESULT_OK) { //if the filechooser end correctly
                     String result = data.getStringExtra("pathResult"); //store the new path in the preferences
                     sharedPreferences.edit().putString("dropPath", result).commit();
-                    initParserFile();
-                    doTEst();
-                    updateGUI();
+                    AsyncParser parser = new AsyncParser();
+                    parser.execute("");
                 }
                 break;
             case FIRST_OK:
@@ -150,11 +149,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 break;
             case PASSWORD_OK:
                 if (resultCode == Activity.RESULT_OK) {
-                    String result = data.getStringExtra("pathResult"); //store the new path in the preferences
-                    sharedPreferences.edit().putString("dropPath", result).commit();
-                    initParserFile();
-                    doTEst();
-                    updateGUI();
+                    AsyncParser parser = new AsyncParser();
+                    parser.execute("");
                 }
         }
 
@@ -174,19 +170,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 tx.replace(R.id.container, OverviewFragment.newInstance(model), "overview").commitAllowingStateLoss(); //invoke the overview fragment
             } else { //if it is an account
                 PagerSwipeFragment pagerFrag = PagerSwipeFragment.newInstance(position, model);
-				/*pagerFrag.getView().setFocusableInTouchMode(true);
-				pagerFrag.getView().requestFocus();
-				pagerFrag.getView().setOnKeyListener(new View.OnKeyListener() {
-					@Override
-					public boolean onKey(View v, int keyCode, KeyEvent event) {
-						if (keyCode == KeyEvent.KEYCODE_BACK) {
-							Log.i("tag", "onKey Back listener is working!!!");
-							updateGUI();
-							return true;
-						}
-						return false;
-					}
-				});*/
                 tx.replace(R.id.container, pagerFrag).commit(); //invoke the account fragment
             }
         } catch (Exception e) {

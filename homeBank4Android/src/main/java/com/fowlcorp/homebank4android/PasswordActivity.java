@@ -1,5 +1,7 @@
 package com.fowlcorp.homebank4android;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,7 +20,11 @@ public class PasswordActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        savedInstanceState.getString("Password", password);
+        try {
+            savedInstanceState.getString("Password", password);
+        } catch (Exception e) {
+            password = "password";
+        }
         setContentView(R.layout.activity_password);
         passwordField = (EditText) findViewById(R.id.password_password_field);
         validateButton = (Button) findViewById(R.id.password_validate_button);
@@ -26,8 +32,10 @@ public class PasswordActivity extends ActionBarActivity {
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(passwordField.getText().equals(password)){
-
+                if(passwordField.getText().toString().equals(password)){
+                    Intent resultData = new Intent();
+                    setResult(Activity.RESULT_OK, resultData);
+                    finish();
                 }
             }
         });

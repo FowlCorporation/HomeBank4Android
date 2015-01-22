@@ -19,7 +19,7 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fowlcorp.homebank4android"
-    android:versionCode="515"
+    android:versionCode="521"
     android:versionName="1.0" >
 
     <uses-sdk
