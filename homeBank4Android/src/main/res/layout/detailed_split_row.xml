@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/split_row"
         android:layout_width="match_parent"
+        android:fillViewport="true"
         android:layout_height="wrap_content">
 
         <TextView
@@ -16,7 +17,7 @@
         <AutoCompleteTextView
             android:id="@+id/detailedSplitEdit"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:text="AutoCompleteTextView" />
 
     </TableRow>
