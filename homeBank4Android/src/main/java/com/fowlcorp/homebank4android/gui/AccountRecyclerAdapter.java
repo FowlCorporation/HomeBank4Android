@@ -167,7 +167,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 			holder.getSplitLinear().removeAllViews();
 			holder.getUnSplitLinear().setVisibility(LinearLayout.VISIBLE);
 			try {
-				holder.getCategory().setText(activity.getString(R.string.Wording) + " : " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
+				holder.getCategory().setText(activity.getString(R.string.Category) + " : " + (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
 			} catch (Exception e) {
 			}
 
@@ -186,7 +186,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				//System.out.println(activity.getString(R.string.cardLayout_category) + " " + (subOp.getCategory().getParent() == null ? "" :subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 				category.setText(activity.getString(R.string.Category) + " : " + (subOp.getCategory().getParent() == null ? "" : subOp.getCategory().getParent().getName() + ": ") + subOp.getCategory().getName());
 				amount.setText(colorText(activity.getString(R.string.Amount) + " : ", "" + Round.roundAmount(subOp.getAmount())));
-                memo.setText(activity.getString(R.string.Category) + " : " + operation.getWording());
+                memo.setText(activity.getString(R.string.Wording) + " : " + operation.getWording());
 				splitLayout.addView(view);
 			}
 		}
