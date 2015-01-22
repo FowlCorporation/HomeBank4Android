@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.util.Log;
 
 
 public class SettingsFragment extends PreferenceFragment {
@@ -46,6 +47,7 @@ public class SettingsFragment extends PreferenceFragment {
 				return false;
 			}
 		});
+
 
 	}
 

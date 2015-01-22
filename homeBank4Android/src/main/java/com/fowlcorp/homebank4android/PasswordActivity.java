@@ -2,6 +2,8 @@ package com.fowlcorp.homebank4android;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,15 +18,13 @@ public class PasswordActivity extends ActionBarActivity {
     private EditText passwordField;
     private Button validateButton;
     private String password="";
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            savedInstanceState.getString("Password", password);
-        } catch (Exception e) {
-            password = "password";
-        }
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        password = sharedPreferences.getString("Password", "");
         setContentView(R.layout.activity_password);
         passwordField = (EditText) findViewById(R.id.password_password_field);
         validateButton = (Button) findViewById(R.id.password_validate_button);

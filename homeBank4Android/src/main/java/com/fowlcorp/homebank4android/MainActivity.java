@@ -102,7 +102,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         if (sharedPreferences.getBoolean("isFirstLaunch", true)) {
             Intent intent = new Intent(getApplicationContext(), firstLaunchActivity.class);
             startActivityForResult(intent, FIRST_OK); //start an activity to select a valide file
-        } else if (sharedPreferences.getBoolean("isPasswordRequired", true)){
+        } else if (sharedPreferences.getBoolean("isPasswordRequired", false)){
             Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
             startActivityForResult(intent, PASSWORD_OK); //start an activity to select a valide file
         } else {
