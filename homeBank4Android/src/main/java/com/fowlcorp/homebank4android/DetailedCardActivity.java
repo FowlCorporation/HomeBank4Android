@@ -21,6 +21,7 @@ package com.fowlcorp.homebank4android;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,17 +34,24 @@ import android.view.Window;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.gui.MyRadioGroup;
+import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.PayMode;
+import com.fowlcorp.homebank4android.model.Triplet;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 public class DetailedCardActivity extends ActionBarActivity {
 
@@ -57,6 +65,11 @@ public class DetailedCardActivity extends ActionBarActivity {
 	private EditText wording;
 	private EditText info;
 	private RadioButton none, reconciled, remind, cleared;
+    private LinearLayout linearSplit;
+    private TextView categoryView;
+    private TableLayout splitTable;
+    private GridLayout gridLayout;
+    private boolean isSplit = false;
 	private Calendar myCalendar;
 
 	@Override
@@ -89,11 +102,15 @@ public class DetailedCardActivity extends ActionBarActivity {
 		reconciled = (RadioButton) findViewById(R.id.detailedCardState_reconciled);
 		remind = (RadioButton) findViewById(R.id.detailedCardState_remind);
 		cleared = (RadioButton) findViewById(R.id.detailedCardState_cleared);
+        linearSplit = (LinearLayout) findViewById(R.id.detailed_split_linear);
+        categoryView = (TextView) findViewById(R.id.detailedCardCategoryLabel);
+        splitTable = (TableLayout) findViewById(R.id.detailed_split_table);
+        gridLayout = (GridLayout) findViewById(R.id.GridLayout1);
 
 		ImageView image = (ImageView) findViewById(R.id.detailedCardIcon);
 		date.setInputType(InputType.TYPE_NULL);
 		myCalendar = Calendar.getInstance();
-        myCalendar.clear();
+        //myCalendar.clear();
 
 		final DatePickerDialog.OnDateSetListener dateDiag = new DatePickerDialog.OnDateSetListener() {
 
@@ -112,19 +129,35 @@ public class DetailedCardActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
-				new DatePickerDialog(DetailedCardActivity.this, dateDiag, myCalendar
-						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-						myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-			}
+                try {
+                    StringTokenizer tokens = new StringTokenizer(date.getText().toString(),"/");
+                    int day = Integer.valueOf(tokens.nextToken());
+                    int month = Integer.valueOf(tokens.nextToken())-1;
+                    int year = Integer.valueOf(tokens.nextToken());
+                    new DatePickerDialog(DetailedCardActivity.this, dateDiag, year, month,
+                            day).show();
+                } catch (NumberFormatException e) {
+                    new DatePickerDialog(DetailedCardActivity.this, dateDiag, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            }
 		});
 
 		date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
-					new DatePickerDialog(DetailedCardActivity.this, dateDiag, myCalendar
-							.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-							myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                    try {
+                        StringTokenizer tokens = new StringTokenizer(date.getText().toString(),"/");
+                        int day = Integer.valueOf(tokens.nextToken());
+                        int month = Integer.valueOf(tokens.nextToken())-1;
+                        int year = Integer.valueOf(tokens.nextToken());
+                        new DatePickerDialog(DetailedCardActivity.this, dateDiag, year, month,
+                                day).show();
+                    } catch (NumberFormatException e) {
+                        new DatePickerDialog(DetailedCardActivity.this, dateDiag, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                    }
 				}
 			}
 		});
@@ -135,11 +168,47 @@ public class DetailedCardActivity extends ActionBarActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		try {
-			category.setText(bdl.getString("Category"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        try {
+            isSplit = bdl.getBoolean("Split");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(!isSplit){
+            try {
+                Log.d("debug", "is not Split");
+                linearSplit.setVisibility(View.GONE);
+                category.setText(bdl.getString("Category"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            ArrayList<Triplet> coupleArrayList = (ArrayList<Triplet>) bdl.getSerializable("Couple");
+            int key = bdl.getInt("Key");
+            int position = bdl.getInt("Position");
+            //ArrayList<Couple> coupleArrayList = model.getOperations(model.getAccounts().get(key)).get(position).getSplits();
+            linearSplit.setVisibility(View.VISIBLE);
+            category.setVisibility(View.GONE);
+            categoryView.setVisibility(View.GONE);
+            for(int i=0; i<coupleArrayList.size();i++){
+                TableRow categoryRow = (TableRow) getLayoutInflater().inflate(R.layout.detailed_split_row, splitTable, false);
+                TableRow amountRow = (TableRow) getLayoutInflater().inflate(R.layout.detailed_split_row, splitTable, false);
+                TextView categoryLabel = (TextView) categoryRow.findViewById(R.id.detailedSplitLabel);
+                AutoCompleteTextView categoryEdit = (AutoCompleteTextView) categoryRow.findViewById(R.id.detailedSplitEdit);
+                TextView amountLabel = (TextView) amountRow.findViewById(R.id.detailedSplitLabel);
+                AutoCompleteTextView amountEdit = (AutoCompleteTextView) amountRow.findViewById(R.id.detailedSplitEdit);
+                categoryLabel.setText(getString(R.string.Category));
+                categoryEdit.setText(coupleArrayList.get(i).getCategory().getName());
+                amountLabel.setText(getString(R.string.Amount));
+                amountEdit.setText(String.valueOf(coupleArrayList.get(i).getAmount()));
+                splitTable.addView(categoryRow);
+                splitTable.addView(amountRow);
+
+            }
+            gridLayout.invalidate();
+
+
+        }
+
 		try {
 			payee.setText(bdl.getString("Payee"));
 		} catch (Exception e) {
@@ -160,6 +229,7 @@ public class DetailedCardActivity extends ActionBarActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		try {
 			detailedCardStateGroup = new MyRadioGroup();
 			detailedCardStateGroup.addRadioButton(none, false);

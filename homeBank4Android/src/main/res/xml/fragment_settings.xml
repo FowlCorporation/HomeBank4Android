@@ -31,4 +31,15 @@
         android:dialogTitle="@string/CurrencyTitle"
         android:entries="@array/currency"
         android:entryValues="@array/currencyValue"/>
+    <SwitchPreference
+        android:key="isPasswordRequired"
+        android:title="default text passwd"
+        />
+    <EditTextPreference
+        android:dialogMessage="default"
+        android:title="default password"
+        android:key="Password"
+        android:inputType="textPassword"
+        android:dependency="isPasswordRequired">
+    </EditTextPreference>
 </PreferenceScreen>

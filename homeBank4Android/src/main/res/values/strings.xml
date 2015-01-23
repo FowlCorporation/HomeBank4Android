@@ -85,5 +85,6 @@
     <string name="CurrencyDescription">The currency that you are using</string>
     <string name="Currency">Currency</string>
     <string name="CurrencyTitle">Currency chooser</string>
+    <string name="title_activity_password">PasswordActivity</string>
 
 </resources>

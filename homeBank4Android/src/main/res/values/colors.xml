@@ -30,4 +30,5 @@
     <color name="colorBackground">#ffbdbdbd</color>
     <color name="colorBackgroundNavigation">@color/background_material_light</color>
     <color name="colorSeparationNavigation">@color/colorPrimaryDark_Light</color>
+    <color name="colorOverviewCard_Light">#81d4fa</color>
 </resources>
