@@ -21,6 +21,7 @@ package com.fowlcorp.homebank4android;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -42,6 +43,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.fowlcorp.homebank4android.gui.CustomTableRow;
 import com.fowlcorp.homebank4android.gui.MyRadioGroup;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.model.PayMode;
@@ -183,14 +185,29 @@ public class DetailedCardActivity extends ActionBarActivity {
             }
         } else {
             ArrayList<Triplet> coupleArrayList = (ArrayList<Triplet>) bdl.getSerializable("Couple");
-            int key = bdl.getInt("Key");
-            int position = bdl.getInt("Position");
-            //ArrayList<Couple> coupleArrayList = model.getOperations(model.getAccounts().get(key)).get(position).getSplits();
             linearSplit.setVisibility(View.VISIBLE);
             category.setVisibility(View.GONE);
             categoryView.setVisibility(View.GONE);
+            splitTable.removeAllViews();
             for(int i=0; i<coupleArrayList.size();i++){
-                TableRow categoryRow = (TableRow) getLayoutInflater().inflate(R.layout.detailed_split_row, splitTable, false);
+                CustomTableRow categoryRow = new CustomTableRow(getApplicationContext());
+                categoryRow.getLabel().setText(getString(R.string.Category));
+                categoryRow.getLabel().setTextColor(getResources().getColor(R.color.abc_primary_text_material_light));
+                categoryRow.getEdit().setText(coupleArrayList.get(i).getCategory().getName());
+                categoryRow.getEdit().setTextColor(getResources().getColor(R.color.abc_primary_text_material_light));
+
+
+                CustomTableRow amountRow = new CustomTableRow(getApplicationContext());
+                amountRow.getLabel().setText(getString(R.string.Amount));
+                amountRow.getLabel().setTextColor(getResources().getColor(R.color.abc_primary_text_material_light));
+                amountRow.getEdit().setText(String.valueOf(coupleArrayList.get(i).getAmount()));
+                amountRow.getEdit().setTextColor(getResources().getColor(R.color.abc_primary_text_material_light));
+
+                splitTable.addView(categoryRow);
+                splitTable.addView(amountRow);
+
+
+                /*TableRow categoryRow = (TableRow) getLayoutInflater().inflate(R.layout.detailed_split_row, splitTable, false);
                 TableRow amountRow = (TableRow) getLayoutInflater().inflate(R.layout.detailed_split_row, splitTable, false);
                 TextView categoryLabel = (TextView) categoryRow.findViewById(R.id.detailedSplitLabel);
                 AutoCompleteTextView categoryEdit = (AutoCompleteTextView) categoryRow.findViewById(R.id.detailedSplitEdit);
@@ -200,8 +217,10 @@ public class DetailedCardActivity extends ActionBarActivity {
                 categoryEdit.setText(coupleArrayList.get(i).getCategory().getName());
                 amountLabel.setText(getString(R.string.Amount));
                 amountEdit.setText(String.valueOf(coupleArrayList.get(i).getAmount()));
+                Log.d("Category", coupleArrayList.get(i).getCategory().getName());
+                Log.d("Amount", String.valueOf(coupleArrayList.get(i).getAmount()));
                 splitTable.addView(categoryRow);
-                splitTable.addView(amountRow);
+                splitTable.addView(amountRow);*/
 
             }
             gridLayout.invalidate();
@@ -305,4 +324,10 @@ public class DetailedCardActivity extends ActionBarActivity {
 
 		date.setText(sdf.format(myCalendar.getTime()));
 	}
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+
+        super.onConfigurationChanged(newConfig);
+    }
 }

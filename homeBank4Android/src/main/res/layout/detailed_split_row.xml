@@ -18,6 +18,7 @@
             android:id="@+id/detailedSplitEdit"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:saveEnabled="false"
             android:text="AutoCompleteTextView" />
 
     </TableRow>

@@ -41,6 +41,8 @@
         <item name="android:windowActionBar">false</item>
     </style>
 
+
+
     <!--&lt;!&ndash;Currently not in use&ndash;&gt;-->
     <!--<style name="AppTheme.Toolbar" parent="Theme.AppCompat.NoActionBar">-->
         <!--&lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;-->
