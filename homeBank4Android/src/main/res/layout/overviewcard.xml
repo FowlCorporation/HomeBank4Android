@@ -29,10 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginBottom="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginTop="1dp"
+        card_view:contentPadding="5dp"
+        card_view:cardBackgroundColor="@color/colorOverviewCard_Light"
+        card_view:cardUseCompatPadding="true"
+
         card_view:cardCornerRadius="4dp" >
 
         <LinearLayout
@@ -49,6 +49,7 @@
                     android:id="@+id/overviewCard_today"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorSelectedTab_Light"
                     android:layout_weight="0.5"
                     android:text="@string/Today" />
 
@@ -56,6 +57,7 @@
                     android:id="@+id/overviewCard_future"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorSelectedTab_Light"
                     android:layout_weight="0.5"
                     android:text="@string/Future" />
             </LinearLayout>
@@ -69,6 +71,7 @@
                     android:id="@+id/overviewCard_solde"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorSelectedTab_Light"
                     android:text="@string/Bank" />
             </LinearLayout>
         </LinearLayout>

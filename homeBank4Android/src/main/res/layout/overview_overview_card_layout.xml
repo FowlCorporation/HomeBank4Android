@@ -29,10 +29,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:contentPadding="5dp"
+        card_view:cardBackgroundColor="@color/colorOverviewCard_Light"
         card_view:cardCornerRadius="4dp" >
 
         <LinearLayout
@@ -46,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text=""
+                android:textColor="@color/colorSelectedTab_Light"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <LinearLayout
@@ -63,6 +63,7 @@
                         android:id="@+id/overview_card_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/colorSelectedTab_Light"
                         android:text="@string/Balance"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -70,6 +71,7 @@
                         android:id="@+id/overview_card_future"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/colorSelectedTab_Light"
                         android:text="Medium Text"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -77,6 +79,7 @@
                         android:id="@+id/overview_card_today"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/colorSelectedTab_Light"
                         android:text="Medium Text"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
