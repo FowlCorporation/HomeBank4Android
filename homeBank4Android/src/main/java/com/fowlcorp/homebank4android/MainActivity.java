@@ -38,6 +38,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.fowlcorp.homebank4android.gui.AccountFragment;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
@@ -47,6 +48,7 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
+import com.gc.materialdesign.views.ButtonFloat;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -67,6 +69,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	private SharedPreferences sharedPreferences; //preferences of the app
 	private ProgressBar progressBar;
 	private DrawerLayout drawerLayout;
+    private ButtonFloat buttonFloatAdd;
 
 	private Toolbar toolBar;
 
@@ -83,6 +86,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        buttonFloatAdd = (ButtonFloat) findViewById(R.id.buttonFloat);
+        buttonFloatAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Add an account", Toast.LENGTH_LONG);
+            }
+        });
 
 
 		setSupportActionBar(toolBar);
@@ -109,6 +119,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 				protected void onPreExecute() {
 					progressBar.setVisibility(View.VISIBLE);
 					drawerLayout.setVisibility(View.GONE);
+
 					super.onPreExecute();
 				}
 
