@@ -38,6 +38,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.fowlcorp.homebank4android.gui.AccountFragment;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
@@ -47,6 +48,7 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
+import com.gc.materialdesign.views.ButtonFloat;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -68,6 +70,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private SharedPreferences sharedPreferences; //preferences of the app
     private ProgressBar progressBar;
     private DrawerLayout drawerLayout;
+    private ButtonFloat buttonFloatAdd;
 
     private Toolbar toolBar;
 
@@ -84,7 +87,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
+        buttonFloatAdd = (ButtonFloat) findViewById(R.id.buttonFloat);
+        buttonFloatAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Add an operation", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         setSupportActionBar(toolBar);
 
@@ -107,7 +116,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             startActivityForResult(intent, PASSWORD_OK); //start an activity to select a valide file
         } else {
             AsyncParser asyncTask = new AsyncParser();
-
             asyncTask.execute("");
         }
     }
@@ -160,7 +168,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     public void onNavigationDrawerItemSelected(int position) { //when a drawer item is selected
         // update the main content by replacing fragments
         try {
-            System.out.println("replace fragment");
+//            System.out.println("replace fragment");
             FragmentManager fragmentManager = getSupportFragmentManager(); //get the fragment manager
             FragmentTransaction tx = fragmentManager.beginTransaction(); //begin a transaction
             if(model == null) { // model is not set yet
@@ -388,6 +396,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
             drawerLayout.setVisibility(View.GONE);
+            buttonFloatAdd.setVisibility(View.GONE);
             super.onPreExecute();
         }
 
@@ -412,6 +421,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             super.onPostExecute(result);
             progressBar.setVisibility(View.GONE);
             drawerLayout.setVisibility(View.VISIBLE);
+            buttonFloatAdd.setVisibility(View.VISIBLE);
 //					Log.d("Debug", "End of parsing");
 //					Log.d("Debug", String.valueOf(model.getGrandTotalBank()));
             //model.updateGrandTotal();
