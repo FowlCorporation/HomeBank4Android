@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="All">كل</string>
+    <string name="About">حول</string>
+    <string name="Amount">مبلغ</string>
+    <string name="Artwork">عمل فني</string>
+    <string name="ArtworkCoelho">بعض الأيقونات من عمل Everaldo Coelho. </string>
+    <string name="ArtworkIcons8">بعض الأيقونات من عمل icons8.</string>
+    <string name="ArtworkMoore">بعض الأيقونات من عمل Alxander Moore.</string>
+    <string name="ArtworkTemplatic">بعض الأيقونات من عمل Templatic.com.</string>
+    <string name="Balance">رصيد حساب</string>
+    <string name="Bank">بنك</string>
+    <string name="Category">فئة</string>
+    <string name="Credit_Card"> بطاقة إئتمان</string>
+    <string name="Currency">عملة</string>
+    <string name="Date">تاريخ</string>
+    <string name="CurrencyTitle"> اختيار العملة</string>
+    <string name="Details"> تفاصيل</string>
+    <string name="FilePath"> مسار الملف</string>
+    <string name="Cash">النقد</string>
+    <string name="Icon">أيقون</string>
+    <string name="FilePathDescription">مسار ملف xhb)HomeBank)</string>
+    <string name="FilePathTitle">مسار ملف HomeBank</string>
+    <string name="Credits"> الاعتمادات</string>
+    <string name="License">الرخصة</string>
+    <string name="Next">المقبل</string>
+    <string name="None"> لا شيء</string>
+    <string name="Original_Work"> العمل الأصلي</string>
+    <string name="Overview"> نظرة عامة</string>
+    <string name="Paid">مسددة</string>
+    <string name="Payee">المدفوع لأمره</string>
+    <string name="Remind"> تذكير</string>
+    <string name="Settings">الإعدادات</string>
+    <string name="State"> حالة</string>
+    <string name="Today"> اليوم</string>
+    <string name="Unpaid"> غير مسددة</string>
+    <string name="Welcome">مرحبا</string>
+    <string name="Wording">مذكرة</string>
+    <string name="action_example">إضافة معاملة</string>
+    <string name="action_settings">الإعدادات</string>
+</resources>
