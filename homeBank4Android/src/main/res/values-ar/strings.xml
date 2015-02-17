@@ -22,8 +22,8 @@
     <string name="FilePathDescription">مسار ملف xhb)HomeBank)</string>
     <string name="FilePathTitle">مسار ملف HomeBank</string>
     <string name="Credits"> الاعتمادات</string>
-    <string name="License">الرخصة</string>
-    <string name="Next">المقبل</string>
+    <string name="License">رخصة</string>
+    <string name="Next"> التالى</string>
     <string name="None"> لا شيء</string>
     <string name="Original_Work"> العمل الأصلي</string>
     <string name="Overview"> نظرة عامة</string>
@@ -38,4 +38,14 @@
     <string name="Wording">مذكرة</string>
     <string name="action_example">إضافة معاملة</string>
     <string name="action_settings">الإعدادات</string>
+    <string name="Original_Contributors">مساهمين الأصليون</string>
+    <string name="navigation_drawer_close"> إغلاق وحة التصفح</string>
+    <string name="navigation_drawer_open">فتح وحة التصفح</string>
+    <string name="Cleared">جائز</string>
+    <string name="CurrencyDescription"> العملة التي تستخدمها</string>
+    <string name="Label"> معلومات</string>
+    <string name="Liability">دين</string>
+    <string name="OriginalContributorsLink"> قائمةالمساهمين هنا: https://launchpad.net/homebank/+topcontributors</string>
+    <string name="OriginalWorkDescription"></string>
+    <string name="OriginalWorkLink"> يمكن العثور على البرنامج الأصلي هنا: http://homebank.free.fr/</string>
 </resources>
