@@ -180,6 +180,9 @@ public class DataParser {
                 if (element.hasAttribute("flags")) {
                     a.setFlags(Integer.parseInt(element.getAttribute("flags")));
                 }
+                if (element.hasAttribute("pos")) {
+                    a.setPos(Integer.parseInt(element.getAttribute("pos")));
+                }
 				if (element.hasAttribute("type")) {
 					a.setType(Integer.parseInt(element.getAttribute("type")));
 				} else {
@@ -226,7 +229,7 @@ public class DataParser {
         Element element;
         NodeList nodeList;
         Properties properties = new Properties();
-        nodeList = docEle.getElementsByTagName("owner");
+        nodeList = docEle.getElementsByTagName("properties");
         if (nodeList != null && nodeList.getLength() == 1) {
             element = (Element) nodeList.item(0);
             if (element.hasAttribute("title")) {
@@ -344,7 +347,7 @@ public class DataParser {
         Element docEle = dom.getDocumentElement();
         Element element;
         NodeList nodeList;
-        nodeList = docEle.getElementsByTagName("ope");
+        nodeList = docEle.getElementsByTagName("fav");
 
         if (nodeList != null && nodeList.getLength() > 0) {
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -384,6 +387,7 @@ public class DataParser {
                 if (element.hasAttribute("weekend")) {
                     template.setWeekend(Integer.parseInt(element.getAttribute("weekend")));
                 }
+                templates.add(template);
             }
         }
         return templates;
