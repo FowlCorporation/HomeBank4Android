@@ -32,6 +32,8 @@ public class Model implements Serializable {
 	private HashMap<Integer,Account> accounts;
     private HashMap<Integer,Tag> tags;
 	private HashMap<Integer,List<Operation>> operations; // one List for each account
+    private List<Template> templates;
+    private Owner owner;
     private int selectedAccount;
 	private double grandTotalBank;
 	private double grandTotalToday;
@@ -178,4 +180,20 @@ public class Model implements Serializable {
 	public void setGrandTotalFuture(double grandTotalFuture) {
 		this.grandTotalFuture = grandTotalFuture;
 	}
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public List<Template> getTemplates() {
+        return templates;
+    }
+
+    public void setTemplates(List<Template> templates) {
+        this.templates = templates;
+    }
 }

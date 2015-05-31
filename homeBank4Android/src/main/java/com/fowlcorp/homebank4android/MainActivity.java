@@ -240,6 +240,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             model.setPayees(dp.parsePayees());
             model.setTags(dp.parseTags());
             model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
+            model.setTemplates(dp.parseTemplate(model.getAccounts(), model.getCategories(), model.getPayees()));
+            model.setOwner(dp.parseOwner(model.getCategories()));
 
             //create the list of account with the model
             accountList = new ArrayList<>(model.getAccounts().values());

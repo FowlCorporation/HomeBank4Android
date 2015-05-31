@@ -34,6 +34,7 @@ public class Account extends AccPayCatTagAbstract implements Serializable {
 	private String bankName, accountNumber;
 	private boolean modified;
 	private int type;
+    private int flags;
 
 	public Account(int key, String name) {
 		super(key, name);
@@ -126,4 +127,12 @@ public class Account extends AccPayCatTagAbstract implements Serializable {
 	public void setMinimumBalance(double minimumBalance) {
 		this.minimumBalance = minimumBalance;
 	}
+
+    public int getFlags() {
+        return flags;
+    }
+
+    public void setFlags(int flags) {
+        this.flags = flags;
+    }
 }

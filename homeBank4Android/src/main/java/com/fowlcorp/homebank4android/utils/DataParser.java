@@ -24,6 +24,8 @@ import android.content.Context;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Category;
+import com.fowlcorp.homebank4android.model.Owner;
+import com.fowlcorp.homebank4android.model.Template;
 import com.fowlcorp.homebank4android.model.Triplet;
 import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.Payee;
@@ -50,8 +52,8 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class DataParser {
 
-	Document dom;
-	Context context;
+	private Document dom;
+	private Context context;
 
 
 	public DataParser(Context context, File file) throws ParserConfigurationException, SAXException, IOException {
@@ -105,13 +107,13 @@ public class DataParser {
 	public HashMap<Integer, Payee> parsePayees() {
 		HashMap<Integer, Payee> payees = new HashMap<>();
 		Element docEle = dom.getDocumentElement();
-		Element el;
-		NodeList nl;
-		nl = docEle.getElementsByTagName("pay");
-		if (nl != null && nl.getLength() > 0) {
-			for (int i = 0; i < nl.getLength(); i++) {
-				el = (Element) nl.item(i);
-				Payee p = new Payee(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
+		Element element;
+		NodeList nodeList;
+		nodeList = docEle.getElementsByTagName("pay");
+		if (nodeList != null && nodeList.getLength() > 0) {
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				element = (Element) nodeList.item(i);
+				Payee p = new Payee(Integer.parseInt(element.getAttribute("key")), element.getAttribute("name"));
 				// DEBUG
 				//System.err.println(p.toString());
 				payees.put(p.getKey(), p);
@@ -127,20 +129,23 @@ public class DataParser {
 	 */
 	public HashMap<Integer, Category> parseCategories() {
 		Element docEle = dom.getDocumentElement();
-		Element el;
-		NodeList nl;
+		Element element;
+		NodeList nodeList;
 		HashMap<Integer, Category> categories = new HashMap<>();
-		nl = docEle.getElementsByTagName("cat");
-		if (nl != null && nl.getLength() > 0) {
-			for (int i = 0; i < nl.getLength(); i++) {
-				el = (Element) nl.item(i);
-				Category c = new Category(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
+		nodeList = docEle.getElementsByTagName("cat");
+		if (nodeList != null && nodeList.getLength() > 0) {
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				element = (Element) nodeList.item(i);
+				Category c = new Category(Integer.parseInt(element.getAttribute("key")), element.getAttribute("name"));
 				categories.put(c.getKey(), c);
-				if (el.hasAttribute("parent")) {
-					int parent = Integer.parseInt(el.getAttribute("parent"));
+				if (element.hasAttribute("parent")) {
+					int parent = Integer.parseInt(element.getAttribute("parent"));
 					categories.get(parent).addSubCategory(c);
 					c.setParent(categories.get(parent));
 				}
+                if (element.hasAttribute("flags")) {
+                    c.setFlags(Integer.parseInt(element.getAttribute("flags")));
+                }
 				// DEBUG
 				//System.err.println(c.toString());
 			}
@@ -155,25 +160,28 @@ public class DataParser {
 	 */
 	public HashMap<Integer, Account> parseAccounts() {
 		Element docEle = dom.getDocumentElement();
-		Element el;
-		NodeList nl;
+		Element element;
+		NodeList nodeList;
 		HashMap<Integer, Account> accounts = new HashMap<>();
-		nl = docEle.getElementsByTagName("account");
-		if (nl != null && nl.getLength() > 0) {
-			for (int i = 0; i < nl.getLength(); i++) {
-				el = (Element) nl.item(i);
-				Account a = new Account(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"), Double.parseDouble(el.getAttribute("initial")));
-				if (el.hasAttribute("bankname")) {
-					a.setBankName(el.getAttribute("bankname"));
+		nodeList = docEle.getElementsByTagName("account");
+		if (nodeList != null && nodeList.getLength() > 0) {
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				element = (Element) nodeList.item(i);
+				Account a = new Account(Integer.parseInt(element.getAttribute("key")), element.getAttribute("name"), Double.parseDouble(element.getAttribute("initial")));
+				if (element.hasAttribute("bankname")) {
+					a.setBankName(element.getAttribute("bankname"));
 				}
-				if (el.hasAttribute("number")) {
-					a.setAccountNumber(el.getAttribute("number"));
+				if (element.hasAttribute("number")) {
+					a.setAccountNumber(element.getAttribute("number"));
 				}
-				if (el.hasAttribute("minimum")) {
-					a.setMinimumBalance(Double.parseDouble(el.getAttribute("minimum")));
+				if (element.hasAttribute("minimum")) {
+					a.setMinimumBalance(Double.parseDouble(element.getAttribute("minimum")));
 				}
-				if (el.hasAttribute("type")) {
-					a.setType(Integer.parseInt(el.getAttribute("type")));
+                if (element.hasAttribute("flags")) {
+                    a.setFlags(Integer.parseInt(element.getAttribute("flags")));
+                }
+				if (element.hasAttribute("type")) {
+					a.setType(Integer.parseInt(element.getAttribute("type")));
 				} else {
 					a.setType(AccountType.NONE);
 				}
@@ -192,14 +200,14 @@ public class DataParser {
 	 */
 	public HashMap<Integer, Tag> parseTags() {
 		Element docEle = dom.getDocumentElement();
-		Element el;
-		NodeList nl;
+		Element element;
+		NodeList nodeList;
 		HashMap<Integer, Tag> tags = new HashMap<>();
-		nl = docEle.getElementsByTagName("tag");
-		if (nl != null && nl.getLength() > 0) {
-			for (int i = 0; i < nl.getLength(); i++) {
-				el = (Element) nl.item(i);
-				Tag t = new Tag(Integer.parseInt(el.getAttribute("key")), el.getAttribute("name"));
+		nodeList = docEle.getElementsByTagName("tag");
+		if (nodeList != null && nodeList.getLength() > 0) {
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				element = (Element) nodeList.item(i);
+				Tag t = new Tag(Integer.parseInt(element.getAttribute("key")), element.getAttribute("name"));
 				tags.put(t.getKey(), t);
 				// DEBUG
 				//System.err.println(t.toString());
@@ -207,6 +215,38 @@ public class DataParser {
 		}
 		return tags;
 	}
+
+    /**
+     * Retrieve the owner info from the xml file
+     *
+     * @return the tags
+     */
+    public Owner parseOwner(HashMap<Integer,Category> categories) {
+        Element docEle = dom.getDocumentElement();
+        Element element;
+        NodeList nodeList;
+        Owner owner = new Owner();
+        nodeList = docEle.getElementsByTagName("owner");
+        if (nodeList != null && nodeList.getLength() == 1) {
+            element = (Element) nodeList.item(0);
+            if (element.hasAttribute("title")) {
+                owner.setTitle(element.getAttribute("title"));
+            }
+            if (element.hasAttribute("auto_smode")) {
+                owner.setAutoSmode(Integer.parseInt(element.getAttribute("auto_smode")));
+            }
+            if (element.hasAttribute("auto_weekday")) {
+                owner.setAutoWeekday(Integer.parseInt(element.getAttribute("auto_weekday")));
+            }
+            if (element.hasAttribute("auto_nbdays")) {
+                owner.setAutoNbdays(Integer.parseInt(element.getAttribute("auto_nbdays")));
+            }
+            if (element.hasAttribute("car_category")) {
+                owner.setCarCategory(categories.get(Integer.parseInt(element.getAttribute("car_category"))));
+            }
+        }
+        return owner;
+    }
 
 	/**
 	 * Retrieve the operations from the xml file and make links with the accounts, payees and accounts
@@ -219,9 +259,9 @@ public class DataParser {
 	public HashMap<Integer, List<Operation>> parseOperations(HashMap<Integer, Account> accounts, HashMap<Integer, Category> categories, HashMap<Integer, Payee> payees) {
 		HashMap<Integer, List<Operation>> operations = new HashMap<>();
 		Element docEle = dom.getDocumentElement();
-		Element el;
-		NodeList nl;
-		nl = docEle.getElementsByTagName("ope");
+		Element element;
+		NodeList nodeList;
+		nodeList = docEle.getElementsByTagName("ope");
 		int accountKey;
 
 		// init
@@ -229,44 +269,48 @@ public class DataParser {
 			operations.put(key, new ArrayList<Operation>()); // new Operation List for each account
 		}
 
-		if (nl != null && nl.getLength() > 0) {
-			for (int i = 0; i < nl.getLength(); i++) {
-				el = (Element) nl.item(i);
+		if (nodeList != null && nodeList.getLength() > 0) {
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				element = (Element) nodeList.item(i);
 				Category c = null;
 				Payee p = null;
-				if (el.hasAttribute("category")) { // missing for splitted operations
-					c = categories.get(Integer.parseInt(el.getAttribute("category")));
+				if (element.hasAttribute("category")) { // missing for splitted operations
+					c = categories.get(Integer.parseInt(element.getAttribute("category")));
 				}
-				if (el.hasAttribute("payee")) { // may miss
-					p = payees.get(Integer.parseInt(el.getAttribute("payee")));
+				if (element.hasAttribute("payee")) { // may miss
+					p = payees.get(Integer.parseInt(element.getAttribute("payee")));
 				}
-				accountKey = Integer.parseInt(el.getAttribute("account"));
-				Operation op = new Operation(Integer.parseInt(el.getAttribute("date")),
-						Double.parseDouble(el.getAttribute("amount")),
+				accountKey = Integer.parseInt(element.getAttribute("account"));
+				Operation op = new Operation(Integer.parseInt(element.getAttribute("date")),
+						Double.parseDouble(element.getAttribute("amount")),
 						accounts.get(accountKey),
 						c,
 						p);
-				if (el.hasAttribute("wording")) { // may miss
-					op.setWording(el.getAttribute("wording"));
+				if (element.hasAttribute("wording")) { // may miss
+					op.setWording(element.getAttribute("wording"));
 				}
 
-				if (el.hasAttribute("tags")) { // may miss
-					op.setTags(el.getAttribute("tags"));
+				if (element.hasAttribute("tags")) { // may miss
+					op.setTags(element.getAttribute("tags"));
 				}
 
-				if (el.hasAttribute("flags")) { // may miss
-					op.setFlag(Integer.parseInt(el.getAttribute("flags")));
+				if (element.hasAttribute("flags")) { // may miss
+					op.setFlags(Integer.parseInt(element.getAttribute("flags")));
 				}
 
-				if (el.hasAttribute("paymode")) { // may miss
-					op.setPayMode(Integer.parseInt(el.getAttribute("paymode")));
+				if (element.hasAttribute("paymode")) { // may miss
+					op.setPayMode(Integer.parseInt(element.getAttribute("paymode")));
 				}
+
+                if (element.hasAttribute("st")) { // may miss
+                    op.setState(Integer.parseInt(element.getAttribute("st")));
+                }
 
 				if (op.isSplit()) { // handle split operations
 					String separator = "\\|\\|";
-					String[] samt = el.getAttribute("samt").split(separator);
-					String[] scat = el.getAttribute("scat").split(separator,-1);
-					String[] smem = el.getAttribute("smem").split(separator, -1);
+					String[] samt = element.getAttribute("samt").split(separator);
+					String[] scat = element.getAttribute("scat").split(separator,-1);
+					String[] smem = element.getAttribute("smem").split(separator, -1);
 					//DEBUG
 					//System.out.println("taile samt : "+samt.length);
 					//System.out.println("taile scat : "+scat.length);
@@ -285,5 +329,64 @@ public class DataParser {
 		}
 		return operations;
 	}
+
+    /**
+     * Retrieve the template/scheduled op from the xml file and make links with the accounts, payees and accounts
+     *
+     * @param accounts   the accounts to link with template/scheduled op
+     * @param categories the categories to link with template/scheduled op
+     * @param payees     the payees to link with template/scheduled op
+     * @return the operations
+     */
+    public List<Template> parseTemplate(HashMap<Integer, Account> accounts, HashMap<Integer, Category> categories, HashMap<Integer, Payee> payees) {
+        List<Template> templates = new ArrayList<>();
+
+        Element docEle = dom.getDocumentElement();
+        Element element;
+        NodeList nodeList;
+        nodeList = docEle.getElementsByTagName("ope");
+
+        if (nodeList != null && nodeList.getLength() > 0) {
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                element = (Element) nodeList.item(i);
+                Template template = new Template();
+                template.setAmount(Double.parseDouble(element.getAttribute("amount")));
+                if (element.hasAttribute("account")) {
+                    template.setAccount(accounts.get(Integer.parseInt(element.getAttribute("account"))));
+                }
+                if (element.hasAttribute("paymode")) {
+                    template.setPaymode(Integer.parseInt(element.getAttribute("paymode")));
+                }
+                if (element.hasAttribute("flags")) {
+                    template.setFlags(Integer.parseInt(element.getAttribute("flags")));
+                }
+                if (element.hasAttribute("payee")) {
+                    template.setPayee(payees.get(Integer.parseInt(element.getAttribute("payee"))));
+                }
+                if (element.hasAttribute("category")) {
+                    template.setCategory(categories.get(Integer.parseInt(element.getAttribute("category"))));
+                }
+                if (element.hasAttribute("wording")) {
+                    template.setWording(element.getAttribute("wording"));
+                }
+                if (element.hasAttribute("nextdate")) {
+                    template.setNextDateXml(Integer.parseInt(element.getAttribute("nextdate")));
+                }
+                if (element.hasAttribute("every")) {
+                    template.setEvery(Integer.parseInt(element.getAttribute("every")));
+                }
+                if (element.hasAttribute("unit")) {
+                    template.setUnit(Integer.parseInt(element.getAttribute("unit")));
+                }
+                if (element.hasAttribute("limit")) {
+                    template.setLimit(Integer.parseInt(element.getAttribute("limit")));
+                }
+                if (element.hasAttribute("weekend")) {
+                    template.setWeekend(Integer.parseInt(element.getAttribute("weekend")));
+                }
+            }
+        }
+        return templates;
+    }
 
 }

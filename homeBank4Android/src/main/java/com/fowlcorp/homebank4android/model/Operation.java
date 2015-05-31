@@ -31,15 +31,26 @@ public class Operation implements Comparable<Operation>, Serializable {
 
 	private GregorianCalendar date;
 	private int xmlDate;
-	private int flag;
+	private int flags;
 	private int payMode;
 	private double balanceAccount;
 	private double amount;
+    private int state;
 	private Account account;
 	private String wording, tags; // wording <=> memo
 	private Category category;
 	private Payee payee;
 	private ArrayList<Triplet> splits;
+
+//        #define OF_OLDVALID	(1<<0)  //deprecated since 5.x
+//        #define OF_INCOME	(1<<1)
+//        #define OF_AUTO		(1<<2)	//scheduled
+//        #define OF_ADDED	(1<<3)  //tmp flag
+//        #define OF_CHANGED	(1<<4)  //tmp flag
+//        #define OF_OLDREMIND	(1<<5)  //deprecated since 5.x
+//        #define OF_CHEQ2	(1<<6)
+//        #define OF_LIMIT	(1<<7)	//scheduled
+//        #define OF_SPLIT	(1<<8)
 	
 	
 	public Operation(int xmlDate, double amount, Account account, Category category, Payee payee) {
@@ -63,16 +74,7 @@ public class Operation implements Comparable<Operation>, Serializable {
 	}
 
 	public boolean isReconciled() {
-//        #define OF_VALID	 (1<<0)
-//        #define OF_INCOME	 (1<<1)
-//        #define OF_AUTO	 (1<<2)  //tmp flag scheduled
-//        #define OF_ADDED	 (1<<3)  //tmp flag
-//        #define OF_CHANGED (1<<4)  //tmp flag
-//        #define OF_REMIND	 (1<<5)
-//        #define OF_CHEQ2	 (1<<6)
-//        #define OF_LIMIT	 (1<<7)	//scheduled
-//        #define OF_SPLIT	 (1<<8)
-		return flag % 2 == 1;
+		return state == OperationState.RECONCILED;
 	}
 	
 	public String verboseDate() {
@@ -105,11 +107,11 @@ public class Operation implements Comparable<Operation>, Serializable {
 		this.xmlDate = xmlDate;
 		computeGregorianDate();
 	}
-	public int getFlag() {
-		return flag;
+	public int getFlags() {
+		return flags;
 	}
-	public void setFlag(int flag) {
-		this.flag = flag;
+	public void setFlags(int flags) {
+		this.flags = flags;
         if(isSplit()) {
             splits = new ArrayList<>();
         }
@@ -184,12 +186,16 @@ public class Operation implements Comparable<Operation>, Serializable {
 	}
 
 	public boolean isSplit() {
-		return (flag&0x100) != 0;
+		return (flags &0x100) != 0;
 	}
 	
 	public boolean isRemind() {
-		return (flag&0x20) != 0;
+		return state == OperationState.REMIND;
 	}
+
+    public boolean isCleared() {
+        return state == OperationState.CLEARED;
+    }
 
 	public ArrayList<Triplet> getSplits() {
 		return splits;
@@ -198,4 +204,12 @@ public class Operation implements Comparable<Operation>, Serializable {
 	public void setSplits(ArrayList<Triplet> splits) {
 		this.splits = splits;
 	}
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 }

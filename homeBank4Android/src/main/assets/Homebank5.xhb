@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<homebank v="1.1000000000000001">
+<properties title="Owner" car_category="1" auto_smode="1" auto_weekday="1" auto_nbdays="1" />
+<account key="1" pos="1" type="4" name="Account1" number="number1" bankname="Bank 1" initial="51.009999999999998" minimum="-50" cheque1="1" />
+<account key="2" pos="2" type="3" name="Account2" number="number2" bankname="Bank 2" initial="3" minimum="0" />
+<account key="3" flags="2" pos="3" type="3" name="Account3" number="number3" bankname="Bank 2" initial="150" minimum="0" />
+<account key="4" pos="4" type="1" name="Account4" number="number4 " bankname="Bank 1" initial="10.289999999999999" minimum="0" />
+<account key="5" pos="5" type="2" name="Cash" initial="20.34" minimum="0" />
+<pay key="1" name="Payee1"/>
+<pay key="2" name="Payee2"/>
+<pay key="3" name="Payee3"/>
+<pay key="4" name="Payee4"/>
+<pay key="5" name="Payee5"/>
+<cat key="1" name="Car" />
+<cat key="13" parent="1" flags="1" name="SubCar1" />
+<cat key="5" parent="1" flags="1" name="SubCar2" />
+<cat key="2" name="Cat2" />
+<cat key="6" parent="2" flags="9" name="name2" b0="-400" />
+<cat key="7" parent="2" flags="9" name="nameA" b0="-40" />
+<cat key="18" flags="2" name="Income" />
+<cat key="20" parent="18" flags="3" name="Income3" />
+<cat key="39" parent="18" flags="3" name="Income1" />
+<cat key="35" parent="18" flags="3" name="Income2" />
+<tag key="1" name="Tag1" />
+<fav amount="0" wording="(template 5)" nextdate="735749" every="1" unit="2" limit="1" />
+<fav amount="10" account="1" paymode="4" flags="6" payee="1" category="20" wording="Fav1" nextdate="735754" every="1" unit="2" limit="1" weekend="2" />
+<fav amount="-5" account="2" paymode="10" flags="4" payee="2" category="2" wording="Fav2" nextdate="735753" every="1" unit="2" limit="1" weekend="1" />
+<fav amount="-2" account="1" paymode="7" flags="132" payee="3" category="13" wording="Fav3" nextdate="735753" every="1" unit="2" limit="10" />
+<fav amount="0.040000000000000001" account="4" paymode="7" flags="2" payee="2" category="35" wording="Fav4" nextdate="735749" every="1" unit="2" limit="1" />
+<ope date="735380" amount="-20" account="1" paymode="8" st="2" payee="1" category="1" wording="Wording1" tags="Tag1" />
+<ope date="735380" amount="11.5" account="5" paymode="3" st="2" flags="2" payee="5" category="20" wording="Wording2" />
+<ope date="735388" amount="3.5699999999999994" account="1" paymode="10" st="2" flags="258" payee="2" wording="Split" scat="6||5" samt="-5.2800000000000002||8.8499999999999996" smem="memo1||memo2" />
+<ope date="735749" amount="-5" account="5" paymode="3" payee="1" category="7" wording="etat:aucun" tags="Tag1" />
+<ope date="735749" amount="-5" account="5" paymode="3" st="1" payee="1" category="7" wording="etat:pointe" tags="Tag1" />
+<ope date="735749" amount="-5" account="5" paymode="3" st="2" payee="1" category="7" wording="etat:rapprochee" tags="Tag1" />
+<ope date="735749" amount="-5" account="5" paymode="3" st="3" payee="1" category="7" wording="etat:rappel" tags="Tag1" />
+</homebank>
