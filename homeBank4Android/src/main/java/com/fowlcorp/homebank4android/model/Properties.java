@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author Ced
  */
-public class Owner implements Serializable {
+public class Properties implements Serializable {
 
     private String title;
     private Category carCategory;

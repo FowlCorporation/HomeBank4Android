@@ -47,6 +47,7 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
+import com.fowlcorp.homebank4android.utils.ModelWriter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -241,7 +242,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             model.setTags(dp.parseTags());
             model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
             model.setTemplates(dp.parseTemplate(model.getAccounts(), model.getCategories(), model.getPayees()));
-            model.setOwner(dp.parseOwner(model.getCategories()));
+            model.setProperties(dp.parseProperties(model.getCategories()));
 
             //create the list of account with the model
             accountList = new ArrayList<>(model.getAccounts().values());

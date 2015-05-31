@@ -24,7 +24,7 @@ import android.content.Context;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Category;
-import com.fowlcorp.homebank4android.model.Owner;
+import com.fowlcorp.homebank4android.model.Properties;
 import com.fowlcorp.homebank4android.model.Template;
 import com.fowlcorp.homebank4android.model.Triplet;
 import com.fowlcorp.homebank4android.model.Operation;
@@ -221,31 +221,31 @@ public class DataParser {
      *
      * @return the tags
      */
-    public Owner parseOwner(HashMap<Integer,Category> categories) {
+    public Properties parseProperties(HashMap<Integer, Category> categories) {
         Element docEle = dom.getDocumentElement();
         Element element;
         NodeList nodeList;
-        Owner owner = new Owner();
+        Properties properties = new Properties();
         nodeList = docEle.getElementsByTagName("owner");
         if (nodeList != null && nodeList.getLength() == 1) {
             element = (Element) nodeList.item(0);
             if (element.hasAttribute("title")) {
-                owner.setTitle(element.getAttribute("title"));
+                properties.setTitle(element.getAttribute("title"));
             }
             if (element.hasAttribute("auto_smode")) {
-                owner.setAutoSmode(Integer.parseInt(element.getAttribute("auto_smode")));
+                properties.setAutoSmode(Integer.parseInt(element.getAttribute("auto_smode")));
             }
             if (element.hasAttribute("auto_weekday")) {
-                owner.setAutoWeekday(Integer.parseInt(element.getAttribute("auto_weekday")));
+                properties.setAutoWeekday(Integer.parseInt(element.getAttribute("auto_weekday")));
             }
             if (element.hasAttribute("auto_nbdays")) {
-                owner.setAutoNbdays(Integer.parseInt(element.getAttribute("auto_nbdays")));
+                properties.setAutoNbdays(Integer.parseInt(element.getAttribute("auto_nbdays")));
             }
             if (element.hasAttribute("car_category")) {
-                owner.setCarCategory(categories.get(Integer.parseInt(element.getAttribute("car_category"))));
+                properties.setCarCategory(categories.get(Integer.parseInt(element.getAttribute("car_category"))));
             }
         }
-        return owner;
+        return properties;
     }
 
 	/**
