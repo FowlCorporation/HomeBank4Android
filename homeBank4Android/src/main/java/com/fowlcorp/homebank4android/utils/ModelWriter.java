@@ -3,10 +3,12 @@ package com.fowlcorp.homebank4android.utils;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.Category;
 import com.fowlcorp.homebank4android.model.Model;
+import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.Payee;
 import com.fowlcorp.homebank4android.model.Properties;
 import com.fowlcorp.homebank4android.model.Tag;
 import com.fowlcorp.homebank4android.model.Template;
+import com.fowlcorp.homebank4android.model.Triplet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -70,10 +72,15 @@ public class ModelWriter {
                 mainRootElement.appendChild(getTemplateNode(doc, template));
             }
 
+            for(Account acc : model.getAccounts().values()) {
+                for(Operation op : model.getOperations(acc)) {
+                    mainRootElement.appendChild(getOperationNode(doc, op));
+                }
+            }
+
             // output DOM XML to console
             String xml = getStringFromNode(doc);
             xml = xml.replaceAll("  ", " "); // Homebank does not accept xml files with double space
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -163,7 +170,7 @@ public class ModelWriter {
 
     private Element getTemplateNode(Document doc, Template template) {
         Element templateElement = doc.createElement("fav");
-        templateElement.setAttribute("minimum", Double.toString(template.getAmount()));
+        templateElement.setAttribute("amount", Double.toString(template.getAmount()));
         templateElement.setAttribute("wording", template.getWording());
         templateElement.setAttribute("nextdate", Integer.toString(template.getNextDateXml()));
         templateElement.setAttribute("every", Integer.toString(template.getEvery()));
@@ -186,6 +193,49 @@ public class ModelWriter {
         }
 
         return templateElement;
+    }
+
+    private Element getOperationNode(Document doc, Operation operation) {
+        Element operationElement = doc.createElement("ope");
+        operationElement.setAttribute("date", Integer.toString(operation.getXmlDate()));
+        operationElement.setAttribute("amount", Double.toString(operation.getAmount()));
+        operationElement.setAttribute("account", Integer.toString(operation.getAccount().getKey()));
+        if(operation.getPayMode() != 0) {
+            operationElement.setAttribute("paymode", Integer.toString(operation.getPayMode()));
+        }
+        if(operation.getState() != 0) {
+            operationElement.setAttribute("st", Integer.toString(operation.getState()));
+        }
+        if(operation.getFlags() != 0) {
+            operationElement.setAttribute("flags", Integer.toString(operation.getFlags()));
+        }
+        if(operation.getPayee() != null) {
+            operationElement.setAttribute("payee", Integer.toString(operation.getPayee().getKey()));
+        }
+        if(operation.getCategory() != null) {
+            operationElement.setAttribute("category", Integer.toString(operation.getCategory().getKey()));
+        }
+        if(operation.getWording() != null) {
+            operationElement.setAttribute("wording", operation.getWording());
+        }
+        if(operation.getTags() != null) {
+            operationElement.setAttribute("tags", operation.getTags());
+        }
+        if(operation.isSplit()) {
+            String amounts = "", mems = "", cats = "";
+            for(Triplet triplet : operation.getSplits()) {
+                amounts += triplet.getAmount() + "||";
+                mems += triplet.getWording() + "||";
+                cats += triplet.getCategory().getKey() + "||";
+            }
+            amounts = amounts.substring(0, amounts.length()-2);
+            mems = mems.substring(0, mems.length()-2);
+            cats = cats.substring(0, cats.length()-2);
+            operationElement.setAttribute("scat", cats);
+            operationElement.setAttribute("samt", amounts);
+            operationElement.setAttribute("smem", mems);
+        }
+        return operationElement;
     }
 
     public Model getModel() {

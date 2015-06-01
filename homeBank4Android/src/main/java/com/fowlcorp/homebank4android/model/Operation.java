@@ -40,7 +40,7 @@ public class Operation implements Comparable<Operation>, Serializable {
 	private String wording, tags; // wording <=> memo
 	private Category category;
 	private Payee payee;
-	private ArrayList<Triplet> splits;
+	private ArrayList<Triplet> splits; // amount, memo, category
 
 //        #define OF_OLDVALID	(1<<0)  //deprecated since 5.x
 //        #define OF_INCOME	(1<<1)

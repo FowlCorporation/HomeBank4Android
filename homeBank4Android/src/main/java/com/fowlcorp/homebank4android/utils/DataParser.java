@@ -321,7 +321,7 @@ public class DataParser {
 					String tmpCat;
 					for (int j = 0; j < samt.length; j++) {
 						tmpCat = scat[j]; // sub category could miss
-						op.getSplits().add(new Triplet(Double.parseDouble(samt[j]), smem[j], tmpCat.length() > 0 ? categories.get(Integer.parseInt(tmpCat)) : new Category(0,"")));
+						op.getSplits().add(new Triplet(Double.parseDouble(samt[j]), smem[j], tmpCat.length() > 0 && !"0".equals(tmpCat) ? categories.get(Integer.parseInt(tmpCat)) : new Category(0,"")));
 					}
 				}
 
