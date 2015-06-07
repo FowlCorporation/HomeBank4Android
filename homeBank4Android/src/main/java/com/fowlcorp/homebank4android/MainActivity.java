@@ -247,8 +247,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             //create the list of account with the model
             accountList = new ArrayList<>(model.getAccounts().values());
 
-            ModelWriter modelWriter = new ModelWriter(model);
-            modelWriter.generateXML();
+            String filePath = sharedPreferences.getString("dropPath", "");
+            ModelWriter modelWriter = new ModelWriter(model, filePath);
+
+            modelWriter.writeToFile(); // TODO: catch specific Exception to display
             //debug
 			/*System.err.println("Comptes " + model.getAccounts().size());
 			System.err.println("Cat " + model.getCategories().size());

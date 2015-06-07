@@ -18,6 +18,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -26,14 +28,33 @@ import java.io.IOException;
 public class ModelWriter {
 
     private Model model;
+    private String filePath;
 
-    public ModelWriter(Model model) {
+    public ModelWriter(Model model, String filePath) {
         this.model = model;
+        this.filePath = filePath;
     }
 
-    public void generateXML() {
+    public boolean writeToFile() throws IOException {
+
+        File file = new File(filePath+"bb");
+
+        FileOutputStream stream = new FileOutputStream(file);
+        try {
+            String xmlString = generateXML();
+            stream.write(xmlString.getBytes());
+        }
+        finally {
+            stream.close();
+        }
+
+        return true;
+    }
+
+    public String generateXML() {
         DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder icBuilder;
+        String xml = "";
         try {
             icBuilder = icFactory.newDocumentBuilder();
             Document doc = icBuilder.newDocument();
@@ -79,11 +100,13 @@ public class ModelWriter {
             }
 
             // output DOM XML to console
-            String xml = getStringFromNode(doc);
+            xml = getStringFromNode(doc);
             xml = xml.replaceAll("  ", " "); // Homebank does not accept xml files with double space
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return xml;
     }
 
     public String getStringFromNode(Node root) throws IOException {
