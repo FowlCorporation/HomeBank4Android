@@ -42,6 +42,7 @@ import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fowlcorp.homebank4android.gui.CustomTableRow;
 import com.fowlcorp.homebank4android.gui.MyRadioGroup;
@@ -309,6 +310,11 @@ public class DetailedCardActivity extends ActionBarActivity {
 		} else if (id == R.id.action_about) { //the settings button is selected
 			Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
 			startActivity(intent); //start the activity of preferences
+			return true;
+		} else if (id == R.id.action_save) { //the settings button is selected
+			//do the saving thing
+			//debug
+			Toast.makeText(this, "Save transaction", Toast.LENGTH_SHORT).show();
 			return true;
 		} else {
 			onBackPressed();

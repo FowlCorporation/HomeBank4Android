@@ -34,4 +34,10 @@
         android:title="@string/About"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/action_save"
+        app:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="@string/action_example"/>
+
 </menu>
