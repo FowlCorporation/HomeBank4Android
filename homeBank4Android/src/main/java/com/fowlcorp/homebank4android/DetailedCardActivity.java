@@ -46,9 +46,12 @@ import android.widget.Toast;
 
 import com.fowlcorp.homebank4android.gui.CustomTableRow;
 import com.fowlcorp.homebank4android.gui.MyRadioGroup;
+import com.fowlcorp.homebank4android.model.Category;
 import com.fowlcorp.homebank4android.model.Model;
+import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.model.PayMode;
 import com.fowlcorp.homebank4android.model.Triplet;
+import com.fowlcorp.homebank4android.utils.Round;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -75,12 +78,18 @@ public class DetailedCardActivity extends ActionBarActivity {
     private boolean isSplit = false;
 	private Calendar myCalendar;
 
+    private Operation operation;
+    private int position;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 		super.onCreate(savedInstanceState);
 
 		Bundle bdl = this.getIntent().getExtras();
+
+        operation = (Operation) bdl.getSerializable("Operation");
+        position = bdl.getInt("Position");
 
 		setContentView(R.layout.activity_detailed_card);
 	   /* TransitionInflater transitionInflater = TransitionInflater.from(this);
@@ -172,7 +181,8 @@ public class DetailedCardActivity extends ActionBarActivity {
 			e.printStackTrace();
 		}
         try {
-            isSplit = bdl.getBoolean("Split");
+            //isSplit = bdl.getBoolean("Split");
+           isSplit = operation.isSplit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -180,12 +190,14 @@ public class DetailedCardActivity extends ActionBarActivity {
             try {
                 Log.d("debug", "is not Split");
                 linearSplit.setVisibility(View.GONE);
-                category.setText(bdl.getString("Category"));
+                //category.setText(bdl.getString("Category"));
+                category.setText((operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            ArrayList<Triplet> coupleArrayList = (ArrayList<Triplet>) bdl.getSerializable("Couple");
+            //ArrayList<Triplet> coupleArrayList = (ArrayList<Triplet>) bdl.getSerializable("Couple");
+            ArrayList<Triplet> coupleArrayList = operation.getSplits();
             linearSplit.setVisibility(View.VISIBLE);
             category.setVisibility(View.GONE);
             categoryView.setVisibility(View.GONE);
@@ -230,22 +242,26 @@ public class DetailedCardActivity extends ActionBarActivity {
         }
 
 		try {
-			payee.setText(bdl.getString("Payee"));
+			//payee.setText(bdl.getString("Payee"));
+            payee.setText(operation.getPayee().getName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
-			wording.setText(bdl.getString("Wording"));
+			//wording.setText(bdl.getString("Wording"));
+            wording.setText(operation.getWording());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
-			info.setText(bdl.getString("Info"));
+			//info.setText(bdl.getString("Info"));
+            //info.setText(operation.get);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
-			amount.setText(bdl.getString("Amount"));
+			//amount.setText(bdl.getString("Amount"));
+            amount.setText(String.valueOf(Round.roundAmount(operation.getAmount())));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -253,13 +269,16 @@ public class DetailedCardActivity extends ActionBarActivity {
 		try {
 			detailedCardStateGroup = new MyRadioGroup();
 			detailedCardStateGroup.addRadioButton(none, false);
-			detailedCardStateGroup.addRadioButton(reconciled, bdl.getBoolean("Reconciled"));
-			detailedCardStateGroup.addRadioButton(remind, bdl.getBoolean("Remind"));
+			/*detailedCardStateGroup.addRadioButton(reconciled, bdl.getBoolean("Reconciled"));
+			detailedCardStateGroup.addRadioButton(remind, bdl.getBoolean("Remind"));*/
+            detailedCardStateGroup.addRadioButton(reconciled, operation.isReconciled());
+            detailedCardStateGroup.addRadioButton(remind, operation.isRemind());
 			detailedCardStateGroup.addRadioButton(cleared, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		int typeAccount = bdl.getInt("Type", -1);
+		//int typeAccount = bdl.getInt("Type", -1);
+        int typeAccount = operation.getPayMode();
 		try {
 			switch (typeAccount) {
 				case PayMode.CREDIT_CARD:
@@ -312,9 +331,18 @@ public class DetailedCardActivity extends ActionBarActivity {
 			startActivity(intent); //start the activity of preferences
 			return true;
 		} else if (id == R.id.action_save) { //the settings button is selected
-			//do the saving thing
+			//TODO save the values in a bundle and return this bundle to the previous activity with a return_code
 			//debug
-			Toast.makeText(this, "Save transaction", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, "Save transaction", Toast.LENGTH_SHORT).show();
+            Operation newOp = saveOperation();
+
+            Intent newIntent = getIntent();
+            newIntent.putExtra("operation", operation);
+            newIntent.putExtra("newOp", newOp);
+
+            setResult(RESULT_OK, newIntent);
+            onBackPressed();
+
 			return true;
 		} else {
 			onBackPressed();
@@ -335,5 +363,12 @@ public class DetailedCardActivity extends ActionBarActivity {
     public void onConfigurationChanged(Configuration newConfig) {
 
         super.onConfigurationChanged(newConfig);
+    }
+
+    private Operation saveOperation(){
+		Operation newOp = new Operation(operation.getXmlDate(), operation.getAmount(), operation.getAccount(), operation.getCategory(), operation.getPayee());
+        newOp.setAmount(Double.parseDouble(amount.getText().toString()));
+       // Toast.makeText(this, "Amount "+operation.getAmount(), Toast.LENGTH_SHORT).show();
+        return newOp;
     }
 }

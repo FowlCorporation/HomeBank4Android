@@ -41,6 +41,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fowlcorp.homebank4android.DetailedCardActivity;
+import com.fowlcorp.homebank4android.MainActivity;
 import com.fowlcorp.homebank4android.R;
 import com.fowlcorp.homebank4android.model.Triplet;
 import com.fowlcorp.homebank4android.model.Operation;
@@ -53,6 +54,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHolder> {
+
+
+
 	private List<Operation> listOperation;
 	//private Calendar myDate;
 	private Activity activity;
@@ -90,7 +94,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 					bdl.putString("Date", df.format(myDate.getTime()));
 				} catch (Exception e) {
 				}
-				try {
+				/*try {
 					bdl.putString("Category", (operation.getCategory().getParent() == null ? "" : operation.getCategory().getParent().getName() + ": ") + operation.getCategory().getName());
 				} catch (Exception e) {
 				}
@@ -131,6 +135,16 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
                     bdl.putSerializable("Couple", operation.getSplits());
                 } catch (Exception e) {
                     e.printStackTrace();
+                }*/
+				try {
+					bdl.putSerializable("Operation", operation);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+                try {
+                    bdl.putInt("Position", position);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 intent.putExtras(bdl);
@@ -143,7 +157,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 				Pair<View, String> cardPair = Pair.create((View)holder.getCard(), "card");
 //				Pair iconPair = Pair.create(holder.getMode(), "icon");
 				ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardPair);
-				ActivityCompat.startActivity(activity, intent, options.toBundle());
+				ActivityCompat.startActivityForResult(activity, intent, MainActivity.DETAILED_ACTIVITY_CODE, options.toBundle());
 				//activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
 				//activity.startActivity(intent);
 			}
@@ -263,5 +277,6 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<OperationViewHo
 		result = " " + sharedPreferences.getString("currency", "€");
 		return result;
 	}
+
 
 }

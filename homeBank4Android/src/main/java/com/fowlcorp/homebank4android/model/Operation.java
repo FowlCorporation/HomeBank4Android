@@ -198,4 +198,6 @@ public class Operation implements Comparable<Operation>, Serializable {
 	public void setSplits(ArrayList<Triplet> splits) {
 		this.splits = splits;
 	}
+
+
 }

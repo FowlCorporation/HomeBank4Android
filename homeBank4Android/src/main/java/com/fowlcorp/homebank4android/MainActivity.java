@@ -33,11 +33,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.fowlcorp.homebank4android.gui.AccountFragment;
 import com.fowlcorp.homebank4android.gui.DrawerItem;
@@ -46,18 +48,21 @@ import com.fowlcorp.homebank4android.gui.PagerSwipeFragment;
 import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
+import com.fowlcorp.homebank4android.model.Operation;
 import com.fowlcorp.homebank4android.utils.DataParser;
+import com.fowlcorp.homebank4android.utils.Tools;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    public static final int DETAILED_ACTIVITY_CODE=50;
     static final int DROP_PATH_OK = 1000;
     static final int FIRST_OK = 2000;
     static final int SETTINGS_OK = 3000;
     static final int PASSWORD_OK = 4000;
-
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle; //the title of the current fragment
     private Model model; //datamodel
@@ -152,6 +157,33 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                     AsyncParser parser = new AsyncParser();
                     parser.execute("");
                 }
+                break;
+            case DETAILED_ACTIVITY_CODE:
+                /*if (resultCode == Activity.RESULT_OK) {
+                    AsyncParser parser = new AsyncParser();
+                    parser.execute("");
+                }*/
+                //Toast.makeText(this, "Amount ", Toast.LENGTH_SHORT).show();
+                Operation operation = (Operation) data.getSerializableExtra("operation");
+                Operation newOp = (Operation) data.getSerializableExtra("newOp");
+
+                int position = data.getIntExtra("position", -1);
+                int accountKey = operation.getAccount().getKey();
+                List<Operation> listOp = model.getOperations().get(accountKey);
+
+
+                position = Tools.getOperationPosition(listOp, operation);
+                if(position>=0){
+                    Log.d("DEBUG", "operation found");
+                    listOp.set(position, newOp);
+                }
+
+                Log.d("DEBUG", "operation modified : " + newOp.getAmount());
+                for(int i = 0; i<listOp.size();i++){
+                    Log.d("DEBUG", "operation : " + listOp.get(i).getAmount());
+                }
+                updateGUI();
+                break;
         }
 
     }
