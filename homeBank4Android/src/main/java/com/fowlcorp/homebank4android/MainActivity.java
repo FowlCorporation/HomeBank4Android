@@ -47,6 +47,7 @@ import com.fowlcorp.homebank4android.model.Account;
 import com.fowlcorp.homebank4android.model.AccountType;
 import com.fowlcorp.homebank4android.model.Model;
 import com.fowlcorp.homebank4android.utils.DataParser;
+import com.fowlcorp.homebank4android.utils.ModelWriter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -240,10 +241,16 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             model.setPayees(dp.parsePayees());
             model.setTags(dp.parseTags());
             model.setOperations(dp.parseOperations(model.getAccounts(), model.getCategories(), model.getPayees()));
+            model.setTemplates(dp.parseTemplate(model.getAccounts(), model.getCategories(), model.getPayees()));
+            model.setProperties(dp.parseProperties(model.getCategories()));
 
             //create the list of account with the model
             accountList = new ArrayList<>(model.getAccounts().values());
 
+            String filePath = sharedPreferences.getString("dropPath", "");
+            ModelWriter modelWriter = new ModelWriter(model, filePath);
+
+            modelWriter.writeToFile(); // TODO: catch specific Exception to display
             //debug
 			/*System.err.println("Comptes " + model.getAccounts().size());
 			System.err.println("Cat " + model.getCategories().size());
